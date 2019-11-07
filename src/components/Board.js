@@ -1,21 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import API from '../api';
+import React, {useEffect} from 'react';
+import {useApi} from '../api';
 import {Header} from 'semantic-ui-react';
 import Thread from './Thread';
 
 
 function Board(props) {
     const label = props.match.params.label;
-    const [board, setBoard] = useState(undefined);
+    const [board, fetchBoard] = useApi('boards/' + label);
 
     useEffect(() => {
-        async function fetchBoard() {
-            const response = await API.get('boards/' + label);
-            setBoard(response.data);
-        }
+        fetchBoard('boards/' + label);
+    }, [label, fetchBoard]);
 
-        fetchBoard();
-    }, [label]);
 
     return (
         board &&

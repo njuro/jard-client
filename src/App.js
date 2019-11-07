@@ -1,22 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
-import API from './api';
+import {useApi} from './api';
 import {Menu} from 'semantic-ui-react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import Board from './components/Board';
 
 function App() {
-    const [boards, setBoards] = useState([]);
+    const [boards, fetchBoards] = useApi('boards/', []);
 
-    useEffect(() => {
-        async function fetchBoards() {
-            const response = await API.get('boards');
-            setBoards(response.data);
-        }
-
-        fetchBoards();
-    }, []);
 
   return (
       <div className={'wrapper'}>
