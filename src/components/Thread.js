@@ -6,7 +6,7 @@ function Thread({thread}) {
     const isOP = (post) => post.postNumber === thread.originalPost.postNumber;
 
     return (
-        <Item.Group divided>
+        <Item.Group divided className='thread'>
             {thread.posts.map(post => (
                 <Item key={post.postNumber} className={isOP(post) ? 'original-post' : 'post'}>
                     {post.attachment && <Attachment attachment/>}
