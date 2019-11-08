@@ -20,7 +20,7 @@ function Board(props) {
             <header>
                 <Header as="h1" textAlign='center'>/{board.label}/ - {board.name}</Header>
             </header>
-            <ThreadForm/>
+            <ThreadForm board={board}/>
             {board.threads.map(thread => (<Thread key={thread.originalPost.postNumber} thread={thread}/>))}
         </>
     ) || null;

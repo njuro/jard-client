@@ -1,12 +1,17 @@
 import React, {useState} from 'react';
 import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
+import {usePostApi} from '../api';
 
-function ThreadForm(props) {
+function ThreadForm({board}) {
     const [subject, setSubject] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [body, setBody] = useState('');
     const [attachment, setAttachment] = useState(undefined);
+    const [threadForm, setThreadForm] = useState(undefined);
+
+    const [createdThread, submitThread] = usePostApi({}, threadForm);
+
 
 
     function handleSubmit(e) {
@@ -14,17 +19,24 @@ function ThreadForm(props) {
 
         const thread = {
             subject,
-            post: {name, password, body, attachment}
+            post: {name, password, body}
         };
+        const formData = new FormData();
+        formData.append('threadForm', new Blob([JSON.stringify(thread)], {
+            type: 'application/json'
+        }));
+        formData.append('attachment', attachment);
+        setThreadForm(formData);
 
-        console.log(thread);
+        submitThread('boards/' + board.label + '/submit');
+        console.log(createdThread);
     }
 
     return (
         <Modal style={{paddingBottom: '10px'}}
                trigger={<Button basic size='small'><Icon name='plus'/><strong>New thread</strong></Button>}>
             <Modal.Content>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} encType='multipart/form-data'>
                     <Header as='h4' dividing>Create new thread</Header>
                     <Form.Group widths='equal'>
                         <Form.Input fluid label='Name' placeholder='Name' value={name}
