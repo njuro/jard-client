@@ -12,13 +12,16 @@ function App() {
   return (
       <div className={'wrapper'}>
           <Router>
-              <Menu>
-                  <Menu.Item header>JBoard</Menu.Item>
-                  {boards.map(board => (
-                      <Menu.Item key={board.label} name={board.label}><Link to={'/boards/' + board.label}>/{board.label}/
-                          - {board.name}</Link></Menu.Item>
-                  ))}
-              </Menu>
+              <nav>
+                  <Menu>
+                      <Menu.Item header>JBoard</Menu.Item>
+                      {boards.map(board => (
+                          <Menu.Item key={board.label} name={board.label}><Link
+                              to={'/boards/' + board.label}>/{board.label}/
+                              - {board.name}</Link></Menu.Item>
+                      ))}
+                  </Menu>
+              </nav>
               <main>
                   <Switch>
                       <Route exact path='/boards/:label' component={Board}/>

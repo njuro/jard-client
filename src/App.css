@@ -7,10 +7,6 @@ header, main {
     margin: 10px 10px 20px;
 }
 
-h1 {
-    text-align: center;
-}
-
 #thread-form-modal, #reply-form-modal {
     padding-bottom: 10px;
 }

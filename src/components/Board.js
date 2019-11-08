@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {useApi} from '../api';
 import {Header} from 'semantic-ui-react';
 import Thread from './Thread';
+import ThreadForm from './ThreadForm';
 
 
 function Board(props) {
@@ -16,7 +17,10 @@ function Board(props) {
     return (
         board &&
         <>
-            <Header as="h1">/{board.label}/ - {board.name}</Header>
+            <header>
+                <Header as="h1" textAlign='center'>/{board.label}/ - {board.name}</Header>
+            </header>
+            <ThreadForm/>
             {board.threads.map(thread => (<Thread key={thread.originalPost.postNumber} thread={thread}/>))}
         </>
     ) || null;
