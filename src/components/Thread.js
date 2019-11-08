@@ -9,7 +9,7 @@ function Thread({thread}) {
         <Item.Group divided className='thread'>
             {thread.posts.map(post => (
                 <Item key={post.postNumber} className={isOP(post) ? 'original-post' : 'post'}>
-                    {post.attachment && <Attachment attachment/>}
+                    {post.attachment && <Attachment attachment={post.attachment}/>}
                     <Item.Content>
                         <Item.Meta>
                             <span className='name'>{post.name}</span>
