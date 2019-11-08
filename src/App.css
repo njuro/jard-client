@@ -72,3 +72,8 @@ div.code {
     padding: 10px;
     font-family: monospace;
 }
+
+.item > a {
+    color: black;
+    text-decoration: none;
+}
