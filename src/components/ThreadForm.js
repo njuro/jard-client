@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
 import {usePostApi} from '../api';
+import {Redirect} from 'react-router-dom';
 
 function ThreadForm({board}) {
     const [subject, setSubject] = useState('');
@@ -10,9 +11,7 @@ function ThreadForm({board}) {
     const [attachment, setAttachment] = useState(undefined);
     const [threadForm, setThreadForm] = useState(undefined);
 
-    const [createdThread, submitThread] = usePostApi({}, threadForm);
-
-
+    const [createdThread, submitThread] = usePostApi(undefined, threadForm);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -29,7 +28,10 @@ function ThreadForm({board}) {
         setThreadForm(formData);
 
         submitThread('boards/' + board.label + '/submit');
-        console.log(createdThread);
+    }
+
+    if (createdThread) {
+        return <Redirect to={'/boards/' + board.label + '/' + createdThread.originalPost.postNumber}/>; // TODO redirect to new thread
     }
 
     return (

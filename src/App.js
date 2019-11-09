@@ -5,6 +5,7 @@ import {Menu} from 'semantic-ui-react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import Board from './components/Board';
 import Home from './components/Home';
+import ThreadWrapper from './components/ThreadWrapper';
 
 function App() {
     const [boards] = useApi('boards/', []);
@@ -27,6 +28,7 @@ function App() {
                   <Switch>
                       <Route exact path="/" render={() => <Home boards={boards}/>}/>
                       <Route exact path='/boards/:label' component={Board}/>
+                      <Route exact path='/boards/:label/:threadNumber' component={ThreadWrapper}/>
                   </Switch>
               </main>
           </Router>
