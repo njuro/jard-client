@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {useApi} from './api';
+import {useApi} from '../api';
 import {Menu} from 'semantic-ui-react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import Board from './components/Board';
-import Home from './components/Home';
-import ThreadWrapper from './components/ThreadWrapper';
+import Board from './Board';
+import Home from './Home';
+import ThreadWrapper from './ThreadWrapper';
 
 function App() {
     const [boards] = useApi('boards/', []);

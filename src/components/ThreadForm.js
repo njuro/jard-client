@@ -31,7 +31,7 @@ function ThreadForm({board}) {
     }
 
     if (createdThread) {
-        return <Redirect to={'/boards/' + board.label + '/' + createdThread.originalPost.postNumber}/>; // TODO redirect to new thread
+        return <Redirect to={'/boards/' + board.label + '/' + createdThread.originalPost.postNumber}/>;
     }
 
     return (
