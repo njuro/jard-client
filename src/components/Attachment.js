@@ -10,10 +10,9 @@ function Attachment({attachment}) {
     }
 
     return (
-        <a href={attachment.url} target='_blank' rel='noopener noreferrer'>
-            <Image verticalAlign='top' src={attachment.url} className={showFull ? 'fullsize' : ''} onClick={toggleSize}
-                   style={{height: attachment.thumbHeight + 'px', width: attachment.thumbWidth + 'px'}}/>
-        </a>
+        <Image href={attachment.url} target='_blank' rel='noopener noreferrer' verticalAlign='top'
+               src={attachment.url} onClick={toggleSize}
+               style={showFull ? {} : {height: attachment.thumbHeight + 'px', width: attachment.thumbWidth + 'px'}}/>
     );
 }
 

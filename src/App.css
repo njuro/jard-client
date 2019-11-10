@@ -38,11 +38,6 @@ header, main {
     margin-top: 0px !important;
 }
 
-img.fullsize {
-    width: 100% !important;
-    height: 100% !important;
-}
-
 a.crosslink {
     text-decoration: underline;
     text-decoration-style: dashed;
