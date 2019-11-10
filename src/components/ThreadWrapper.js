@@ -11,7 +11,7 @@ function ThreadWrapper(props) {
         thread &&
         <>
             <BoardHeader board={thread.board}/>
-            <Thread thread={thread}/>
+            <Thread thread={thread} board={thread.board}/>
         </>
     ) || null;
 }

@@ -19,7 +19,8 @@ function Board(props) {
         <>
             <BoardHeader board={board}/>
             <ThreadForm board={board}/>
-            {board.threads.map(thread => (<Thread key={thread.originalPost.postNumber} thread={thread}/>))}
+            {board.threads.map(thread => (
+                <Thread key={thread.originalPost.postNumber} thread={thread} board={board}/>))}
         </>
     ) || null;
 }
