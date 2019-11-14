@@ -7,10 +7,10 @@ import BoardHeader from './BoardHeader';
 
 function Board(props) {
     const label = props.match.params.label;
-    const [board, fetchBoard] = useGetApi('boards/' + label);
+    const [board, fetchBoard] = useGetApi(`boards/${label}`);
 
     useEffect(() => {
-        fetchBoard('boards/' + label);
+        fetchBoard(`boards/${label}`);
     }, [label, fetchBoard]);
 
 

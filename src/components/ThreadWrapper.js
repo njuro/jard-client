@@ -6,7 +6,7 @@ import BoardHeader from './BoardHeader';
 function ThreadWrapper(props) {
     const label = props.match.params.label;
     const threadNumber = props.match.params.threadNumber;
-    const [thread] = useGetApi('/boards/' + label + '/' + threadNumber);
+    const [thread] = useGetApi(`/boards/${label}/${threadNumber}`);
     return (
         thread &&
         <>

@@ -19,7 +19,7 @@ function App() {
                       <Menu.Item header><Link to="/">JBoard</Link></Menu.Item>
                       {boards.map(board => (
                           <Menu.Item key={board.label} name={board.label}><Link
-                              to={'/boards/' + board.label}>/{board.label}/
+                              to={`/boards/${board.label}`}>/{board.label}/
                               - {board.name}</Link></Menu.Item>
                       ))}
                   </Menu>

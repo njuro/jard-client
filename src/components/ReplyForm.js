@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {usePostApi} from '../api';
-import {Button, Form, Header, Modal} from 'semantic-ui-react';
+import {Button, Form, Header, List, Message, Modal} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 
 function ReplyForm({thread, board}) {
@@ -9,7 +9,7 @@ function ReplyForm({thread, board}) {
     const [body, setBody] = useState('');
     const [attachment, setAttachment] = useState(undefined);
 
-    const [createdReply, submitReply] = usePostApi('boards/' + board.label + '/' + thread.originalPost.postNumber + '/reply');
+    const [createdReply, submitReply, isError] = usePostApi(`boards/${board.label}/${thread.originalPost.postNumber}/reply`);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -25,8 +25,8 @@ function ReplyForm({thread, board}) {
         submitReply(replyForm);
     }
 
-    if (createdReply) {
-        return <Redirect to={'/boards/' + board.label + '/' + thread.originalPost.postNumber}/>;
+    if (!isError && createdReply) {
+        return <Redirect to={`/boards/${board.label}/${thread.originalPost.postNumber}`}/>;
     }
 
     return (
@@ -44,6 +44,7 @@ function ReplyForm({thread, board}) {
                     <Form.TextArea label='Comment' rows='8' value={body} onChange={e => setBody(e.target.value)}/>
                     <Form.Input label='Upload image' type='file' accept='image/*'
                                 onChange={e => setAttachment(e.target.files[0])}/>
+                    {isError && createdReply && <Message error content={<List items={createdReply.errors} bulleted/>}/>}
                     <Form.Button floated='right'>Submit post</Form.Button>
                 </Form>
             </Modal.Content>

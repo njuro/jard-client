@@ -10,19 +10,28 @@ const client = axios.create({
 export function usePostApi(url, initialData = undefined) {
     const [body, setBody] = useState(undefined);
     const [data, setData] = useState(initialData);
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
+        setData(initialData);
+        setIsError(false);
         async function sendRequest() {
-            const result = await client.post(url, body);
-            setData(result.data);
+            try {
+                const result = await client.post(url, body);
+                setData(result.data);
+            } catch (error) {
+                setIsError(true);
+                setData(error.response.data);
+            }
         }
 
         if (body) {
             sendRequest();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [body]);
 
-    return [data, setBody];
+    return [data, setBody, isError];
 }
 
 export function useGetApi(initialUrl, initialData = undefined) {
