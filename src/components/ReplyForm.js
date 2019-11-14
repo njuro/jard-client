@@ -8,9 +8,8 @@ function ReplyForm({thread, board}) {
     const [password, setPassword] = useState('');
     const [body, setBody] = useState('');
     const [attachment, setAttachment] = useState(undefined);
-    const [replyForm, setReplyForm] = useState(undefined);
 
-    const [createdReply, submitReply] = usePostApi(undefined, replyForm);
+    const [createdReply, submitReply] = usePostApi('boards/' + board.label + '/' + thread.originalPost.postNumber + '/reply');
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -18,14 +17,12 @@ function ReplyForm({thread, board}) {
         const post = {
             name, password, body
         };
-        const formData = new FormData();
-        formData.append('postForm', new Blob([JSON.stringify(post)], {
+        const replyForm = new FormData();
+        replyForm.append('postForm', new Blob([JSON.stringify(post)], {
             type: 'application/json'
         }));
-        formData.append('attachment', attachment);
-        setReplyForm(formData);
-
-        submitReply('boards/' + board.label + '/' + thread.originalPost.postNumber + '/reply');
+        replyForm.append('attachment', attachment);
+        submitReply(replyForm);
     }
 
     if (createdReply) {

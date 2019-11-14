@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useApi} from '../api';
+import {useGetApi} from '../api';
 import Thread from './Thread';
 import ThreadForm from './ThreadForm';
 import BoardHeader from './BoardHeader';
@@ -7,7 +7,7 @@ import BoardHeader from './BoardHeader';
 
 function Board(props) {
     const label = props.match.params.label;
-    const [board, fetchBoard] = useApi('boards/' + label);
+    const [board, fetchBoard] = useGetApi('boards/' + label);
 
     useEffect(() => {
         fetchBoard('boards/' + label);

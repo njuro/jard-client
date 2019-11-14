@@ -9,9 +9,8 @@ function ThreadForm({board}) {
     const [password, setPassword] = useState('');
     const [body, setBody] = useState('');
     const [attachment, setAttachment] = useState(undefined);
-    const [threadForm, setThreadForm] = useState(undefined);
 
-    const [createdThread, submitThread] = usePostApi(undefined, threadForm);
+    const [createdThread, submitThread] = usePostApi('boards/' + board.label + '/submit');
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -20,14 +19,12 @@ function ThreadForm({board}) {
             subject,
             post: {name, password, body}
         };
-        const formData = new FormData();
-        formData.append('threadForm', new Blob([JSON.stringify(thread)], {
+        const threadForm = new FormData();
+        threadForm.append('threadForm', new Blob([JSON.stringify(thread)], {
             type: 'application/json'
         }));
-        formData.append('attachment', attachment);
-        setThreadForm(formData);
-
-        submitThread('boards/' + board.label + '/submit');
+        threadForm.append('attachment', attachment);
+        submitThread(threadForm);
     }
 
     if (createdThread) {

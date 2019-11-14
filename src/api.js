@@ -7,24 +7,36 @@ const client = axios.create({
 });
 
 
-export function usePostApi(initialData = undefined, body = undefined) {
-    return useApi(undefined, initialData, body);
+export function usePostApi(url, initialData = undefined) {
+    const [body, setBody] = useState(undefined);
+    const [data, setData] = useState(initialData);
+
+    useEffect(() => {
+        async function sendRequest() {
+            const result = await client.post(url, body);
+            setData(result.data);
+        }
+
+        if (body) {
+            sendRequest();
+        }
+    }, [body]);
+
+    return [data, setBody];
 }
 
-export function useApi(initialUrl, initialData = undefined, body = undefined) {
+export function useGetApi(initialUrl, initialData = undefined) {
     const [url, setUrl] = useState(initialUrl);
     const [data, setData] = useState(initialData);
 
     useEffect(() => {
         async function fetchData() {
-            const result = body ? await client.post(url, body) : await client.get(url);
+            const result = await client.get(url);
             setData(result.data);
         }
 
-        if (url) {
-            fetchData();
-        }
-    }, [url, body]);
+        fetchData();
+    }, [url]);
 
     return [data, setUrl];
 }
