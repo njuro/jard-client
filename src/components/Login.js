@@ -27,7 +27,7 @@ function Login() {
                     <Header as='h4' dividing>Login</Header>
                     <Form.Input label='Username' placeholder='Username' value={username}
                                 onChange={e => setUsername(e.target.value)}/>
-                    <Form.Input label='Password' placeholder='Password' value={password}
+                    <Form.Input label='Password' placeholder='Password' type='password' value={password}
                                 onChange={e => setPassword(e.target.value)}/>
                     <Form.Checkbox label='Remember me' checked={rememberMe}
                                    onChange={() => setRememberMe(!rememberMe)}/>

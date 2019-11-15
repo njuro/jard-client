@@ -8,6 +8,7 @@ import Home from './Home';
 import ThreadWrapper from './ThreadWrapper';
 import Login from './Login';
 import NotFound from './NotFound';
+import Register from './Register';
 
 function App() {
     const [boards] = useGetApi('boards/', []);
@@ -33,6 +34,7 @@ function App() {
                       <Route exact path='/boards/:label' component={Board}/>
                       <Route exact path='/boards/:label/:threadNumber' component={ThreadWrapper}/>
                       <Route exact path='/login' component={Login}/>
+                      <Route exact path='/register' component={Register}/>
                       <Route component={NotFound}/>
                   </Switch>
               </main>
