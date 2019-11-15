@@ -1,11 +1,13 @@
 import React from 'react';
 
 import {useGetApi} from '../api';
-import {Menu} from 'semantic-ui-react';
+import {Button, Menu} from 'semantic-ui-react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import Board from './Board';
 import Home from './Home';
 import ThreadWrapper from './ThreadWrapper';
+import Login from './Login';
+import NotFound from './NotFound';
 
 function App() {
     const [boards] = useGetApi('boards/', []);
@@ -22,6 +24,7 @@ function App() {
                               to={`/boards/${board.label}`}>/{board.label}/
                               - {board.name}</Link></Menu.Item>
                       ))}
+                      <Menu.Item position='right'><Link to="/login"><Button>Login</Button></Link></Menu.Item>
                   </Menu>
               </nav>
               <main>
@@ -29,6 +32,8 @@ function App() {
                       <Route exact path="/" render={() => <Home boards={boards}/>}/>
                       <Route exact path='/boards/:label' component={Board}/>
                       <Route exact path='/boards/:label/:threadNumber' component={ThreadWrapper}/>
+                      <Route exact path='/login' component={Login}/>
+                      <Route component={NotFound}/>
                   </Switch>
               </main>
           </Router>

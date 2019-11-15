@@ -11,7 +11,8 @@ function Board(props) {
 
     useEffect(() => {
         fetchBoard(`boards/${label}`);
-    }, [label, fetchBoard]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [label]);
 
 
     return (
