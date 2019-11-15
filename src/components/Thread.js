@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, Icon, Item} from 'semantic-ui-react';
+import {Item} from 'semantic-ui-react';
 import Attachment from './Attachment';
-import ReplyForm from './ReplyForm';
+import PostActions from './PostActions';
 
 function Thread({thread, board}) {
     const isOP = (post) => post.postNumber === thread.originalPost.postNumber;
@@ -21,14 +21,7 @@ function Thread({thread, board}) {
                                 <em>File: {post.attachment.originalFilename} ({post.attachment.width}x{post.attachment.height})</em>
                             </span>}
                             <span className='post-number'>No. {post.postNumber}</span>
-                            {!thread.locked && <ReplyForm thread={thread} board={board}/>}
-                            {isOP(post) && <Button basic circular size='mini'
-                                                   icon={thread.stickied ? 'thumbtack vertically flipped' : 'thumbtack'}/>}
-                            {isOP(post) &&
-                            <Button basic circular size='mini' icon={thread.locked ? 'open lock' : 'lock'}/>}
-                            <Button basic circular size='mini' icon='alternate trash'/>
-                            {isOP(post) && thread.locked && <Icon name='thumbtack'/>}
-                            {isOP(post) && thread.stickied && <Icon name='lock'/>}
+                            <PostActions board={board} thread={thread} post={post} isOP={isOP(post)}/>
                         </Item.Meta>
                         <div className='body' dangerouslySetInnerHTML={{__html: post.body}}/>
                     </Item.Content>
