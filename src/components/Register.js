@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import {usePostApi} from '../api';
-import {Form, Grid, Header, List, Message, Segment} from 'semantic-ui-react';
+import {Form, Grid, Header, Segment} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
+import FormErrors from './FormErrors';
 
 function Register(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeated, setPasswordRepeated] = useState('');
     const [email, setEmail] = useState('');
-    const [registeredUser, registerUser, isError] = usePostApi('/register');
+    const [registeredUser, registerUser, isError] = usePostApi('/users/register');
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -23,7 +24,7 @@ function Register(props) {
 
     return (
         <Grid>
-            <Form onSubmit={handleSubmit} className={'six wide column centered'}>
+            <Form onSubmit={handleSubmit} className={'six wide column centered'} error={isError}>
                 <Segment>
                     <Header as='h4' dividing>Create new user</Header>
                     <Form.Input label='Username' placeholder='Username' value={username}
@@ -35,8 +36,7 @@ function Register(props) {
                                 onChange={e => setPasswordRepeated(e.target.value)}/>
                     <Form.Input label='E-mail' placeholder='E-mail' type='email' value={email}
                                 onChange={e => setEmail(e.target.value)}/>
-                    {isError && registeredUser &&
-                    <Message error content={<List items={registeredUser.errors} bulleted/>}/>}
+                    {isError && registeredUser && <FormErrors errors={registeredUser.errors}/>}
                     <Form.Button fluid>Create user</Form.Button>
                 </Segment>
             </Form>

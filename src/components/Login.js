@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Form, Grid, Header, List, Message, Segment} from 'semantic-ui-react';
+import {Form, Grid, Header, Segment} from 'semantic-ui-react';
 import {usePostApi} from '../api';
 import {Redirect} from 'react-router-dom';
+import FormErrors from './FormErrors';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -22,7 +23,7 @@ function Login() {
 
     return (
         <Grid>
-            <Form onSubmit={handleSubmit} className={'six wide column centered'}>
+            <Form onSubmit={handleSubmit} className={'six wide column centered'} error={isError}>
                 <Segment>
                     <Header as='h4' dividing>Login</Header>
                     <Form.Input label='Username' placeholder='Username' value={username}
@@ -31,7 +32,7 @@ function Login() {
                                 onChange={e => setPassword(e.target.value)}/>
                     <Form.Checkbox label='Remember me' checked={rememberMe}
                                    onChange={() => setRememberMe(!rememberMe)}/>
-                    {isError && loggedUser && <Message error content={<List items={loggedUser.errors} bulleted/>}/>}
+                    {isError && loggedUser && <FormErrors errors={loggedUser.errors}/>}
                     <Form.Button fluid>Login</Form.Button>
                 </Segment>
             </Form>

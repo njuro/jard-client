@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Button, Form, Header, Icon, List, Message, Modal} from 'semantic-ui-react';
+import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
 import {usePostApi} from '../api';
 import {Redirect} from 'react-router-dom';
+import FormErrors from './FormErrors';
 
 function ThreadForm({board}) {
     const [subject, setSubject] = useState('');
@@ -48,8 +49,7 @@ function ThreadForm({board}) {
                     <Form.TextArea label='Comment' rows='8' value={body} onChange={e => setBody(e.target.value)}/>
                     <Form.Input label='Upload image' type='file' accept='image/*'
                                 onChange={e => setAttachment(e.target.files[0])} required/>
-                    {isError && createdThread &&
-                    <Message error content={<List items={createdThread.errors} bulleted/>}/>}
+                    {isError && createdThread && <FormErrors errors={createdThread.errors}/>}
                     <Form.Button floated='right'>Create thread</Form.Button>
                 </Form>
             </Modal.Content>

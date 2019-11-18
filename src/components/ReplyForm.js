@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {usePostApi} from '../api';
-import {Button, Form, Header, List, Message, Modal} from 'semantic-ui-react';
+import {Button, Form, Header, Modal} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
+import FormErrors from './FormErrors';
 
 function ReplyForm({thread, board}) {
     const [name, setName] = useState('');
@@ -44,7 +45,7 @@ function ReplyForm({thread, board}) {
                     <Form.TextArea label='Comment' rows='8' value={body} onChange={e => setBody(e.target.value)}/>
                     <Form.Input label='Upload image' type='file' accept='image/*'
                                 onChange={e => setAttachment(e.target.files[0])}/>
-                    {isError && createdReply && <Message error content={<List items={createdReply.errors} bulleted/>}/>}
+                    {isError && createdReply && <FormErrors errors={createdReply.errors}/>}
                     <Form.Button floated='right'>Submit post</Form.Button>
                 </Form>
             </Modal.Content>

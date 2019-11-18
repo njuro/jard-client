@@ -21,7 +21,9 @@ export function usePostApi(url, initialData = undefined) {
                 setData(result.data);
             } catch (error) {
                 setIsError(true);
-                setData(error.response.data);
+                if (error.response) {
+                    setData(error.response.data);
+                }
             }
         }
 
