@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import ReplyForm from './ReplyForm';
 import {Button, Icon} from 'semantic-ui-react';
 import {usePostApi} from '../../helpers/api';
@@ -8,11 +8,27 @@ import {BoardContext} from '../board/Board';
 
 function PostActions({post, isOP}) {
     const board = useContext(BoardContext);
-    const thread = useContext(ThreadContext);
+    const {thread, setThread} = useContext(ThreadContext);
 
-    const [, toggleSticky] = usePostApi(`/boards/${board.label}/${thread.originalPost.postNumber}/sticky`);
-    const [, toggleLock] = usePostApi(`/boards/${board.label}/${thread.originalPost.postNumber}/lock`);
-    const [, deletePost] = usePostApi(`/boards/${board.label}/${thread.originalPost.postNumber}/delete/${post.postNumber}`);
+    const [stickyResponse, toggleSticky] = usePostApi(`/boards/${board.label}/${thread.originalPost.postNumber}/sticky`, thread);
+    const [lockResponse, toggleLock] = usePostApi(`/boards/${board.label}/${thread.originalPost.postNumber}/lock`, thread);
+    const [deleteResponse, deletePost] = usePostApi(`/boards/${board.label}/${thread.originalPost.postNumber}/delete/${post.postNumber}`, thread);
+
+    useEffect(() => {
+        setThread(lockResponse);
+    }, [lockResponse]);
+
+    useEffect(() => {
+        setThread(stickyResponse);
+    }, [stickyResponse]);
+
+    useEffect(() => {
+        if (isOP) {
+            window.location.replace(`/boards/${board.label}`);
+        }
+
+        setThread(deleteResponse);
+    }, [deleteResponse]);
 
     return (
         <>

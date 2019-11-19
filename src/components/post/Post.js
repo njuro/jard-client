@@ -1,12 +1,11 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Item} from 'semantic-ui-react';
 import Attachment from './Attachment';
 import PostActions from './PostActions';
 import {ThreadContext} from '../thread/Thread';
 
-function Post({post: initialPost, isOP}) {
-    const [post, setPost] = useState(initialPost);
-    const thread = useContext(ThreadContext);
+function Post({post, isOP}) {
+    const {thread} = useContext(ThreadContext);
 
     return (
         <Item className={isOP ? 'original-post' : 'post'}>
@@ -22,7 +21,7 @@ function Post({post: initialPost, isOP}) {
                                 <em>File: {post.attachment.originalFilename} ({post.attachment.width}x{post.attachment.height})</em>
                             </span>}
                     <span className='post-number'>No. {post.postNumber}</span>
-                    <PostActions post={post} renderPost={setPost} isOP={isOP}/>
+                    <PostActions post={post} isOP={isOP}/>
                 </Item.Meta>
                 <div className='body' dangerouslySetInnerHTML={{__html: post.body}}/>
             </Item.Content>

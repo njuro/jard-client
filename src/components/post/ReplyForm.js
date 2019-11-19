@@ -1,14 +1,13 @@
 import React, {useContext, useState} from 'react';
 import {usePostApi} from '../../helpers/api';
 import {Button, Form, Header, Modal} from 'semantic-ui-react';
-import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
 import {BoardContext} from '../board/Board';
 import {ThreadContext} from '../thread/Thread';
 
 function ReplyForm() {
     const board = useContext(BoardContext);
-    const thread = useContext(ThreadContext);
+    const {thread} = useContext(ThreadContext);
 
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -32,7 +31,8 @@ function ReplyForm() {
     }
 
     if (!isError && createdReply) {
-        return <Redirect to={`/boards/${board.label}/${thread.originalPost.postNumber}`}/>;
+        // TODO do this without reload
+        return window.location.replace(`/boards/${board.label}/${thread.originalPost.postNumber}`);
     }
 
     return (
