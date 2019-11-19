@@ -21,8 +21,8 @@ function PostActions({thread, board, post, isOP}) {
             {useRole(MODERATOR) && <Button basic circular size='mini'
                                            icon='alternate trash'
                                            onClick={() => deletePost({})}/>}
-            {isOP && thread.locked && <Icon name='thumbtack'/>}
-            {isOP && thread.stickied && <Icon name='lock'/>}
+            {isOP && thread.stickied && <Icon name='thumbtack'/>}
+            {isOP && thread.locked && <Icon name='lock'/>}
         </>);
 }
 

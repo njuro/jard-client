@@ -45,7 +45,8 @@ function App() {
                             {!user &&
                             <Menu.Item position='right'><Link to="/login"><Button>Login</Button></Link></Menu.Item>}
                             {user &&
-                            <Menu.Item position='right'><Button onClick={handleLogout}>Logout</Button></Menu.Item>}
+                            <Menu.Item position='right'><Link><Button
+                                onClick={handleLogout}>Logout</Button></Link></Menu.Item>}
                         </Menu>
                     </nav>
                     <main>
