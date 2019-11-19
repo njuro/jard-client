@@ -1,7 +1,7 @@
 import React from 'react';
 import {Item} from 'semantic-ui-react';
-import Attachment from './Attachment';
-import PostActions from './PostActions';
+import Attachment from '../post/Attachment';
+import PostActions from '../post/PostActions';
 
 function Thread({thread, board}) {
     const isOP = (post) => post.postNumber === thread.originalPost.postNumber;

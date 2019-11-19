@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {AuthContext} from './components/App';
+import {AuthContext} from '../components/App';
 
 export const USER = 'USER';
 export const JANITOR = 'JANITOR';

@@ -1,22 +1,26 @@
 import React, {useContext, useState} from 'react';
 import {Form, Grid, Header, Segment} from 'semantic-ui-react';
-import {usePostApi} from '../api';
+import {usePostApi} from '../../helpers/api';
 import {Redirect} from 'react-router-dom';
-import FormErrors from './FormErrors';
-import {AuthContext} from './App';
+import FormErrors from '../utils/FormErrors';
+import {AuthContext} from '../App';
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [loggedUser, logUser, isError] = usePostApi('/login');
-    const {setUser} = useContext(AuthContext);
+    const {user, setUser} = useContext(AuthContext);
 
     function handleSubmit(e) {
         e.preventDefault();
 
         const loginForm = {username, password, rememberMe};
         logUser(loginForm);
+    }
+
+    if (user) {
+        return <Redirect to='/'/>;
     }
 
     if (!isError && loggedUser) {

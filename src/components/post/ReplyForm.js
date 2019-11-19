@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {usePostApi} from '../api';
+import {usePostApi} from '../../helpers/api';
 import {Button, Form, Header, Modal} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
-import FormErrors from './FormErrors';
+import FormErrors from '../utils/FormErrors';
 
 function ReplyForm({thread, board}) {
     const [name, setName] = useState('');

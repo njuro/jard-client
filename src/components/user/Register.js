@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {usePostApi} from '../api';
+import {usePostApi} from '../../helpers/api';
 import {Form, Grid, Header, Segment} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
-import FormErrors from './FormErrors';
+import FormErrors from '../utils/FormErrors';
 
 function Register(props) {
     const [username, setUsername] = useState('');

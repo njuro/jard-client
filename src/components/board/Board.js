@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {useGetApi} from '../api';
-import Thread from './Thread';
-import ThreadForm from './ThreadForm';
+import {useGetApi} from '../../helpers/api';
+import Thread from '../thread/Thread';
+import ThreadForm from '../thread/ThreadForm';
 import BoardHeader from './BoardHeader';
 
 

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
-import {usePostApi} from '../api';
+import {usePostApi} from '../../helpers/api';
 import {Redirect} from 'react-router-dom';
-import FormErrors from './FormErrors';
+import FormErrors from '../utils/FormErrors';
 
 function ThreadForm({board}) {
     const [subject, setSubject] = useState('');

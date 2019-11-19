@@ -1,16 +1,16 @@
 import React, {createContext, useEffect, useState} from 'react';
 
-import {useGetApi, usePostApi} from '../api';
+import {useGetApi, usePostApi} from '../helpers/api';
 import {Button, Menu} from 'semantic-ui-react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import Board from './Board';
+import Board from './board/Board';
 import Home from './Home';
-import ThreadWrapper from './ThreadWrapper';
-import Login from './Login';
-import NotFound from './NotFound';
-import Register from './Register';
-import Dashboard from './Dashboard';
-import ProtectedRoute from './ProtectedRoute';
+import ThreadWrapper from './thread/ThreadWrapper';
+import Login from './user/Login';
+import NotFound from './utils/NotFound';
+import Register from './user/Register';
+import Dashboard from './user/Dashboard';
+import ProtectedRoute from './utils/ProtectedRoute';
 
 export const AuthContext = createContext({});
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Thread from './Thread';
-import {useGetApi} from '../api';
-import BoardHeader from './BoardHeader';
+import {useGetApi} from '../../helpers/api';
+import BoardHeader from '../board/BoardHeader';
 
 function ThreadWrapper(props) {
     const label = props.match.params.label;

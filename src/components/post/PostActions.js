@@ -1,8 +1,8 @@
 import React from 'react';
 import ReplyForm from './ReplyForm';
 import {Button, Icon} from 'semantic-ui-react';
-import {usePostApi} from '../api';
-import {JANITOR, MODERATOR, useRole} from '../roles';
+import {usePostApi} from '../../helpers/api';
+import {JANITOR, MODERATOR, useRole} from '../../helpers/roles';
 
 function PostActions({thread, board, post, isOP}) {
     const [, toggleSticky] = usePostApi(`/boards/${board.label}/${thread.originalPost.postNumber}/sticky`);
