@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Home({boards}) {
+function Home() {
     return (
-        boards && <div>
-            There are <strong>{boards.length}</strong> boards active. <p/>
+        <div>
+            Welcome to <strong>JBoard</strong>. <p/>
             Current time: {new Date().toLocaleString('sk-SK')}
         </div>
     );
