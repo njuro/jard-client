@@ -23,7 +23,7 @@ function PostActions({post, isOP}) {
     }, [stickyResponse]);
 
     useEffect(() => {
-        if (isOP) {
+        if (!deleteResponse) {
             window.location.replace(`/boards/${board.label}`);
         }
 
