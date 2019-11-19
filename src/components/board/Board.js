@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {createContext, useEffect} from 'react';
 import {useGetApi} from '../../helpers/api';
 import Thread from '../thread/Thread';
 import ThreadForm from '../thread/ThreadForm';
 import BoardHeader from './BoardHeader';
 
+
+export const BoardContext = createContext();
 
 function Board(props) {
     const label = props.match.params.label;
@@ -16,13 +18,12 @@ function Board(props) {
 
 
     return (
-        board &&
-        <>
-            <BoardHeader board={board}/>
-            <ThreadForm board={board}/>
+        board && <BoardContext.Provider value={board}>
+            <BoardHeader/>
+            <ThreadForm/>
             {board.threads.map(thread => (
-                <Thread key={thread.originalPost.postNumber} thread={thread} board={board}/>))}
-        </>
+                <Thread key={thread.originalPost.postNumber} thread={thread}/>))}
+        </BoardContext.Provider>
     ) || null;
 }
 

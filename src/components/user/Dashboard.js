@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {AuthContext} from '../App';
 
-function Dashboard(props) {
+function Dashboard() {
 
     const {user} = useContext(AuthContext);
 

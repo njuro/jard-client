@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
 import {usePostApi} from '../../helpers/api';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
+import {BoardContext} from '../board/Board';
 
-function ThreadForm({board}) {
+function ThreadForm() {
+    const board = useContext(BoardContext);
+
     const [subject, setSubject] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
