@@ -7,14 +7,15 @@ import {ThreadContext} from '../thread/Thread';
 
 function ReplyForm() {
     const board = useContext(BoardContext);
-    const {thread} = useContext(ThreadContext);
+    const {thread, appendPosts} = useContext(ThreadContext);
 
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [body, setBody] = useState('');
     const [attachment, setAttachment] = useState(undefined);
+    const [open, setOpen] = useState(false);
 
-    const [createdReply, submitReply, isError] = usePostApi(`boards/${board.label}/${thread.originalPost.postNumber}/reply`);
+    const [createdReply, submitReply, isError, clearCreatedReply] = usePostApi(`boards/${board.label}/${thread.originalPost.postNumber}/reply`);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -31,13 +32,15 @@ function ReplyForm() {
     }
 
     if (!isError && createdReply) {
-        // TODO do this without reload
-        return window.location.replace(`/boards/${board.label}/${thread.originalPost.postNumber}`);
+        clearCreatedReply();
+        setOpen(false);
+        appendPosts([createdReply]);
     }
 
     return (
         <Modal style={{paddingBottom: '10px'}}
-               trigger={<Button basic circular size='mini' icon='reply'/>}>
+               open={open}
+               trigger={<Button basic circular size='mini' icon='reply' onClick={() => setOpen(true)}/>}>
             <Modal.Content>
                 <Form onSubmit={handleSubmit} encType='multipart/form-data'>
                     <Header as='h4' dividing>Reply to thread</Header>

@@ -33,7 +33,11 @@ export function usePostApi(url, initialData = undefined) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [body]);
 
-    return [data, setBody, isError];
+    function clearData() {
+        setData(undefined);
+    }
+
+    return [data, setBody, isError, clearData];
 }
 
 export function useGetApi(initialUrl, initialData = undefined) {

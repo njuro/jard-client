@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useContext, useEffect} from 'react';
 import ReplyForm from './ReplyForm';
 import {Button, Icon} from 'semantic-ui-react';
