@@ -6,39 +6,15 @@ const client = axios.create({
     withCredentials: true
 });
 
+export function usePostApi(url) {
 
-export function usePostApi(url, initialData = undefined) {
-    const [body, setBody] = useState(undefined);
-    const [data, setData] = useState(initialData);
-    const [isError, setIsError] = useState(false);
-
-    useEffect(() => {
-        setData(initialData);
-        setIsError(false);
-        async function sendRequest() {
-            try {
-                const result = await client.post(url, body);
-                setData(result.data);
-            } catch (error) {
-                setIsError(true);
-                if (error.response) {
-                    setData(error.response.data);
-                }
-            }
-        }
-
-        if (body) {
-            sendRequest();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [body]);
-
-    function clearData() {
-        setData(undefined);
+    function makeRequest(body = {}) {
+        return client.post(url, body).then(res => res.data);
     }
 
-    return [data, setBody, isError, clearData];
+    return makeRequest;
 }
+
 
 export function useGetApi(initialUrl, initialData = undefined) {
     const [url, setUrl] = useState(initialUrl);

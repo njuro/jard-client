@@ -4,6 +4,7 @@ import {usePostApi} from '../../helpers/api';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
 import {BoardContext} from '../board/Board';
+import {objectToFormData} from '../../helpers/forms';
 
 function ThreadForm() {
     const board = useContext(BoardContext);
@@ -13,25 +14,28 @@ function ThreadForm() {
     const [password, setPassword] = useState('');
     const [body, setBody] = useState('');
     const [attachment, setAttachment] = useState(undefined);
+    const [createdThread, setCreatedThread] = useState(undefined);
+    const [errors, setErrors] = useState(undefined);
 
-    const [createdThread, submitThread, isError] = usePostApi(`boards/${board.label}/submit`);
+    const submitThread = usePostApi(`boards/${board.label}/submit`);
 
     function handleSubmit(e) {
         e.preventDefault();
 
         const thread = {
             subject,
-            post: {name, password, body}
+            postForm: {name, password, body}
         };
         const threadForm = new FormData();
-        threadForm.append('threadForm', new Blob([JSON.stringify(thread)], {
-            type: 'application/json'
-        }));
+        threadForm.append('threadForm', objectToFormData(thread));
         threadForm.append('attachment', attachment);
-        submitThread(threadForm);
+
+        submitThread(threadForm)
+            .then(thread => setCreatedThread(thread))
+            .catch(err => setErrors(err.response.data.errors));
     }
 
-    if (!isError && createdThread) {
+    if (createdThread) {
         return <Redirect to={`/boards/${board.label}/${createdThread.originalPost.postNumber}`}/>;
     }
 
@@ -39,7 +43,7 @@ function ThreadForm() {
         <Modal style={{paddingBottom: '10px'}}
                trigger={<Button basic size='small'><Icon name='plus'/><strong>New thread</strong></Button>}>
             <Modal.Content>
-                <Form onSubmit={handleSubmit} encType='multipart/form-data' error={isError}>
+                <Form onSubmit={handleSubmit} encType='multipart/form-data' error={errors !== undefined}>
                     <Header as='h4' dividing>Create new thread</Header>
                     <Form.Group widths='equal'>
                         <Form.Input fluid label='Name' placeholder='Name' value={name}
@@ -52,7 +56,7 @@ function ThreadForm() {
                     <Form.TextArea label='Comment' rows='8' value={body} onChange={e => setBody(e.target.value)}/>
                     <Form.Input label='Upload image' type='file' accept='image/*'
                                 onChange={e => setAttachment(e.target.files[0])} required/>
-                    {isError && createdThread && <FormErrors errors={createdThread.errors}/>}
+                    <FormErrors errors={errors}/>
                     <Form.Button floated='right'>Create thread</Form.Button>
                 </Form>
             </Modal.Content>

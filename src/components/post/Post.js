@@ -15,11 +15,12 @@ function Post({post, isOP}) {
                     <span className='name'>{post.name}</span>
                     <span className='tripcode'>{post.tripcode}</span>
                     {isOP && <span className='subject'>{thread.subject}</span>}
-                    <span
-                        className='date'>{new Date(Date.parse(post.createdAt)).toLocaleString('sk-SK')}</span>
-                    {post.attachment && <span className='file'>
+                    <span className='date'>{new Date(Date.parse(post.createdAt)).toLocaleString('sk-SK')}</span>
+                    {post.attachment &&
+                    <span className='file'>
                                 <em>File: {post.attachment.originalFilename} ({post.attachment.width}x{post.attachment.height})</em>
-                            </span>}
+                            </span>
+                    }
                     <span className='post-number'>No. {post.postNumber}</span>
                     <PostActions post={post} isOP={isOP}/>
                 </Item.Meta>

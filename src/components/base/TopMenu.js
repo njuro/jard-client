@@ -7,11 +7,10 @@ import {useGetApi, usePostApi} from '../../helpers/api';
 function TopMenu() {
     const {user, setUser} = useContext(AuthContext);
     const [boards] = useGetApi('boards/', []);
-    const [, logOut] = usePostApi('/logout');
+    const logOut = usePostApi('/logout');
 
     function handleLogout() {
-        logOut({});
-        setUser(undefined);
+        logOut().then(() => setUser(undefined));
     }
 
     return (

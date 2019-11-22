@@ -4,7 +4,9 @@ function useUpdater() {
     const [flag, setFlag] = useState(false);
 
     useEffect(() => {
-        setFlag(false);
+        if (flag) {
+            setFlag(false);
+        }
     }, [flag]);
 
     return () => setFlag(true);

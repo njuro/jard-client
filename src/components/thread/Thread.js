@@ -7,25 +7,45 @@ export const ThreadContext = createContext();
 
 function Thread({thread: initialThread}) {
     const [thread, setThread] = useState(initialThread);
+
     const updateThread = useUpdater();
 
-    function appendPosts(posts) {
-        for (const post of posts) {
-            thread.posts.push(post);
-        }
+    const isOP = (postNumber) => postNumber === thread.originalPost.postNumber;
 
+    function onNewPosts(posts) {
+        posts.forEach(post => thread.posts.push(post));
         updateThread();
     }
 
+    function onToggleSticky() {
+        thread.stickied = !thread.stickied;
+        updateThread();
+    }
+
+    function onToggleLock() {
+        thread.locked = !thread.locked;
+        updateThread();
+    }
+
+    function onDeletePost(postNumber) {
+        if (isOP(postNumber)) {
+            setThread(undefined);
+        } else {
+            thread.posts = thread.posts.filter(post => post.postNumber !== postNumber);
+            updateThread();
+        }
+    }
+
     return (
-        <ThreadContext.Provider value={{thread, setThread, appendPosts}}>
+        thread &&
+        <ThreadContext.Provider value={{thread, setThread, onNewPosts, onToggleSticky, onToggleLock, onDeletePost}}>
             <Item.Group divided className='thread'>
                 {thread.posts.map(post => (
-                    <Post key={post.postNumber} post={post} isOP={post.postNumber === thread.originalPost.postNumber}/>
+                    <Post key={post.postNumber} post={post} isOP={isOP(post.postNumber)}/>
                 ))}
             </Item.Group>
         </ThreadContext.Provider>
-    );
+    ) || null;
 }
 
 export default Thread;

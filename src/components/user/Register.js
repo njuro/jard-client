@@ -4,27 +4,31 @@ import {Form, Grid, Header, Segment} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
 
-function Register(props) {
+function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeated, setPasswordRepeated] = useState('');
     const [email, setEmail] = useState('');
-    const [registeredUser, registerUser, isError] = usePostApi('/users/register');
+    const [registeredUser, setRegisteredUser] = useState(undefined);
+    const [errors, setErrors] = useState(undefined);
+
+    const registerUser = usePostApi('/users/register');
 
     function handleSubmit(e) {
         e.preventDefault();
 
         const registerForm = {username, password, passwordRepeated, email};
-        registerUser(registerForm);
+        registerUser(registerForm).then(user => setRegisteredUser(user))
+            .catch(err => setErrors(err.response.data.errors));
     }
 
-    if (!isError && registeredUser) {
+    if (registeredUser) {
         return <Redirect to='/login/'/>;
     }
 
     return (
         <Grid>
-            <Form onSubmit={handleSubmit} className={'six wide column centered'} error={isError}>
+            <Form onSubmit={handleSubmit} className={'six wide column centered'} error={errors !== undefined}>
                 <Segment>
                     <Header as='h4' dividing>Create new user</Header>
                     <Form.Input label='Username' placeholder='Username' value={username}
@@ -36,7 +40,7 @@ function Register(props) {
                                 onChange={e => setPasswordRepeated(e.target.value)}/>
                     <Form.Input label='E-mail' placeholder='E-mail' type='email' value={email}
                                 onChange={e => setEmail(e.target.value)}/>
-                    {isError && registeredUser && <FormErrors errors={registeredUser.errors}/>}
+                    <FormErrors errors={errors}/>
                     <Form.Button fluid>Create user</Form.Button>
                 </Segment>
             </Form>
