@@ -30,9 +30,16 @@ function ReplyForm() {
         postApiRequest(`boards/${board.label}/${thread.originalPost.postNumber}/reply`, replyForm)
             .then(post => {
                 setOpen(false);
+                resetValues();
                 onNewPosts([post]);
             })
             .catch(err => setErrors(err.response.data.errors));
+    }
+
+    function resetValues() {
+        setName('');
+        setPassword('');
+        setBody('');
     }
 
     return (
