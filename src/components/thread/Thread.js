@@ -2,6 +2,7 @@ import React, {createContext, useState} from 'react';
 import {Item} from 'semantic-ui-react';
 import Post from '../post/Post';
 import useUpdater from '../../helpers/updater';
+import ThreadUpdateButton from './ThreadUpdateButton';
 
 export const ThreadContext = createContext();
 
@@ -46,6 +47,7 @@ function Thread({thread: initialThread}) {
                     <Post key={post.postNumber} post={post} isOP={isOP(post.postNumber)}/>
                 ))}
             </Item.Group>
+            <ThreadUpdateButton/>
         </ThreadContext.Provider>
     ) || <p><em>This thread was deleted</em></p>;
 }
