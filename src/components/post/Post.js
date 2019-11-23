@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Item} from 'semantic-ui-react';
-import Attachment from './Attachment';
+import PostAttachment from './PostAttachment';
 import PostActions from './PostActions';
 import {ThreadContext} from '../thread/Thread';
 
@@ -9,7 +9,7 @@ function Post({post, isOP}) {
 
     return (
         <Item className={isOP ? 'original-post' : 'post'}>
-            {post.attachment && <Attachment attachment={post.attachment}/>}
+            {post.attachment && <PostAttachment attachment={post.attachment}/>}
             <Item.Content>
                 <Item.Meta>
                     <span className='name'>{post.name}</span>

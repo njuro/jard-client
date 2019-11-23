@@ -5,9 +5,10 @@ import {BoardContext} from '../board/Board';
 import {getApiRequest} from '../../helpers/api';
 
 function ThreadUpdateButton() {
-    const [status, setStatus] = useState('');
     const board = useContext(BoardContext);
     const {thread, onNewPosts} = useContext(ThreadContext);
+
+    const [status, setStatus] = useState('');
 
     function checkForNewPosts() {
         setStatus('Updating...');
@@ -16,7 +17,8 @@ function ThreadUpdateButton() {
             .then(res => {
                 setStatus(res.length > 0 ? `Fetched ${res.length} new post(s)` : 'No new posts');
                 onNewPosts(res);
-            });
+            })
+            .catch(() => setStatus('This thread was deleted'));
     }
 
     return (

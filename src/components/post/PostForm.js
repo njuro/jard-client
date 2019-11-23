@@ -6,7 +6,7 @@ import {BoardContext} from '../board/Board';
 import {ThreadContext} from '../thread/Thread';
 import {objectToFormData} from '../../helpers/forms';
 
-function ReplyForm() {
+function PostForm() {
     const board = useContext(BoardContext);
     const {thread, onNewPosts} = useContext(ThreadContext);
 
@@ -67,4 +67,4 @@ function ReplyForm() {
 }
 
 
-export default ReplyForm;
+export default PostForm;

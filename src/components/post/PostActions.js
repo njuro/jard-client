@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import ReplyForm from './ReplyForm';
+import PostForm from './PostForm';
 import {Button, Icon} from 'semantic-ui-react';
 import {postApiRequest} from '../../helpers/api';
 import {JANITOR, MODERATOR, useRole} from '../../helpers/roles';
@@ -27,7 +27,7 @@ function PostActions({post, isOP}) {
 
     return (
         <>
-            {!thread.locked && <ReplyForm/>}
+            {!thread.locked && <PostForm/>}
             {useRole(MODERATOR) && isOP && <Button basic circular size='mini'
                                                    icon={thread.stickied ? 'thumbtack vertically flipped' : 'thumbtack'}
                                                    onClick={toggleSticky}/>}

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Image} from 'semantic-ui-react';
 
-function Attachment({attachment}) {
+function PostAttachment({attachment}) {
     const [showFull, setShowFull] = useState(false);
 
     function toggleSize(e) {
@@ -16,4 +16,4 @@ function Attachment({attachment}) {
     );
 }
 
-export default Attachment;
+export default PostAttachment;
