@@ -5,6 +5,7 @@ import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
 import {BoardContext} from '../board/Board';
 import {objectToFormData} from '../../helpers/forms';
+import {BOARD_URL} from '../../helpers/mappings';
 
 function ThreadForm() {
     const board = useContext(BoardContext);
@@ -28,7 +29,7 @@ function ThreadForm() {
         threadForm.append('threadForm', objectToFormData(thread));
         threadForm.append('attachment', attachment);
 
-        postApiRequest(`boards/${board.label}/submit`, threadForm)
+        postApiRequest(BOARD_URL(board) + '/submit', threadForm)
             .then(thread => setCreatedThread(thread))
             .catch(err => setErrors(err.response.data.errors));
     }

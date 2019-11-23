@@ -3,16 +3,17 @@ import {Button, Menu} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../App';
 import {getApiRequest, postApiRequest} from '../../helpers/api';
+import {BOARDS_URL, LOGOUT_URL} from '../../helpers/mappings';
 
 function TopMenu() {
     const {user, setUser} = useContext(AuthContext);
     const [boards, setBoards] = useState([]);
 
     function handleLogout() {
-        postApiRequest('/logout').then(() => setUser(undefined));
+        postApiRequest(LOGOUT_URL).then(() => setUser(undefined));
     }
 
-    useEffect(() => getApiRequest('/boards').then(setBoards), []);
+    useEffect(() => getApiRequest(BOARDS_URL).then(setBoards), []);
 
     return (
         <Menu>

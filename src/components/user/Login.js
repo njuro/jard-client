@@ -4,6 +4,7 @@ import {postApiRequest} from '../../helpers/api';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
 import {AuthContext} from '../App';
+import {LOGIN_URL} from '../../helpers/mappings';
 
 function Login() {
     const {user, setUser} = useContext(AuthContext);
@@ -18,7 +19,7 @@ function Login() {
         e.preventDefault();
 
         const loginForm = {username, password, rememberMe};
-        postApiRequest('/login', loginForm)
+        postApiRequest(LOGIN_URL, loginForm)
             .then(user => setLoggedUser(user))
             .catch(err => setErrors(err.response.data.errors));
     }

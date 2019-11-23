@@ -5,23 +5,24 @@ import {postApiRequest} from '../../helpers/api';
 import {JANITOR, MODERATOR, useRole} from '../../helpers/roles';
 import {ThreadContext} from '../thread/Thread';
 import {BoardContext} from '../board/Board';
+import {THREAD_URL} from '../../helpers/mappings';
 
 function PostActions({post, isOP}) {
     const board = useContext(BoardContext);
     const {thread, onToggleSticky, onToggleLock, onDeletePost} = useContext(ThreadContext);
 
     function toggleSticky() {
-        postApiRequest(`/boards/${board.label}/${thread.originalPost.postNumber}/sticky`)
+        postApiRequest(THREAD_URL(thread, board) + '/sticky')
             .then(onToggleSticky);
     }
 
     function toggleLock() {
-        postApiRequest(`/boards/${board.label}/${thread.originalPost.postNumber}/lock`)
+        postApiRequest(THREAD_URL(thread, board) + '/lock')
             .then(onToggleLock);
     }
 
     function deletePost() {
-        postApiRequest(`/boards/${board.label}/${thread.originalPost.postNumber}/delete/${post.postNumber}`)
+        postApiRequest(THREAD_URL(thread, board) + `/delete/${post.postNumber}`)
             .then(onDeletePost(post.postNumber));
     }
 

@@ -3,6 +3,7 @@ import Thread from './Thread';
 import {getApiRequest} from '../../helpers/api';
 import BoardHeader from '../board/BoardHeader';
 import {BoardContext} from '../board/Board';
+import {BOARDS_URL} from '../../helpers/mappings';
 
 function ThreadWrapper(props) {
     const label = props.match.params.label;
@@ -11,7 +12,7 @@ function ThreadWrapper(props) {
     const [thread, setThread] = useState(undefined);
 
     useEffect(() => {
-        getApiRequest(`/boards/${label}/${threadNumber}`).then(setThread);
+        getApiRequest(`${BOARDS_URL}/${label}/${threadNumber}`).then(setThread);
     }, [label, threadNumber]);
 
     return (

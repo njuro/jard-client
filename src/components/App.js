@@ -4,6 +4,7 @@ import {getApiRequest} from '../helpers/api';
 import {BrowserRouter as Router} from 'react-router-dom';
 import TopMenu from './base/TopMenu';
 import RouteSwitch from './base/RouteSwitch';
+import {USERS_URL} from '../helpers/mappings';
 
 export const AuthContext = createContext({});
 
@@ -11,7 +12,7 @@ function App() {
     const [user, setUser] = useState(undefined);
 
     useEffect(() => {
-        getApiRequest('/users/current').then(setUser);
+        getApiRequest(USERS_URL + '/current').then(setUser);
     }, []);
 
     return (

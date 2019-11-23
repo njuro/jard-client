@@ -3,6 +3,7 @@ import {getApiRequest} from '../../helpers/api';
 import Thread from '../thread/Thread';
 import ThreadForm from '../thread/ThreadForm';
 import BoardHeader from './BoardHeader';
+import {BOARDS_URL} from '../../helpers/mappings';
 
 
 export const BoardContext = createContext();
@@ -12,7 +13,7 @@ function Board(props) {
     const [board, setBoard] = useState(undefined);
 
     useEffect(() => {
-        getApiRequest(`boards/${label}`).then(setBoard);
+        getApiRequest(`${BOARDS_URL}/${label}`).then(setBoard);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [label]);
 

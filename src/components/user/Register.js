@@ -3,6 +3,7 @@ import {postApiRequest} from '../../helpers/api';
 import {Form, Grid, Header, Segment} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
+import {USERS_URL} from '../../helpers/mappings';
 
 function Register() {
     const [username, setUsername] = useState('');
@@ -16,7 +17,7 @@ function Register() {
         e.preventDefault();
 
         const registerForm = {username, password, passwordRepeated, email};
-        postApiRequest('/users/register', registerForm)
+        postApiRequest(USERS_URL + '/register', registerForm)
             .then(user => setRegisteredUser(user))
             .catch(err => setErrors(err.response.data.errors));
     }

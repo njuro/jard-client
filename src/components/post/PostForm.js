@@ -5,6 +5,7 @@ import FormErrors from '../utils/FormErrors';
 import {BoardContext} from '../board/Board';
 import {ThreadContext} from '../thread/Thread';
 import {objectToFormData} from '../../helpers/forms';
+import {THREAD_URL} from '../../helpers/mappings';
 
 function PostForm() {
     const board = useContext(BoardContext);
@@ -27,7 +28,7 @@ function PostForm() {
         replyForm.append('postForm', objectToFormData(post));
         replyForm.append('attachment', attachment);
 
-        postApiRequest(`boards/${board.label}/${thread.originalPost.postNumber}/reply`, replyForm)
+        postApiRequest(THREAD_URL(thread, board) + '/reply', replyForm)
             .then(post => {
                 setOpen(false);
                 resetValues();

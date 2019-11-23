@@ -3,6 +3,7 @@ import {Button, Icon} from 'semantic-ui-react';
 import {ThreadContext} from './Thread';
 import {BoardContext} from '../board/Board';
 import {getApiRequest} from '../../helpers/api';
+import {THREAD_URL} from '../../helpers/mappings';
 
 function ThreadUpdateButton() {
     const board = useContext(BoardContext);
@@ -13,7 +14,7 @@ function ThreadUpdateButton() {
     function checkForNewPosts() {
         setStatus('Updating...');
         const lastPostNumber = thread.posts[thread.posts.length - 1].postNumber;
-        getApiRequest(`/boards/${board.label}/${thread.originalPost.postNumber}/update?lastPost=${lastPostNumber}`)
+        getApiRequest(THREAD_URL(thread, board) + `/update?lastPost=${lastPostNumber}`)
             .then(res => {
                 setStatus(res.length > 0 ? `Fetched ${res.length} new post(s)` : 'No new posts');
                 onNewPosts(res);
