@@ -1,17 +1,18 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Menu} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../App';
-import {useGetApi, usePostApi} from '../../helpers/api';
+import {getApiRequest, postApiRequest} from '../../helpers/api';
 
 function TopMenu() {
     const {user, setUser} = useContext(AuthContext);
-    const [boards] = useGetApi('boards/', []);
-    const logOut = usePostApi('/logout');
+    const [boards, setBoards] = useState([]);
 
     function handleLogout() {
-        logOut().then(() => setUser(undefined));
+        postApiRequest('/logout').then(() => setUser(undefined));
     }
+
+    useEffect(() => getApiRequest('/boards').then(setBoards), []);
 
     return (
         <Menu>

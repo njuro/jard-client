@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Form, Grid, Header, Segment} from 'semantic-ui-react';
-import {usePostApi} from '../../helpers/api';
+import {postApiRequest} from '../../helpers/api';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
 import {AuthContext} from '../App';
@@ -14,13 +14,11 @@ function Login() {
     const [loggedUser, setLoggedUser] = useState(undefined);
     const [errors, setErrors] = useState(undefined);
 
-    const logUser = usePostApi('/login');
-
     function handleSubmit(e) {
         e.preventDefault();
 
         const loginForm = {username, password, rememberMe};
-        logUser(loginForm)
+        postApiRequest('/login', loginForm)
             .then(user => setLoggedUser(user))
             .catch(err => setErrors(err.response.data.errors));
     }

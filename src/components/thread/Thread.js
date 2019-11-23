@@ -13,8 +13,10 @@ function Thread({thread: initialThread}) {
     const isOP = (postNumber) => postNumber === thread.originalPost.postNumber;
 
     function onNewPosts(posts) {
-        posts.forEach(post => thread.posts.push(post));
-        updateThread();
+        if (posts.length > 0) {
+            posts.forEach(post => thread.posts.push(post));
+            updateThread();
+        }
     }
 
     function onToggleSticky() {
@@ -45,7 +47,7 @@ function Thread({thread: initialThread}) {
                 ))}
             </Item.Group>
         </ThreadContext.Provider>
-    ) || null;
+    ) || <p><em>This thread was deleted</em></p>;
 }
 
 export default Thread;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {usePostApi} from '../../helpers/api';
+import {postApiRequest} from '../../helpers/api';
 import {Form, Grid, Header, Segment} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
@@ -12,13 +12,12 @@ function Register() {
     const [registeredUser, setRegisteredUser] = useState(undefined);
     const [errors, setErrors] = useState(undefined);
 
-    const registerUser = usePostApi('/users/register');
-
     function handleSubmit(e) {
         e.preventDefault();
 
         const registerForm = {username, password, passwordRepeated, email};
-        registerUser(registerForm).then(user => setRegisteredUser(user))
+        postApiRequest('/users/register', registerForm)
+            .then(user => setRegisteredUser(user))
             .catch(err => setErrors(err.response.data.errors));
     }
 

@@ -1,5 +1,5 @@
-import React, {createContext, useEffect} from 'react';
-import {useGetApi} from '../../helpers/api';
+import React, {createContext, useEffect, useState} from 'react';
+import {getApiRequest} from '../../helpers/api';
 import Thread from '../thread/Thread';
 import ThreadForm from '../thread/ThreadForm';
 import BoardHeader from './BoardHeader';
@@ -9,10 +9,10 @@ export const BoardContext = createContext();
 
 function Board(props) {
     const label = props.match.params.label;
-    const [board, fetchBoard] = useGetApi(`boards/${label}`);
+    const [board, setBoard] = useState(undefined);
 
     useEffect(() => {
-        fetchBoard(`boards/${label}`);
+        getApiRequest(`boards/${label}`).then(setBoard);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [label]);
 

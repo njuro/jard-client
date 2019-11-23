@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {usePostApi} from '../../helpers/api';
+import {postApiRequest} from '../../helpers/api';
 import {Button, Form, Header, Modal} from 'semantic-ui-react';
 import FormErrors from '../utils/FormErrors';
 import {BoardContext} from '../board/Board';
@@ -17,8 +17,6 @@ function ReplyForm() {
     const [open, setOpen] = useState(false);
     const [errors, setErrors] = useState(undefined);
 
-    const submitReply = usePostApi(`boards/${board.label}/${thread.originalPost.postNumber}/reply`);
-
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -29,7 +27,7 @@ function ReplyForm() {
         replyForm.append('postForm', objectToFormData(post));
         replyForm.append('attachment', attachment);
 
-        submitReply(replyForm)
+        postApiRequest(`boards/${board.label}/${thread.originalPost.postNumber}/reply`, replyForm)
             .then(post => {
                 setOpen(false);
                 onNewPosts([post]);

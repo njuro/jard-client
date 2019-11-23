@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 const client = axios.create({
@@ -6,30 +5,12 @@ const client = axios.create({
     withCredentials: true
 });
 
-export function usePostApi(url) {
-
-    function makeRequest(body = {}) {
-        return client.post(url, body).then(res => res.data);
-    }
-
-    return makeRequest;
+export function postApiRequest(url, body = {}) {
+    return client.post(url, body).then(res => res.data);
 }
 
-
-export function useGetApi(initialUrl, initialData = undefined) {
-    const [url, setUrl] = useState(initialUrl);
-    const [data, setData] = useState(initialData);
-
-    useEffect(() => {
-        async function fetchData() {
-            const result = await client.get(url);
-            setData(result.data);
-        }
-
-        fetchData();
-    }, [url]);
-
-    return [data, setUrl];
+export function getApiRequest(url) {
+    return client.get(url).then(res => res.data);
 }
 
 export default client;

@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Button, Form, Header, Icon, Modal} from 'semantic-ui-react';
-import {usePostApi} from '../../helpers/api';
+import {postApiRequest} from '../../helpers/api';
 import {Redirect} from 'react-router-dom';
 import FormErrors from '../utils/FormErrors';
 import {BoardContext} from '../board/Board';
@@ -17,8 +17,6 @@ function ThreadForm() {
     const [createdThread, setCreatedThread] = useState(undefined);
     const [errors, setErrors] = useState(undefined);
 
-    const submitThread = usePostApi(`boards/${board.label}/submit`);
-
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -30,7 +28,7 @@ function ThreadForm() {
         threadForm.append('threadForm', objectToFormData(thread));
         threadForm.append('attachment', attachment);
 
-        submitThread(threadForm)
+        postApiRequest(`boards/${board.label}/submit`, threadForm)
             .then(thread => setCreatedThread(thread))
             .catch(err => setErrors(err.response.data.errors));
     }
