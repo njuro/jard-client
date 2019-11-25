@@ -30,13 +30,14 @@ function PostActions({post, isOP}) {
         <>
             {!thread.locked && <PostForm/>}
             {useRole(MODERATOR) && isOP && <Button basic circular size='mini'
-                                                   icon={thread.stickied ? 'thumbtack vertically flipped' : 'thumbtack'}
+                                                   icon={<Icon name='thumbtack'
+                                                               flipped={thread.stickied ? 'vertically' : undefined}/>}
                                                    onClick={toggleSticky}/>}
             {useRole(JANITOR) && isOP && <Button basic circular size='mini'
-                                                 icon={thread.locked ? 'open lock' : 'lock'}
+                                                 icon={<Icon name={thread.locked ? 'open lock' : 'lock'}/>}
                                                  onClick={toggleLock}/>}
             {useRole(MODERATOR) && <Button basic circular size='mini'
-                                           icon='alternate trash'
+                                           icon={<Icon name='alternate trash'/>}
                                            onClick={deletePost}/>}
             {isOP && thread.stickied && <Icon name='thumbtack'/>}
             {isOP && thread.locked && <Icon name='lock'/>}

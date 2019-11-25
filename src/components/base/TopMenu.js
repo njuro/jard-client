@@ -13,7 +13,14 @@ function TopMenu() {
         postApiRequest(LOGOUT_URL).then(() => setUser(undefined));
     }
 
-    useEffect(() => getApiRequest(BOARDS_URL).then(setBoards), []);
+    useEffect(() => {
+        async function fetchBoards() {
+            const result = await getApiRequest(BOARDS_URL);
+            setBoards(result);
+        }
+
+        fetchBoards();
+    }, []);
 
     return (
         <Menu>

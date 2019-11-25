@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Button, Icon} from 'semantic-ui-react';
+import {Button, Checkbox, Icon} from 'semantic-ui-react';
 import {ThreadContext} from './Thread';
 import {BoardContext} from '../board/Board';
 import {getApiRequest} from '../../helpers/api';
@@ -10,6 +10,7 @@ function ThreadUpdateButton() {
     const {thread, onNewPosts} = useContext(ThreadContext);
 
     const [status, setStatus] = useState('');
+    const [timer, setTimer] = useState(undefined);
 
     function checkForNewPosts() {
         setStatus('Updating...');
@@ -22,9 +23,20 @@ function ThreadUpdateButton() {
             .catch(() => setStatus('This thread was deleted'));
     }
 
+    function toggleTimer() {
+        if (timer) {
+            clearInterval(timer);
+            setTimer(undefined);
+        } else {
+            const handler = setInterval(checkForNewPosts, 5000);
+            setTimer(handler);
+        }
+    }
+
     return (
         <>
             <Button basic size='small' onClick={checkForNewPosts}><Icon name='refresh'/><strong>Update</strong></Button>
+            <Checkbox onChange={toggleTimer} label='Auto' toggle/>
             <em>&nbsp; {status}</em>
         </>
     );

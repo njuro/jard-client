@@ -46,7 +46,8 @@ function PostForm() {
     return (
         <Modal style={{paddingBottom: '10px'}}
                open={open}
-               trigger={<Button basic circular size='mini' icon='reply' onClick={() => setOpen(true)}/>}>
+               trigger={<Button basic circular size='mini' icon='reply' onClick={() => setOpen(true)}/>}
+               onClose={() => setOpen(false)}>
             <Modal.Content>
                 <Form onSubmit={handleSubmit} encType='multipart/form-data' error={errors !== undefined}>
                     <Header as='h4' dividing>Reply to thread</Header>
