@@ -30,7 +30,6 @@ function PostForm() {
 
         postApiRequest(THREAD_URL(thread, board) + '/reply', replyForm)
             .then(post => {
-                setOpen(false);
                 resetValues();
                 onNewPosts([post]);
             })
@@ -38,6 +37,7 @@ function PostForm() {
     }
 
     function resetValues() {
+        setOpen(false);
         setName('');
         setPassword('');
         setBody('');
