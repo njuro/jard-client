@@ -5,3 +5,4 @@ export const THREAD_URL = (thread, board) => BOARD_URL(board) + '/' + thread.ori
 export const USERS_URL = '/users';
 export const LOGIN_URL = '/login';
 export const LOGOUT_URL = '/logout';
+export const AUTH_URL = '/dashboard';
