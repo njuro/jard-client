@@ -1,55 +1,73 @@
-import React, {useContext, useState} from 'react';
-import {Form, Grid, Header, Segment} from 'semantic-ui-react';
-import {postApiRequest} from '../../helpers/api';
-import {Redirect} from 'react-router-dom';
-import FormErrors from '../utils/FormErrors';
-import {AuthContext} from '../App';
-import {LOGIN_URL} from '../../helpers/mappings';
+import React, { useContext, useState } from "react";
+import { Form, Grid, Header, Segment } from "semantic-ui-react";
+import { postApiRequest } from "../../helpers/api";
+import { Redirect } from "react-router-dom";
+import FormErrors from "../utils/FormErrors";
+import { AuthContext } from "../App";
+import { LOGIN_URL } from "../../helpers/mappings";
 
 function Login() {
-    const {user, setUser} = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const [loggedUser, setLoggedUser] = useState(undefined);
-    const [errors, setErrors] = useState(undefined);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [loggedUser, setLoggedUser] = useState(undefined);
+  const [errors, setErrors] = useState(undefined);
 
-    function handleSubmit(e) {
-        e.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
 
-        const loginForm = {username, password, rememberMe};
-        postApiRequest(LOGIN_URL, loginForm)
-            .then(user => setLoggedUser(user))
-            .catch(err => setErrors(err.response.data.errors));
-    }
+    const loginForm = { username, password, rememberMe };
+    postApiRequest(LOGIN_URL, loginForm)
+      .then(user => setLoggedUser(user))
+      .catch(err => setErrors(err.response.data.errors));
+  }
 
-    if (user) {
-        return <Redirect to='/'/>;
-    }
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
-    if (loggedUser) {
-        setUser(loggedUser);
-        return <Redirect to='/dashboard'/>;
-    }
+  if (loggedUser) {
+    setUser(loggedUser);
+    return <Redirect to="/dashboard" />;
+  }
 
-    return (
-        <Grid>
-            <Form onSubmit={handleSubmit} className={'six wide column centered'} error={errors !== undefined}>
-                <Segment>
-                    <Header as='h4' dividing>Login</Header>
-                    <Form.Input label='Username' placeholder='Username' value={username}
-                                onChange={e => setUsername(e.target.value)}/>
-                    <Form.Input label='Password' placeholder='Password' type='password' value={password}
-                                onChange={e => setPassword(e.target.value)}/>
-                    <Form.Checkbox label='Remember me' checked={rememberMe}
-                                   onChange={() => setRememberMe(!rememberMe)}/>
-                    <FormErrors errors={errors}/>
-                    <Form.Button fluid>Login</Form.Button>
-                </Segment>
-            </Form>
-        </Grid>
-    );
+  return (
+    <Grid>
+      <Form
+        onSubmit={handleSubmit}
+        className={"six wide column centered"}
+        error={errors !== undefined}
+      >
+        <Segment>
+          <Header as="h4" dividing>
+            Login
+          </Header>
+          <Form.Input
+            label="Username"
+            placeholder="Username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+          <Form.Input
+            label="Password"
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <Form.Checkbox
+            label="Remember me"
+            checked={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
+          />
+          <FormErrors errors={errors} />
+          <Form.Button fluid>Login</Form.Button>
+        </Segment>
+      </Form>
+    </Grid>
+  );
 }
 
 export default Login;
