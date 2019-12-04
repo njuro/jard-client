@@ -42,11 +42,18 @@ function MainMenu() {
         </Menu.Item>
       )}
       {user && (
-        <Menu.Item position="right">
-          <Link to="#">
-            <Button onClick={handleLogout}>Logout</Button>
-          </Link>
-        </Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Link to="/dashboard">
+              <Button>Dashboard</Button>
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="#">
+              <Button onClick={handleLogout}>Logout</Button>
+            </Link>
+          </Menu.Item>
+        </Menu.Menu>
       )}
     </Menu>
   );

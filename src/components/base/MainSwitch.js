@@ -6,6 +6,7 @@ import Login from "../user/Login";
 import Dashboard from "../dashboard/Dashboard";
 import NotFound from "../utils/NotFound";
 import { Route, Switch } from "react-router-dom";
+import ProtectedRoute from "../utils/ProtectedRoute";
 
 function MainSwitch() {
   return (
@@ -18,7 +19,7 @@ function MainSwitch() {
         component={ThreadWrapper}
       />
       <Route exact path="/login" component={Login} />
-      <Route path="/dashboard" component={Dashboard} />
+      <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   );

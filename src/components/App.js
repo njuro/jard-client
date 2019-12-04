@@ -10,13 +10,16 @@ export const AuthContext = createContext({});
 
 function App() {
   const [user, setUser] = useState(undefined);
+  const [userLoading, setUserLoading] = useState(true);
 
   useEffect(() => {
-    getApiRequest(USERS_URL + "/current").then(setUser);
+    getApiRequest(USERS_URL + "/current")
+      .then(setUser)
+      .finally(() => setUserLoading(false));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, userLoading }}>
       <Router>
         <nav>
           <MainMenu />
