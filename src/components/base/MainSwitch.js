@@ -3,11 +3,11 @@ import Home from "./Home";
 import Board from "../board/Board";
 import ThreadWrapper from "../thread/ThreadWrapper";
 import Login from "../user/Login";
-import Dashboard from "../user/auth/Dashboard";
+import Dashboard from "../dashboard/Dashboard";
 import NotFound from "../utils/NotFound";
 import { Route, Switch } from "react-router-dom";
 
-function RouteSwitch() {
+function MainSwitch() {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
@@ -24,4 +24,4 @@ function RouteSwitch() {
   );
 }
 
-export default RouteSwitch;
+export default MainSwitch;

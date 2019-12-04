@@ -5,7 +5,7 @@ import { AuthContext } from "../App";
 import { getApiRequest, postApiRequest } from "../../helpers/api";
 import { BOARDS_URL, LOGOUT_URL } from "../../helpers/mappings";
 
-function TopMenu() {
+function MainMenu() {
   const { user, setUser } = useContext(AuthContext);
   const [boards, setBoards] = useState([]);
 
@@ -52,4 +52,4 @@ function TopMenu() {
   );
 }
 
-export default TopMenu;
+export default MainMenu;

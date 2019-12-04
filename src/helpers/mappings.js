@@ -6,4 +6,4 @@ export const THREAD_URL = (thread, board) =>
 export const USERS_URL = "/users";
 export const LOGIN_URL = "/login";
 export const LOGOUT_URL = "/logout";
-export const AUTH_URL = "/dashboard";
+export const DASHBOARD_URL = "/dashboard";

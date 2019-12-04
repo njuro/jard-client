@@ -2,8 +2,8 @@ import React, { createContext, useEffect, useState } from "react";
 
 import { getApiRequest } from "../helpers/api";
 import { BrowserRouter as Router } from "react-router-dom";
-import TopMenu from "./base/TopMenu";
-import RouteSwitch from "./base/RouteSwitch";
+import MainMenu from "./base/MainMenu";
+import MainSwitch from "./base/MainSwitch";
 import { USERS_URL } from "../helpers/mappings";
 
 export const AuthContext = createContext({});
@@ -19,10 +19,10 @@ function App() {
     <AuthContext.Provider value={{ user, setUser }}>
       <Router>
         <nav>
-          <TopMenu />
+          <MainMenu />
         </nav>
         <main>
-          <RouteSwitch />
+          <MainSwitch />
         </main>
       </Router>
     </AuthContext.Provider>
