@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import FormErrors from "../utils/FormErrors";
 import { USERS_URL } from "../../helpers/mappings";
 
-function Register() {
+function UserForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeated, setPasswordRepeated] = useState("");
@@ -70,4 +70,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default UserForm;
