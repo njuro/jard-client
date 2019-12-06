@@ -4,6 +4,7 @@ import FormErrors from "../utils/FormErrors";
 import { getApiRequest, postApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { Redirect } from "react-router-dom";
+import { objectToDropdownItems } from "../../helpers/forms";
 
 function BoardForm(props) {
   const [label, setLabel] = useState("");
@@ -17,13 +18,7 @@ function BoardForm(props) {
   useEffect(() => {
     getApiRequest(BOARDS_URL + "/types").then(types =>
       setAttachmentTypes(
-        types.map(type => {
-          return {
-            key: type.name,
-            text: type.description,
-            value: type.name
-          };
-        })
+        types.map(type => objectToDropdownItems(type.name, type.description))
       )
     );
   }, []);

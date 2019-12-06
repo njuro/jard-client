@@ -3,3 +3,7 @@ export function objectToFormData(data) {
     type: "application/json"
   });
 }
+
+export function objectToDropdownItems(value, description) {
+  return { key: value, text: description, value: value };
+}
