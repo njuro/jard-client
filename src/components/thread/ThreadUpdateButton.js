@@ -14,13 +14,18 @@ function ThreadUpdateButton() {
 
   function checkForNewPosts() {
     setStatus("Updating...");
-    const lastPostNumber = thread.posts[thread.posts.length - 1].postNumber;
+    const lastPostNumber =
+      thread.replies.length > 0
+        ? thread.replies[thread.replies.length - 1].postNumber
+        : thread.originalPost.postNumber;
     getApiRequest(
       THREAD_URL(thread, board) + `/update?lastPost=${lastPostNumber}`
     )
       .then(res => {
         setStatus(
-          res.length > 0 ? `Fetched ${res.length} new post(s)` : "No new posts"
+          res.length > 0
+            ? `Fetched ${res.length} new post(s)`
+            : "No new replies"
         );
         onNewPosts(res);
       })

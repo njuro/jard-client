@@ -11,11 +11,9 @@ function Thread({ thread: initialThread }) {
 
   const updateThread = useUpdater();
 
-  const isOP = postNumber => postNumber === thread.originalPost.postNumber;
-
   function onNewPosts(posts) {
     if (posts.length > 0) {
-      posts.forEach(post => thread.posts.push(post));
+      posts.forEach(post => thread.replies.push(post));
       updateThread();
     }
   }
@@ -31,11 +29,11 @@ function Thread({ thread: initialThread }) {
   }
 
   function onDeletePost(postNumber) {
-    if (isOP(postNumber)) {
+    if (postNumber === thread.originalPost.postNumber) {
       setThread(undefined);
     } else {
-      thread.posts = thread.posts.filter(
-        post => post.postNumber !== postNumber
+      thread.replies = thread.replies.filter(
+        reply => reply.postNumber !== postNumber
       );
       updateThread();
     }
@@ -54,12 +52,9 @@ function Thread({ thread: initialThread }) {
         }}
       >
         <Item.Group divided className="thread">
-          {thread.posts.map(post => (
-            <Post
-              key={post.postNumber}
-              post={post}
-              isOP={isOP(post.postNumber)}
-            />
+          <Post post={thread.originalPost} isOP={true} />
+          {thread.replies.map(post => (
+            <Post key={post.postNumber} post={post} isOP={false} />
           ))}
         </Item.Group>
         <ThreadUpdateButton />
