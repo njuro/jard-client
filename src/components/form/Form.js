@@ -8,7 +8,7 @@ function Form({ children, onSubmit, ...rest }) {
   const { register, setValue, handleSubmit } = useForm();
 
   return (
-    <FormContext.Provider value={{ register, setValue, handleSubmit }}>
+    <FormContext.Provider value={{ register, setValue }}>
       <SemanticForm onSubmit={handleSubmit(onSubmit)} {...rest}>
         {children}
       </SemanticForm>

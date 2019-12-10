@@ -3,7 +3,7 @@ import { FormContext } from "./Form";
 import { RHFInput } from "react-hook-form-input";
 import { Form as SemanticForm } from "semantic-ui-react";
 
-function TextInput({ name, label, placeholder, ...rest }) {
+function TextInput({ name, label, placeholder, rules, ...rest }) {
   const { register, setValue } = useContext(FormContext);
 
   return (
@@ -15,6 +15,7 @@ function TextInput({ name, label, placeholder, ...rest }) {
       name={name}
       register={register}
       setValue={setValue}
+      rules={rules}
     />
   );
 }
