@@ -1,23 +1,18 @@
-import React, { useContext } from "react";
-import { FormContext } from "./Form";
+import React from "react";
 import { RHFInput } from "react-hook-form-input";
 import { Form as SemanticForm } from "semantic-ui-react";
 
-function Checkbox({ name, label, ...rest }) {
-  const { register, setValue } = useContext(FormContext);
-
+function Checkbox({ name, ...rest }) {
   function handleChange([, props]) {
     return { checked: props.checked };
   }
 
   return (
     <RHFInput
-      as={<SemanticForm.Checkbox label={label} {...rest} />}
+      as={<SemanticForm.Checkbox {...rest} />}
       name={name}
       value={name}
       type="checkbox"
-      register={register}
-      setValue={setValue}
       onChangeEvent={handleChange}
     />
   );

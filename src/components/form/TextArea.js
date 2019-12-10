@@ -2,10 +2,10 @@ import React from "react";
 import { RHFInput } from "react-hook-form-input";
 import { Form as SemanticForm } from "semantic-ui-react";
 
-function TextInput({ name, rules, ...rest }) {
+function TextArea({ name, rules, ...rest }) {
   return (
     <RHFInput
-      as={<SemanticForm.Input {...rest} />}
+      as={<SemanticForm.TextArea {...rest} />}
       defaultValue=""
       name={name}
       rules={rules}
@@ -13,4 +13,4 @@ function TextInput({ name, rules, ...rest }) {
   );
 }
 
-export default TextInput;
+export default TextArea;
