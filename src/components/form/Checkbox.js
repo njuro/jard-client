@@ -14,6 +14,7 @@ function Checkbox({ name, label, ...rest }) {
     <RHFInput
       as={<SemanticForm.Checkbox label={label} {...rest} />}
       name={name}
+      value={name}
       type="checkbox"
       register={register}
       setValue={setValue}
