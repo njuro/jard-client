@@ -2,7 +2,7 @@ import React from "react";
 import Home from "./Home";
 import Board from "../board/Board";
 import ThreadWrapper from "../thread/ThreadWrapper";
-import Login from "../user/Login";
+import LoginForm from "../user/LoginForm";
 import Dashboard from "../dashboard/Dashboard";
 import NotFound from "../utils/NotFound";
 import { Route, Switch } from "react-router-dom";
@@ -18,7 +18,7 @@ function MainSwitch() {
         path="/boards/:label/:threadNumber"
         component={ThreadWrapper}
       />
-      <Route exact path="/login" component={Login} />
+      <Route exact path="/login" component={LoginForm} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>

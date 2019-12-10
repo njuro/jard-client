@@ -1,24 +1,18 @@
 import React, { useContext, useState } from "react";
-import { Form, Grid, Header, Segment } from "semantic-ui-react";
+import { Grid, Header, Segment } from "semantic-ui-react";
 import { postApiRequest } from "../../helpers/api";
 import { Redirect } from "react-router-dom";
-import FormErrors from "../utils/FormErrors";
 import { AuthContext } from "../App";
 import { LOGIN_URL } from "../../helpers/mappings";
+import Form, { Button, Checkbox, FormErrors, TextInput } from "../form/Form";
 
-function Login() {
+function LoginForm() {
   const { user, setUser } = useContext(AuthContext);
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [loggedUser, setLoggedUser] = useState(undefined);
   const [errors, setErrors] = useState(undefined);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const loginForm = { username, password, rememberMe };
+  function handleSubmit(loginForm) {
     postApiRequest(LOGIN_URL, loginForm)
       .then(user => setLoggedUser(user))
       .catch(err => setErrors(err.response.data.errors));
@@ -44,30 +38,20 @@ function Login() {
           <Header as="h4" dividing>
             Login
           </Header>
-          <Form.Input
-            label="Username"
-            placeholder="Username"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-          />
-          <Form.Input
+          <TextInput name="username" label="Username" placeholder="Username" />
+          <TextInput
+            name="password"
             label="Password"
             placeholder="Password"
             type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
           />
-          <Form.Checkbox
-            label="Remember me"
-            checked={rememberMe}
-            onChange={() => setRememberMe(!rememberMe)}
-          />
+          <Checkbox name="rememberMe" label="Remember me" />
           <FormErrors errors={errors} />
-          <Form.Button fluid>Login</Form.Button>
+          <Button fluid>Login</Button>
         </Segment>
       </Form>
     </Grid>
   );
 }
 
-export default Login;
+export default LoginForm;

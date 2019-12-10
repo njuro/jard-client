@@ -1,48 +1,31 @@
 import React, { useContext, useState } from "react";
 import { postApiRequest } from "../../helpers/api";
-import { Button, Form, Header, Modal } from "semantic-ui-react";
-import FormErrors from "../utils/FormErrors";
+import { Button, Form as SemanticForm, Header, Modal } from "semantic-ui-react";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
 import { objectToFormData } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
+import Form, { Button as FormButton, FileInput, FormErrors, TextArea, TextInput } from "../form/Form";
 
 function PostForm() {
   const board = useContext(BoardContext);
   const { thread, onNewPosts } = useContext(ThreadContext);
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [body, setBody] = useState("");
   const [attachment, setAttachment] = useState(undefined);
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState(undefined);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const post = {
-      name,
-      password,
-      body
-    };
+  function handleSubmit(post) {
     const replyForm = new FormData();
     replyForm.append("postForm", objectToFormData(post));
     replyForm.append("attachment", attachment);
 
     postApiRequest(THREAD_URL(thread, board) + "/reply", replyForm)
       .then(post => {
-        resetValues();
+        setOpen(false);
         onNewPosts([post]);
       })
       .catch(err => setErrors(err.response.data.errors));
-  }
-
-  function resetValues() {
-    setOpen(false);
-    setName("");
-    setPassword("");
-    setBody("");
   }
 
   return (
@@ -69,36 +52,24 @@ function PostForm() {
           <Header as="h4" dividing>
             Reply to thread
           </Header>
-          <Form.Group widths="equal">
-            <Form.Input
+          <SemanticForm.Group widths="equal">
+            <TextInput fluid name="name" label="Name" placeholder="Name" />
+            <TextInput
               fluid
-              label="Name"
-              placeholder="Name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-            <Form.Input
-              fluid
+              name="password"
               label="Tripcode password"
               placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
             />
-          </Form.Group>
-          <Form.TextArea
-            label="Comment"
-            rows="8"
-            value={body}
-            onChange={e => setBody(e.target.value)}
-          />
-          <Form.Input
+          </SemanticForm.Group>
+          <TextArea name="body" label="Comment" rows="8" />
+          <FileInput
+            name="attachment"
             label="Upload image"
-            type="file"
             accept="image/*"
-            onChange={e => setAttachment(e.target.files[0])}
+            onFileUpload={setAttachment}
           />
           <FormErrors errors={errors} />
-          <Form.Button floated="right">Submit post</Form.Button>
+          <FormButton floated="right">Submit post</FormButton>
         </Form>
       </Modal.Content>
     </Modal>

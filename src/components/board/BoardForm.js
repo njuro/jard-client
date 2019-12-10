@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Form, Header, Segment } from "semantic-ui-react";
-import FormErrors from "../utils/FormErrors";
+import { Header, Segment } from "semantic-ui-react";
 import { getApiRequest, postApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { Redirect } from "react-router-dom";
 import { objectToDropdownItems } from "../../helpers/forms";
+import Form, {
+  Button,
+  Checkbox,
+  FormErrors,
+  Select,
+  TextInput
+} from "../form/Form";
 
 function BoardForm(props) {
-  const [label, setLabel] = useState("");
-  const [name, setName] = useState("");
   const [attachmentTypes, setAttachmentTypes] = useState([]);
-  const [attachmentType, setAttachmentType] = useState(undefined);
-  const [nsfw, setNsfw] = useState(false);
   const [createdBoard, setCreatedBoard] = useState(undefined);
   const [errors, setErrors] = useState(undefined);
 
@@ -23,10 +25,7 @@ function BoardForm(props) {
     );
   }, []);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const boardForm = { label, name, attachmentType, nsfw };
+  function handleSubmit(boardForm) {
     postApiRequest(BOARDS_URL, boardForm)
       .then(setCreatedBoard)
       .catch(err => setErrors(err.response.data.errors));
@@ -46,33 +45,17 @@ function BoardForm(props) {
         <Header as="h4" dividing>
           Create new board
         </Header>
-        <Form.Input
-          label="Label"
-          placeholder="Label"
-          value={label}
-          onChange={e => setLabel(e.target.value)}
-          required
-        />
-        <Form.Input
-          label="Name"
-          placeholder="Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required
-        />
-        <Form.Select
+        <TextInput name="label" label="Label" placeholder="Label" required />
+        <TextInput name="name" label="Name" placeholder="Name" required />
+        <Select
+          name="attachmentType"
           label="Allowed attachment types"
           options={attachmentTypes}
-          onChange={(e, { value }) => setAttachmentType(value)}
           required
         />
-        <Form.Checkbox
-          label="NSFW"
-          checked={nsfw}
-          onChange={() => setNsfw(!nsfw)}
-        />
+        <Checkbox name="nsfw" label="NSFW" />
         <FormErrors errors={errors} />
-        <Form.Button fluid>Create board</Form.Button>
+        <Button fluid>Create board</Button>
       </Segment>
     </Form>
   );
