@@ -5,7 +5,13 @@ import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
 import { objectToFormData } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
-import Form, { Button as FormButton, FileInput, FormErrors, TextArea, TextInput } from "../form/Form";
+import Form, {
+  Button as FormButton,
+  FileInput,
+  FormErrors,
+  TextArea,
+  TextInput
+} from "../form/Form";
 
 function PostForm() {
   const board = useContext(BoardContext);
