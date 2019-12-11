@@ -1,3 +1,4 @@
+export const USER_URL = user => USERS_URL + "/" + user.username;
 export const BOARDS_URL = "/boards";
 export const BOARD_URL = board => BOARDS_URL + "/" + board.label;
 export const THREAD_URL = (thread, board) =>
