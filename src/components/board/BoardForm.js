@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Header, Icon, Modal, Segment } from "semantic-ui-react";
-import { getApiRequest, postApiRequest } from "../../helpers/api";
+import { Header, Modal } from "semantic-ui-react";
+import { getApiRequest, putApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { Redirect } from "react-router-dom";
 import { objectToDropdownItems } from "../../helpers/forms";
@@ -28,7 +28,7 @@ function BoardForm({ trigger, value: board }) {
 
   function handleSubmit(boardForm) {
     const url = isEdit ? BOARD_URL(board) + "/edit" : BOARDS_URL;
-    postApiRequest(url, boardForm)
+    putApiRequest(url, boardForm)
       .then(setCreatedBoard)
       .catch(err => setErrors(err.response.data.errors));
   }

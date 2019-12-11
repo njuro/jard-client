@@ -1,13 +1,8 @@
 import React, { useContext } from "react";
 import PostForm from "./PostForm";
 import { Button, Icon } from "semantic-ui-react";
-import { postApiRequest } from "../../helpers/api";
-import {
-  DELETE_POST,
-  TOGGLE_LOCK_THREAD,
-  TOGGLE_STICKY_THREAD,
-  useAuthority
-} from "../../helpers/authorities";
+import { deleteApiRequest, postApiRequest } from "../../helpers/api";
+import { DELETE_POST, TOGGLE_LOCK_THREAD, TOGGLE_STICKY_THREAD, useAuthority } from "../../helpers/authorities";
 import { ThreadContext } from "../thread/Thread";
 import { BoardContext } from "../board/Board";
 import { THREAD_URL } from "../../helpers/mappings";
@@ -27,9 +22,9 @@ function PostActions({ post, isOP }) {
   }
 
   function deletePost() {
-    postApiRequest(
-      THREAD_URL(thread, board) + `/delete/${post.postNumber}`
-    ).then(onDeletePost(post.postNumber));
+    deleteApiRequest(THREAD_URL(thread, board) + "/" + post.postNumber).then(
+      onDeletePost(post.postNumber)
+    );
   }
 
   return (

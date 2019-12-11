@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
-import { postApiRequest } from "../../helpers/api";
-import { Button, Form as SemanticForm, Header, Modal } from "semantic-ui-react";
+import { putApiRequest } from "../../helpers/api";
+import {
+  Button as SemanticButton,
+  Form as SemanticForm,
+  Header,
+  Modal
+} from "semantic-ui-react";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
 import { objectToFormData } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
 import Form, {
-  Button as FormButton,
+  Button,
   FileInput,
   FormErrors,
   TextArea,
@@ -26,9 +31,10 @@ function PostForm() {
     replyForm.append("postForm", objectToFormData(post));
     replyForm.append("attachment", attachment);
 
-    postApiRequest(THREAD_URL(thread, board) + "/reply", replyForm)
+    putApiRequest(THREAD_URL(thread, board), replyForm)
       .then(post => {
         setOpen(false);
+        // TODO click update button
         onNewPosts([post]);
       })
       .catch(err => setErrors(err.response.data.errors));
@@ -39,7 +45,7 @@ function PostForm() {
       style={{ paddingBottom: "10px" }}
       open={open}
       trigger={
-        <Button
+        <SemanticButton
           basic
           circular
           size="mini"
@@ -75,7 +81,7 @@ function PostForm() {
             onFileUpload={setAttachment}
           />
           <FormErrors errors={errors} />
-          <FormButton floated="right">Submit post</FormButton>
+          <Button floated="right">Submit post</Button>
         </Form>
       </Modal.Content>
     </Modal>

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Form as SemanticForm, Header, Icon, Modal } from "semantic-ui-react";
-import { postApiRequest } from "../../helpers/api";
+import { putApiRequest } from "../../helpers/api";
 import { Redirect } from "react-router-dom";
 import Form, {
   Button,
@@ -25,7 +25,7 @@ function ThreadForm() {
     threadForm.append("threadForm", objectToFormData(thread));
     threadForm.append("attachment", attachment);
 
-    postApiRequest(BOARD_URL(board) + "/submit", threadForm)
+    putApiRequest(BOARD_URL(board), threadForm)
       .then(thread => setCreatedThread(thread))
       .catch(err => setErrors(err.response.data.errors));
   }

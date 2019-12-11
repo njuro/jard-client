@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from "react";
-import {
-  Checkbox,
-  Icon,
-  Popup,
-  Table,
-  Button,
-  Confirm
-} from "semantic-ui-react";
-import { getApiRequest, postApiRequest } from "../../helpers/api";
+import React, { useEffect, useState } from "react";
+import { Button, Checkbox, Confirm, Icon, Popup, Table } from "semantic-ui-react";
+import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import BoardForm from "./BoardForm";
 
@@ -23,7 +16,7 @@ function BoardAdmin(props) {
   }
 
   function deleteBoard(board) {
-    postApiRequest(BOARD_URL(board) + "/delete").then(fetchBoards);
+    deleteApiRequest(BOARD_URL(board)).then(fetchBoards);
   }
 
   const createBoardButton = () => (

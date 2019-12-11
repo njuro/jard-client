@@ -5,12 +5,29 @@ const client = axios.create({
   withCredentials: true
 });
 
-export function postApiRequest(url, body = {}) {
-  return client.post(url, body).then(res => res.data);
-}
-
 export function getApiRequest(url) {
-  return client.get(url).then(res => res.data);
+  return makeRequest("GET", url);
 }
 
+export function postApiRequest(url, body = {}) {
+  return makeRequest("POST", url, body);
+}
+
+export function putApiRequest(url, body = {}) {
+  return makeRequest("PUT", url, body);
+}
+
+export function deleteApiRequest(url) {
+  return makeRequest("DELETE", url);
+}
+
+function makeRequest(method, url, body = {}) {
+  return client
+    .request({
+      method: method,
+      url: url,
+      data: body
+    })
+    .then(res => res.data);
+}
 export default client;

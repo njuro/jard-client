@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { postApiRequest } from "../../helpers/api";
+import { putApiRequest } from "../../helpers/api";
 import { Header, Segment } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
 import { USERS_URL } from "../../helpers/mappings";
@@ -10,7 +10,7 @@ function UserForm() {
   const [errors, setErrors] = useState(undefined);
 
   function handleSubmit(registerForm) {
-    postApiRequest(USERS_URL + "/create", registerForm)
+    putApiRequest(USERS_URL, registerForm)
       .then(setRegisteredUser)
       .catch(err => setErrors(err.response.data.errors));
   }

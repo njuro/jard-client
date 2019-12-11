@@ -19,7 +19,7 @@ function ThreadUpdateButton() {
         ? thread.replies[thread.replies.length - 1].postNumber
         : thread.originalPost.postNumber;
     getApiRequest(
-      THREAD_URL(thread, board) + `/update?lastPost=${lastPostNumber}`
+      THREAD_URL(thread, board) + `/new-posts?lastPost=${lastPostNumber}`
     )
       .then(res => {
         setStatus(
