@@ -13,6 +13,7 @@ import Form, {
 } from "../form/Form";
 
 function BoardForm({ trigger, value: board }) {
+  const isEdit = !!board;
   const [attachmentTypes, setAttachmentTypes] = useState([]);
   const [createdBoard, setCreatedBoard] = useState(undefined);
   const [errors, setErrors] = useState(undefined);
@@ -26,7 +27,7 @@ function BoardForm({ trigger, value: board }) {
   }, []);
 
   function handleSubmit(boardForm) {
-    const url = board ? BOARD_URL(board) + "/edit" : BOARDS_URL;
+    const url = isEdit ? BOARD_URL(board) + "/edit" : BOARDS_URL;
     postApiRequest(url, boardForm)
       .then(setCreatedBoard)
       .catch(err => setErrors(err.response.data.errors));
@@ -36,7 +37,7 @@ function BoardForm({ trigger, value: board }) {
     return <Redirect to={BOARD_URL(createdBoard)} />;
   }
 
-  const defaultValues = board
+  const defaultValues = isEdit
     ? {
         label: board.label,
         name: board.name,
@@ -54,9 +55,15 @@ function BoardForm({ trigger, value: board }) {
           defaultValues={defaultValues}
         >
           <Header as="h4" dividing>
-            {board ? `Edit board /${board.label}/` : "Create new board"}
+            {isEdit ? `Edit board /${board.label}/` : "Create new board"}
           </Header>
-          <TextInput name="label" label="Label" placeholder="Label" required />
+          <TextInput
+            name="label"
+            label="Label"
+            placeholder="Label"
+            required
+            disabled={isEdit}
+          />
           <TextInput name="name" label="Name" placeholder="Name" required />
           <Select
             name="attachmentType"
@@ -66,7 +73,7 @@ function BoardForm({ trigger, value: board }) {
           />
           <Checkbox name="nsfw" label="NSFW" />
           <FormErrors errors={errors} />
-          <Button fluid>{board ? "Update board" : "Create board"}</Button>
+          <Button fluid>{isEdit ? "Update board" : "Create board"}</Button>
         </Form>
       </Modal.Content>
     </Modal>
