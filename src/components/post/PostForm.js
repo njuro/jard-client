@@ -1,26 +1,15 @@
 import React, { useContext, useState } from "react";
 import { putApiRequest } from "../../helpers/api";
-import {
-  Button as SemanticButton,
-  Form as SemanticForm,
-  Header,
-  Modal
-} from "semantic-ui-react";
+import { Button as SemanticButton, Form as SemanticForm, Header, Modal } from "semantic-ui-react";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
 import { objectToFormData } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
-import Form, {
-  Button,
-  FileInput,
-  FormErrors,
-  TextArea,
-  TextInput
-} from "../form/Form";
+import Form, { Button, FileInput, FormErrors, TextArea, TextInput } from "../form/Form";
 
 function PostForm() {
   const board = useContext(BoardContext);
-  const { thread, onNewPosts } = useContext(ThreadContext);
+  const { thread, triggerThreadUpdateButton } = useContext(ThreadContext);
 
   const [attachment, setAttachment] = useState(undefined);
   const [open, setOpen] = useState(false);
@@ -32,10 +21,9 @@ function PostForm() {
     replyForm.append("attachment", attachment);
 
     putApiRequest(THREAD_URL(thread, board), replyForm)
-      .then(post => {
+      .then(() => {
         setOpen(false);
-        // TODO click update button
-        onNewPosts([post]);
+        triggerThreadUpdateButton();
       })
       .catch(err => setErrors(err.response.data.errors));
   }

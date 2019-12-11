@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 import { Item } from "semantic-ui-react";
 import Post from "../post/Post";
 import useUpdater from "../../helpers/updater";
@@ -8,8 +8,13 @@ export const ThreadContext = createContext();
 
 function Thread({ thread: initialThread }) {
   const [thread, setThread] = useState(initialThread);
+  const threadUpdateButtonRef = useRef(undefined);
 
   const updateThread = useUpdater();
+
+  function triggerThreadUpdateButton() {
+    threadUpdateButtonRef.current.click();
+  }
 
   function onNewPosts(posts) {
     if (posts.length > 0) {
@@ -48,7 +53,8 @@ function Thread({ thread: initialThread }) {
           onNewPosts,
           onToggleSticky,
           onToggleLock,
-          onDeletePost
+          onDeletePost,
+          triggerThreadUpdateButton
         }}
       >
         <Item.Group divided className="thread">
@@ -57,7 +63,7 @@ function Thread({ thread: initialThread }) {
             <Post key={post.postNumber} post={post} isOP={false} />
           ))}
         </Item.Group>
-        <ThreadUpdateButton />
+        <ThreadUpdateButton ref={threadUpdateButtonRef} />
       </ThreadContext.Provider>
     )) || (
       <p>

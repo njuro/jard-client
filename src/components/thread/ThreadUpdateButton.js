@@ -4,8 +4,9 @@ import { ThreadContext } from "./Thread";
 import { BoardContext } from "../board/Board";
 import { getApiRequest } from "../../helpers/api";
 import { THREAD_URL } from "../../helpers/mappings";
+import { Ref } from "@stardust-ui/react-component-ref";
 
-function ThreadUpdateButton() {
+const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   const board = useContext(BoardContext);
   const { thread, onNewPosts } = useContext(ThreadContext);
 
@@ -44,14 +45,16 @@ function ThreadUpdateButton() {
 
   return (
     <>
-      <Button basic size="small" onClick={checkForNewPosts}>
-        <Icon name="refresh" />
-        <strong>Update</strong>
-      </Button>
+      <Ref innerRef={threadUpdateButtonRef}>
+        <Button basic size="small" onClick={checkForNewPosts}>
+          <Icon name="refresh" />
+          <strong>Update</strong>
+        </Button>
+      </Ref>
       <Checkbox onChange={toggleTimer} label="Auto" toggle />
       <em>&nbsp; {status}</em>
     </>
   );
-}
+});
 
 export default ThreadUpdateButton;
