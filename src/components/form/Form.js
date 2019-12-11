@@ -2,8 +2,10 @@ import React from "react";
 import useForm, { FormContext } from "react-hook-form";
 import { Form as SemanticForm } from "semantic-ui-react";
 
-function Form({ children, onSubmit, ...rest }) {
-  const methods = useForm();
+function Form({ children, onSubmit, defaultValues = {}, ...rest }) {
+  const methods = useForm({
+    defaultValues: defaultValues
+  });
   const { handleSubmit } = methods;
 
   return (

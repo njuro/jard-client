@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Header, Segment } from "semantic-ui-react";
+import { Header, Icon, Modal, Segment } from "semantic-ui-react";
 import { getApiRequest, postApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { Redirect } from "react-router-dom";
@@ -12,7 +12,7 @@ import Form, {
   TextInput
 } from "../form/Form";
 
-function BoardForm(props) {
+function BoardForm({ trigger, value: board }) {
   const [attachmentTypes, setAttachmentTypes] = useState([]);
   const [createdBoard, setCreatedBoard] = useState(undefined);
   const [errors, setErrors] = useState(undefined);
@@ -26,7 +26,8 @@ function BoardForm(props) {
   }, []);
 
   function handleSubmit(boardForm) {
-    postApiRequest(BOARDS_URL, boardForm)
+    const url = board ? BOARD_URL(board) + "/edit" : BOARDS_URL;
+    postApiRequest(url, boardForm)
       .then(setCreatedBoard)
       .catch(err => setErrors(err.response.data.errors));
   }
@@ -35,29 +36,40 @@ function BoardForm(props) {
     return <Redirect to={BOARD_URL(createdBoard)} />;
   }
 
+  const defaultValues = board
+    ? {
+        label: board.label,
+        name: board.name,
+        nsfw: board.nsfw,
+        attachmentType: board.attachmentType
+      }
+    : {};
+
   return (
-    <Form
-      onSubmit={handleSubmit}
-      className={"six wide column centered"}
-      error={errors !== undefined}
-    >
-      <Segment>
-        <Header as="h4" dividing>
-          Create new board
-        </Header>
-        <TextInput name="label" label="Label" placeholder="Label" required />
-        <TextInput name="name" label="Name" placeholder="Name" required />
-        <Select
-          name="attachmentType"
-          label="Allowed attachment types"
-          options={attachmentTypes}
-          required
-        />
-        <Checkbox name="nsfw" label="NSFW" />
-        <FormErrors errors={errors} />
-        <Button fluid>Create board</Button>
-      </Segment>
-    </Form>
+    <Modal style={{ paddingBottom: "10px" }} trigger={trigger}>
+      <Modal.Content>
+        <Form
+          onSubmit={handleSubmit}
+          error={!!errors}
+          defaultValues={defaultValues}
+        >
+          <Header as="h4" dividing>
+            {board ? `Edit board /${board.label}/` : "Create new board"}
+          </Header>
+          <TextInput name="label" label="Label" placeholder="Label" required />
+          <TextInput name="name" label="Name" placeholder="Name" required />
+          <Select
+            name="attachmentType"
+            label="Allowed attachment types"
+            options={attachmentTypes}
+            required
+          />
+          <Checkbox name="nsfw" label="NSFW" />
+          <FormErrors errors={errors} />
+          <Button fluid>{board ? "Update board" : "Create board"}</Button>
+        </Form>
+      </Modal.Content>
+    </Modal>
   );
 }
 
