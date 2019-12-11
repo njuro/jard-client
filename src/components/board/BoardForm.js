@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Header, Modal } from "semantic-ui-react";
-import { getApiRequest, putApiRequest } from "../../helpers/api";
+import { getApiRequest, postApiRequest, putApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { Redirect } from "react-router-dom";
 import { objectToDropdownItems } from "../../helpers/forms";
-import Form, {
-  Button,
-  Checkbox,
-  FormErrors,
-  Select,
-  TextInput
-} from "../form/Form";
+import Form, { Button, Checkbox, FormErrors, Select, TextInput } from "../form/Form";
 
 function BoardForm({ trigger, value: board }) {
   const isEdit = !!board;
   const [attachmentTypes, setAttachmentTypes] = useState([]);
-  const [createdBoard, setCreatedBoard] = useState(undefined);
+  const [updatedBoard, setUpdatedBoard] = useState(undefined);
   const [errors, setErrors] = useState(undefined);
 
   useEffect(() => {
@@ -27,14 +21,16 @@ function BoardForm({ trigger, value: board }) {
   }, []);
 
   function handleSubmit(boardForm) {
-    const url = isEdit ? BOARD_URL(board) + "/edit" : BOARDS_URL;
-    putApiRequest(url, boardForm)
-      .then(setCreatedBoard)
+    const response = isEdit
+      ? postApiRequest(BOARD_URL(board) + "/edit", boardForm)
+      : putApiRequest(BOARDS_URL, boardForm);
+    response
+      .then(setUpdatedBoard)
       .catch(err => setErrors(err.response.data.errors));
   }
 
-  if (createdBoard) {
-    return <Redirect to={BOARD_URL(createdBoard)} />;
+  if (updatedBoard) {
+    return <Redirect to={BOARD_URL(updatedBoard)} />;
   }
 
   const defaultValues = isEdit
