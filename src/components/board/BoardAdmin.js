@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Icon, Popup, Table, Button } from "semantic-ui-react";
-import { getApiRequest } from "../../helpers/api";
-import { BOARDS_URL } from "../../helpers/mappings";
+import {
+  Checkbox,
+  Icon,
+  Popup,
+  Table,
+  Button,
+  Confirm
+} from "semantic-ui-react";
+import { getApiRequest, postApiRequest } from "../../helpers/api";
+import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import BoardForm from "./BoardForm";
 
 function BoardAdmin(props) {
   const [boards, setBoards] = useState([]);
 
   useEffect(() => {
-    getApiRequest(BOARDS_URL).then(setBoards);
+    fetchBoards();
   }, []);
+
+  function fetchBoards() {
+    getApiRequest(BOARDS_URL).then(setBoards);
+  }
+
+  function deleteBoard(board) {
+    postApiRequest(BOARD_URL(board) + "/delete").then(fetchBoards);
+  }
 
   const createBoardButton = () => (
     <BoardForm
@@ -61,13 +76,22 @@ function BoardAdmin(props) {
                       }
                       value={board}
                     />
-                    <Button basic icon>
-                      <Popup
-                        content="Delete"
-                        position="top left"
-                        trigger={<Icon name="trash alternate outline" />}
-                      />
-                    </Button>
+                    <Confirm
+                      trigger={
+                        <Button basic icon>
+                          <Popup
+                            content="Delete"
+                            position="top left"
+                            trigger={<Icon name="trash alternate outline" />}
+                          />
+                        </Button>
+                      }
+                      header="Delete board"
+                      content={`Are you sure you want to delete board /${board.label}/?`}
+                      confirmButton="Yes"
+                      onConfirm={() => deleteBoard(board)}
+                      // TODO fix cancel button not closing dialog
+                    />
                   </Button.Group>
                 </Table.Cell>
               </Table.Row>
