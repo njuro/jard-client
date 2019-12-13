@@ -8,12 +8,12 @@ import { Ref } from "@stardust-ui/react-component-ref";
 
 const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   const board = useContext(BoardContext);
-  const { thread, onNewPosts } = useContext(ThreadContext);
+  const { thread, refreshThread } = useContext(ThreadContext);
 
   const [status, setStatus] = useState("");
   const [timer, setTimer] = useState(undefined);
 
-  function checkForNewPosts() {
+  function checkForNewReplies() {
     setStatus("Updating...");
     const lastPostNumber =
       thread.replies.length > 0
@@ -22,15 +22,30 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
     getApiRequest(
       THREAD_URL(thread, board) + `/new-replies?lastPost=${lastPostNumber}`
     )
-      .then(res => {
+      .then(replies => {
         setStatus(
-          res.length > 0
-            ? `Fetched ${res.length} new post(s)`
+          replies.length > 0
+            ? `Fetched ${replies.length} new ${
+                replies.length === 1 ? "reply" : "replies"
+              }`
             : "No new replies"
         );
-        onNewPosts(res);
+        addNewReplies(replies);
       })
       .catch(() => setStatus("This thread was deleted"));
+  }
+
+  function addNewReplies(replies) {
+    if (replies.length > 0) {
+      replies.forEach(post => {
+        thread.statistics.replyCount++;
+        if (post.attachment) {
+          thread.statistics.attachmentCount++;
+        }
+        thread.replies.push(post);
+      });
+      refreshThread();
+    }
   }
 
   function toggleTimer() {
@@ -38,7 +53,7 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
       clearInterval(timer);
       setTimer(undefined);
     } else {
-      const handler = setInterval(checkForNewPosts, 5000);
+      const handler = setInterval(checkForNewReplies, 5000);
       setTimer(handler);
     }
   }
@@ -46,7 +61,7 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   return (
     <>
       <Ref innerRef={threadUpdateButtonRef}>
-        <Button basic size="small" onClick={checkForNewPosts}>
+        <Button basic size="small" onClick={checkForNewReplies}>
           <Icon name="refresh" />
           <strong>Update</strong>
         </Button>
