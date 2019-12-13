@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Confirm, Icon, Popup, Table } from "semantic-ui-react";
+import {
+  Button,
+  Checkbox,
+  Confirm,
+  Icon,
+  Popup,
+  Table
+} from "semantic-ui-react";
 import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import BoardForm from "./BoardForm";

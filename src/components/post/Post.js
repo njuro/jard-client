@@ -3,9 +3,10 @@ import { Item } from "semantic-ui-react";
 import PostAttachment from "./PostAttachment";
 import PostActions from "./PostActions";
 import { ThreadContext } from "../thread/Thread";
+import { Link } from "react-router-dom";
 
-function Post({ post, isOP }) {
-  const { thread } = useContext(ThreadContext);
+function Post({ post, isOP, omitted = 0, omittedAttachments = 0 }) {
+  const { thread, fetchAllReplies } = useContext(ThreadContext);
 
   return (
     <Item className={isOP ? "original-post" : "post"}>
@@ -30,6 +31,16 @@ function Post({ post, isOP }) {
           <PostActions post={post} isOP={isOP} />
         </Item.Meta>
         <div className="body" dangerouslySetInnerHTML={{ __html: post.body }} />
+        {isOP && omitted > 0 && (
+          <Item.Extra>
+            {omitted} replies
+            {omittedAttachments > 0 && ` and ${omittedAttachments} attachments`}
+            &nbsp;were omitted.
+            <Link to="#" onClick={fetchAllReplies}>
+              &nbsp;Click here to view them
+            </Link>
+          </Item.Extra>
+        )}
       </Item.Content>
     </Item>
   );
