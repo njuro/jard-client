@@ -2,7 +2,12 @@ import React, { useContext } from "react";
 import PostForm from "./PostForm";
 import { Button, Icon } from "semantic-ui-react";
 import { deleteApiRequest, postApiRequest } from "../../helpers/api";
-import { DELETE_POST, TOGGLE_LOCK_THREAD, TOGGLE_STICKY_THREAD, useAuthority } from "../../helpers/authorities";
+import {
+  DELETE_POST,
+  TOGGLE_LOCK_THREAD,
+  TOGGLE_STICKY_THREAD,
+  useAuthority
+} from "../../helpers/authorities";
 import { ThreadContext } from "../thread/Thread";
 import { BoardContext } from "../board/Board";
 import { THREAD_URL } from "../../helpers/mappings";

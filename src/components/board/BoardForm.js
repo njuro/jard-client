@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Header, Modal } from "semantic-ui-react";
-import { getApiRequest, postApiRequest, putApiRequest } from "../../helpers/api";
+import {
+  getApiRequest,
+  postApiRequest,
+  putApiRequest
+} from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { Redirect } from "react-router-dom";
 import { objectToDropdownItems } from "../../helpers/forms";
-import Form, { Button, Checkbox, FormErrors, Select, TextInput } from "../form/Form";
+import Form, {
+  Button,
+  Checkbox,
+  FormErrors,
+  Select,
+  TextInput
+} from "../form/Form";
 
 function BoardForm({ trigger, value: board }) {
   const isEdit = !!board;

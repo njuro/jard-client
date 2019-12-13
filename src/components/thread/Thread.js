@@ -1,34 +1,16 @@
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, { createContext, useRef, useState } from "react";
 import { Item } from "semantic-ui-react";
 import Post from "../post/Post";
 import useUpdater from "../../helpers/updater";
 import ThreadUpdateButton from "./ThreadUpdateButton";
-import { getApiRequest } from "../../helpers/api";
-import { THREAD_URL } from "../../helpers/mappings";
-import { BoardContext } from "../board/Board";
 
 export const ThreadContext = createContext();
 
 function Thread({ thread: initialThread }) {
-  const board = useContext(BoardContext);
-
   const [thread, setThread] = useState(initialThread);
   const threadUpdateButtonRef = useRef(undefined);
 
   const updateThread = useUpdater();
-
-  const omitted = thread.statistics.replyCount - thread.replies.length;
-  const omittedAttachments =
-    thread.statistics.attachmentCount -
-    (thread.originalPost.attachment ? 1 : 0) -
-    thread.replies.filter(reply => !!reply.attachment).length;
-
-  function fetchAllReplies() {
-    getApiRequest(THREAD_URL(thread, board) + "/replies").then(replies => {
-      thread.replies = replies;
-      updateThread();
-    });
-  }
 
   function triggerThreadUpdateButton() {
     threadUpdateButtonRef.current.click();
@@ -78,17 +60,11 @@ function Thread({ thread: initialThread }) {
           onToggleSticky,
           onToggleLock,
           onDeletePost,
-          triggerThreadUpdateButton,
-          fetchAllReplies
+          triggerThreadUpdateButton
         }}
       >
         <Item.Group divided className="thread">
-          <Post
-            post={thread.originalPost}
-            isOP={true}
-            omitted={omitted}
-            omittedAttachments={omittedAttachments}
-          />
+          <Post post={thread.originalPost} isOP={true} />
           {thread.replies.map(post => (
             <Post key={post.postNumber} post={post} isOP={false} />
           ))}
