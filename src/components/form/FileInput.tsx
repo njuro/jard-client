@@ -22,11 +22,7 @@ function FileInput({
 
   return (
     <RHFInput
-      as={
-        ((
-          <SemanticForm.Input type="file" {...rest} />
-        ) as unknown) as React.ElementType
-      }
+      as={<SemanticForm.Input type="file" {...rest} />}
       name={name}
       rules={rules}
       onChangeEvent={handleChange}

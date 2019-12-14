@@ -17,7 +17,7 @@ function Select({ name, ...rest }: SelectProps | FormSelectProps) {
 
   return (
     <RHFInput
-      as={((<SemanticForm.Select {...rest} />) as unknown) as React.ElementType}
+      as={<SemanticForm.Select {...rest} />}
       name={name}
       onChangeEvent={handleChange}
     />

@@ -15,9 +15,7 @@ function Checkbox({
 
   return (
     <RHFInput
-      as={
-        ((<SemanticForm.Checkbox {...rest} />) as unknown) as React.ElementType
-      }
+      as={<SemanticForm.Checkbox {...rest} />}
       name={name}
       value={name}
       type="checkbox"

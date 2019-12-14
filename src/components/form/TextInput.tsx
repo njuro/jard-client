@@ -9,12 +9,7 @@ interface TextInputProps {
 }
 function TextInput({ name, rules, ...rest }: TextInputProps | FormInputProps) {
   return (
-    <RHFInput
-      as={((<SemanticForm.Input {...rest} />) as unknown) as React.ElementType}
-      defaultValue=""
-      name={name}
-      rules={rules}
-    />
+    <RHFInput as={<SemanticForm.Input {...rest} />} name={name} rules={rules} />
   );
 }
 

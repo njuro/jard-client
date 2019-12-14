@@ -10,10 +10,7 @@ interface TextAreaProps {
 function TextArea({ name, rules, ...rest }: TextAreaProps | FormTextAreaProps) {
   return (
     <RHFInput
-      as={
-        ((<SemanticForm.TextArea {...rest} />) as unknown) as React.ElementType
-      }
-      defaultValue=""
+      as={<SemanticForm.TextArea {...rest} />}
       name={name}
       rules={rules}
     />
