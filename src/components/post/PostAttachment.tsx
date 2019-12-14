@@ -1,0 +1,36 @@
+import React, { useState } from "react";
+import { Image } from "semantic-ui-react";
+import { AttachmentType } from "../../types";
+
+interface PostAttachmentProps {
+  attachment: AttachmentType;
+}
+function PostAttachment({ attachment }: PostAttachmentProps) {
+  const [showFull, setShowFull] = useState(false);
+
+  function toggleSize(e: Event) {
+    e.preventDefault();
+    setShowFull(!showFull);
+  }
+
+  return (
+    <Image
+      href={attachment.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      verticalAlign="top"
+      src={attachment.url}
+      onClick={toggleSize}
+      style={
+        showFull
+          ? {}
+          : {
+              height: attachment.thumbHeight + "px",
+              width: attachment.thumbWidth + "px"
+            }
+      }
+    />
+  );
+}
+
+export default PostAttachment;
