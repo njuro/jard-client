@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import { Header } from "semantic-ui-react";
 import { BoardContext } from "./Board";
-import { BoardType } from "../../types";
 
 function BoardHeader() {
-  const board = useContext(BoardContext) as BoardType;
+  const board = useContext(BoardContext);
 
   return (
     <header>
