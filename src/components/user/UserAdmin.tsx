@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { deleteApiRequest, getApiRequest } from "../../helpers/api";
-import { USER_URL, USERS_URL } from "../../helpers/mappings";
 import {
   Button,
   Checkbox,
@@ -9,8 +7,10 @@ import {
   Popup,
   Table
 } from "semantic-ui-react";
-import UserForm from "./UserForm";
+import { deleteApiRequest, getApiRequest } from "../../helpers/api";
+import { USER_URL, USERS_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
+import UserForm from "./UserForm";
 
 function UserAdmin() {
   const [users, setUsers] = useState<UserType[]>([]);
@@ -30,7 +30,7 @@ function UserAdmin() {
   const createUserButton = () => (
     <UserForm
       trigger={
-        <Button basic size="small">
+        <Button basic={true} size="small">
           <Icon name="plus" />
           <strong>New user</strong>
         </Button>
@@ -42,7 +42,7 @@ function UserAdmin() {
     <>
       {createUserButton()}
 
-      <Table fixed striped>
+      <Table fixed={true} striped={true}>
         <Table.Header>
           <Table.Row textAlign="center">
             <Table.HeaderCell>Username</Table.HeaderCell>
@@ -61,13 +61,13 @@ function UserAdmin() {
                 <Table.Cell>{user.email}</Table.Cell>
                 <Table.Cell>{user.role}</Table.Cell>
                 <Table.Cell>
-                  <Checkbox disabled checked={user.enabled} />
+                  <Checkbox disabled={true} checked={user.enabled} />
                 </Table.Cell>
                 <Table.Cell>
                   <Button.Group>
                     <UserForm
                       trigger={
-                        <Button basic icon>
+                        <Button basic={true} icon={true}>
                           <Popup
                             content="Edit"
                             position="top right"
@@ -79,7 +79,7 @@ function UserAdmin() {
                     />
                     <Confirm
                       trigger={
-                        <Button basic icon>
+                        <Button basic={true} icon={true}>
                           <Popup
                             content="Delete"
                             position="top left"

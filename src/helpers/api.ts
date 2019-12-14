@@ -24,8 +24,8 @@ export function deleteApiRequest<T>(url: string) {
 function makeRequest<T>(method: Method, url: string, body = {}) {
   return client
     .request({
-      method: method,
-      url: url,
+      method,
+      url,
       data: body
     })
     .then<T>(res => res.data);

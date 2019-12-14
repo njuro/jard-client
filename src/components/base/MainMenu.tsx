@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../App";
+import { Button, Menu } from "semantic-ui-react";
 import { getApiRequest, postApiRequest } from "../../helpers/api";
 import { BOARDS_URL, LOGOUT_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
+import { AuthContext } from "../App";
 
 function MainMenu() {
   const { user, setUser } = useContext(AuthContext);
@@ -25,7 +25,7 @@ function MainMenu() {
 
   return (
     <Menu>
-      <Menu.Item header>
+      <Menu.Item header={true}>
         <Link to="/">JBoard</Link>
       </Menu.Item>
       {boards.map(board => (

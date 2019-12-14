@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "semantic-ui-react";
-import DashboardSwitch from "./DashboardSwitch";
 import DashboardMenu from "./DashboardMenu";
+import DashboardSwitch from "./DashboardSwitch";
 
 function Dashboard() {
   return (

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Thread from "./Thread";
-import { getApiRequest } from "../../helpers/api";
-import BoardHeader from "../board/BoardHeader";
-import { BoardContext } from "../board/Board";
-import { BOARDS_URL } from "../../helpers/mappings";
 import { RouteComponentProps } from "react-router";
+import { getApiRequest } from "../../helpers/api";
+import { BOARDS_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
+import { BoardContext } from "../board/Board";
+import BoardHeader from "../board/BoardHeader";
+import Thread from "./Thread";
 
 function ThreadWrapper(
   props: RouteComponentProps<{ label: string; threadNumber: string }>

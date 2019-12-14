@@ -1,10 +1,10 @@
 import React, { ReactNode, useState } from "react";
-import { postApiRequest, putApiRequest } from "../../helpers/api";
-import { Header, Modal } from "semantic-ui-react";
 import { Redirect } from "react-router-dom";
+import { Header, Modal } from "semantic-ui-react";
+import { postApiRequest, putApiRequest } from "../../helpers/api";
 import { USER_URL, USERS_URL } from "../../helpers/mappings";
-import Form, { Button, FormErrors, TextInput } from "../form/Form";
 import { UserType } from "../../types";
+import Form, { Button, FormErrors, TextInput } from "../form/Form";
 
 interface UserFormProps {
   trigger: ReactNode;
@@ -44,7 +44,7 @@ function UserForm({ trigger, value: user }: UserFormProps) {
           error={!!errors}
           defaultValues={defaultValues}
         >
-          <Header as="h4" dividing>
+          <Header as="h4" dividing={true}>
             {isEdit ? `Edit user ${user!.username}` : "Create new user"}
           </Header>
           <TextInput
@@ -74,7 +74,7 @@ function UserForm({ trigger, value: user }: UserFormProps) {
             type="email"
           />
           <FormErrors errors={errors} />
-          <Button fluid>{isEdit ? "Edit user" : "Create user"}</Button>
+          <Button fluid={true}>{isEdit ? "Edit user" : "Create user"}</Button>
         </Form>
       </Modal.Content>
     </Modal>

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Grid, Header, Segment } from "semantic-ui-react";
 import { postApiRequest } from "../../helpers/api";
-import { Redirect } from "react-router-dom";
-import { AuthContext } from "../App";
 import { LOGIN_URL } from "../../helpers/mappings";
-import Form, { Button, Checkbox, FormErrors, TextInput } from "../form/Form";
 import { UserType } from "../../types";
+import { AuthContext } from "../App";
+import Form, { Button, Checkbox, FormErrors, TextInput } from "../form/Form";
 
 interface LoginFormObject {
   username: string;
@@ -20,7 +20,7 @@ function LoginForm() {
 
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)
-      .then(user => setLoggedUser(user))
+      .then(setLoggedUser)
       .catch(err => setErrors(err.response.data.errors));
   }
 
@@ -41,7 +41,7 @@ function LoginForm() {
         error={errors !== undefined}
       >
         <Segment>
-          <Header as="h4" dividing>
+          <Header as="h4" dividing={true}>
             Login
           </Header>
           <TextInput name="username" label="Username" placeholder="Username" />
@@ -53,7 +53,7 @@ function LoginForm() {
           />
           <Checkbox name="rememberMe" label="Remember me" />
           <FormErrors errors={errors} />
-          <Button fluid>Login</Button>
+          <Button fluid={true}>Login</Button>
         </Segment>
       </Form>
     </Grid>

@@ -1,9 +1,9 @@
 import React, { createContext, useRef, useState } from "react";
 import { Item } from "semantic-ui-react";
-import Post from "../post/Post";
 import useUpdater from "../../helpers/updater";
-import ThreadUpdateButton from "./ThreadUpdateButton";
 import { SetStateType, ThreadType } from "../../types";
+import Post from "../post/Post";
+import ThreadUpdateButton from "./ThreadUpdateButton";
 
 interface ThreadContextProps {
   thread: ThreadType;
@@ -38,7 +38,7 @@ function Thread({ thread: initialThread }: ThreadProps) {
           triggerThreadUpdateButton
         }}
       >
-        <Item.Group divided className="thread">
+        <Item.Group divided={true} className="thread">
           <Post post={thread.originalPost} isOP={true} />
           {thread.replies.map(post => (
             <Post key={post.postNumber} post={post} isOP={false} />

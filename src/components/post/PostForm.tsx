@@ -1,15 +1,15 @@
 import React, { useContext, useState } from "react";
-import { putApiRequest } from "../../helpers/api";
 import {
   Button as SemanticButton,
   Form as SemanticForm,
   Header,
   Modal
 } from "semantic-ui-react";
-import { BoardContext } from "../board/Board";
-import { ThreadContext } from "../thread/Thread";
+import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
+import { PostType } from "../../types";
+import { BoardContext } from "../board/Board";
 import Form, {
   Button,
   FileInput,
@@ -17,7 +17,7 @@ import Form, {
   TextArea,
   TextInput
 } from "../form/Form";
-import { PostType } from "../../types";
+import { ThreadContext } from "../thread/Thread";
 
 function PostForm() {
   const board = useContext(BoardContext);
@@ -46,8 +46,8 @@ function PostForm() {
       open={open}
       trigger={
         <SemanticButton
-          basic
-          circular
+          basic={true}
+          circular={true}
           size="mini"
           icon="reply"
           onClick={() => setOpen(true)}
@@ -61,13 +61,18 @@ function PostForm() {
           encType="multipart/form-data"
           error={errors !== undefined}
         >
-          <Header as="h4" dividing>
+          <Header as="h4" dividing={true}>
             Reply to thread
           </Header>
           <SemanticForm.Group widths="equal">
-            <TextInput fluid name="name" label="Name" placeholder="Name" />
             <TextInput
-              fluid
+              fluid={true}
+              name="name"
+              label="Name"
+              placeholder="Name"
+            />
+            <TextInput
+              fluid={true}
               name="password"
               label="Tripcode password"
               placeholder="Password"

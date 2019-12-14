@@ -1,11 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
 
-import { getApiRequest } from "../helpers/api";
 import { BrowserRouter as Router } from "react-router-dom";
-import MainMenu from "./base/MainMenu";
-import MainSwitch from "./base/MainSwitch";
+import { getApiRequest } from "../helpers/api";
 import { USERS_URL } from "../helpers/mappings";
 import { SetStateType, UserType } from "../types";
+import MainMenu from "./base/MainMenu";
+import MainSwitch from "./base/MainSwitch";
 
 interface AuthContextProps {
   user: UserType;

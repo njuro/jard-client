@@ -10,5 +10,5 @@ export function objectToDropdownItem(
   value: any,
   description: string
 ): DropdownItemProps {
-  return { key: value, text: description, value: value };
+  return { key: value, text: description, value };
 }

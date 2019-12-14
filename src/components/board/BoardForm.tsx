@@ -1,13 +1,14 @@
 import React, { ReactNode, useEffect, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { DropdownItemProps, Header, Modal } from "semantic-ui-react";
 import {
   getApiRequest,
   postApiRequest,
   putApiRequest
 } from "../../helpers/api";
-import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
-import { Redirect } from "react-router-dom";
 import { objectToDropdownItem } from "../../helpers/forms";
+import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
+import { BoardAttachmentTypeView, BoardType } from "../../types";
 import Form, {
   Button,
   Checkbox,
@@ -15,7 +16,6 @@ import Form, {
   Select,
   TextInput
 } from "../form/Form";
-import { BoardAttachmentTypeView, BoardType } from "../../types";
 
 interface BoardFormProps {
   trigger: ReactNode;
@@ -71,40 +71,47 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
           error={!!errors}
           defaultValues={defaultValues}
         >
-          <Header as="h4" dividing>
+          <Header as="h4" dividing={true}>
             {isEdit ? `Edit board /${board!.label}/` : "Create new board"}
           </Header>
           <TextInput
             name="label"
             label="Label"
             placeholder="Label"
-            required
+            required={true}
             disabled={isEdit}
           />
-          <TextInput name="name" label="Name" placeholder="Name" required />
+          <TextInput
+            name="name"
+            label="Name"
+            placeholder="Name"
+            required={true}
+          />
           <TextInput
             name="threadLimit"
             label="Thread limit"
             placeholder="Thread limit"
             type="number"
-            required
+            required={true}
           />
           <TextInput
             name="bumpLimit"
             label="Bump limit"
             placeholder="Bump limit"
             type="number"
-            required
+            required={true}
           />
           <Select
             name="attachmentType"
             label="Allowed attachment types"
             options={attachmentTypes}
-            required
+            required={true}
           />
           <Checkbox name="nsfw" label="NSFW" />
           <FormErrors errors={errors} />
-          <Button fluid>{isEdit ? "Update board" : "Create board"}</Button>
+          <Button fluid={true}>
+            {isEdit ? "Update board" : "Create board"}
+          </Button>
         </Form>
       </Modal.Content>
     </Modal>

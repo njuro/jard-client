@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Item } from "semantic-ui-react";
-import PostAttachment from "./PostAttachment";
-import PostActions from "./PostActions";
-import { ThreadContext } from "../thread/Thread";
-import OmittedReplies from "../thread/OmittedReplies";
 import { PostType } from "../../types";
+import OmittedReplies from "../thread/OmittedReplies";
+import { ThreadContext } from "../thread/Thread";
+import PostActions from "./PostActions";
+import PostAttachment from "./PostAttachment";
 
 interface PostProps {
   post: PostType;

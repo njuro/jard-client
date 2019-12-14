@@ -1,11 +1,11 @@
 import React from "react";
-import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { Menu } from "semantic-ui-react";
 import { DASHBOARD_URL } from "../../helpers/mappings";
 
 function DashboardMenu() {
   return (
-    <Menu fluid vertical>
+    <Menu fluid={true} vertical={true}>
       <Menu.Item>
         <Link to={DASHBOARD_URL}>Dashboard</Link>
       </Menu.Item>

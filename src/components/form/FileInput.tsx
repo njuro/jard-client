@@ -1,7 +1,7 @@
 import React from "react";
 import { RHFInput } from "react-hook-form-input";
-import { Form as SemanticForm, FormInputProps } from "semantic-ui-react";
 import { ValidationOptions } from "react-hook-form/dist/types";
+import { Form as SemanticForm, FormInputProps } from "semantic-ui-react";
 
 interface FileInputProps {
   name: string;

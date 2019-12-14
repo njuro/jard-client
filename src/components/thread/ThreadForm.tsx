@@ -1,7 +1,11 @@
 import React, { useContext, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Form as SemanticForm, Header, Icon, Modal } from "semantic-ui-react";
 import { putApiRequest } from "../../helpers/api";
-import { Redirect } from "react-router-dom";
+import { objectToJsonBlob } from "../../helpers/forms";
+import { BOARD_URL } from "../../helpers/mappings";
+import { ThreadType } from "../../types";
+import { BoardContext } from "../board/Board";
 import Form, {
   Button,
   FileInput,
@@ -9,10 +13,6 @@ import Form, {
   TextArea,
   TextInput
 } from "../form/Form";
-import { BoardContext } from "../board/Board";
-import { objectToJsonBlob } from "../../helpers/forms";
-import { BOARD_URL } from "../../helpers/mappings";
-import { ThreadType } from "../../types";
 
 function ThreadForm() {
   const board = useContext(BoardContext);
@@ -27,7 +27,7 @@ function ThreadForm() {
     threadForm.append("attachment", attachment!);
 
     putApiRequest<ThreadType>(BOARD_URL(board), threadForm)
-      .then(thread => setCreatedThread(thread))
+      .then(setCreatedThread)
       .catch(err => setErrors(err.response.data.errors));
   }
 
@@ -43,7 +43,7 @@ function ThreadForm() {
     <Modal
       style={{ paddingBottom: "10px" }}
       trigger={
-        <Button basic size="small">
+        <Button basic={true} size="small">
           <Icon name="plus" />
           <strong>New thread</strong>
         </Button>
@@ -55,18 +55,18 @@ function ThreadForm() {
           encType="multipart/form-data"
           error={errors !== undefined}
         >
-          <Header as="h4" dividing>
+          <Header as="h4" dividing={true}>
             Create new thread
           </Header>
           <SemanticForm.Group widths="equal">
             <TextInput
-              fluid
+              fluid={true}
               name="postForm.name"
               label="Name"
               placeholder="Name"
             />
             <TextInput
-              fluid
+              fluid={true}
               name="postForm.password"
               label="Tripcode password"
               placeholder="Password"
@@ -79,7 +79,7 @@ function ThreadForm() {
             label="Upload image"
             accept="image/*"
             onFileUpload={setAttachment}
-            required
+            required={true}
           />
           <FormErrors errors={errors} />
           <Button floated="right">Create thread</Button>

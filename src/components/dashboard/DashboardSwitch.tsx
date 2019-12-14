@@ -8,12 +8,12 @@ function DashboardSwitch() {
   return (
     <Switch>
       <Route
-        exact
+        exact={true}
         path={`${DASHBOARD_URL}/manage-boards`}
         component={BoardAdmin}
       />
       <Route
-        exact
+        exact={true}
         path={`${DASHBOARD_URL}/manage-users`}
         component={UserAdmin}
       />

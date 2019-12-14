@@ -7,7 +7,7 @@ interface FormErrorsProps {
 function FormErrors({ errors }: FormErrorsProps) {
   return (
     (errors && errors.length > 0 && (
-      <Message error content={<List items={errors} bulleted />} />
+      <Message error={true} content={<List items={errors} bulleted={true} />} />
     )) ||
     null
   );

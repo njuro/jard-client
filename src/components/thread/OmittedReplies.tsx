@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import { ThreadContext } from "./Thread";
+import { Link } from "react-router-dom";
+import { Item } from "semantic-ui-react";
 import { getApiRequest } from "../../helpers/api";
 import { THREAD_URL } from "../../helpers/mappings";
-import { BoardContext } from "../board/Board";
-import { Item } from "semantic-ui-react";
-import { Link } from "react-router-dom";
 import { ThreadType } from "../../types";
+import { BoardContext } from "../board/Board";
+import { ThreadContext } from "./Thread";
 
 function OmittedReplies() {
   const board = useContext(BoardContext);
@@ -20,8 +20,8 @@ function OmittedReplies() {
     thread.replies.filter(reply => !!reply.attachment).length;
 
   function fetchFullThread() {
-    getApiRequest<ThreadType>(THREAD_URL(thread, board)).then(thread => {
-      setThread(thread);
+    getApiRequest<ThreadType>(THREAD_URL(thread, board)).then(fullThread => {
+      setThread(fullThread);
       setExpanded(true);
     });
   }

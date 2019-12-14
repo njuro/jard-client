@@ -9,8 +9,8 @@ import {
 } from "semantic-ui-react";
 import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
-import BoardForm from "./BoardForm";
 import { BoardType } from "../../types";
+import BoardForm from "./BoardForm";
 
 function BoardAdmin() {
   const [boards, setBoards] = useState<BoardType[]>([]);
@@ -30,7 +30,7 @@ function BoardAdmin() {
   const createBoardButton = () => (
     <BoardForm
       trigger={
-        <Button basic size="small">
+        <Button basic={true} size="small">
           <Icon name="plus" />
           <strong>New board</strong>
         </Button>
@@ -42,7 +42,7 @@ function BoardAdmin() {
     <>
       {createBoardButton()}
 
-      <Table fixed striped>
+      <Table fixed={true} striped={true}>
         <Table.Header>
           <Table.Row textAlign="center">
             <Table.HeaderCell>Label</Table.HeaderCell>
@@ -61,13 +61,13 @@ function BoardAdmin() {
                 <Table.Cell>{board.name}</Table.Cell>
                 <Table.Cell>{board.attachmentType}</Table.Cell>
                 <Table.Cell>
-                  <Checkbox disabled checked={board.nsfw} />
+                  <Checkbox disabled={true} checked={board.nsfw} />
                 </Table.Cell>
                 <Table.Cell>
                   <Button.Group>
                     <BoardForm
                       trigger={
-                        <Button basic icon>
+                        <Button basic={true} icon={true}>
                           <Popup
                             content="Edit"
                             position="top right"
@@ -79,7 +79,7 @@ function BoardAdmin() {
                     />
                     <Confirm
                       trigger={
-                        <Button basic icon>
+                        <Button basic={true} icon={true}>
                           <Popup
                             content="Delete"
                             position="top left"

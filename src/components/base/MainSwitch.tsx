@@ -1,24 +1,24 @@
 import React from "react";
-import Home from "./Home";
+import { Route, Switch } from "react-router-dom";
 import Board from "../board/Board";
+import Dashboard from "../dashboard/Dashboard";
 import ThreadWrapper from "../thread/ThreadWrapper";
 import LoginForm from "../user/LoginForm";
-import Dashboard from "../dashboard/Dashboard";
 import NotFound from "../utils/NotFound";
-import { Route, Switch } from "react-router-dom";
 import ProtectedRoute from "../utils/ProtectedRoute";
+import Home from "./Home";
 
 function MainSwitch() {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/boards/:label" component={Board} />
+      <Route exact={true} path="/" component={Home} />
+      <Route exact={true} path="/boards/:label" component={Board} />
       <Route
-        exact
+        exact={true}
         path="/boards/:label/:threadNumber"
         component={ThreadWrapper}
       />
-      <Route exact path="/login" component={LoginForm} />
+      <Route exact={true} path="/login" component={LoginForm} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>

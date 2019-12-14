@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import PostForm from "./PostForm";
 import { Button, Icon } from "semantic-ui-react";
 import { deleteApiRequest, postApiRequest } from "../../helpers/api";
 import { useAuthority } from "../../helpers/authorities";
-import { ThreadContext } from "../thread/Thread";
-import { BoardContext } from "../board/Board";
 import { THREAD_URL } from "../../helpers/mappings";
 import { PostType, UserAuthority } from "../../types";
+import { BoardContext } from "../board/Board";
+import { ThreadContext } from "../thread/Thread";
+import PostForm from "./PostForm";
 
 interface PostActionsProps {
   post: PostType;
@@ -54,8 +54,8 @@ function PostActions({ post, isOP }: PostActionsProps) {
       {!thread.locked && <PostForm />}
       {useAuthority(UserAuthority.TOGGLE_STICKY_THREAD) && isOP && (
         <Button
-          basic
-          circular
+          basic={true}
+          circular={true}
           size="mini"
           icon={
             <Icon
@@ -68,8 +68,8 @@ function PostActions({ post, isOP }: PostActionsProps) {
       )}
       {useAuthority(UserAuthority.TOGGLE_LOCK_THREAD) && isOP && (
         <Button
-          basic
-          circular
+          basic={true}
+          circular={true}
           size="mini"
           icon={<Icon name={thread.locked ? "lock open" : "lock"} />}
           onClick={toggleLock}
@@ -77,8 +77,8 @@ function PostActions({ post, isOP }: PostActionsProps) {
       )}
       {useAuthority(UserAuthority.DELETE_POST) && (
         <Button
-          basic
-          circular
+          basic={true}
+          circular={true}
           size="mini"
           icon={<Icon name="trash alternate" />}
           onClick={deletePost}

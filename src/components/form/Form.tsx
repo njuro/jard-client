@@ -1,10 +1,10 @@
 import React from "react";
 import useForm, { FormContext } from "react-hook-form";
+import { OnSubmit } from "react-hook-form/dist/types";
 import {
   Form as SemanticForm,
   FormProps as SemanticFormProps
 } from "semantic-ui-react";
-import { OnSubmit } from "react-hook-form/dist/types";
 
 interface FormProps {
   children: React.ReactFragment;
@@ -18,7 +18,7 @@ function Form({
   ...rest
 }: FormProps | Omit<SemanticFormProps, "onSubmit">) {
   const methods = useForm({
-    defaultValues: defaultValues
+    defaultValues
   });
   const { handleSubmit } = methods;
 

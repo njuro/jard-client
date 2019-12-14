@@ -1,11 +1,11 @@
+import { Ref } from "@stardust-ui/react-component-ref";
 import React, { useContext, useState } from "react";
 import { Button, Checkbox, Icon } from "semantic-ui-react";
-import { ThreadContext } from "./Thread";
-import { BoardContext } from "../board/Board";
 import { getApiRequest } from "../../helpers/api";
 import { THREAD_URL } from "../../helpers/mappings";
-import { Ref } from "@stardust-ui/react-component-ref";
 import { PostType } from "../../types";
+import { BoardContext } from "../board/Board";
+import { ThreadContext } from "./Thread";
 
 const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   const board = useContext(BoardContext);
@@ -62,12 +62,12 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   return (
     <>
       <Ref innerRef={threadUpdateButtonRef}>
-        <Button basic size="small" onClick={checkForNewReplies}>
+        <Button basic={true} size="small" onClick={checkForNewReplies}>
           <Icon name="refresh" />
           <strong>Update</strong>
         </Button>
       </Ref>
-      <Checkbox onChange={toggleTimer} label="Auto" toggle />
+      <Checkbox onChange={toggleTimer} label="Auto" toggle={true} />
       <em>&nbsp; {status}</em>
     </>
   );
