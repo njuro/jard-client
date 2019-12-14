@@ -57,7 +57,9 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
         label: board!.label,
         name: board!.name,
         nsfw: board!.nsfw,
-        attachmentType: board!.attachmentType
+        attachmentType: board!.attachmentType,
+        threadLimit: board!.threadLimit,
+        bumpLimit: board!.bumpLimit
       }
     : {};
 
@@ -80,6 +82,20 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
             disabled={isEdit}
           />
           <TextInput name="name" label="Name" placeholder="Name" required />
+          <TextInput
+            name="threadLimit"
+            label="Thread limit"
+            placeholder="Thread limit"
+            type="number"
+            required
+          />
+          <TextInput
+            name="bumpLimit"
+            label="Bump limit"
+            placeholder="Bump limit"
+            type="number"
+            required
+          />
           <Select
             name="attachmentType"
             label="Allowed attachment types"
