@@ -19,40 +19,42 @@ function OmittedReplies() {
     (thread.originalPost.attachment ? 1 : 0) -
     thread.replies.filter(reply => !!reply.attachment).length;
 
-  function fetchFullThread() {
+  function expandReplies() {
     getApiRequest<ThreadType>(THREAD_URL(thread, board)).then(fullThread => {
       setThread(fullThread);
       setExpanded(true);
     });
   }
 
-  function hideReplies() {
+  function collapseReplies() {
     thread.replies = thread.replies.slice(thread.replies.length - 5);
     setThread(thread);
   }
 
-  function getThreadToggle() {
+  function renderRepliesToggle() {
     if (omitted > 0) {
       return (
         <>
           {omitted} replies
           {omittedAttachments > 0 && ` and ${omittedAttachments} attachments`}
           &nbsp;were omitted.
-          <Link to="#" onClick={fetchFullThread}>
+          <Link to="#" onClick={expandReplies}>
             &nbsp;Click here to view them
           </Link>
         </>
       );
     } else if (expanded) {
       return (
-        <Link to="#" onClick={hideReplies}>
+        <Link to="#" onClick={collapseReplies}>
           Hide expanded replies
         </Link>
       );
     }
   }
 
-  return <Item.Extra style={{ top: "70%" }}>{getThreadToggle()}</Item.Extra>;
+  return (
+    <Item.Extra style={{ top: "70%" }}>{renderRepliesToggle()}</Item.Extra>
+  );
 }
 
 export default OmittedReplies;
