@@ -1,11 +1,22 @@
 import React, { useContext, useState } from "react";
 import { putApiRequest } from "../../helpers/api";
-import { Button as SemanticButton, Form as SemanticForm, Header, Modal } from "semantic-ui-react";
+import {
+  Button as SemanticButton,
+  Form as SemanticForm,
+  Header,
+  Modal
+} from "semantic-ui-react";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
 import { objectToFormData } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
-import Form, { Button, FileInput, FormErrors, TextArea, TextInput } from "../form/Form";
+import Form, {
+  Button,
+  FileInput,
+  FormErrors,
+  TextArea,
+  TextInput
+} from "../form/Form";
 
 function PostForm() {
   const board = useContext(BoardContext);
