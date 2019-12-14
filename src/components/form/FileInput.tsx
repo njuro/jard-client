@@ -1,6 +1,6 @@
 import React from "react";
 import { RHFInput } from "react-hook-form-input";
-import { Form as SemanticForm } from "semantic-ui-react";
+import { Form as SemanticForm, FormInputProps } from "semantic-ui-react";
 import { ValidationOptions } from "react-hook-form/dist/types";
 
 interface FileInputProps {
@@ -13,14 +13,13 @@ function FileInput({
   rules,
   onFileUpload,
   ...rest
-}: FileInputProps & any) {
+}: FileInputProps | FormInputProps) {
   function handleChange([event]: any[]) {
     const file = event.target.files[0];
     onFileUpload(file);
     return {};
   }
 
-  // @ts-ignore
   return (
     <RHFInput
       as={

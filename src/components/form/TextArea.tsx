@@ -1,13 +1,13 @@
 import React from "react";
 import { RHFInput } from "react-hook-form-input";
-import { Form as SemanticForm } from "semantic-ui-react";
+import { Form as SemanticForm, FormTextAreaProps } from "semantic-ui-react";
 import { ValidationOptions } from "react-hook-form/dist/types";
 
 interface TextAreaProps {
   name: string;
   rules?: ValidationOptions;
 }
-function TextArea({ name, rules, ...rest }: TextAreaProps & any) {
+function TextArea({ name, rules, ...rest }: TextAreaProps | FormTextAreaProps) {
   return (
     <RHFInput
       as={
