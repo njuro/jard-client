@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { RHFInput } from "react-hook-form-input";
 import { ValidationOptions } from "react-hook-form/dist/types";
 import { Form as SemanticForm, FormInputProps } from "semantic-ui-react";
@@ -14,10 +14,9 @@ function FileInput({
   onFileUpload,
   ...rest
 }: FileInputProps | FormInputProps) {
-  function handleChange([event]: any[]) {
-    const file = event.target.files[0];
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files![0];
     onFileUpload(file);
-    return {};
   }
 
   return (
@@ -25,7 +24,7 @@ function FileInput({
       as={<SemanticForm.Input type="file" {...rest} />}
       name={name}
       rules={rules}
-      onChangeEvent={handleChange}
+      onChange={handleChange}
     />
   );
 }
