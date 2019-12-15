@@ -22,7 +22,7 @@ function FileInput({
   return (
     <RHFInput
       as={<SemanticForm.Input type="file" {...rest} />}
-      name={name}
+      name={"_" + name}
       rules={rules}
       onChange={handleChange}
     />
