@@ -16,7 +16,7 @@ function LoginForm() {
   const { user, setUser } = useContext(AuthContext);
 
   const [loggedUser, setLoggedUser] = useState<UserType>();
-  const [errors, setErrors] = useState<string[]>();
+  const [errors, setErrors] = useState<Map<string, string>>();
 
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)

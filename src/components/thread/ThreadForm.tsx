@@ -19,7 +19,7 @@ function ThreadForm() {
 
   const [attachment, setAttachment] = useState<File>();
   const [createdThread, setCreatedThread] = useState<ThreadType>();
-  const [errors, setErrors] = useState<string[]>();
+  const [errors, setErrors] = useState<Map<string, string>>();
 
   function handleSubmit(thread: ThreadType) {
     const threadForm = new FormData();
