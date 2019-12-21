@@ -16,7 +16,7 @@ function LoginForm() {
   const { user, setUser } = useContext(AuthContext);
 
   const [loggedUser, setLoggedUser] = useState<UserType>();
-  const [errors, setErrors] = useState<Map<string, string>>();
+  const [errors, setErrors] = useState<object>();
 
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)
@@ -38,7 +38,7 @@ function LoginForm() {
       <Form
         onSubmit={handleSubmit}
         className={"six wide column centered"}
-        error={errors !== undefined}
+        error={!!errors}
       >
         <Segment>
           <Header as="h4" dividing={true}>

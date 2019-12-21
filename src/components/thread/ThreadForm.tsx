@@ -19,7 +19,7 @@ function ThreadForm() {
 
   const [attachment, setAttachment] = useState<File>();
   const [createdThread, setCreatedThread] = useState<ThreadType>();
-  const [errors, setErrors] = useState<Map<string, string>>();
+  const [errors, setErrors] = useState<object>();
 
   function handleSubmit(thread: ThreadType) {
     const threadForm = new FormData();
@@ -53,7 +53,7 @@ function ThreadForm() {
         <Form
           onSubmit={handleSubmit}
           encType="multipart/form-data"
-          error={errors !== undefined}
+          error={!!errors}
         >
           <Header as="h4" dividing={true}>
             Create new thread

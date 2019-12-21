@@ -27,7 +27,7 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
     []
   );
   const [updatedBoard, setUpdatedBoard] = useState<BoardType>();
-  const [errors, setErrors] = useState<Map<string, string>>();
+  const [errors, setErrors] = useState<object>();
 
   useEffect(() => {
     getApiRequest<BoardAttachmentTypeView[]>(

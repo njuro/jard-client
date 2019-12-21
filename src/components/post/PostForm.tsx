@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button as SemanticButton,
   Form as SemanticForm,
@@ -25,7 +25,7 @@ function PostForm() {
 
   const [attachment, setAttachment] = useState<File>();
   const [open, setOpen] = useState(false);
-  const [errors, setErrors] = useState<string[]>();
+  const [errors, setErrors] = useState<object>();
 
   function handleSubmit(post: PostType) {
     const replyForm = new FormData();
@@ -59,7 +59,7 @@ function PostForm() {
         <Form
           onSubmit={handleSubmit}
           encType="multipart/form-data"
-          error={errors !== undefined}
+          error={!!errors}
         >
           <Header as="h4" dividing={true}>
             Reply to thread

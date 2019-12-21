@@ -14,7 +14,7 @@ function UserForm({ trigger, value: user }: UserFormProps) {
   const isEdit = !!user;
 
   const [updatedUser, setUpdatedUser] = useState<UserType>();
-  const [errors, setErrors] = useState<Map<string, string>>();
+  const [errors, setErrors] = useState<object>();
 
   function handleSubmit(userForm: UserType) {
     const response = isEdit
