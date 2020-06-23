@@ -1,6 +1,7 @@
 import { Ref } from "@stardust-ui/react-component-ref";
 import React, { useContext, useState } from "react";
 import { Button, Checkbox, Icon } from "semantic-ui-react";
+import { setInterval } from "timers";
 import { getApiRequest } from "../../helpers/api";
 import { THREAD_URL } from "../../helpers/mappings";
 import { PostType } from "../../types";
