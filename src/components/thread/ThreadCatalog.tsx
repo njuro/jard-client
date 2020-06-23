@@ -9,6 +9,7 @@ import PostAttachment from "../post/PostAttachment";
 interface ThreadCatalogProps {
   thread: ThreadCatalogType;
   board: BoardType;
+  showOP: boolean;
 }
 
 const ThreadPreview = styled(Grid.Column)`
@@ -30,7 +31,7 @@ const ThreadMeta = styled.div`
   margin-bottom: 1px;
 `;
 
-function ThreadCatalog({ thread, board }: ThreadCatalogProps) {
+function ThreadCatalog({ thread, board, showOP }: ThreadCatalogProps) {
   return (
     <ThreadPreview>
       <Link to={THREAD_URL(thread as ThreadType, board)}>
@@ -40,7 +41,9 @@ function ThreadCatalog({ thread, board }: ThreadCatalogProps) {
         R: <strong>{thread.statistics.replyCount}</strong> / I:{" "}
         <strong>{thread.statistics.attachmentCount}</strong>
       </ThreadMeta>
-      <div style={{ padding: "0 15px" }}>{thread.originalPost.body}</div>
+      {showOP && (
+        <div style={{ padding: "0 15px" }}>{thread.originalPost.body}</div>
+      )}
     </ThreadPreview>
   );
 }
