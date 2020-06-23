@@ -35,6 +35,8 @@ export interface ThreadType {
   replies: PostType[];
 }
 
+export type ThreadCatalogType = Omit<ThreadType, "replies">;
+
 export interface ThreadStatisticsType {
   replyCount: number;
   attachmentCount: number;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Board from "../board/Board";
+import BoardCatalog from "../board/BoardCatalog";
 import Dashboard from "../dashboard/Dashboard";
 import ThreadWrapper from "../thread/ThreadWrapper";
 import LoginForm from "../user/LoginForm";
@@ -12,6 +13,11 @@ function MainSwitch() {
   return (
     <Switch>
       <Route exact={true} path="/" component={Home} />
+      <Route
+        exact={true}
+        path="/boards/:label/catalog"
+        component={BoardCatalog}
+      />
       <Route exact={true} path="/boards/:label" component={Board} />
       <Route
         exact={true}
