@@ -9,6 +9,8 @@ export const THREAD_URL = (thread: ThreadType, board: BoardType) =>
   BOARD_URL(board) + "/" + thread.originalPost.postNumber;
 
 export const USERS_URL = "/users";
+export const BANS_URL = "/bans";
+export const UNBANS_URL = "/bans/unban";
 export const LOGIN_URL = "/login";
 export const LOGOUT_URL = "/logout";
 export const DASHBOARD_URL = "/dashboard";

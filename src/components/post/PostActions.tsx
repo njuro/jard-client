@@ -7,6 +7,7 @@ import { PostType, UserAuthority } from "../../types";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
 import PostForm from "./PostForm";
+import BanForm from "../ban/BanForm";
 
 interface PostActionsProps {
   post: PostType;
@@ -37,7 +38,7 @@ function PostActions({ post, isOP }: PostActionsProps) {
           setThread(undefined);
         } else {
           thread.replies = thread.replies.filter(
-            reply => reply.postNumber !== post.postNumber
+            (reply) => reply.postNumber !== post.postNumber
           );
           thread.statistics.replyCount--;
           if (post.attachment) {
@@ -82,6 +83,18 @@ function PostActions({ post, isOP }: PostActionsProps) {
           size="mini"
           icon={<Icon name="trash alternate" />}
           onClick={deletePost}
+        />
+      )}
+      {useAuthority(UserAuthority.MANAGE_BANS) && (
+        <BanForm
+          trigger={
+            <Button
+              basic={true}
+              circular={true}
+              size="mini"
+              icon={<Icon name="ban" />}
+            />
+          }
         />
       )}
       {isOP && thread.stickied && <Icon name="thumbtack" />}

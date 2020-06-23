@@ -15,7 +15,7 @@ export interface BoardType {
 export enum BoardAttachmentType {
   IMAGE,
   TEXT,
-  ALL
+  ALL,
 }
 
 export interface BoardAttachmentTypeView {
@@ -76,11 +76,23 @@ export interface UserType {
   createdAt?: string;
 }
 
+export interface BanType {
+  ip: string;
+  status?: string;
+  bannedBy: UserType;
+  reason: string;
+  unbannedBy?: UserType;
+  unbanReason?: string;
+  start: string;
+  end: string;
+  warning?: boolean;
+}
+
 export enum UserRole {
   USER = "USER",
   JANITOR = "JANITOR",
   MODERATOR = "MODERATOR",
-  ADMIN = "ADMIN"
+  ADMIN = "ADMIN",
 }
 
 export enum UserAuthority {
@@ -89,5 +101,6 @@ export enum UserAuthority {
   TOGGLE_LOCK_THREAD = "TOGGLE_LOCK_THREAD",
   DELETE_POST = "DELETE_POST",
   MANAGE_USERS = "MANAGE_USERS",
-  VIEW_IP = "VIEW_IP"
+  VIEW_IP = "VIEW_IP",
+  MANAGE_BANS = "MANAGE_BANS",
 }
