@@ -13,6 +13,7 @@ function TextInput({ name, rules, ...rest }: TextInputProps | FormInputProps) {
       as={<SemanticForm.Input {...rest} />}
       name={name}
       rules={rules}
+      defaultValue={""}
     />
   );
 }
