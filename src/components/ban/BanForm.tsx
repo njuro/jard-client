@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
 import { postApiRequest, putApiRequest } from "../../helpers/api";

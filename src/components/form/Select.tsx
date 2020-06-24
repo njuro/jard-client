@@ -15,7 +15,7 @@ function Select({ name, ...rest }: SelectProps | FormSelectProps) {
     <Controller
       as={<SemanticForm.Select {...rest} />}
       name={name}
-      onChange={([_, data]) => data.value}
+      onChange={([, data]) => data.value}
     />
   );
 }

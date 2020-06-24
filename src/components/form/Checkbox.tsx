@@ -13,7 +13,7 @@ function Checkbox({
     <Controller
       as={<SemanticForm.Checkbox {...rest} />}
       name={name}
-      onChange={([_, data]) => data.checked}
+      onChange={([, data]) => data.checked}
     />
   );
 }

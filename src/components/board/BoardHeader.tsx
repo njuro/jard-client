@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Header } from "semantic-ui-react";
-import styled from "styled-components";
+import { Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { BoardContext } from "./Board";
 import { BOARD_CATALOG_URL, BOARD_URL } from "../../helpers/mappings";

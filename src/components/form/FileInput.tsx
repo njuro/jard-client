@@ -7,12 +7,7 @@ interface FileInputProps {
   rules?: ValidationOptions;
   onFileUpload: (args: File) => any;
 }
-function FileInput({
-  name,
-  rules,
-  onFileUpload,
-  ...rest
-}: FileInputProps | FormInputProps) {
+function FileInput({ onFileUpload, ...rest }: FileInputProps | FormInputProps) {
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files![0];
     onFileUpload(file);

@@ -4,7 +4,6 @@ import { Grid, Image } from "semantic-ui-react";
 import styled from "styled-components";
 import { THREAD_URL } from "../../helpers/mappings";
 import { BoardType, ThreadCatalogType, ThreadType } from "../../types";
-import PostAttachment from "../post/PostAttachment";
 
 interface ThreadCatalogProps {
   thread: ThreadCatalogType;

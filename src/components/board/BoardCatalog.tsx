@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Checkbox, Grid, Input, Menu, Select } from "semantic-ui-react";
 import styled from "styled-components";
@@ -59,12 +59,15 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
       case "replyCount":
         sortFn = (thread) => thread.statistics.replyCount;
         break;
+      default:
     }
 
     if (sortFn) {
-      threads.sort((t1, t2) =>
-        sortFn(t1) > sortFn(t2) ? -1 : sortFn(t1) < sortFn(t2) ? 1 : 0
-      );
+      threads.sort((t1, t2) => {
+        if (sortFn(t1) > sortFn(t2)) return -1;
+        if (sortFn(t1) < sortFn(t2)) return 1;
+        return 0;
+      });
       refreshCatalog();
     }
   }

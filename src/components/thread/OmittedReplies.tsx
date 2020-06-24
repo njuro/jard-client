@@ -51,6 +51,8 @@ function OmittedReplies() {
         </Link>
       );
     }
+
+    return null;
   }
 
   return (

@@ -6,5 +6,8 @@ module.exports = {
     "react/jsx-props-no-spreading": 0,
     "import/no-cycle": 0,
     "no-plusplus": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "import/no-extraneous-dependencies": 1,
+    "import/no-unresolved": 1,
   },
 };
