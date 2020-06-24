@@ -90,6 +90,7 @@ function PostActions({ post, isOP }: PostActionsProps) {
           trigger={
             <Button basic circular size="mini" icon={<Icon name="ban" />} />
           }
+          ip={post.ip}
         />
       )}
       {isOP && thread.stickied && <Icon name="thumbtack" />}

@@ -14,9 +14,10 @@ import Form, {
 
 interface BanFormProps {
   trigger: ReactNode;
+  ip?: string;
   value?: BanType;
 }
-function BanForm({ trigger, value: ban }: BanFormProps) {
+function BanForm({ trigger, ip, value: ban }: BanFormProps) {
   const isEdit = !!ban;
 
   const [updatedBan, setUpdatedBan] = useState<BanType>();
@@ -46,7 +47,9 @@ function BanForm({ trigger, value: ban }: BanFormProps) {
         unbannedBy: ban!.unbannedBy?.username,
         unbanReason: ban!.unbanReason,
       }
-    : {};
+    : {
+        ip,
+      };
 
   return (
     <Modal style={{ paddingBottom: "10px" }} trigger={trigger}>
@@ -61,6 +64,7 @@ function BanForm({ trigger, value: ban }: BanFormProps) {
           </Header>
           <TextInput
             name="ip"
+            value={ip}
             label="IP"
             placeholder="IP"
             required
