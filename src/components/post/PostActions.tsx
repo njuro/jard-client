@@ -4,10 +4,10 @@ import { deleteApiRequest, postApiRequest } from "../../helpers/api";
 import { useAuthority } from "../../helpers/authorities";
 import { THREAD_URL } from "../../helpers/mappings";
 import { PostType, UserAuthority } from "../../types";
+import BanForm from "../ban/BanForm";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
 import PostForm from "./PostForm";
-import BanForm from "../ban/BanForm";
 
 interface PostActionsProps {
   post: PostType;

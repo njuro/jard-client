@@ -11,7 +11,6 @@ import Form, {
   FormErrors,
   TextInput,
 } from "../form/Form";
-import SemanticDatepicker from "react-semantic-ui-datepickers";
 
 interface BanFormProps {
   trigger: ReactNode;
@@ -20,12 +19,10 @@ interface BanFormProps {
 function BanForm({ trigger, value: ban }: BanFormProps) {
   const isEdit = !!ban;
 
-  const [end, setEnd] = useState<Date | Date[] | null>(); // TODO handle with RHF
   const [updatedBan, setUpdatedBan] = useState<BanType>();
   const [errors, setErrors] = useState<object>();
 
   function handleSubmit(banForm: BanType) {
-    banForm.end = (end as unknown) as string;
     const response = isEdit
       ? postApiRequest<BanType>(BANS_URL + "/edit", banForm) // TODO implement edit endpoint
       : putApiRequest<BanType>(BANS_URL, banForm);
@@ -75,11 +72,7 @@ function BanForm({ trigger, value: ban }: BanFormProps) {
             placeholder="Reason"
             required={true}
           />
-          <SemanticDatepicker
-            onChange={(_, data) => setEnd(data.value)}
-            datePickerOnly={true}
-            label={"End"}
-          />
+          <DatePicker name={"end"} datePickerOnly={true} label={"End"} />
           <Checkbox name="warning" label="Is warning?" />
           <FormErrors errors={errors} />
           <Button fluid={true}>{isEdit ? "Update ban" : "Create ban"}</Button>

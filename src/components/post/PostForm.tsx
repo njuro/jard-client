@@ -3,7 +3,7 @@ import {
   Button as SemanticButton,
   Form as SemanticForm,
   Header,
-  Modal
+  Modal,
 } from "semantic-ui-react";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/forms";
@@ -15,7 +15,7 @@ import Form, {
   FileInput,
   FormErrors,
   TextArea,
-  TextInput
+  TextInput,
 } from "../form/Form";
 import { ThreadContext } from "../thread/Thread";
 
@@ -37,7 +37,7 @@ function PostForm() {
         setOpen(false);
         triggerThreadUpdateButton();
       })
-      .catch(err => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors));
   }
 
   return (
