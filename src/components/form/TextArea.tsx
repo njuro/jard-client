@@ -1,7 +1,7 @@
 import React from "react";
-import { RHFInput } from "react-hook-form-input";
 import { ValidationOptions } from "react-hook-form/dist/types";
 import { Form as SemanticForm, FormTextAreaProps } from "semantic-ui-react";
+import { Controller } from "react-hook-form";
 
 interface TextAreaProps {
   name: string;
@@ -9,7 +9,7 @@ interface TextAreaProps {
 }
 function TextArea({ name, rules, ...rest }: TextAreaProps | FormTextAreaProps) {
   return (
-    <RHFInput
+    <Controller
       as={<SemanticForm.TextArea {...rest} />}
       name={name}
       rules={rules}

@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from "react";
-import { RHFInput } from "react-hook-form-input";
 import { ValidationOptions } from "react-hook-form/dist/types";
 import { Form as SemanticForm, FormInputProps } from "semantic-ui-react";
 
@@ -19,14 +18,7 @@ function FileInput({
     onFileUpload(file);
   }
 
-  return (
-    <RHFInput
-      as={<SemanticForm.Input type="file" {...rest} />}
-      name={"_" + name}
-      rules={rules}
-      onChange={handleChange}
-    />
-  );
+  return <SemanticForm.Input type="file" {...rest} onChange={handleChange} />; // TODO use Controller from RHF
 }
 
 export default FileInput;

@@ -1,9 +1,9 @@
 import React from "react";
-import useForm, { FormContext } from "react-hook-form";
+import { FormContext, useForm } from "react-hook-form";
 import { OnSubmit } from "react-hook-form/dist/types";
 import {
   Form as SemanticForm,
-  FormProps as SemanticFormProps
+  FormProps as SemanticFormProps,
 } from "semantic-ui-react";
 
 interface FormProps {
@@ -18,7 +18,7 @@ function Form({
   ...rest
 }: FormProps | Omit<SemanticFormProps, "onSubmit">) {
   const methods = useForm({
-    defaultValues
+    defaultValues,
   });
   const { handleSubmit } = methods;
 
@@ -37,6 +37,7 @@ export { default as Select } from "./Select";
 export { default as Button } from "./Button";
 export { default as TextArea } from "./TextArea";
 export { default as FileInput } from "./FileInput";
+export { default as DatePicker } from "./DatePicker";
 export { default as FormErrors } from "./FormErrors";
 
 export default Form;

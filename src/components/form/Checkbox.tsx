@@ -1,5 +1,5 @@
 import React from "react";
-import { RHFInput } from "react-hook-form-input";
+import { Controller } from "react-hook-form";
 import { Form as SemanticForm, FormCheckboxProps } from "semantic-ui-react";
 
 interface CheckboxProps {
@@ -9,17 +9,11 @@ function Checkbox({
   name,
   ...rest
 }: CheckboxProps | Omit<FormCheckboxProps, "name">) {
-  function handleChange([, props]: any[]) {
-    return { checked: props.checked };
-  }
-
   return (
-    <RHFInput
+    <Controller
       as={<SemanticForm.Checkbox {...rest} />}
       name={name}
-      value={name}
-      type="checkbox"
-      onChangeEvent={handleChange}
+      onChange={([_, data]) => data.checked}
     />
   );
 }

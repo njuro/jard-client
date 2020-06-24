@@ -1,25 +1,21 @@
 import React from "react";
-import { RHFInput } from "react-hook-form-input";
 import {
   DropdownItemProps,
   Form as SemanticForm,
-  FormSelectProps
+  FormSelectProps,
 } from "semantic-ui-react";
+import { Controller } from "react-hook-form";
 
 interface SelectProps {
   name: string;
   options: DropdownItemProps[];
 }
 function Select({ name, ...rest }: SelectProps | FormSelectProps) {
-  function handleChange([, props]: any[]) {
-    return { value: props.value };
-  }
-
   return (
-    <RHFInput
+    <Controller
       as={<SemanticForm.Select {...rest} />}
       name={name}
-      onChangeEvent={handleChange}
+      onChange={([_, data]) => data.value}
     />
   );
 }
