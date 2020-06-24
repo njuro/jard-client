@@ -25,8 +25,8 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
         showFull
           ? {}
           : {
-              height: attachment.thumbHeight + "px",
-              width: attachment.thumbWidth + "px"
+              height: `${attachment.thumbHeight}px`,
+              width: `${attachment.thumbWidth}px`,
             }
       }
     />

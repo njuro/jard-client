@@ -14,8 +14,8 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^4.4.3",
     "axios": "^0.19.2",
+    "eslint": "^6.8.0",
     "husky": "^4.2.5",
-    "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^5.7.2",
@@ -25,10 +25,6 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.1.1",
-    "tslint": "^5.20.1",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.3.0",
-    "tslint-react": "^4.1.0",
     "typescript": "^3.9.5"
   },
   "scripts": {
@@ -36,8 +32,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "lint": "tslint -c tslint.json src/**/*.{ts,tsx} --fix --format verbose"
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
+    "lint": "eslint --fix src/**/*.{js,jsx,ts,tsx}"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -60,6 +56,9 @@
     }
   },
   "devDependencies": {
-    "prettier": "^2.0.5"
+    "eslint-config-airbnb-typescript-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1"
   }
 }

@@ -4,7 +4,7 @@ import { DropdownItemProps, Header, Modal } from "semantic-ui-react";
 import {
   getApiRequest,
   postApiRequest,
-  putApiRequest
+  putApiRequest,
 } from "../../helpers/api";
 import { objectToDropdownItem } from "../../helpers/forms";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
@@ -14,7 +14,7 @@ import Form, {
   Checkbox,
   FormErrors,
   Select,
-  TextInput
+  TextInput,
 } from "../form/Form";
 
 interface BoardFormProps {
@@ -31,21 +31,21 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
 
   useEffect(() => {
     getApiRequest<BoardAttachmentTypeView[]>(
-      BOARDS_URL + "/types"
-    ).then(types =>
+      `${BOARDS_URL}/types`
+    ).then((types) =>
       setAttachmentTypes(
-        types.map(type => objectToDropdownItem(type.name, type.description))
+        types.map((type) => objectToDropdownItem(type.name, type.description))
       )
     );
   }, []);
 
   function handleSubmit(boardForm: BoardType) {
     const response = isEdit
-      ? postApiRequest<BoardType>(BOARD_URL(board!) + "/edit", boardForm)
+      ? postApiRequest<BoardType>(`${BOARD_URL(board!)}/edit`, boardForm)
       : putApiRequest<BoardType>(BOARDS_URL, boardForm);
     response
       .then(setUpdatedBoard)
-      .catch(err => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors));
   }
 
   if (updatedBoard) {
@@ -54,12 +54,12 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
 
   const defaultValues = isEdit
     ? {
-        label: board!.label,
-        name: board!.name,
-        nsfw: board!.nsfw,
-        attachmentType: board!.attachmentType,
-        threadLimit: board!.threadLimit,
-        bumpLimit: board!.bumpLimit
+        label: board?.label,
+        name: board?.name,
+        nsfw: board?.nsfw,
+        attachmentType: board?.attachmentType,
+        threadLimit: board?.threadLimit,
+        bumpLimit: board?.bumpLimit,
       }
     : {};
 
@@ -71,47 +71,40 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
           error={!!errors}
           defaultValues={defaultValues}
         >
-          <Header as="h4" dividing={true}>
-            {isEdit ? `Edit board /${board!.label}/` : "Create new board"}
+          <Header as="h4" dividing>
+            {isEdit ? `Edit board /${board?.label}/` : "Create new board"}
           </Header>
           <TextInput
             name="label"
             label="Label"
             placeholder="Label"
-            required={true}
+            required
             disabled={isEdit}
           />
-          <TextInput
-            name="name"
-            label="Name"
-            placeholder="Name"
-            required={true}
-          />
+          <TextInput name="name" label="Name" placeholder="Name" required />
           <TextInput
             name="threadLimit"
             label="Thread limit"
             placeholder="Thread limit"
             type="number"
-            required={true}
+            required
           />
           <TextInput
             name="bumpLimit"
             label="Bump limit"
             placeholder="Bump limit"
             type="number"
-            required={true}
+            required
           />
           <Select
             name="attachmentType"
             label="Allowed attachment types"
             options={attachmentTypes}
-            required={true}
+            required
           />
           <Checkbox name="nsfw" label="NSFW" />
           <FormErrors errors={errors} />
-          <Button fluid={true}>
-            {isEdit ? "Update board" : "Create board"}
-          </Button>
+          <Button fluid>{isEdit ? "Update board" : "Create board"}</Button>
         </Form>
       </Modal.Content>
     </Modal>

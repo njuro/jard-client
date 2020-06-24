@@ -5,7 +5,7 @@ import {
   Confirm,
   Icon,
   Popup,
-  Table
+  Table,
 } from "semantic-ui-react";
 import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import { USER_URL, USERS_URL } from "../../helpers/mappings";
@@ -30,7 +30,7 @@ function UserAdmin() {
   const createUserButton = () => (
     <UserForm
       trigger={
-        <Button basic={true} size="small">
+        <Button basic size="small">
           <Icon name="plus" />
           <strong>New user</strong>
         </Button>
@@ -42,7 +42,7 @@ function UserAdmin() {
     <>
       {createUserButton()}
 
-      <Table fixed={true} striped={true}>
+      <Table fixed striped>
         <Table.Header>
           <Table.Row textAlign="center">
             <Table.HeaderCell>Username</Table.HeaderCell>
@@ -54,20 +54,20 @@ function UserAdmin() {
         </Table.Header>
 
         <Table.Body>
-          {users.map(user => {
+          {users.map((user) => {
             return (
               <Table.Row key={user.username} textAlign="center">
                 <Table.Cell>{user.username}</Table.Cell>
                 <Table.Cell>{user.email}</Table.Cell>
                 <Table.Cell>{user.role}</Table.Cell>
                 <Table.Cell>
-                  <Checkbox disabled={true} checked={user.enabled} />
+                  <Checkbox disabled checked={user.enabled} />
                 </Table.Cell>
                 <Table.Cell>
                   <Button.Group>
                     <UserForm
                       trigger={
-                        <Button basic={true} icon={true}>
+                        <Button basic icon>
                           <Popup
                             content="Edit"
                             position="top right"
@@ -79,7 +79,7 @@ function UserAdmin() {
                     />
                     <Confirm
                       trigger={
-                        <Button basic={true} icon={true}>
+                        <Button basic icon>
                           <Popup
                             content="Delete"
                             position="top left"

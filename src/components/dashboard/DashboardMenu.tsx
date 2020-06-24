@@ -5,7 +5,7 @@ import { DASHBOARD_URL } from "../../helpers/mappings";
 
 function DashboardMenu() {
   return (
-    <Menu fluid={true} vertical={true}>
+    <Menu fluid vertical>
       <Menu.Item>
         <Link to={DASHBOARD_URL}>Dashboard</Link>
       </Menu.Item>

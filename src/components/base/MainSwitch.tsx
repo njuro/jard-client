@@ -12,19 +12,15 @@ import Home from "./Home";
 function MainSwitch() {
   return (
     <Switch>
-      <Route exact={true} path="/" component={Home} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/boards/:label/catalog" component={BoardCatalog} />
+      <Route exact path="/boards/:label" component={Board} />
       <Route
-        exact={true}
-        path="/boards/:label/catalog"
-        component={BoardCatalog}
-      />
-      <Route exact={true} path="/boards/:label" component={Board} />
-      <Route
-        exact={true}
+        exact
         path="/boards/:label/:threadNumber"
         component={ThreadWrapper}
       />
-      <Route exact={true} path="/login" component={LoginForm} />
+      <Route exact path="/login" component={LoginForm} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>

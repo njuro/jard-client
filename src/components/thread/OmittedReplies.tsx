@@ -17,10 +17,10 @@ function OmittedReplies() {
   const omittedAttachments =
     thread.statistics.attachmentCount -
     (thread.originalPost.attachment ? 1 : 0) -
-    thread.replies.filter(reply => !!reply.attachment).length;
+    thread.replies.filter((reply) => !!reply.attachment).length;
 
   function expandReplies() {
-    getApiRequest<ThreadType>(THREAD_URL(thread, board)).then(fullThread => {
+    getApiRequest<ThreadType>(THREAD_URL(thread, board)).then((fullThread) => {
       setThread(fullThread);
       setExpanded(true);
     });
@@ -43,7 +43,8 @@ function OmittedReplies() {
           </Link>
         </>
       );
-    } else if (expanded) {
+    }
+    if (expanded) {
       return (
         <Link to="#" onClick={collapseReplies}>
           Hide expanded replies

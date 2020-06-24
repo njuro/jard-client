@@ -17,7 +17,7 @@ const ThreadList = styled(Grid)`
 `;
 
 function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
-  const label = props.match.params.label;
+  const { label } = props.match.params;
   const [board, setBoard] = useState<BoardType>();
   const [threads, setThreads] = useState<ThreadCatalogType[]>([]);
   const [showOP, setShowOP] = useState<boolean>(true);
@@ -72,12 +72,12 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
   return (
     (board && (
       <BoardContext.Provider value={board}>
-        <BoardHeader catalog={true} />
+        <BoardHeader catalog />
         <ThreadForm />
-        <Menu horizontal={true}>
-          <Menu.Item position={"right"}>
+        <Menu horizontal>
+          <Menu.Item position="right">
             <Select
-              placeholder={"Sort by"}
+              placeholder="Sort by"
               options={[
                 {
                   key: "lastReply",
@@ -91,28 +91,28 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
                 },
                 { key: "replyCount", value: "replyCount", text: "Reply count" },
               ]}
-              defaultValue={"lastReply"}
+              defaultValue="lastReply"
               onChange={(_, data) => sortThreads(data.value as string)}
             />
           </Menu.Item>
-          <Menu.Item position={"right"}>
+          <Menu.Item position="right">
             <Checkbox
-              toggle={true}
+              toggle
               checked={showOP}
               onChange={() => setShowOP(!showOP)}
-              label={"Show OP?"}
+              label="Show OP?"
               s
             />
           </Menu.Item>
-          <Menu.Item position={"right"}>
+          <Menu.Item position="right">
             <Input
               onChange={(_, data) => filterThreads(data.value)}
-              placeholder={"Search in threads..."}
+              placeholder="Search in threads..."
             />
           </Menu.Item>
         </Menu>
 
-        <ThreadList container={true}>
+        <ThreadList container>
           <ThreadList.Row columns={3}>
             {threads.map((thread) => (
               <ThreadCatalog

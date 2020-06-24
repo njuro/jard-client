@@ -11,7 +11,7 @@ import Form, {
   FileInput,
   FormErrors,
   TextArea,
-  TextInput
+  TextInput,
 } from "../form/Form";
 
 function ThreadForm() {
@@ -28,7 +28,7 @@ function ThreadForm() {
 
     putApiRequest<ThreadType>(BOARD_URL(board), threadForm)
       .then(setCreatedThread)
-      .catch(err => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors));
   }
 
   if (createdThread) {
@@ -43,7 +43,7 @@ function ThreadForm() {
     <Modal
       style={{ paddingBottom: "10px" }}
       trigger={
-        <Button basic={true} size="small">
+        <Button basic size="small">
           <Icon name="plus" />
           <strong>New thread</strong>
         </Button>
@@ -55,18 +55,18 @@ function ThreadForm() {
           encType="multipart/form-data"
           error={!!errors}
         >
-          <Header as="h4" dividing={true}>
+          <Header as="h4" dividing>
             Create new thread
           </Header>
           <SemanticForm.Group widths="equal">
             <TextInput
-              fluid={true}
+              fluid
               name="postForm.name"
               label="Name"
               placeholder="Name"
             />
             <TextInput
-              fluid={true}
+              fluid
               name="postForm.password"
               label="Tripcode password"
               placeholder="Password"
@@ -79,7 +79,7 @@ function ThreadForm() {
             label="Upload image"
             accept="image/*"
             onFileUpload={setAttachment}
-            required={true}
+            required
           />
           <FormErrors errors={errors} />
           <Button floated="right">Create thread</Button>

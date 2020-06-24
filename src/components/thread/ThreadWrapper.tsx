@@ -10,7 +10,7 @@ import Thread from "./Thread";
 function ThreadWrapper(
   props: RouteComponentProps<{ label: string; threadNumber: string }>
 ) {
-  const label = props.match.params.label;
+  const { label } = props.match.params;
   const threadNumber = Number(props.match.params.threadNumber);
 
   const [thread, setThread] = useState<ThreadType>();

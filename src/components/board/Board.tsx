@@ -10,7 +10,7 @@ import BoardHeader from "./BoardHeader";
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
 function Board(props: RouteComponentProps<{ label: string }>) {
-  const label = props.match.params.label;
+  const { label } = props.match.params;
   const [board, setBoard] = useState<BoardType>();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function Board(props: RouteComponentProps<{ label: string }>) {
       <BoardContext.Provider value={board}>
         <BoardHeader />
         <ThreadForm />
-        {board.threads!.map(thread => (
+        {board.threads!.map((thread) => (
           <Thread key={thread.originalPost.postNumber} thread={thread} />
         ))}
       </BoardContext.Provider>

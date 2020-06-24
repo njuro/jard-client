@@ -24,7 +24,7 @@ function BanForm({ trigger, value: ban }: BanFormProps) {
 
   function handleSubmit(banForm: BanType) {
     const response = isEdit
-      ? postApiRequest<BanType>(BANS_URL + "/edit", banForm) // TODO implement edit endpoint
+      ? postApiRequest<BanType>(`${BANS_URL}/edit`, banForm) // TODO implement edit endpoint
       : putApiRequest<BanType>(BANS_URL, banForm);
     response
       .then(setUpdatedBan)
@@ -32,7 +32,7 @@ function BanForm({ trigger, value: ban }: BanFormProps) {
   }
 
   if (updatedBan) {
-    return <Redirect to={"/"} />; // TODO redirect to manage bans
+    return <Redirect to="/" />; // TODO redirect to manage bans
   }
 
   const defaultValues = isEdit
@@ -56,26 +56,26 @@ function BanForm({ trigger, value: ban }: BanFormProps) {
           error={!!errors}
           defaultValues={defaultValues}
         >
-          <Header as="h4" dividing={true}>
+          <Header as="h4" dividing>
             {isEdit ? "Edit ban" : "Create new ban"}
           </Header>
           <TextInput
             name="ip"
             label="IP"
             placeholder="IP"
-            required={true}
+            required
             disabled={isEdit}
           />
           <TextInput
             name="reason"
             label="Reason"
             placeholder="Reason"
-            required={true}
+            required
           />
-          <DatePicker name={"end"} datePickerOnly={true} label={"End"} />
+          <DatePicker name="end" datePickerOnly label="End" />
           <Checkbox name="warning" label="Is warning?" />
           <FormErrors errors={errors} />
-          <Button fluid={true}>{isEdit ? "Update ban" : "Create ban"}</Button>
+          <Button fluid>{isEdit ? "Update ban" : "Create ban"}</Button>
         </Form>
       </Modal.Content>
     </Modal>

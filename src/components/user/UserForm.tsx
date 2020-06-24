@@ -18,11 +18,11 @@ function UserForm({ trigger, value: user }: UserFormProps) {
 
   function handleSubmit(userForm: UserType) {
     const response = isEdit
-      ? postApiRequest<UserType>(USER_URL(user!) + "/edit", userForm)
+      ? postApiRequest<UserType>(`${USER_URL(user!)}/edit`, userForm)
       : putApiRequest<UserType>(USERS_URL, userForm);
     response
       .then(setUpdatedUser)
-      .catch(err => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors));
   }
 
   if (updatedUser) {
@@ -32,7 +32,7 @@ function UserForm({ trigger, value: user }: UserFormProps) {
   const defaultValues = isEdit
     ? {
         username: user!.username,
-        email: user!.email
+        email: user!.email,
       }
     : {};
 
@@ -44,7 +44,7 @@ function UserForm({ trigger, value: user }: UserFormProps) {
           error={!!errors}
           defaultValues={defaultValues}
         >
-          <Header as="h4" dividing={true}>
+          <Header as="h4" dividing>
             {isEdit ? `Edit user ${user!.username}` : "Create new user"}
           </Header>
           <TextInput
@@ -74,7 +74,7 @@ function UserForm({ trigger, value: user }: UserFormProps) {
             type="email"
           />
           <FormErrors errors={errors} />
-          <Button fluid={true}>{isEdit ? "Edit user" : "Create user"}</Button>
+          <Button fluid>{isEdit ? "Edit user" : "Create user"}</Button>
         </Form>
       </Modal.Content>
     </Modal>

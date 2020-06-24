@@ -8,8 +8,8 @@ function FormErrors({ errors }: FormErrorsProps) {
   return (
     (errors && Object.keys(errors).length > 0 && (
       <Message
-        error={true}
-        content={<List items={Object.values(errors)} bulleted={true} />}
+        error
+        content={<List items={Object.values(errors)} bulleted />}
       />
     )) ||
     null

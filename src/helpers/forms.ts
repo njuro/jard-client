@@ -2,12 +2,12 @@ import { DropdownItemProps } from "semantic-ui-react";
 
 export function objectToJsonBlob(data: object) {
   return new Blob([JSON.stringify(data)], {
-    type: "application/json"
+    type: "application/json",
   });
 }
 
 export function objectToDropdownItem(
-  value: any,
+  value: boolean | number | string,
   description: string
 ): DropdownItemProps {
   return { key: value, text: description, value };

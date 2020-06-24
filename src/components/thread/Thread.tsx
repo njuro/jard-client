@@ -35,12 +35,12 @@ function Thread({ thread: initialThread }: ThreadProps) {
           thread,
           setThread,
           refreshThread,
-          triggerThreadUpdateButton
+          triggerThreadUpdateButton,
         }}
       >
-        <Item.Group divided={true} className="thread">
-          <Post post={thread.originalPost} isOP={true} />
-          {thread.replies.map(post => (
+        <Item.Group divided className="thread">
+          <Post post={thread.originalPost} isOP />
+          {thread.replies.map((post) => (
             <Post key={post.postNumber} post={post} isOP={false} />
           ))}
         </Item.Group>

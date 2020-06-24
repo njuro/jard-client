@@ -21,7 +21,7 @@ function LoginForm() {
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)
       .then(setLoggedUser)
-      .catch(err => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors));
   }
 
   if (user) {
@@ -37,11 +37,11 @@ function LoginForm() {
     <Grid>
       <Form
         onSubmit={handleSubmit}
-        className={"six wide column centered"}
+        className="six wide column centered"
         error={!!errors}
       >
         <Segment>
-          <Header as="h4" dividing={true}>
+          <Header as="h4" dividing>
             Login
           </Header>
           <TextInput name="username" label="Username" placeholder="Username" />
@@ -53,7 +53,7 @@ function LoginForm() {
           />
           <Checkbox name="rememberMe" label="Remember me" />
           <FormErrors errors={errors} />
-          <Button fluid={true}>Login</Button>
+          <Button fluid>Login</Button>
         </Segment>
       </Form>
     </Grid>

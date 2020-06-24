@@ -22,9 +22,9 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
         ? thread.replies[thread.replies.length - 1].postNumber
         : thread.originalPost.postNumber;
     getApiRequest<PostType[]>(
-      THREAD_URL(thread, board) + `/new-replies?lastPost=${lastPostNumber}`
+      `${THREAD_URL(thread, board)}/new-replies?lastPost=${lastPostNumber}`
     )
-      .then(replies => {
+      .then((replies) => {
         setStatus(
           replies.length > 0
             ? `Fetched ${replies.length} new ${
@@ -39,7 +39,7 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
 
   function addNewReplies(replies: PostType[]) {
     if (replies.length > 0) {
-      replies.forEach(reply => {
+      replies.forEach((reply) => {
         thread.statistics.replyCount++;
         if (reply.attachment) {
           thread.statistics.attachmentCount++;
@@ -63,12 +63,12 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   return (
     <>
       <Ref innerRef={threadUpdateButtonRef}>
-        <Button basic={true} size="small" onClick={checkForNewReplies}>
+        <Button basic size="small" onClick={checkForNewReplies}>
           <Icon name="refresh" />
           <strong>Update</strong>
         </Button>
       </Ref>
-      <Checkbox onChange={toggleTimer} label="Auto" toggle={true} />
+      <Checkbox onChange={toggleTimer} label="Auto" toggle />
       <em>&nbsp; {status}</em>
     </>
   );

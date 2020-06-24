@@ -46,8 +46,8 @@ function PostForm() {
       open={open}
       trigger={
         <SemanticButton
-          basic={true}
-          circular={true}
+          basic
+          circular
           size="mini"
           icon="reply"
           onClick={() => setOpen(true)}
@@ -61,18 +61,13 @@ function PostForm() {
           encType="multipart/form-data"
           error={!!errors}
         >
-          <Header as="h4" dividing={true}>
+          <Header as="h4" dividing>
             Reply to thread
           </Header>
           <SemanticForm.Group widths="equal">
+            <TextInput fluid name="name" label="Name" placeholder="Name" />
             <TextInput
-              fluid={true}
-              name="name"
-              label="Name"
-              placeholder="Name"
-            />
-            <TextInput
-              fluid={true}
+              fluid
               name="password"
               label="Tripcode password"
               placeholder="Password"

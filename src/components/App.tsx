@@ -21,7 +21,7 @@ function App() {
   const [userLoading, setUserLoading] = useState(true);
 
   useEffect(() => {
-    getApiRequest<UserType>(USERS_URL + "/current")
+    getApiRequest<UserType>(`${USERS_URL}/current`)
       .then(setUser)
       .finally(() => setUserLoading(false));
   }, []);

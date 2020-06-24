@@ -17,7 +17,7 @@ function ProtectedRoute({
     <Route
       path={path}
       {...rest}
-      render={props => {
+      render={(props) => {
         return user ? <Comp {...props} /> : <Redirect to="/" />;
       }}
     />

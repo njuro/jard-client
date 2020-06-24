@@ -2,7 +2,7 @@ import axios, { Method } from "axios";
 
 const client = axios.create({
   baseURL: `http://localhost:8081/api/`,
-  withCredentials: true
+  withCredentials: true,
 });
 
 export function getApiRequest<T>(url: string) {
@@ -26,8 +26,8 @@ function makeRequest<T>(method: Method, url: string, body = {}) {
     .request({
       method,
       url,
-      data: body
+      data: body,
     })
-    .then<T>(res => res.data);
+    .then<T>((res) => res.data);
 }
 export default client;
