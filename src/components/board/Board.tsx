@@ -38,7 +38,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
             firstItem={null}
             lastItem={null}
             siblingRange={1}
-            totalPages={board.threadPages}
+            totalPages={board.pageCount}
             activePage={pageNumber}
             onPageChange={(_, { activePage }) => {
               history.push(`${BOARD_URL(board)}/${activePage}`);
