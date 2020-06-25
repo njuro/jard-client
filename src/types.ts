@@ -8,6 +8,7 @@ export interface BoardType {
   attachmentType: BoardAttachmentType;
   nsfw: boolean;
   threadCount: number;
+  threadPages: number;
   threadLimit: number;
   bumpLimit: number;
   threads?: ThreadType[];

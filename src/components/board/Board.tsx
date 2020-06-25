@@ -7,7 +7,6 @@ import { BoardType } from "../../types";
 import Thread from "../thread/Thread";
 import ThreadForm from "../thread/ThreadForm";
 import BoardHeader from "./BoardHeader";
-import { MAX_THREADS_PER_PAGE } from "../../helpers/constants";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
@@ -39,7 +38,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
             firstItem={null}
             lastItem={null}
             siblingRange={1}
-            totalPages={Math.ceil(board.threadCount / MAX_THREADS_PER_PAGE)}
+            totalPages={board.threadPages}
             activePage={pageNumber}
             onPageChange={(_, { activePage }) => {
               history.push(`${BOARD_URL(board)}/${activePage}`);
