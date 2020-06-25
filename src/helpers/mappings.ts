@@ -6,7 +6,7 @@ export const BOARD_URL = (board: BoardType) => `${BOARDS_URL}/${board.label}`;
 export const BOARD_CATALOG_URL = (board: BoardType) =>
   `${BOARD_URL(board)}/catalog`;
 export const THREAD_URL = (thread: ThreadType, board: BoardType) =>
-  `${BOARD_URL(board)}/${thread.originalPost.postNumber}`;
+  `${BOARD_URL(board)}/thread/${thread.originalPost.postNumber}`;
 export const BAN_URL = (ban: BanType) => `${BANS_URL}/${ban.id}`;
 
 export const USERS_URL = "/users";

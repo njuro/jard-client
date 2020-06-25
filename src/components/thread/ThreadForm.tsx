@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Form as SemanticForm, Header, Icon, Modal } from "semantic-ui-react";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/forms";
-import { BOARD_URL } from "../../helpers/mappings";
+import { BOARD_URL, THREAD_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import Form, {
@@ -32,11 +32,7 @@ function ThreadForm() {
   }
 
   if (createdThread) {
-    return (
-      <Redirect
-        to={`/boards/${board.label}/${createdThread.originalPost.postNumber}`}
-      />
-    );
+    return <Redirect to={THREAD_URL(createdThread, board)} />;
   }
 
   return (

@@ -17,7 +17,7 @@ function MainSwitch() {
       <Route exact path="/boards/:label/:page?" component={Board} />
       <Route
         exact
-        path="/boards/:label/:threadNumber"
+        path="/boards/:label/thread/:threadNumber"
         component={ThreadWrapper}
       />
       <Route exact path="/login" component={LoginForm} />
