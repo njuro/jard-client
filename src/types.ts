@@ -77,8 +77,9 @@ export interface UserType {
 }
 
 export interface BanType {
+  id?: number;
   ip: string;
-  status?: string;
+  status?: BanStatus;
   bannedBy: UserType;
   reason: string;
   unbannedBy?: UserType;
@@ -86,6 +87,18 @@ export interface BanType {
   start: string;
   end: string;
   warning?: boolean;
+}
+
+export enum BanStatus {
+  ACTIVE = "ACTIVE",
+  EXPIRED = "EXPIRED",
+  UNBANNED = "UNBANNED",
+  WARNING = "WARNING",
+}
+
+export interface UnbanFormType {
+  ip: string;
+  reason: string;
 }
 
 export enum UserRole {

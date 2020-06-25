@@ -15,6 +15,9 @@ function DashboardMenu() {
       <Menu.Item>
         <Link to={`${DASHBOARD_URL}/manage-users`}>Manage users</Link>
       </Menu.Item>
+      <Menu.Item>
+        <Link to={`${DASHBOARD_URL}/manage-bans`}>Manage bans</Link>
+      </Menu.Item>
     </Menu>
   );
 }

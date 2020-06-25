@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
 import { postApiRequest, putApiRequest } from "../../helpers/api";
-import { BANS_URL } from "../../helpers/mappings";
+import { BAN_URL, BANS_URL, DASHBOARD_URL } from "../../helpers/mappings";
 import { BanType } from "../../types";
 import Form, {
   Button,
@@ -25,7 +25,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
 
   function handleSubmit(banForm: BanType) {
     const response = isEdit
-      ? postApiRequest<BanType>(`${BANS_URL}/edit`, banForm) // TODO implement edit endpoint
+      ? postApiRequest<BanType>(`${BAN_URL(ban!)}/edit`, banForm)
       : putApiRequest<BanType>(BANS_URL, banForm);
     response
       .then(setUpdatedBan)
@@ -33,7 +33,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
   }
 
   if (updatedBan) {
-    return <Redirect to="/" />; // TODO redirect to manage bans
+    return <Redirect to={`${DASHBOARD_URL}/manage-bans`} />; // TODO close modal
   }
 
   const defaultValues = isEdit
@@ -42,8 +42,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
         status: ban!.status,
         reason: ban!.reason,
         bannedBy: ban!.bannedBy.username,
-        start: ban!.start,
-        end: ban!.end,
+        end: new Date(ban!.end),
         unbannedBy: ban!.unbannedBy?.username,
         unbanReason: ban!.unbanReason,
       }
