@@ -14,7 +14,7 @@ function MainSwitch() {
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/boards/:label/catalog" component={BoardCatalog} />
-      <Route exact path="/boards/:label" component={Board} />
+      <Route exact path="/boards/:label/:page?" component={Board} />
       <Route
         exact
         path="/boards/:label/:threadNumber"
