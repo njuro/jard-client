@@ -56,7 +56,7 @@ function OmittedReplies() {
   }
 
   return (
-    <Item.Extra style={{ top: "70%" }}>{renderRepliesToggle()}</Item.Extra>
+    <Item.Extra style={{ top: "50%" }}>{renderRepliesToggle()}</Item.Extra>
   );
 }
 
