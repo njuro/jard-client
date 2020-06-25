@@ -16,9 +16,9 @@ function ThreadWrapper(
   const [thread, setThread] = useState<ThreadType>();
 
   useEffect(() => {
-    getApiRequest<ThreadType>(`${BOARDS_URL}/${label}/${threadNumber}`).then(
-      setThread
-    );
+    getApiRequest<ThreadType>(
+      `${BOARDS_URL}/${label}/thread/${threadNumber}`
+    ).then(setThread);
   }, [label, threadNumber]);
 
   return (

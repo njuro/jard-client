@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { Button, Checkbox, Icon } from "semantic-ui-react";
 import { setInterval } from "timers";
 import { getApiRequest } from "../../helpers/api";
-import { BOARD_URL } from "../../helpers/mappings";
+import { THREAD_URL } from "../../helpers/mappings";
 import { PostType } from "../../types";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "./Thread";
@@ -22,10 +22,8 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
         ? thread.replies[thread.replies.length - 1].postNumber
         : thread.originalPost.postNumber;
     getApiRequest<PostType[]>(
-      `${BOARD_URL(board)}/${
-        thread.originalPost.postNumber
-      }/new-replies?lastPost=${lastPostNumber}`
-    ) // TODO more consistent mapping
+      `${THREAD_URL(thread, board)}/new-replies?lastPost=${lastPostNumber}`
+    )
       .then((replies) => {
         setStatus(
           replies.length > 0
