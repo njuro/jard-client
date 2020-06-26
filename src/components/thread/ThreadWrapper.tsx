@@ -6,6 +6,7 @@ import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import BoardHeader from "../board/BoardHeader";
 import Thread from "./Thread";
+import NotFound from "../utils/NotFound";
 
 function ThreadWrapper(
   props: RouteComponentProps<{ label: string; threadNumber: string }>
@@ -14,12 +15,21 @@ function ThreadWrapper(
   const threadNumber = Number(props.match.params.threadNumber);
 
   const [thread, setThread] = useState<ThreadType>();
+  const [notFound, setNotFound] = useState<boolean>(false);
 
   useEffect(() => {
-    getApiRequest<ThreadType>(
-      `${BOARDS_URL}/${label}/thread/${threadNumber}`
-    ).then(setThread);
+    getApiRequest<ThreadType>(`${BOARDS_URL}/${label}/thread/${threadNumber}`)
+      .then(setThread)
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setNotFound(true);
+        }
+      });
   }, [label, threadNumber]);
+
+  if (notFound) {
+    return <NotFound />;
+  }
 
   return (
     (thread && (

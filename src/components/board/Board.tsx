@@ -7,6 +7,7 @@ import { BoardType } from "../../types";
 import Thread from "../thread/Thread";
 import ThreadForm from "../thread/ThreadForm";
 import BoardHeader from "./BoardHeader";
+import NotFound from "../utils/NotFound";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
@@ -14,13 +15,33 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
   const { label, page } = props.match.params;
   const [board, setBoard] = useState<BoardType>();
   const [pageNumber, setPageNumber] = useState<number>(page ? Number(page) : 1);
+  const [notFound, setNotFound] = useState<boolean>(false);
+
   const history = useHistory();
 
   useEffect(() => {
-    getApiRequest<BoardType>(`${BOARDS_URL}/${label}?page=${pageNumber}`).then(
-      setBoard
-    );
+    if (Number.isNaN(pageNumber)) {
+      setNotFound(true);
+      return;
+    }
+
+    getApiRequest<BoardType>(`${BOARDS_URL}/${label}?page=${pageNumber}`)
+      .then((result) => {
+        if (result.pageCount < pageNumber) {
+          setNotFound(true);
+        }
+        setBoard(result);
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setNotFound(true);
+        }
+      });
   }, [label, pageNumber, setBoard]);
+
+  if (notFound) {
+    return <NotFound />;
+  }
 
   return (
     (board && (

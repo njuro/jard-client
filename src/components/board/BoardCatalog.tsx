@@ -10,6 +10,7 @@ import ThreadCatalog from "../thread/ThreadCatalog";
 import ThreadForm from "../thread/ThreadForm";
 import { BoardContext } from "./Board";
 import BoardHeader from "./BoardHeader";
+import NotFound from "../utils/NotFound";
 
 const ThreadList = styled(Grid)`
   padding: 20px 0;
@@ -21,16 +22,26 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
   const [board, setBoard] = useState<BoardType>();
   const [threads, setThreads] = useState<ThreadCatalogType[]>([]);
   const [showOP, setShowOP] = useState<boolean>(true);
+  const [notFound, setNotFound] = useState<boolean>(false);
+
   const refreshCatalog = useUpdater();
 
   useEffect(() => {
-    getApiRequest<BoardType>(`${BOARDS_URL}/${label}/catalog`).then(
-      (result) => {
+    getApiRequest<BoardType>(`${BOARDS_URL}/${label}/catalog`)
+      .then((result) => {
         setBoard(result);
         setThreads(result.threads!);
-      }
-    );
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setNotFound(true);
+        }
+      });
   }, [label, setBoard]);
+
+  if (notFound) {
+    return <NotFound />;
+  }
 
   function filterThreads(query: string) {
     if (query && query.trim()) {
