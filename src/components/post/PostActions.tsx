@@ -53,6 +53,7 @@ function PostActions({ post, isOP }: PostActionsProps) {
   return (
     <>
       {!thread.locked && <PostForm />}
+      {/* TODO popup not working */}
       {useAuthority(UserAuthority.TOGGLE_STICKY_THREAD) && isOP && (
         <Button
           basic
