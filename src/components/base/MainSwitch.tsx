@@ -8,6 +8,7 @@ import LoginForm from "../user/LoginForm";
 import NotFound from "../utils/NotFound";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import Home from "./Home";
+import BanStatus from "../ban/BanStatus";
 
 function MainSwitch() {
   return (
@@ -21,6 +22,7 @@ function MainSwitch() {
         component={ThreadWrapper}
       />
       <Route exact path="/login" component={LoginForm} />
+      <Route exact path="/banned" component={BanStatus} />
       <ProtectedRoute path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
