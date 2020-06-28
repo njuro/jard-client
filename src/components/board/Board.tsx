@@ -54,7 +54,6 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
         <div style={{ display: "block" }}>
           <Pagination
             boundaryRange={0}
-            defaultActivePage={1}
             ellipsisItem={null}
             firstItem={null}
             lastItem={null}
