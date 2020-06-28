@@ -3,8 +3,9 @@ import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
 import { postApiRequest, putApiRequest } from "../../helpers/api";
 import { USER_URL, USERS_URL } from "../../helpers/mappings";
-import { UserType } from "../../types";
-import Form, { Button, FormErrors, TextInput } from "../form/Form";
+import { UserRole, UserType } from "../../types";
+import Form, { Button, FormErrors, Select, TextInput } from "../form/Form";
+import { objectToDropdownItem } from "../../helpers/forms";
 
 interface UserFormProps {
   trigger: ReactNode;
@@ -31,8 +32,9 @@ function UserForm({ trigger, value: user }: UserFormProps) {
 
   const defaultValues = isEdit
     ? {
-        username: user!.username,
-        email: user!.email,
+        username: user?.username,
+        email: user?.email,
+        role: user?.role,
       }
     : {};
 
@@ -72,6 +74,15 @@ function UserForm({ trigger, value: user }: UserFormProps) {
             label="E-mail"
             placeholder="E-mail"
             type="email"
+          />
+          <Select
+            name="role"
+            options={Object.keys(UserRole).map((role) =>
+              objectToDropdownItem(role, role)
+            )}
+            label="Role"
+            placeholder="Select role"
+            required
           />
           <FormErrors errors={errors} />
           <Button fluid>{isEdit ? "Edit user" : "Create user"}</Button>
