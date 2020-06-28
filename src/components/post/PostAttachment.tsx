@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Image } from "semantic-ui-react";
 import { AttachmentType } from "../../types";
+import { ATTACHMENT_THUMB_URL, ATTACHMENT_URL } from "../../helpers/mappings";
 
 interface PostAttachmentProps {
   attachment: AttachmentType;
@@ -15,20 +16,14 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
 
   return (
     <Image
-      href={attachment.url}
+      href={ATTACHMENT_URL(attachment)}
       target="_blank"
       rel="noopener noreferrer"
       verticalAlign="top"
-      src={attachment.url}
-      onClick={toggleSize}
-      style={
-        showFull
-          ? {}
-          : {
-              height: `${attachment.thumbHeight}px`,
-              width: `${attachment.thumbWidth}px`,
-            }
+      src={
+        showFull ? ATTACHMENT_URL(attachment) : ATTACHMENT_THUMB_URL(attachment)
       }
+      onClick={toggleSize}
     />
   );
 }

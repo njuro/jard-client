@@ -26,7 +26,7 @@ function ThreadForm() {
     threadForm.append("threadForm", objectToJsonBlob(thread));
     threadForm.append("attachment", attachment!);
 
-    putApiRequest<ThreadType>(BOARD_URL(board), threadForm)
+    putApiRequest<ThreadType>(`${BOARD_URL(board)}/thread`, threadForm)
       .then(setCreatedThread)
       .catch((err) => setErrors(err.response.data.errors));
   }

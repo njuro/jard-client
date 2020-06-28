@@ -27,7 +27,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
 
     getApiRequest<BoardType>(`${BOARDS_URL}/${label}?page=${pageNumber}`)
       .then((result) => {
-        if (result.pageCount < pageNumber) {
+        if (result.pageCount > 1 && result.pageCount < pageNumber) {
           setNotFound(true);
         }
         setBoard(result);

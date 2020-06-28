@@ -60,9 +60,9 @@ export interface AttachmentType {
   filename: string;
   width: number;
   height: number;
-  thumbWidth: number;
-  thumbHeight: number;
-  url: string;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
+  path: string;
 }
 
 export interface UserType {
