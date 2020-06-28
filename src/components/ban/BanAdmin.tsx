@@ -50,10 +50,9 @@ function BanAdmin() {
         </Table.Header>
 
         <Table.Body>
-          {bans.map((ban, index) => {
+          {bans.map((ban) => {
             return (
-              // eslint-disable-next-line
-              <Table.Row key={index} textAlign="center">
+              <Table.Row key={ban.id} textAlign="center">
                 <Table.Cell>{ban.ip}</Table.Cell>
                 <Table.Cell>{ban.bannedBy.username}</Table.Cell>
                 <Table.Cell>{ban.reason}</Table.Cell>
