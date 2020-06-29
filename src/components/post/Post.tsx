@@ -14,7 +14,7 @@ function Post({ post, isOP }: PostProps) {
   const { thread } = useContext(ThreadContext);
 
   return (
-    <Item className={isOP ? "original-post" : "post"}>
+    <Item className={isOP ? "original-post" : "post"} id={post.postNumber}>
       {post.attachment && <PostAttachment attachment={post.attachment} />}
       <Item.Content>
         <Item.Meta>
@@ -32,7 +32,9 @@ function Post({ post, isOP }: PostProps) {
               </em>
             </span>
           )}
-          <span className="post-number">No. {post.postNumber}</span>
+          <span className="post-number">
+            No. <a href="#">{post.postNumber}</a>
+          </span>
           <PostActions post={post} isOP={isOP} />
         </Item.Meta>
         <div className="body" dangerouslySetInnerHTML={{ __html: post.body }} />

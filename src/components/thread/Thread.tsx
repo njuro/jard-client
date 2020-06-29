@@ -4,12 +4,15 @@ import useUpdater from "../../helpers/updater";
 import { SetStateType, ThreadType } from "../../types";
 import Post from "../post/Post";
 import ThreadUpdateButton from "./ThreadUpdateButton";
+import PostForm from "../post/PostForm";
 
 interface ThreadContextProps {
   thread: ThreadType;
   setThread: SetStateType<ThreadType | undefined>;
   refreshThread: () => void;
   triggerThreadUpdateButton: () => void;
+  replyFormOpen: boolean;
+  setReplyFormOpen: SetStateType<boolean>;
 }
 export const ThreadContext = createContext<ThreadContextProps>(
   {} as ThreadContextProps
@@ -20,6 +23,7 @@ interface ThreadProps {
 }
 function Thread({ thread: initialThread }: ThreadProps) {
   const [thread, setThread] = useState<ThreadType | undefined>(initialThread);
+  const [replyFormOpen, setReplyFormOpen] = useState<boolean>(false);
   const threadUpdateButtonRef = useRef<HTMLInputElement>(null);
 
   const refreshThread = useUpdater();
@@ -36,8 +40,11 @@ function Thread({ thread: initialThread }: ThreadProps) {
           setThread,
           refreshThread,
           triggerThreadUpdateButton,
+          replyFormOpen,
+          setReplyFormOpen,
         }}
       >
+        <PostForm />
         <Item.Group divided className="thread">
           <Post post={thread.originalPost} isOP />
           {thread.replies.map((post) => (

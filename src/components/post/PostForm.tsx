@@ -1,10 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Button as SemanticButton,
-  Form as SemanticForm,
-  Header,
-  Modal,
-} from "semantic-ui-react";
+import { Form as SemanticForm, Header, Modal } from "semantic-ui-react";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
@@ -21,10 +16,14 @@ import { ThreadContext } from "../thread/Thread";
 
 function PostForm() {
   const board = useContext(BoardContext);
-  const { thread, triggerThreadUpdateButton } = useContext(ThreadContext);
+  const {
+    thread,
+    triggerThreadUpdateButton,
+    replyFormOpen,
+    setReplyFormOpen,
+  } = useContext(ThreadContext);
 
   const [attachment, setAttachment] = useState<File>();
-  const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState<object>();
 
   function handleSubmit(post: PostType) {
@@ -34,7 +33,7 @@ function PostForm() {
 
     putApiRequest(THREAD_URL(thread, board), replyForm)
       .then(() => {
-        setOpen(false);
+        setReplyFormOpen(false);
         triggerThreadUpdateButton();
       })
       .catch((err) => setErrors(err.response.data.errors));
@@ -43,17 +42,8 @@ function PostForm() {
   return (
     <Modal
       style={{ paddingBottom: "10px" }}
-      open={open}
-      trigger={
-        <SemanticButton
-          basic
-          circular
-          size="mini"
-          icon="reply"
-          onClick={() => setOpen(true)}
-        />
-      }
-      onClose={() => setOpen(false)}
+      open={replyFormOpen}
+      onClose={() => setReplyFormOpen(false)}
     >
       <Modal.Content>
         <Form
@@ -62,7 +52,7 @@ function PostForm() {
           error={!!errors}
         >
           <Header as="h4" dividing>
-            Reply to thread
+            Reply to thread #{thread.originalPost.postNumber}
           </Header>
           <SemanticForm.Group widths="equal">
             <TextInput fluid name="name" label="Name" placeholder="Name" />

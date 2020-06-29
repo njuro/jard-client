@@ -7,7 +7,6 @@ import { PostType, UserAuthority } from "../../types";
 import BanForm from "../ban/BanForm";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "../thread/Thread";
-import PostForm from "./PostForm";
 
 interface PostActionsProps {
   post: PostType;
@@ -15,7 +14,9 @@ interface PostActionsProps {
 }
 function PostActions({ post, isOP }: PostActionsProps) {
   const board = useContext(BoardContext);
-  const { thread, setThread, refreshThread } = useContext(ThreadContext);
+  const { thread, setThread, refreshThread, setReplyFormOpen } = useContext(
+    ThreadContext
+  );
 
   function toggleSticky() {
     postApiRequest(`${THREAD_URL(thread, board)}/sticky`).then(() => {
@@ -52,8 +53,15 @@ function PostActions({ post, isOP }: PostActionsProps) {
 
   return (
     <>
-      {!thread.locked && <PostForm />}
-      {/* TODO popup not working */}
+      {!thread.locked && (
+        <Button
+          basic
+          circular
+          size="mini"
+          icon="reply"
+          onClick={() => setReplyFormOpen(true)}
+        />
+      )}
       {useAuthority(UserAuthority.TOGGLE_STICKY_THREAD) && isOP && (
         <Button
           basic
