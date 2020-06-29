@@ -1,5 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Form as SemanticForm, Header, Modal } from "semantic-ui-react";
+import {
+  Form as SemanticForm,
+  Header,
+  Portal,
+  Segment,
+} from "semantic-ui-react";
+import Draggable from "react-draggable";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
@@ -40,41 +46,47 @@ function PostForm() {
   }
 
   return (
-    <Modal
-      style={{ paddingBottom: "10px" }}
-      open={replyFormOpen}
-      onClose={() => setReplyFormOpen(false)}
-    >
-      <Modal.Content>
-        <Form
-          onSubmit={handleSubmit}
-          encType="multipart/form-data"
-          error={!!errors}
+    <Portal open={replyFormOpen} onClose={() => setReplyFormOpen(false)}>
+      <Draggable>
+        <Segment
+          style={{
+            paddingBottom: "10px",
+            zIndex: 1000,
+            left: "40%",
+            position: "fixed",
+            top: "50%",
+          }}
         >
-          <Header as="h4" dividing>
-            Reply to thread #{thread.originalPost.postNumber}
-          </Header>
-          <SemanticForm.Group widths="equal">
-            <TextInput fluid name="name" label="Name" placeholder="Name" />
-            <TextInput
-              fluid
-              name="password"
-              label="Tripcode password"
-              placeholder="Password"
+          <Form
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+            error={!!errors}
+          >
+            <Header as="h4" dividing>
+              Reply to thread #{thread.originalPost.postNumber}
+            </Header>
+            <SemanticForm.Group widths="equal">
+              <TextInput fluid name="name" label="Name" placeholder="Name" />
+              <TextInput
+                fluid
+                name="password"
+                label="Tripcode password"
+                placeholder="Password"
+              />
+            </SemanticForm.Group>
+            <TextArea name="body" label="Comment" rows="8" />
+            <FileInput
+              name="attachment"
+              label="Upload image"
+              accept="image/*"
+              onFileUpload={setAttachment}
             />
-          </SemanticForm.Group>
-          <TextArea name="body" label="Comment" rows="8" />
-          <FileInput
-            name="attachment"
-            label="Upload image"
-            accept="image/*"
-            onFileUpload={setAttachment}
-          />
-          <FormErrors errors={errors} />
-          <Button floated="right">Submit post</Button>
-        </Form>
-      </Modal.Content>
-    </Modal>
+            <FormErrors errors={errors} />
+            <Button floated="right">Submit post</Button>
+          </Form>
+        </Segment>
+      </Draggable>
+    </Portal>
   );
 }
 
