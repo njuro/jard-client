@@ -54,7 +54,7 @@ function BanAdmin() {
             return (
               <Table.Row key={ban.id} textAlign="center">
                 <Table.Cell>{ban.ip}</Table.Cell>
-                <Table.Cell>{ban.bannedBy.username}</Table.Cell>
+                <Table.Cell>{ban.bannedBy?.username}</Table.Cell>
                 <Table.Cell>{ban.reason}</Table.Cell>
                 <Table.Cell>{formatDate(ban.start)}</Table.Cell>
                 <Table.Cell>

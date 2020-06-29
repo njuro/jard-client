@@ -81,7 +81,7 @@ export interface BanType {
   id?: number;
   ip: string;
   status?: BanStatus;
-  bannedBy: UserType;
+  bannedBy?: UserType;
   reason: string;
   unbannedBy?: UserType;
   unbanReason?: string;

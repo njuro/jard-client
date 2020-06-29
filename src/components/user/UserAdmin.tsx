@@ -88,7 +88,7 @@ function UserAdmin() {
                         </Button>
                       }
                       header="Delete user"
-                      content={`Are you sure you want to delete board ${user.username}?`}
+                      content={`Are you sure you want to delete user ${user.username}?`}
                       confirmButton="Yes"
                       onConfirm={() => deleteUser(user)}
                       // TODO fix cancel button not closing dialog

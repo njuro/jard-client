@@ -41,7 +41,6 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
         ip: ban!.ip,
         status: ban!.status,
         reason: ban!.reason,
-        bannedBy: ban!.bannedBy.username,
         end: new Date(ban!.end),
         unbannedBy: ban!.unbannedBy?.username,
         unbanReason: ban!.unbanReason,
