@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { SyntheticEvent, useContext } from "react";
 import { Item } from "semantic-ui-react";
 import { PostType } from "../../types";
 import OmittedReplies from "../thread/OmittedReplies";
@@ -11,7 +11,18 @@ interface PostProps {
   isOP: boolean;
 }
 function Post({ post, isOP }: PostProps) {
-  const { thread } = useContext(ThreadContext);
+  const { thread, setReplyFormOpen, setAppendToReply } = useContext(
+    ThreadContext
+  );
+
+  function quotePost(e: SyntheticEvent) {
+    e.preventDefault();
+    setReplyFormOpen(true);
+    const selectedText = window?.getSelection()?.toString();
+    setAppendToReply(
+      `>>${post.postNumber}\n${selectedText !== "" ? `>${selectedText}\n` : ""}`
+    );
+  }
 
   return (
     <Item className={isOP ? "original-post" : "post"} id={post.postNumber}>
@@ -33,7 +44,10 @@ function Post({ post, isOP }: PostProps) {
             </span>
           )}
           <span className="post-number">
-            No. <a href="#">{post.postNumber}</a>
+            No.{" "}
+            <a href={`#${post.postNumber}`} onClick={quotePost}>
+              {post.postNumber}
+            </a>
           </span>
           <PostActions post={post} isOP={isOP} />
         </Item.Meta>

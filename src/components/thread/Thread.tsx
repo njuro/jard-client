@@ -13,6 +13,8 @@ interface ThreadContextProps {
   triggerThreadUpdateButton: () => void;
   replyFormOpen: boolean;
   setReplyFormOpen: SetStateType<boolean>;
+  appendToReply: string;
+  setAppendToReply: SetStateType<string>;
 }
 export const ThreadContext = createContext<ThreadContextProps>(
   {} as ThreadContextProps
@@ -24,6 +26,7 @@ interface ThreadProps {
 function Thread({ thread: initialThread }: ThreadProps) {
   const [thread, setThread] = useState<ThreadType | undefined>(initialThread);
   const [replyFormOpen, setReplyFormOpen] = useState<boolean>(false);
+  const [appendToReply, setAppendToReply] = useState<string>("");
   const threadUpdateButtonRef = useRef<HTMLInputElement>(null);
 
   const refreshThread = useUpdater();
@@ -42,6 +45,8 @@ function Thread({ thread: initialThread }: ThreadProps) {
           triggerThreadUpdateButton,
           replyFormOpen,
           setReplyFormOpen,
+          appendToReply,
+          setAppendToReply,
         }}
       >
         <PostForm />

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Form as SemanticForm,
   Header,
@@ -6,6 +6,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 import Draggable from "react-draggable";
+import { Ref } from "@stardust-ui/react-component-ref";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
@@ -27,10 +28,15 @@ function PostForm() {
     triggerThreadUpdateButton,
     replyFormOpen,
     setReplyFormOpen,
+    appendToReply,
+    setAppendToReply,
   } = useContext(ThreadContext);
 
   const [attachment, setAttachment] = useState<File>();
   const [errors, setErrors] = useState<object>();
+  const replyBodyRef = useRef<HTMLInputElement>(null);
+  const getReplyBody = () =>
+    replyBodyRef.current?.lastElementChild as HTMLInputElement;
 
   function handleSubmit(post: PostType) {
     const replyForm = new FormData();
@@ -45,8 +51,20 @@ function PostForm() {
       .catch((err) => setErrors(err.response.data.errors));
   }
 
+  useEffect(() => {
+    if (appendToReply !== "" && replyBodyRef.current) {
+      getReplyBody().innerHTML += appendToReply;
+      setAppendToReply("");
+      getReplyBody().focus();
+    }
+  }, [appendToReply, setAppendToReply]);
+
   return (
-    <Portal open={replyFormOpen} onClose={() => setReplyFormOpen(false)}>
+    <Portal
+      open={replyFormOpen}
+      onClose={() => setReplyFormOpen(false)}
+      closeOnDocumentClick={false}
+    >
       <Draggable>
         <Segment
           style={{
@@ -74,7 +92,9 @@ function PostForm() {
                 placeholder="Password"
               />
             </SemanticForm.Group>
-            <TextArea name="body" label="Comment" rows="8" />
+            <Ref innerRef={replyBodyRef}>
+              <TextArea name="body" label="Comment" rows="8" />
+            </Ref>
             <FileInput
               name="attachment"
               label="Upload image"

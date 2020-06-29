@@ -53,7 +53,7 @@ function PostActions({ post, isOP }: PostActionsProps) {
 
   return (
     <>
-      {!thread.locked && (
+      {!thread.locked && isOP && (
         <Button
           basic
           circular
