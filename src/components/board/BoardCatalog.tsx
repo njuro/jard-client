@@ -13,8 +13,9 @@ import BoardHeader from "./BoardHeader";
 import NotFound from "../utils/NotFound";
 
 const ThreadList = styled(Grid)`
-  padding: 20px 0;
+  padding: 20px !important;
   text-align: center;
+  min-width: 100% !important;
 `;
 
 function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
@@ -127,7 +128,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
         </Menu>
 
         <ThreadList container>
-          <ThreadList.Row columns={3}>
+          <ThreadList.Row columns={10}>
             {threads.map((thread) => (
               <ThreadCatalog
                 board={board}
