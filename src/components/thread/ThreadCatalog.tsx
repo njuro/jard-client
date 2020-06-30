@@ -44,7 +44,10 @@ function ThreadCatalog({ thread, board, showOP }: ThreadCatalogProps) {
         <strong>{thread.statistics.attachmentCount}</strong>
       </ThreadMeta>
       {showOP && (
-        <div style={{ padding: "0 15px" }}>{thread.originalPost.body}</div>
+        <div
+          style={{ padding: "0 15px" }}
+          dangerouslySetInnerHTML={{ __html: thread.originalPost.body }}
+        />
       )}
     </ThreadPreview>
   );
