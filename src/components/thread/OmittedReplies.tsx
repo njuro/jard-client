@@ -33,13 +33,14 @@ function OmittedReplies() {
 
   function renderRepliesToggle() {
     if (omitted > 0) {
+      const single = omitted === 1;
       return (
         <>
-          {omitted} replies
-          {omittedAttachments > 0 && ` and ${omittedAttachments} attachments`}
-          &nbsp;were omitted.
+          {omitted} {single ? "reply" : "replies"}
+          {omittedAttachments > 0 && ` and ${omittedAttachments} attachment(s)`}
+          &nbsp;{single ? "was" : "were"} omitted.
           <Link to="#" onClick={expandReplies}>
-            &nbsp;Click here to view them
+            &nbsp;Click here to view {single ? "it" : "them"}
           </Link>
         </>
       );
