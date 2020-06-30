@@ -1,13 +1,8 @@
 import React from "react";
-import { ValidationOptions } from "react-hook-form/dist/types";
 import { Form as SemanticForm, FormTextAreaProps } from "semantic-ui-react";
 import { Controller } from "react-hook-form";
 
-interface TextAreaProps {
-  name: string;
-  rules?: ValidationOptions;
-}
-function TextArea({ name, rules, ...rest }: TextAreaProps | FormTextAreaProps) {
+function TextArea({ name, rules, ...rest }: FormTextAreaProps) {
   return (
     <Controller
       as={<SemanticForm.TextArea {...rest} />}

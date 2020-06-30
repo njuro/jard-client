@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Form as SemanticForm,
   Header,
+  Icon,
   Portal,
   Segment,
 } from "semantic-ui-react";
 import Draggable from "react-draggable";
 import { Ref } from "@stardust-ui/react-component-ref";
+import styled from "styled-components";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/forms";
 import { THREAD_URL } from "../../helpers/mappings";
@@ -20,6 +22,32 @@ import Form, {
   TextInput,
 } from "../form/Form";
 import { ThreadContext } from "../thread/Thread";
+
+const ReplyForm = styled(Segment)`
+  padding-bottom: 10px !important;
+  z-index: 1000;
+  left: 40%;
+  position: fixed !important;
+  top: 40%;
+`;
+
+const ReplyBody = styled(TextArea)`
+  textarea {
+    min-width: 100%;
+    resize: both !important;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+`;
+
+const CloseIcon = styled(Icon)`
+  float: right;
+  font-size: 1em !important;
+  color: darkgray;
+  &:hover {
+    color: black;
+  }
+`;
 
 function PostForm() {
   const board = useContext(BoardContext);
@@ -66,15 +94,7 @@ function PostForm() {
       closeOnDocumentClick={false}
     >
       <Draggable>
-        <Segment
-          style={{
-            paddingBottom: "10px",
-            zIndex: 1000,
-            left: "40%",
-            position: "fixed",
-            top: "50%",
-          }}
-        >
+        <ReplyForm>
           <Form
             onSubmit={handleSubmit}
             encType="multipart/form-data"
@@ -82,6 +102,12 @@ function PostForm() {
           >
             <Header as="h4" dividing>
               Reply to thread #{thread.originalPost.postNumber}
+              <CloseIcon
+                fitted
+                link
+                name="close"
+                onClick={() => setReplyFormOpen(false)}
+              />
             </Header>
             <SemanticForm.Group widths="equal">
               <TextInput fluid name="name" label="Name" placeholder="Name" />
@@ -93,7 +119,7 @@ function PostForm() {
               />
             </SemanticForm.Group>
             <Ref innerRef={replyBodyRef}>
-              <TextArea name="body" label="Comment" rows="8" />
+              <ReplyBody name="body" label="Comment" rows="8" />
             </Ref>
             <FileInput
               name="attachment"
@@ -104,7 +130,7 @@ function PostForm() {
             <FormErrors errors={errors} />
             <Button floated="right">Submit post</Button>
           </Form>
-        </Segment>
+        </ReplyForm>
       </Draggable>
     </Portal>
   );
