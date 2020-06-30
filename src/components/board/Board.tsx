@@ -51,7 +51,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
         {board.threads!.map((thread) => (
           <Thread key={thread.originalPost.postNumber} thread={thread} />
         ))}
-        <div style={{ display: "block" }}>
+        <div style={{ display: "block", marginTop: "20px" }}>
           <Pagination
             boundaryRange={0}
             ellipsisItem={null}
