@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Icon } from "semantic-ui-react";
+import { Button, Icon, Popup } from "semantic-ui-react";
 import { deleteApiRequest, postApiRequest } from "../../helpers/api";
 import useAuthority from "../../helpers/authorities";
 import { THREAD_URL } from "../../helpers/mappings";
@@ -54,47 +54,72 @@ function PostActions({ post, isOP }: PostActionsProps) {
   return (
     <>
       {!thread.locked && isOP && (
-        <Button
-          basic
-          circular
-          size="mini"
-          icon="reply"
-          onClick={() => setReplyFormOpen(true)}
+        <Popup
+          content="Reply"
+          position="top center"
+          trigger={
+            <Button
+              basic
+              circular
+              size="mini"
+              icon="reply"
+              onClick={() => setReplyFormOpen(true)}
+            />
+          }
         />
       )}
       {useAuthority(UserAuthority.TOGGLE_STICKY_THREAD) && isOP && (
-        <Button
-          basic
-          circular
-          size="mini"
-          icon={
-            <Icon
-              name="thumbtack"
-              flipped={thread.stickied ? "vertically" : undefined}
+        <Popup
+          content={thread.stickied ? "Unsticky" : "Sticky"}
+          position="top center"
+          trigger={
+            <Button
+              basic
+              circular
+              size="mini"
+              icon={
+                <Icon
+                  name="thumbtack"
+                  flipped={thread.stickied ? "vertically" : undefined}
+                />
+              }
+              onClick={toggleSticky}
             />
           }
-          onClick={toggleSticky}
         />
       )}
       {useAuthority(UserAuthority.TOGGLE_LOCK_THREAD) && isOP && (
-        <Button
-          basic
-          circular
-          size="mini"
-          icon={<Icon name={thread.locked ? "lock open" : "lock"} />}
-          onClick={toggleLock}
+        <Popup
+          content={thread.locked ? "Unlock" : "Lock"}
+          position="top center"
+          trigger={
+            <Button
+              basic
+              circular
+              size="mini"
+              icon={<Icon name={thread.locked ? "lock open" : "lock"} />}
+              onClick={toggleLock}
+            />
+          }
         />
       )}
       {useAuthority(UserAuthority.DELETE_POST) && (
-        <Button
-          basic
-          circular
-          size="mini"
-          icon={<Icon name="trash alternate" />}
-          onClick={deletePost}
+        <Popup
+          content="Delete"
+          position="top center"
+          trigger={
+            <Button
+              basic
+              circular
+              size="mini"
+              icon={<Icon name="trash alternate" />}
+              onClick={deletePost}
+            />
+          }
         />
       )}
       {useAuthority(UserAuthority.MANAGE_BANS) && (
+        // TODO popup not working
         <BanForm
           trigger={
             <Button basic circular size="mini" icon={<Icon name="ban" />} />
@@ -102,8 +127,20 @@ function PostActions({ post, isOP }: PostActionsProps) {
           ip={post.ip}
         />
       )}
-      {isOP && thread.stickied && <Icon name="thumbtack" />}
-      {isOP && thread.locked && <Icon name="lock" />}
+      {isOP && thread.stickied && (
+        <Popup
+          content="Stickied"
+          position="top center"
+          trigger={<Icon name="thumbtack" />}
+        />
+      )}
+      {isOP && thread.locked && (
+        <Popup
+          content="Locked"
+          position="top center"
+          trigger={<Icon name="lock" />}
+        />
+      )}
     </>
   );
 }
