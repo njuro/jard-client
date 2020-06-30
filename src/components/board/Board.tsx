@@ -53,11 +53,8 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
         ))}
         <div style={{ display: "block", marginTop: "20px" }}>
           <Pagination
-            boundaryRange={0}
-            ellipsisItem={null}
-            firstItem={null}
-            lastItem={null}
-            siblingRange={1}
+            boundaryRange={1}
+            siblingRange={3}
             totalPages={board.pageCount}
             activePage={pageNumber}
             onPageChange={(_, { activePage }) => {
