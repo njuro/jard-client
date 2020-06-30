@@ -31,15 +31,6 @@ const ReplyForm = styled(Segment)`
   top: 40%;
 `;
 
-const ReplyBody = styled(TextArea)`
-  textarea {
-    min-width: 100%;
-    resize: both !important;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-  }
-`;
-
 const CloseIcon = styled(Icon)`
   float: right;
   font-size: 1em !important;
@@ -81,6 +72,7 @@ function PostForm() {
 
   useEffect(() => {
     if (appendToReply !== "" && replyBodyRef.current) {
+      console.log(replyBodyRef);
       getReplyBody().innerHTML += appendToReply;
       setAppendToReply("");
       getReplyBody().focus();
@@ -119,7 +111,17 @@ function PostForm() {
               />
             </SemanticForm.Group>
             <Ref innerRef={replyBodyRef}>
-              <ReplyBody name="body" label="Comment" rows="8" />
+              <TextArea
+                name="body"
+                label="Comment"
+                rows="8"
+                style={{
+                  resize: "both",
+                  minWidth: "100%",
+                  wordWrap: "break-word",
+                  whiteSpace: "pre-wrap",
+                }}
+              />
             </Ref>
             <FileInput
               name="attachment"
