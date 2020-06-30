@@ -71,13 +71,14 @@ function PostForm() {
   }
 
   useEffect(() => {
-    if (appendToReply !== "" && replyBodyRef.current) {
-      console.log(replyBodyRef);
-      getReplyBody().innerHTML += appendToReply;
-      setAppendToReply("");
+    if (replyBodyRef.current) {
+      if (appendToReply !== "") {
+        getReplyBody().innerHTML += appendToReply;
+        setAppendToReply("");
+      }
       getReplyBody().focus();
     }
-  }, [appendToReply, setAppendToReply]);
+  }, [appendToReply, setAppendToReply, replyFormOpen]);
 
   return (
     <Portal
