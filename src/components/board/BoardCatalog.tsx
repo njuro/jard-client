@@ -127,7 +127,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
           </Menu.Item>
         </Menu>
 
-        <ThreadList container>
+        <ThreadList container relaxed>
           <ThreadList.Row columns={10}>
             {threads.map((thread) => (
               <ThreadCatalog
