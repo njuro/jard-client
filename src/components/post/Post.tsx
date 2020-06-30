@@ -30,7 +30,7 @@ function Post({ post, isOP }: PostProps) {
   return (
     <Item className={isOP ? "original-post" : "post"} id={post.postNumber}>
       {post.attachment && <PostAttachment attachment={post.attachment} />}
-      <Item.Content>
+      <Item.Content style={{ position: "relative" }}>
         <Item.Meta>
           <span className="name">{post.name}</span>
           <span className="tripcode">{post.tripcode}</span>
