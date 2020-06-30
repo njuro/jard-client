@@ -5,12 +5,15 @@ import OmittedReplies from "../thread/OmittedReplies";
 import { ThreadContext } from "../thread/Thread";
 import PostActions from "./PostActions";
 import PostAttachment from "./PostAttachment";
+import { BoardContext } from "../board/Board";
+import { POST_URL } from "../../helpers/mappings";
 
 interface PostProps {
   post: PostType;
   isOP: boolean;
 }
 function Post({ post, isOP }: PostProps) {
+  const board = useContext(BoardContext);
   const { thread, setReplyFormOpen, setAppendToReply } = useContext(
     ThreadContext
   );
@@ -45,7 +48,7 @@ function Post({ post, isOP }: PostProps) {
           )}
           <span className="post-number">
             No.{" "}
-            <a href={`#${post.postNumber}`} onClick={quotePost}>
+            <a href={POST_URL(post, thread, board)} onClick={quotePost}>
               {post.postNumber}
             </a>
           </span>
