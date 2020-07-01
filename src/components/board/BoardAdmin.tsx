@@ -11,10 +11,13 @@ import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import BoardForm from "./BoardForm";
+import useUpdater from "../../helpers/updater";
 
 function BoardAdmin() {
   const [boards, setBoards] = useState<BoardType[]>([]);
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
+
+  const refreshList = useUpdater();
 
   useEffect(() => {
     fetchBoards();
@@ -25,7 +28,10 @@ function BoardAdmin() {
   }
 
   function deleteBoard(board: BoardType) {
-    deleteApiRequest(BOARD_URL(board)).then(fetchBoards);
+    deleteApiRequest(BOARD_URL(board)).then(() => {
+      fetchBoards();
+      refreshList();
+    });
   }
 
   const createBoardButton = () => (
