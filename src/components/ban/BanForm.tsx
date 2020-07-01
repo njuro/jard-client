@@ -33,7 +33,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
   }
 
   if (updatedBan) {
-    return <Redirect to={`${DASHBOARD_URL}/manage-bans`} />; // TODO close modal
+    return <Redirect to={`${DASHBOARD_URL}/manage-bans`} />;
   }
 
   const defaultValues = isEdit
