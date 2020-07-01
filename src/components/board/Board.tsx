@@ -14,7 +14,7 @@ export const BoardContext = createContext<BoardType>({} as BoardType);
 function Board(props: RouteComponentProps<{ label: string; page: string }>) {
   const { label, page } = props.match.params;
   const [board, setBoard] = useState<BoardType>();
-  const [pageNumber, setPageNumber] = useState<number>(Number(page));
+  const [pageNumber, setPageNumber] = useState<number>(page ? Number(page) : 1);
   const [notFound, setNotFound] = useState<boolean>(false);
 
   const history = useHistory();
