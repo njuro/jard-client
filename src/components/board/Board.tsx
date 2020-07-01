@@ -33,6 +33,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
           setNotFound(true);
         }
         setBoard(result);
+        window.scrollTo(0, 0);
       })
       .catch((err) => {
         if (err.response.status === 404) {
