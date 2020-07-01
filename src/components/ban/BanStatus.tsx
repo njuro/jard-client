@@ -33,7 +33,7 @@ function BanStatus() {
           "Your IP is banned from posting on all boards",
           `Reason: ${ban.reason}`,
           `Your ban will expire on: ${
-            ban.end ? new Date(ban.end).toDateString() : "Never"
+            ban.validTo ? new Date(ban.validTo).toDateString() : "Never"
           }`,
         ]}
       />

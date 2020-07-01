@@ -41,7 +41,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
         ip: ban!.ip,
         status: ban!.status,
         reason: ban!.reason,
-        end: new Date(ban!.end),
+        validTo: new Date(ban!.validTo),
         unbannedBy: ban!.unbannedBy?.username,
         unbanReason: ban!.unbanReason,
       }
@@ -74,7 +74,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
             placeholder="Reason"
             required
           />
-          <DatePicker name="end" datePickerOnly label="End" />
+          <DatePicker name="validTo" datePickerOnly label="Valid to" />
           <Checkbox name="warning" label="Is warning?" />
           <FormErrors errors={errors} />
           <Button fluid>{isEdit ? "Update ban" : "Create ban"}</Button>

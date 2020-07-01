@@ -42,8 +42,8 @@ function BanAdmin() {
             <Table.HeaderCell>IP</Table.HeaderCell>
             <Table.HeaderCell>Banned by</Table.HeaderCell>
             <Table.HeaderCell>Reason</Table.HeaderCell>
-            <Table.HeaderCell>Start</Table.HeaderCell>
-            <Table.HeaderCell>End</Table.HeaderCell>
+            <Table.HeaderCell>Valid from</Table.HeaderCell>
+            <Table.HeaderCell>Valid to</Table.HeaderCell>
             <Table.HeaderCell>Status</Table.HeaderCell>
             <Table.HeaderCell>Actions</Table.HeaderCell>
           </Table.Row>
@@ -56,9 +56,9 @@ function BanAdmin() {
                 <Table.Cell>{ban.ip}</Table.Cell>
                 <Table.Cell>{ban.bannedBy?.username}</Table.Cell>
                 <Table.Cell>{ban.reason}</Table.Cell>
-                <Table.Cell>{formatDate(ban.start)}</Table.Cell>
+                <Table.Cell>{formatDate(ban.validFrom)}</Table.Cell>
                 <Table.Cell>
-                  {ban.end ? formatDate(ban.end) : "Never"}
+                  {ban.validTo ? formatDate(ban.validTo) : "Never"}
                 </Table.Cell>
                 <Table.Cell>{ban.status}</Table.Cell>
                 <Table.Cell>

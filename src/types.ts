@@ -85,8 +85,8 @@ export interface BanType {
   reason: string;
   unbannedBy?: UserType;
   unbanReason?: string;
-  start: string;
-  end: string;
+  validFrom: string;
+  validTo: string;
   warning?: boolean;
 }
 
