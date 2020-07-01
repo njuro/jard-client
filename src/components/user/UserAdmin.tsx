@@ -14,6 +14,7 @@ import UserForm from "./UserForm";
 
 function UserAdmin() {
   const [users, setUsers] = useState<UserType[]>([]);
+  const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetchUsers();
@@ -77,21 +78,23 @@ function UserAdmin() {
                       }
                       value={user}
                     />
+                    <Button basic icon onClick={() => setDeleteFormOpen(true)}>
+                      <Popup
+                        content="Delete"
+                        position="top left"
+                        trigger={<Icon name="trash alternate outline" />}
+                      />
+                    </Button>
                     <Confirm
-                      trigger={
-                        <Button basic icon>
-                          <Popup
-                            content="Delete"
-                            position="top left"
-                            trigger={<Icon name="trash alternate outline" />}
-                          />
-                        </Button>
-                      }
+                      open={deleteFormOpen}
                       header="Delete user"
                       content={`Are you sure you want to delete user ${user.username}?`}
                       confirmButton="Yes"
-                      onConfirm={() => deleteUser(user)}
-                      // TODO fix cancel button not closing dialog
+                      onConfirm={() => {
+                        deleteUser(user);
+                        setDeleteFormOpen(false);
+                      }}
+                      onCancel={() => setDeleteFormOpen(false)}
                     />
                   </Button.Group>
                 </Table.Cell>

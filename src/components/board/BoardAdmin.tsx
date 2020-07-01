@@ -14,6 +14,7 @@ import BoardForm from "./BoardForm";
 
 function BoardAdmin() {
   const [boards, setBoards] = useState<BoardType[]>([]);
+  const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetchBoards();
@@ -77,21 +78,23 @@ function BoardAdmin() {
                       }
                       value={board}
                     />
+                    <Button basic icon onClick={() => setDeleteFormOpen(true)}>
+                      <Popup
+                        content="Delete"
+                        position="top left"
+                        trigger={<Icon name="trash alternate outline" />}
+                      />
+                    </Button>
                     <Confirm
-                      trigger={
-                        <Button basic icon>
-                          <Popup
-                            content="Delete"
-                            position="top left"
-                            trigger={<Icon name="trash alternate outline" />}
-                          />
-                        </Button>
-                      }
+                      open={deleteFormOpen}
                       header="Delete board"
                       content={`Are you sure you want to delete board /${board.label}/?`}
                       confirmButton="Yes"
-                      onConfirm={() => deleteBoard(board)}
-                      // TODO fix cancel button not closing dialog
+                      onConfirm={() => {
+                        deleteBoard(board);
+                        setDeleteFormOpen(false);
+                      }}
+                      onCancel={() => setDeleteFormOpen(false)}
                     />
                   </Button.Group>
                 </Table.Cell>
