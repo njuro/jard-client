@@ -1,7 +1,8 @@
 import axios, { Method } from "axios";
 
+const baseURL = process.env.REACT_APP_API_URL;
 const client = axios.create({
-  baseURL: `http://localhost:8081/api/`,
+  baseURL: baseURL || `http://localhost:8081/api/`,
   withCredentials: true,
 });
 
