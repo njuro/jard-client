@@ -1,5 +1,6 @@
 import React from "react";
 
+export type uuid = string;
 export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export interface BoardType {
@@ -78,7 +79,7 @@ export interface UserType {
 }
 
 export interface BanType {
-  id?: number;
+  id?: uuid;
   ip: string;
   status?: BanStatus;
   bannedBy?: UserType;
