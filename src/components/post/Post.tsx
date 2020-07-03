@@ -42,7 +42,8 @@ function Post({ post, isOP }: PostProps) {
             <span className="file">
               <em>
                 File: {post.attachment.originalFilename} (
-                {post.attachment.width}x{post.attachment.height})
+                {post.attachment.metadata.width}x
+                {post.attachment.metadata.height})
               </em>
             </span>
           )}

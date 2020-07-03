@@ -57,15 +57,23 @@ export interface PostType {
 }
 
 export interface AttachmentType {
+  type: string;
   originalFilename: string;
   filename: string;
+  folder: string;
+  awsUrl: string;
+  awsThumbnailUrl: string;
+  metadata: AttachmentMetadataType;
+}
+
+export interface AttachmentMetadataType {
+  mimeType: string;
   width: number;
   height: number;
   thumbnailWidth: number;
   thumbnailHeight: number;
-  path: string;
-  awsUrl: string;
-  awsThumbnailUrl: string;
+  fileSize: string;
+  duration: string;
 }
 
 export interface UserType {

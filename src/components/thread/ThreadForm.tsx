@@ -73,10 +73,11 @@ function ThreadForm() {
           <FileInput
             name="attachment"
             label="Upload image"
-            accept="image/*"
+            accept="image/*,audio/*,video/*"
             onFileUpload={setAttachment}
             required
           />
+          {/* TODO retrieve supported formats dynamically */}
           <FormErrors errors={errors} />
           <Button floated="right">Create thread</Button>
         </Form>

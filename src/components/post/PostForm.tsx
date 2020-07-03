@@ -127,9 +127,10 @@ function PostForm() {
             <FileInput
               name="attachment"
               label="Upload image"
-              accept="image/*"
+              accept="image/*,audio/*,video/*"
               onFileUpload={setAttachment}
             />
+            {/* TODO retrieve supported formats dynamically */}
             <FormErrors errors={errors} />
             <Button floated="right">Submit post</Button>
           </Form>

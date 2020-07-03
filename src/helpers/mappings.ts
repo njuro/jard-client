@@ -22,10 +22,10 @@ export const POST_URL = (
 export const BAN_URL = (ban: BanType) => `${BANS_URL}/${ban.id}`;
 export const ATTACHMENT_URL = (attachment: AttachmentType) =>
   attachment.awsUrl ||
-  `${ATTACHMENTS_URL}/${attachment.path}/${attachment.filename}`;
+  `${ATTACHMENTS_URL}/${attachment.folder}/${attachment.filename}`;
 export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
   attachment.awsThumbnailUrl ||
-  `${ATTACHMENTS_URL}/thumbs/${attachment.path}/${attachment.filename}`;
+  `${ATTACHMENTS_URL}/thumbs/${attachment.folder}/${attachment.filename}`;
 
 export const USERS_URL = "/users";
 export const BANS_URL = "/bans";
