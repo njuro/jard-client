@@ -21,8 +21,10 @@ export const POST_URL = (
 ) => `${THREAD_URL(thread, board)}#${post.postNumber}`;
 export const BAN_URL = (ban: BanType) => `${BANS_URL}/${ban.id}`;
 export const ATTACHMENT_URL = (attachment: AttachmentType) =>
+  attachment.awsUrl ||
   `${ATTACHMENTS_URL}/${attachment.path}/${attachment.filename}`;
 export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
+  attachment.awsThumbnailUrl ||
   `${ATTACHMENTS_URL}/thumbs/${attachment.path}/${attachment.filename}`;
 
 export const USERS_URL = "/users";

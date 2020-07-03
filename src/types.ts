@@ -64,6 +64,8 @@ export interface AttachmentType {
   thumbnailWidth: number;
   thumbnailHeight: number;
   path: string;
+  awsUrl: string;
+  awsThumbnailUrl: string;
 }
 
 export interface UserType {
