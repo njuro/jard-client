@@ -70,6 +70,7 @@ export interface AttachmentMetadataType {
   thumbnailHeight: number;
   fileSize: string;
   duration: string;
+  hash: string;
 }
 
 export interface UserType {
