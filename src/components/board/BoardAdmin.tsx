@@ -66,7 +66,9 @@ function BoardAdmin() {
               <Table.Row key={board.label} textAlign="center">
                 <Table.Cell>/{board.label}/</Table.Cell>
                 <Table.Cell>{board.name}</Table.Cell>
-                <Table.Cell>{board.attachmentType}</Table.Cell>
+                <Table.Cell>
+                  {board.attachmentTypes.map((type) => type.name).join(", ")}
+                </Table.Cell>
                 <Table.Cell>
                   <Checkbox disabled checked={board.nsfw} />
                 </Table.Cell>

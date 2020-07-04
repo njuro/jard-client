@@ -6,7 +6,7 @@ export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 export interface BoardType {
   label: string;
   name: string;
-  attachmentType: BoardAttachmentType;
+  attachmentTypes: BoardAttachmentType[];
   nsfw: boolean;
   pageCount: number;
   threadLimit: number;
@@ -14,15 +14,10 @@ export interface BoardType {
   threads?: ThreadType[];
 }
 
-export enum BoardAttachmentType {
-  IMAGE,
-  TEXT,
-  ALL,
-}
-
-export interface BoardAttachmentTypeView {
-  name: BoardAttachmentType;
-  description: string;
+export interface BoardAttachmentType {
+  name: string;
+  extensions: string[];
+  mimeTypes: string[];
 }
 
 export interface ThreadType {
@@ -60,6 +55,7 @@ export interface AttachmentType {
   type: string;
   originalFilename: string;
   filename: string;
+  thumbnailFilename: string;
   folder: string;
   awsUrl: string;
   awsThumbnailUrl: string;
