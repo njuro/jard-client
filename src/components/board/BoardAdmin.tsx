@@ -12,6 +12,7 @@ import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import BoardForm from "./BoardForm";
 import useUpdater from "../../helpers/updater";
+import { capitalize } from "../../helpers/forms";
 
 function BoardAdmin() {
   const [boards, setBoards] = useState<BoardType[]>([]);
@@ -67,7 +68,9 @@ function BoardAdmin() {
                 <Table.Cell>/{board.label}/</Table.Cell>
                 <Table.Cell>{board.name}</Table.Cell>
                 <Table.Cell>
-                  {board.attachmentTypes.map((type) => type.name).join(", ")}
+                  {board.attachmentTypes
+                    .map((type) => capitalize(type.name))
+                    .join(", ")}
                 </Table.Cell>
                 <Table.Cell>
                   <Checkbox disabled checked={board.nsfw} />
