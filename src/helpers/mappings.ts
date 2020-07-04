@@ -25,7 +25,7 @@ export const ATTACHMENT_URL = (attachment: AttachmentType) =>
   `${ATTACHMENTS_URL}/${attachment.folder}/${attachment.filename}`;
 export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
   attachment.awsThumbnailUrl ||
-  `${ATTACHMENTS_URL}/thumbs/${attachment.folder}/${attachment.filename}`;
+  `${ATTACHMENTS_URL}/thumbs/${attachment.folder}/${attachment.thumbnailFilename}`;
 
 export const USERS_URL = "/users";
 export const BANS_URL = "/bans";
