@@ -35,6 +35,10 @@ function ThreadForm() {
     return <Redirect to={THREAD_URL(createdThread, board)} />;
   }
 
+  function getAllowedFileTypes() {
+    return board.attachmentTypes.flatMap((type) => type.extensions).join(",");
+  }
+
   return (
     <Modal
       style={{ paddingBottom: "10px" }}
@@ -73,11 +77,10 @@ function ThreadForm() {
           <FileInput
             name="attachment"
             label="Upload image"
-            accept="image/*,audio/*,video/*"
+            accept={getAllowedFileTypes()}
             onFileUpload={setAttachment}
             required
           />
-          {/* TODO retrieve supported formats dynamically */}
           <FormErrors errors={errors} />
           <Button floated="right">Create thread</Button>
         </Form>

@@ -6,9 +6,9 @@ import {
   postApiRequest,
   putApiRequest,
 } from "../../helpers/api";
-import { objectToDropdownItem } from "../../helpers/forms";
+import { capitalize, objectToDropdownItem } from "../../helpers/forms";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
-import { BoardAttachmentTypeView, BoardType } from "../../types";
+import { BoardAttachmentType, BoardType } from "../../types";
 import Form, {
   Button,
   Checkbox,
@@ -30,11 +30,17 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
   const [errors, setErrors] = useState<object>();
 
   useEffect(() => {
-    getApiRequest<BoardAttachmentTypeView[]>(
-      `${BOARDS_URL}/types`
+    getApiRequest<BoardAttachmentType[]>(
+      `${BOARDS_URL}/attachment-types`
     ).then((types) =>
       setAttachmentTypes(
-        types.map((type) => objectToDropdownItem(type.name, type.description))
+        types.map((type) =>
+          objectToDropdownItem(
+            type.name,
+            capitalize(type.name),
+            type.extensions.join(", ")
+          )
+        )
       )
     );
   }, []);
@@ -57,7 +63,7 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
         label: board?.label,
         name: board?.name,
         nsfw: board?.nsfw,
-        attachmentType: board?.attachmentType,
+        attachmentTypes: board?.attachmentTypes.map((type) => type.name),
         threadLimit: board?.threadLimit,
         bumpLimit: board?.bumpLimit,
       }
@@ -97,7 +103,8 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
             required
           />
           <Select
-            name="attachmentType"
+            multiple
+            name="attachmentTypes"
             label="Allowed attachment types"
             options={attachmentTypes}
             required

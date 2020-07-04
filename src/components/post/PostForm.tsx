@@ -80,6 +80,10 @@ function PostForm() {
     }
   }, [appendToReply, setAppendToReply, replyFormOpen]);
 
+  function getAllowedFileTypes() {
+    return board.attachmentTypes.flatMap((type) => type.extensions).join(",");
+  }
+
   return (
     <Portal
       open={replyFormOpen}
@@ -127,10 +131,9 @@ function PostForm() {
             <FileInput
               name="attachment"
               label="Upload image"
-              accept="image/*,audio/*,video/*"
+              accept={getAllowedFileTypes()}
               onFileUpload={setAttachment}
             />
-            {/* TODO retrieve supported formats dynamically */}
             <FormErrors errors={errors} />
             <Button floated="right">Submit post</Button>
           </Form>
