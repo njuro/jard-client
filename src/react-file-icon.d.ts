@@ -7,7 +7,6 @@ declare module "react-file-icon" {
     | "audio"
     | "binary"
     | "code"
-    | "code2"
     | "compressed"
     | "document"
     | "drive"
@@ -21,7 +20,7 @@ declare module "react-file-icon" {
 
   export interface FileIconProps {
     color?: string;
-    extension: string;
+    extension?: string;
     fold?: boolean;
     foldColor?: string;
     glyphColor?: string;
@@ -32,7 +31,6 @@ declare module "react-file-icon" {
     labelTextStyle?: object;
     labelUppercase?: boolean;
     radius?: number;
-    size?: number;
     type?: IconType;
   }
 
@@ -145,9 +143,7 @@ declare module "react-file-icon" {
     | "zip"
     | "zipx";
 
-  declare const FileIcon: React.FunctionComponent<FileIconProps>;
-  export default FileIcon;
-
+  export const FileIcon: React.FunctionComponent<FileIconProps>;
   export const defaultStyles: Record<
     DefaultExtensionType,
     Partial<FileIconProps>

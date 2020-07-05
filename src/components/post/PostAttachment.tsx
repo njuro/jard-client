@@ -1,9 +1,8 @@
-import React, { ReactElement, SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { Image } from "semantic-ui-react";
-import FileIcon, { DefaultExtensionType, defaultStyles } from "react-file-icon";
+import { FileIcon, DefaultExtensionType, defaultStyles } from "react-file-icon";
 import { Link } from "react-router-dom";
 import { renderToString } from "react-dom/server";
-import { render } from "react-dom";
 import styled from "styled-components";
 import { ATTACHMENT_THUMB_URL, ATTACHMENT_URL } from "../../helpers/mappings";
 import { AttachmentType } from "../../types";
@@ -12,6 +11,14 @@ interface PostAttachmentProps {
   attachment: AttachmentType;
 }
 
+const FileIconWrapper = styled.div`
+  width: 250px;
+  height: 250px;
+  & > * {
+    width: 100%;
+    height: 100%;
+  }
+`;
 function PostAttachment({ attachment }: PostAttachmentProps) {
   const [showFull, setShowFull] = useState(false);
 
@@ -20,34 +27,29 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
     setShowFull(!showFull);
   }
 
-  function renderSvg(fileIcon: ReactElement) {
-    let svg = renderToString(fileIcon);
-    svg = `${svg.substring(
-      0,
-      4
-    )} xmlns="http://www.w3.org/2000/svg"${svg.substring(4)}`;
-    return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-  }
-
   function renderThumbnail() {
     if (!attachment.category.hasThumbnail) {
       const ext = attachment.filename.split(".").pop();
       const fileIcon = (
         <FileIcon
-          size={250}
           labelUppercase
           extension={ext!}
           {...defaultStyles[ext as DefaultExtensionType]}
         />
       );
       if (attachment.category.name === "AUDIO") {
+        const svg = `data:image/svg+xml;utf8,${encodeURIComponent(
+          renderToString(fileIcon)
+        )}`;
         return (
-          <video
-            src={ATTACHMENT_URL(attachment)}
-            poster={renderSvg(fileIcon)}
-            controls
-            loop
-          />
+          <FileIconWrapper>
+            <video
+              src={ATTACHMENT_URL(attachment)}
+              poster={svg}
+              controls
+              loop
+            />
+          </FileIconWrapper>
         );
       }
 
@@ -57,7 +59,7 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
           rel="noopener noreferrer"
           to={ATTACHMENT_URL(attachment)}
         >
-          {fileIcon}
+          <FileIconWrapper>{fileIcon}</FileIconWrapper>
         </Link>
       );
     }
@@ -77,10 +79,6 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
   function renderFull() {
     if (attachment.category.name === "VIDEO") {
       return <video src={ATTACHMENT_URL(attachment)} controls loop autoPlay />;
-    }
-
-    if (attachment.category.name === "AUDIO") {
-      return <audio src={ATTACHMENT_URL(attachment)} controls loop autoPlay />;
     }
 
     return (
