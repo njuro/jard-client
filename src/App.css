@@ -14,15 +14,13 @@ main {
 }
 
 .post {
-  display: flex;
-  flex-wrap: wrap;
   margin-left: 40px !important;
   padding-right: 40px !important;
+  max-width: 80%;
 }
 
 .original-post {
-  display: flex;
-  flex-wrap: wrap;
+  max-width: 80%;
 }
 
 .thread {

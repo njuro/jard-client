@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useContext } from "react";
 import { Item } from "semantic-ui-react";
-import { PostType } from "../../types";
+import { AttachmentType, PostType } from "../../types";
 import OmittedReplies from "../thread/OmittedReplies";
 import { ThreadContext } from "../thread/Thread";
 import PostActions from "./PostActions";
@@ -27,6 +27,20 @@ function Post({ post, isOP }: PostProps) {
     );
   }
 
+  function getAttachmentInfo(attachment: AttachmentType) {
+    const { metadata } = attachment;
+
+    let info = `File: ${attachment.originalFilename} (${metadata.fileSize}`;
+    if (metadata.duration) {
+      info += `, ${metadata.duration}`;
+    } else if (metadata.width > 0) {
+      info += `, ${metadata.width}x${metadata.height}`;
+    }
+    info += ")";
+
+    return info;
+  }
+
   return (
     <Item className={isOP ? "original-post" : "post"} id={post.postNumber}>
       {post.attachment && <PostAttachment attachment={post.attachment} />}
@@ -40,14 +54,7 @@ function Post({ post, isOP }: PostProps) {
           </span>
           {post.attachment && (
             <span className="file">
-              <em>
-                File: {post.attachment.originalFilename} (
-                {post.attachment.metadata.duration ||
-                  (post.attachment.metadata.width
-                    ? `${post.attachment.metadata.width}x${post.attachment.metadata.height}`
-                    : "")}
-                , {post.attachment.metadata.fileSize})
-              </em>
+              <em>{getAttachmentInfo(post.attachment)}</em>
             </span>
           )}
           <span className="post-number">
