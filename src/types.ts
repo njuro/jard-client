@@ -6,19 +6,12 @@ export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 export interface BoardType {
   label: string;
   name: string;
-  attachmentTypes: BoardAttachmentType[];
+  attachmentCategories: AttachmentCategoryType[];
   nsfw: boolean;
   pageCount: number;
   threadLimit: number;
   bumpLimit: number;
   threads?: ThreadType[];
-}
-
-export interface BoardAttachmentType {
-  name: string;
-  hasThumbnail: boolean;
-  extensions: string[];
-  mimeTypes: string[];
 }
 
 export interface ThreadType {
@@ -53,7 +46,7 @@ export interface PostType {
 }
 
 export interface AttachmentType {
-  type: BoardAttachmentType;
+  type: AttachmentCategoryType;
   originalFilename: string;
   filename: string;
   thumbnailFilename: string;
@@ -61,6 +54,13 @@ export interface AttachmentType {
   awsUrl: string;
   awsThumbnailUrl: string;
   metadata: AttachmentMetadataType;
+}
+
+export interface AttachmentCategoryType {
+  name: string;
+  hasThumbnail: boolean;
+  extensions: string[];
+  mimeTypes: string[];
 }
 
 export interface AttachmentMetadataType {

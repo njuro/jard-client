@@ -81,7 +81,9 @@ function PostForm() {
   }, [appendToReply, setAppendToReply, replyFormOpen]);
 
   function getAllowedFileTypes() {
-    return board.attachmentTypes.flatMap((type) => type.extensions).join(",");
+    return board.attachmentCategories
+      .flatMap((category) => category.extensions)
+      .join(",");
   }
 
   return (

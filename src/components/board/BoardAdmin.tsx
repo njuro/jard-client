@@ -68,8 +68,8 @@ function BoardAdmin() {
                 <Table.Cell>/{board.label}/</Table.Cell>
                 <Table.Cell>{board.name}</Table.Cell>
                 <Table.Cell>
-                  {board.attachmentTypes
-                    .map((type) => capitalize(type.name))
+                  {board.attachmentCategories
+                    .map((category) => capitalize(category.name))
                     .join(", ")}
                 </Table.Cell>
                 <Table.Cell>

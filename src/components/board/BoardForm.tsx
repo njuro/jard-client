@@ -8,7 +8,7 @@ import {
 } from "../../helpers/api";
 import { capitalize, objectToDropdownItem } from "../../helpers/forms";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
-import { BoardAttachmentType, BoardType } from "../../types";
+import { AttachmentCategoryType, BoardType } from "../../types";
 import Form, {
   Button,
   Checkbox,
@@ -23,22 +23,22 @@ interface BoardFormProps {
 }
 function BoardForm({ trigger, value: board }: BoardFormProps) {
   const isEdit = !!board;
-  const [attachmentTypes, setAttachmentTypes] = useState<DropdownItemProps[]>(
-    []
-  );
+  const [attachmentCategories, setAttachmentCategories] = useState<
+    DropdownItemProps[]
+  >([]);
   const [updatedBoard, setUpdatedBoard] = useState<BoardType>();
   const [errors, setErrors] = useState<object>();
 
   useEffect(() => {
-    getApiRequest<BoardAttachmentType[]>(
-      `${BOARDS_URL}/attachment-types`
-    ).then((types) =>
-      setAttachmentTypes(
-        types.map((type) =>
+    getApiRequest<AttachmentCategoryType[]>(
+      `${BOARDS_URL}/attachment-categories`
+    ).then((categories) =>
+      setAttachmentCategories(
+        categories.map((category) =>
           objectToDropdownItem(
-            type.name,
-            capitalize(type.name),
-            type.extensions.join(", ")
+            category.name,
+            capitalize(category.name),
+            category.extensions.join(", ")
           )
         )
       )
@@ -63,7 +63,9 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
         label: board?.label,
         name: board?.name,
         nsfw: board?.nsfw,
-        attachmentTypes: board?.attachmentTypes.map((type) => type.name),
+        attachmentCategories: board?.attachmentCategories.map(
+          (category) => category.name
+        ),
         threadLimit: board?.threadLimit,
         bumpLimit: board?.bumpLimit,
       }
@@ -104,9 +106,9 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
           />
           <Select
             multiple
-            name="attachmentTypes"
-            label="Allowed attachment types"
-            options={attachmentTypes}
+            name="attachmentCategories"
+            label="Allowed attachment categories"
+            options={attachmentCategories}
             required
           />
           <Checkbox name="nsfw" label="NSFW" />
