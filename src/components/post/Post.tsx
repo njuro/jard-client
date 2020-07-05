@@ -28,6 +28,7 @@ function Post({ post, isOP }: PostProps) {
   }
 
   function getAttachmentInfo(attachment: AttachmentType) {
+    // TODO move to post attachment component and place above attachment
     const { metadata } = attachment;
 
     let info = `File: ${attachment.originalFilename} (${metadata.fileSize}`;
