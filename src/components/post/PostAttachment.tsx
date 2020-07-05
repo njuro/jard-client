@@ -17,7 +17,7 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
   }
 
   function renderThumbnail() {
-    if (!attachment.type.hasThumbnail) {
+    if (!attachment.category.hasThumbnail) {
       const ext = attachment.filename.split(".").pop();
       return (
         <Link
@@ -25,7 +25,7 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
           rel="noopener noreferrer"
           to={ATTACHMENT_URL(attachment)}
           onClick={(e) => {
-            if (attachment.type.name === "AUDIO") {
+            if (attachment.category.name === "AUDIO") {
               toggleSize(e);
             }
           }}
@@ -47,18 +47,18 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
         rel="noopener noreferrer"
         verticalAlign="top"
         src={ATTACHMENT_THUMB_URL(attachment)}
-        onClick={attachment.type.name === "PDF" || toggleSize}
+        onClick={attachment.category.name === "PDF" || toggleSize}
       />
     );
   }
 
   function renderFull() {
-    if (attachment.type.name === "VIDEO") {
+    if (attachment.category.name === "VIDEO") {
       // eslint-disable-next-line jsx-a11y/media-has-caption
       return <video src={ATTACHMENT_URL(attachment)} controls loop autoPlay />;
     }
 
-    if (attachment.type.name === "AUDIO") {
+    if (attachment.category.name === "AUDIO") {
       // eslint-disable-next-line jsx-a11y/media-has-caption
       return <audio src={ATTACHMENT_URL(attachment)} controls loop autoPlay />;
     }

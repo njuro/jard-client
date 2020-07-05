@@ -46,7 +46,7 @@ export interface PostType {
 }
 
 export interface AttachmentType {
-  type: AttachmentCategoryType;
+  category: AttachmentCategoryType;
   originalFilename: string;
   filename: string;
   thumbnailFilename: string;
