@@ -16,6 +16,7 @@ export interface BoardType {
 
 export interface BoardAttachmentType {
   name: string;
+  hasThumbnail: boolean;
   extensions: string[];
   mimeTypes: string[];
 }
@@ -52,7 +53,7 @@ export interface PostType {
 }
 
 export interface AttachmentType {
-  type: string;
+  type: BoardAttachmentType;
   originalFilename: string;
   filename: string;
   thumbnailFilename: string;
