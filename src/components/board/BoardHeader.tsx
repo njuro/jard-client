@@ -17,6 +17,12 @@ function BoardHeader({ catalog }: BoardHeaderProps) {
         {catalog && "Catalog of "} /{board.label}/ - {board.name}
       </Header>
       <div style={{ textAlign: "center" }}>
+        {board.settings.nsfw && (
+          <span style={{ color: "red" }}>
+            <strong>[NSFW]</strong>
+            <br />
+          </span>
+        )}
         <Link to={catalog ? BOARD_URL(board) : BOARD_CATALOG_URL(board)}>
           <strong>[{catalog ? "List" : "Catalog"}]</strong>
         </Link>
