@@ -26,7 +26,7 @@ function MainMenu() {
   return (
     <Menu>
       <Menu.Item header>
-        <Link to="/">JBoard</Link>
+        <Link to="/">jard</Link>
       </Menu.Item>
       {boards.map((board) => (
         <Menu.Item key={board.label} name={board.label}>
