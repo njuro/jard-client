@@ -81,10 +81,14 @@ function PostForm() {
   }, [appendToReply, setAppendToReply, replyFormOpen]);
 
   function getAllowedFileTypes() {
-    return board.attachmentCategories
+    return board.settings.attachmentCategories
       .flatMap((category) => category.extensions)
       .join(",");
   }
+
+  const defaultValues = {
+    name: board.settings.defaultPosterName,
+  };
 
   return (
     <Portal
@@ -97,6 +101,7 @@ function PostForm() {
           <Form
             onSubmit={handleSubmit}
             encType="multipart/form-data"
+            defaultValues={defaultValues}
             error={!!errors}
           >
             <Header as="h4" dividing>
@@ -109,7 +114,13 @@ function PostForm() {
               />
             </Header>
             <SemanticForm.Group widths="equal">
-              <TextInput fluid name="name" label="Name" placeholder="Name" />
+              <TextInput
+                fluid
+                name="name"
+                label="Name"
+                placeholder="Name"
+                disabled={board.settings.forceDefaultPosterName}
+              />
               <TextInput
                 fluid
                 name="password"

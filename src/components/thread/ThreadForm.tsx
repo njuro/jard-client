@@ -36,10 +36,16 @@ function ThreadForm() {
   }
 
   function getAllowedFileTypes() {
-    return board.attachmentCategories
+    return board.settings.attachmentCategories
       .flatMap((category) => category.extensions)
       .join(",");
   }
+
+  const defaultValues = {
+    postForm: {
+      name: board.settings.defaultPosterName,
+    },
+  };
 
   return (
     <Modal
@@ -55,6 +61,7 @@ function ThreadForm() {
         <Form
           onSubmit={handleSubmit}
           encType="multipart/form-data"
+          defaultValues={defaultValues}
           error={!!errors}
         >
           <Header as="h4" dividing>
@@ -66,6 +73,7 @@ function ThreadForm() {
               name="postForm.name"
               label="Name"
               placeholder="Name"
+              disabled={board.settings.forceDefaultPosterName}
             />
             <TextInput
               fluid

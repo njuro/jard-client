@@ -62,12 +62,16 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
     ? {
         label: board?.label,
         name: board?.name,
-        nsfw: board?.nsfw,
-        attachmentCategories: board?.attachmentCategories.map(
-          (category) => category.name
-        ),
-        threadLimit: board?.threadLimit,
-        bumpLimit: board?.bumpLimit,
+        boardSettingsForm: {
+          attachmentCategories: board?.settings.attachmentCategories.map(
+            (category) => category.name
+          ),
+          nsfw: board?.settings.nsfw,
+          threadLimit: board?.settings.threadLimit,
+          bumpLimit: board?.settings.bumpLimit,
+          defaultPosterName: board?.settings.defaultPosterName,
+          forceDefaultPosterName: board?.settings.forceDefaultPosterName,
+        },
       }
     : {};
 
@@ -91,14 +95,14 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
           />
           <TextInput name="name" label="Name" placeholder="Name" required />
           <TextInput
-            name="threadLimit"
+            name="boardSettingsForm.threadLimit"
             label="Thread limit"
             placeholder="Thread limit"
             type="number"
             required
           />
           <TextInput
-            name="bumpLimit"
+            name="boardSettingsForm.bumpLimit"
             label="Bump limit"
             placeholder="Bump limit"
             type="number"
@@ -106,12 +110,21 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
           />
           <Select
             multiple
-            name="attachmentCategories"
+            name="boardSettingsForm.attachmentCategories"
             label="Allowed attachment categories"
             options={attachmentCategories}
             required
           />
-          <Checkbox name="nsfw" label="NSFW" />
+          <TextInput
+            name="boardSettingsForm.defaultPosterName"
+            label="Default poster name"
+            placeholder="Default poster name"
+          />
+          <Checkbox
+            name="boardSettingsForm.forceDefaultPosterName"
+            label="Force default poster name"
+          />
+          <Checkbox name="boardSettingsForm.nsfw" label="NSFW" />
           <FormErrors errors={errors} />
           <Button fluid>{isEdit ? "Update board" : "Create board"}</Button>
         </Form>

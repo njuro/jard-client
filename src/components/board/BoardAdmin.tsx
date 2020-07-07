@@ -68,12 +68,12 @@ function BoardAdmin() {
                 <Table.Cell>/{board.label}/</Table.Cell>
                 <Table.Cell>{board.name}</Table.Cell>
                 <Table.Cell>
-                  {board.attachmentCategories
+                  {board.settings.attachmentCategories
                     .map((category) => capitalize(category.name))
                     .join(", ")}
                 </Table.Cell>
                 <Table.Cell>
-                  <Checkbox disabled checked={board.nsfw} />
+                  <Checkbox disabled checked={board.settings.nsfw} />
                 </Table.Cell>
                 <Table.Cell>
                   <Button.Group>

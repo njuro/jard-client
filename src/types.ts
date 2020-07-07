@@ -6,12 +6,18 @@ export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 export interface BoardType {
   label: string;
   name: string;
+  pageCount: number;
+  settings: BoardSettingsType;
+  threads?: ThreadType[];
+}
+
+export interface BoardSettingsType {
   attachmentCategories: AttachmentCategoryType[];
   nsfw: boolean;
-  pageCount: number;
   threadLimit: number;
   bumpLimit: number;
-  threads?: ThreadType[];
+  defaultPosterName: string;
+  forceDefaultPosterName: boolean;
 }
 
 export interface ThreadType {
