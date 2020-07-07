@@ -2,8 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Grid, Image, Popup } from "semantic-ui-react";
 import styled from "styled-components";
+import { DefaultExtensionType, defaultStyles, FileIcon } from "react-file-icon";
 import { ATTACHMENT_THUMB_URL, THREAD_URL } from "../../helpers/mappings";
-import { BoardType, ThreadCatalogType, ThreadType } from "../../types";
+import {
+  AttachmentType,
+  BoardType,
+  ThreadCatalogType,
+  ThreadType,
+} from "../../types";
 
 interface ThreadCatalogProps {
   thread: ThreadCatalogType;
@@ -26,15 +32,32 @@ const ThreadMeta = styled.div`
   margin-top: 4px;
   margin-bottom: 1px;
 `;
-
 function ThreadCatalog({ thread, board, showOP }: ThreadCatalogProps) {
+  function renderThumbnail(attachment: AttachmentType) {
+    // TODO do this cleaner
+    if (!attachment.category.hasThumbnail) {
+      const ext = attachment.filename.split(".").pop();
+      return (
+        <FileIcon
+          labelUppercase
+          extension={ext!}
+          {...defaultStyles[ext as DefaultExtensionType]}
+        />
+      );
+    }
+
+    return (
+      <Image
+        src={ATTACHMENT_THUMB_URL(thread.originalPost.attachment!)}
+        style={{ margin: "auto", boxShadow: "0 0 5px rgba(0,0,0,.25)" }}
+      />
+    );
+  }
+
   return (
     <ThreadPreview verticalAlign="top">
       <Link to={THREAD_URL(thread as ThreadType, board)}>
-        <Image
-          src={ATTACHMENT_THUMB_URL(thread.originalPost.attachment!)}
-          style={{ margin: "auto", boxShadow: "0 0 5px rgba(0,0,0,.25)" }}
-        />
+        {renderThumbnail((thread as ThreadType).originalPost.attachment!)}
       </Link>
       <Popup
         content="[R]eplies / [I]mage replies"
