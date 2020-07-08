@@ -77,7 +77,7 @@ export interface AttachmentMetadataType {
   thumbnailHeight: number;
   fileSize: string;
   duration: string;
-  hash: string;
+  checksum: string;
 }
 
 export interface UserType {
