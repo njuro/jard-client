@@ -54,18 +54,20 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
         {board.threads!.map((thread) => (
           <Thread key={thread.originalPost.postNumber} thread={thread} />
         ))}
-        <div style={{ display: "block", marginTop: "20px" }}>
-          <Pagination
-            boundaryRange={1}
-            siblingRange={3}
-            totalPages={board.pageCount}
-            activePage={pageNumber}
-            onPageChange={(_, { activePage }) => {
-              history.push(`${BOARD_URL(board)}/${activePage}`);
-              setPageNumber(activePage as number);
-            }}
-          />
-        </div>
+        {board.pageCount > 1 && (
+          <div style={{ display: "block", marginTop: "20px" }}>
+            <Pagination
+              boundaryRange={1}
+              siblingRange={3}
+              totalPages={board.pageCount}
+              activePage={pageNumber}
+              onPageChange={(_, { activePage }) => {
+                history.push(`${BOARD_URL(board)}/${activePage}`);
+                setPageNumber(activePage as number);
+              }}
+            />
+          </div>
+        )}
       </BoardContext.Provider>
     )) ||
     null
