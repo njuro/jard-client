@@ -47,6 +47,7 @@ function Post({ post, isOP }: PostProps) {
       {post.attachment && <PostAttachment attachment={post.attachment} />}
       <Item.Content style={{ position: "relative" }}>
         <Item.Meta>
+          {post.sage && <span className="sage">[SAGE]</span>}
           <span className="name">{post.name}</span>
           <span className="tripcode">{post.tripcode}</span>
           {isOP && <span className="subject">{thread.subject}</span>}

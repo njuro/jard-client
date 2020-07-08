@@ -38,6 +38,11 @@ main {
   margin-top: 0px !important;
 }
 
+.sage {
+  color: darkorange;
+  font-weight: bold;
+}
+
 a.crosslink {
   text-decoration: underline;
   text-decoration-style: dashed;

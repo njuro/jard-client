@@ -26,6 +26,7 @@ export interface ThreadType {
   locked: boolean;
   createdAt: string;
   lastReplyAt: string;
+  lastBumpAt: string;
   board?: BoardType;
   statistics: ThreadStatisticsType;
   originalPost: PostType;
@@ -47,6 +48,7 @@ export interface PostType {
   body: string;
   createdAt: string;
   ip?: string;
+  sage: boolean;
   thread?: ThreadType;
   attachment?: AttachmentType;
 }

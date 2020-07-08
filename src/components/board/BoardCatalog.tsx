@@ -60,8 +60,11 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
 
   function sortThreads(sort: string) {
     let sortFn: (thread: ThreadCatalogType) => any = (thread) =>
-      thread.lastReplyAt;
+      thread.lastBumpAt;
     switch (sort) {
+      case "lastBump":
+        sortFn = (thread) => thread.lastBumpAt;
+        break;
       case "lastReply":
         sortFn = (thread) => thread.lastReplyAt;
         break;
@@ -95,6 +98,11 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
               placeholder="Sort by"
               options={[
                 {
+                  key: "lastBump",
+                  value: "lastBump",
+                  text: "Last bump",
+                },
+                {
                   key: "lastReply",
                   value: "lastReply",
                   text: "Last reply",
@@ -106,7 +114,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
                 },
                 { key: "replyCount", value: "replyCount", text: "Reply count" },
               ]}
-              defaultValue="lastReply"
+              defaultValue="lastBump"
               onChange={(_, data) => sortThreads(data.value as string)}
             />
           </Menu.Item>
@@ -116,7 +124,6 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
               checked={showOP}
               onChange={() => setShowOP(!showOP)}
               label="Show OP?"
-              s
             />
           </Menu.Item>
           <Menu.Item position="right">

@@ -22,6 +22,7 @@ import Form, {
   TextInput,
 } from "../form/Form";
 import { ThreadContext } from "../thread/Thread";
+import Checkbox from "../form/Checkbox";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -141,6 +142,7 @@ function PostForm() {
                 }}
               />
             </Ref>
+            <Checkbox toggle name="sage" label="Sage" />
             <FileInput
               name="attachment"
               label="Upload image"
