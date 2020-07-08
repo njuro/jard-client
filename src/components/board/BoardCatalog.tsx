@@ -92,33 +92,42 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
       <BoardContext.Provider value={board}>
         <BoardHeader catalog />
         <ThreadForm />
-        <Menu horizontal>
-          <Menu.Item position="right">
-            <Select
-              placeholder="Sort by"
-              options={[
-                {
-                  key: "lastBump",
-                  value: "lastBump",
-                  text: "Last bump",
-                },
-                {
-                  key: "lastReply",
-                  value: "lastReply",
-                  text: "Last reply",
-                },
-                {
-                  key: "creationDate",
-                  value: "creationDate",
-                  text: "Creation date",
-                },
-                { key: "replyCount", value: "replyCount", text: "Reply count" },
-              ]}
-              defaultValue="lastBump"
-              onChange={(_, data) => sortThreads(data.value as string)}
-            />
+        <Menu horizontal borderless>
+          <Menu.Item>
+            <label htmlFor="sortThreads">
+              Sort by &nbsp;&nbsp;
+              <Select
+                name="sortThreads"
+                labeled
+                placeholder="Sort by"
+                options={[
+                  {
+                    key: "lastBump",
+                    value: "lastBump",
+                    text: "Last bump",
+                  },
+                  {
+                    key: "lastReply",
+                    value: "lastReply",
+                    text: "Last reply",
+                  },
+                  {
+                    key: "creationDate",
+                    value: "creationDate",
+                    text: "Creation date",
+                  },
+                  {
+                    key: "replyCount",
+                    value: "replyCount",
+                    text: "Reply count",
+                  },
+                ]}
+                defaultValue="lastBump"
+                onChange={(_, data) => sortThreads(data.value as string)}
+              />
+            </label>
           </Menu.Item>
-          <Menu.Item position="right">
+          <Menu.Item>
             <Checkbox
               toggle
               checked={showOP}

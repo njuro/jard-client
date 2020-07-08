@@ -8,6 +8,7 @@ module.exports = {
     "no-plusplus": 0,
     "jsx-a11y/anchor-is-valid": 0,
     "jsx-a11y/media-has-caption": 0,
+    "jsx-a11y/label-has-associated-control": 0,
     "import/no-extraneous-dependencies": 1,
     "import/no-unresolved": 1,
   },
