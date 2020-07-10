@@ -26,11 +26,11 @@ export const ATTACHMENT_URL = (attachment: AttachmentType) =>
   `${ATTACHMENTS_URL}/${attachment.folder}/${attachment.filename}`;
 export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
   attachment.awsThumbnailUrl ||
-  `${ATTACHMENTS_URL}/thumbs/${attachment.folder}/${attachment.thumbnailFilename}`;
+  `${ATTACHMENTS_URL}/${attachment.thumbnailFolder}/${attachment.thumbnailFilename}`;
 
 export const USERS_URL = "/users";
 export const BANS_URL = "/bans";
 export const LOGIN_URL = "/login";
 export const LOGOUT_URL = "/logout";
 export const DASHBOARD_URL = "/dashboard";
-export const ATTACHMENTS_URL = `${SERVER_API_URL}/usercontent`;
+export const ATTACHMENTS_URL = `${SERVER_API_URL}/usercontent`; // should be used only in local development
