@@ -1,7 +1,6 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Image } from "semantic-ui-react";
 import { FileIcon, DefaultExtensionType, defaultStyles } from "react-file-icon";
-import { Link } from "react-router-dom";
 import { renderToString } from "react-dom/server";
 import styled from "styled-components";
 import { ATTACHMENT_THUMB_URL, ATTACHMENT_URL } from "../../helpers/mappings";
@@ -54,13 +53,13 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
       }
 
       return (
-        <Link
+        <a
           target="_blank"
           rel="noopener noreferrer"
-          to={ATTACHMENT_URL(attachment)}
+          href={ATTACHMENT_URL(attachment)}
         >
           <FileIconWrapper>{fileIcon}</FileIconWrapper>
-        </Link>
+        </a>
       );
     }
 

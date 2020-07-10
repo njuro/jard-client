@@ -6,6 +6,7 @@ import {
   ThreadType,
   UserType,
 } from "../types";
+import { SERVER_API_URL } from "./api";
 
 export const USER_URL = (user: UserType) => `${USERS_URL}/${user.username}`;
 export const BOARDS_URL = "/boards";
@@ -29,8 +30,7 @@ export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
 
 export const USERS_URL = "/users";
 export const BANS_URL = "/bans";
-export const UNBANS_URL = "/bans/unban";
 export const LOGIN_URL = "/login";
 export const LOGOUT_URL = "/logout";
 export const DASHBOARD_URL = "/dashboard";
-export const ATTACHMENTS_URL = "/usercontent";
+export const ATTACHMENTS_URL = `${SERVER_API_URL}/usercontent`;

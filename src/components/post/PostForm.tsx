@@ -66,6 +66,7 @@ function PostForm() {
     putApiRequest(THREAD_URL(thread, board), replyForm)
       .then(() => {
         setReplyFormOpen(false);
+        setAttachment(undefined);
         triggerThreadUpdateButton();
       })
       .catch((err) => setErrors(err.response.data.errors));
