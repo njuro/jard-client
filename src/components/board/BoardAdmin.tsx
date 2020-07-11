@@ -12,7 +12,7 @@ import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import BoardForm from "./BoardForm";
 import useUpdater from "../../helpers/updater";
-import { capitalize } from "../../helpers/forms";
+import { capitalize } from "../../helpers/utils";
 
 function BoardAdmin() {
   const [boards, setBoards] = useState<BoardType[]>([]);

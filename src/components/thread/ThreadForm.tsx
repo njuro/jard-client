@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Form as SemanticForm, Header, Icon, Modal } from "semantic-ui-react";
 import { putApiRequest } from "../../helpers/api";
-import { objectToJsonBlob } from "../../helpers/forms";
+import { objectToJsonBlob } from "../../helpers/utils";
 import { BOARD_URL, THREAD_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";

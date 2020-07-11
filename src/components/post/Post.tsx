@@ -7,6 +7,7 @@ import PostActions from "./PostActions";
 import PostAttachment from "./PostAttachment";
 import { BoardContext } from "../board/Board";
 import { POST_URL } from "../../helpers/mappings";
+import { formatTimestamp } from "../../helpers/utils";
 
 interface PostProps {
   post: PostType;
@@ -51,9 +52,7 @@ function Post({ post, isOP }: PostProps) {
           <span className="name">{post.name}</span>
           <span className="tripcode">{post.tripcode}</span>
           {isOP && <span className="subject">{thread.subject}</span>}
-          <span className="date">
-            {new Date(Date.parse(post.createdAt)).toLocaleString("sk-SK")}
-          </span>
+          <span className="date">{formatTimestamp(post.createdAt)}</span>
           {post.attachment && (
             <span className="file">
               <em>{getAttachmentInfo(post.attachment)}</em>

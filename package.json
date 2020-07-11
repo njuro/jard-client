@@ -16,6 +16,7 @@
     "@types/styled-components": "^4.4.3",
     "axios": "^0.19.2",
     "husky": "^4.2.5",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",

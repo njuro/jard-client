@@ -10,7 +10,7 @@ import Draggable from "react-draggable";
 import { Ref } from "@stardust-ui/react-component-ref";
 import styled from "styled-components";
 import { putApiRequest } from "../../helpers/api";
-import { objectToJsonBlob } from "../../helpers/forms";
+import { objectToJsonBlob } from "../../helpers/utils";
 import { THREAD_URL } from "../../helpers/mappings";
 import { PostType } from "../../types";
 import { BoardContext } from "../board/Board";

@@ -6,7 +6,7 @@ import {
   postApiRequest,
   putApiRequest,
 } from "../../helpers/api";
-import { capitalize, objectToDropdownItem } from "../../helpers/forms";
+import { capitalize, objectToDropdownItem } from "../../helpers/utils";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { AttachmentCategoryType, BoardType } from "../../types";
 import Form, {

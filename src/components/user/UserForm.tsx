@@ -5,7 +5,7 @@ import { postApiRequest, putApiRequest } from "../../helpers/api";
 import { USER_URL, USERS_URL } from "../../helpers/mappings";
 import { UserRole, UserType } from "../../types";
 import Form, { Button, FormErrors, Select, TextInput } from "../form/Form";
-import { objectToDropdownItem } from "../../helpers/forms";
+import { objectToDropdownItem } from "../../helpers/utils";
 
 interface UserFormProps {
   trigger: ReactNode;
