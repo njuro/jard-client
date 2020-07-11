@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 
 import { BrowserRouter as Router } from "react-router-dom";
+import HttpsRedirect from "react-https-redirect";
 import { getApiRequest } from "../helpers/api";
 import { USERS_URL } from "../helpers/mappings";
 import { SetStateType, UserType } from "../types";
@@ -27,18 +28,20 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ user: user as UserType, setUser, userLoading }}
-    >
-      <Router>
-        <nav>
-          <MainMenu />
-        </nav>
-        <main>
-          <MainSwitch />
-        </main>
-      </Router>
-    </AuthContext.Provider>
+    <HttpsRedirect>
+      <AuthContext.Provider
+        value={{ user: user as UserType, setUser, userLoading }}
+      >
+        <Router>
+          <nav>
+            <MainMenu />
+          </nav>
+          <main>
+            <MainSwitch />
+          </main>
+        </Router>
+      </AuthContext.Provider>
+    </HttpsRedirect>
   );
 }
 
