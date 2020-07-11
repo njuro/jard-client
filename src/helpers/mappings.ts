@@ -22,10 +22,10 @@ export const POST_URL = (
 ) => `${THREAD_URL(thread, board)}#${post.postNumber}`;
 export const BAN_URL = (ban: BanType) => `${BANS_URL}/${ban.id}`;
 export const ATTACHMENT_URL = (attachment: AttachmentType) =>
-  attachment.awsUrl ||
+  attachment.amazonS3Url ||
   `${ATTACHMENTS_URL}/${attachment.folder}/${attachment.filename}`;
 export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
-  attachment.awsThumbnailUrl ||
+  attachment.amazonS3ThumbnailUrl ||
   `${ATTACHMENTS_URL}/${attachment.thumbnailFolder}/${attachment.thumbnailFilename}`;
 
 export const USERS_URL = "/users";

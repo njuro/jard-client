@@ -60,8 +60,8 @@ export interface AttachmentType {
   thumbnailFilename: string;
   folder: string;
   thumbnailFolder: string;
-  awsUrl: string;
-  awsThumbnailUrl: string;
+  amazonS3Url: string;
+  amazonS3ThumbnailUrl: string;
   metadata: AttachmentMetadataType;
 }
 
