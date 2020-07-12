@@ -13,8 +13,11 @@ import Form, {
   TextArea,
   TextInput,
 } from "../form/Form";
+import { AuthContext } from "../App";
+import Checkbox from "../form/Checkbox";
 
 function ThreadForm() {
+  const { user } = useContext(AuthContext);
   const board = useContext(BoardContext);
 
   const [attachment, setAttachment] = useState<File>();
@@ -84,6 +87,7 @@ function ThreadForm() {
           </SemanticForm.Group>
           <TextInput name="subject" label="Subject" placeholder="Subject" />
           <TextArea name="postForm.body" label="Comment" rows="8" />
+          {user && <Checkbox toggle name="postForm.capcode" label="Capcode" />}
           <FileInput
             name="attachment"
             label="Upload image"

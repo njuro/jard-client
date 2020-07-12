@@ -34,6 +34,11 @@ main {
   font-weight: bold;
 }
 
+.capcode {
+  font-weight: bold;
+  color: red;
+}
+
 .meta {
   margin-top: 0px !important;
 }

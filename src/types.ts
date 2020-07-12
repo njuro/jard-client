@@ -45,6 +45,7 @@ export interface PostType {
   name: string;
   postNumber: number;
   tripcode: string;
+  capcode: string;
   body: string;
   createdAt: string;
   ip?: string;

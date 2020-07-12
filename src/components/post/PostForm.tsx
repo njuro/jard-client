@@ -23,6 +23,7 @@ import Form, {
 } from "../form/Form";
 import { ThreadContext } from "../thread/Thread";
 import Checkbox from "../form/Checkbox";
+import { AuthContext } from "../App";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -42,6 +43,7 @@ const CloseIcon = styled(Icon)`
 `;
 
 function PostForm() {
+  const { user } = useContext(AuthContext);
   const board = useContext(BoardContext);
   const {
     thread,
@@ -144,6 +146,7 @@ function PostForm() {
               />
             </Ref>
             <Checkbox toggle name="sage" label="Sage" />
+            {user && <Checkbox toggle name="capcode" label="Capcode" />}
             <FileInput
               name="attachment"
               label="Upload image"

@@ -50,6 +50,9 @@ function Post({ post, isOP }: PostProps) {
         <Item.Meta>
           {post.sage && <span className="sage">[SAGE]</span>}
           <span className="name">{post.name}</span>
+          {post.capcode && (
+            <span className="capcode">{`[${post.capcode}]`}</span>
+          )}
           <span className="tripcode">{post.tripcode}</span>
           {isOP && <span className="subject">{thread.subject}</span>}
           <span className="date">{formatTimestamp(post.createdAt)}</span>
