@@ -100,7 +100,7 @@ function PostForm() {
       onClose={() => setReplyFormOpen(false)}
       closeOnDocumentClick={false}
     >
-      <Draggable>
+      <Draggable cancel=".not-draggable">
         <ReplyForm>
           <Form
             onSubmit={handleSubmit}
@@ -115,6 +115,7 @@ function PostForm() {
                 link
                 name="close"
                 onClick={() => setReplyFormOpen(false)}
+                className="not-draggable"
               />
             </Header>
             <SemanticForm.Group widths="equal">
@@ -124,12 +125,14 @@ function PostForm() {
                 label="Name"
                 placeholder="Name"
                 disabled={board.settings.forceDefaultPosterName}
+                className="not-draggable"
               />
               <TextInput
                 fluid
                 name="password"
                 label="Tripcode password"
                 placeholder="Password"
+                className="not-draggable"
               />
             </SemanticForm.Group>
             <Ref innerRef={replyBodyRef}>
@@ -143,18 +146,34 @@ function PostForm() {
                   wordWrap: "break-word",
                   whiteSpace: "pre-wrap",
                 }}
+                className="not-draggable"
               />
             </Ref>
-            <Checkbox toggle name="sage" label="Sage" />
-            {user && <Checkbox toggle name="capcode" label="Capcode" />}
+            <Checkbox
+              toggle
+              name="sage"
+              label="Sage"
+              className="not-draggable"
+            />
+            {user && (
+              <Checkbox
+                toggle
+                name="capcode"
+                label="Capcode"
+                className="not-draggable"
+              />
+            )}
             <FileInput
               name="attachment"
               label="Upload image"
               accept={getAllowedFileTypes()}
               onFileUpload={setAttachment}
+              className="not-draggable"
             />
             <FormErrors errors={errors} />
-            <Button floated="right">Submit post</Button>
+            <Button floated="right" className="not-draggable">
+              Submit post
+            </Button>
           </Form>
         </ReplyForm>
       </Draggable>
