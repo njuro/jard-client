@@ -29,3 +29,10 @@ export function formatTimestamp(timestamp: string): string {
   // TODO get timezone from local storage
   return new Date(timestamp).toLocaleString(locale, { timeZone });
 }
+
+export function isLocal(): boolean {
+  return (
+    window.location.hostname === "localhost" ||
+    window.location.hostname.startsWith("192.168.0")
+  );
+}

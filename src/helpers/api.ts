@@ -1,7 +1,8 @@
 import axios, { Method } from "axios";
 
 export const SERVER_API_URL =
-  process.env.REACT_APP_API_URL || `http://localhost:8081/api`;
+  process.env.REACT_APP_API_URL ||
+  `http://${window.location.hostname}:8081/api`;
 const client = axios.create({
   baseURL: SERVER_API_URL,
   withCredentials: true,

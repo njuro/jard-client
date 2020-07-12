@@ -7,6 +7,7 @@ import { USERS_URL } from "../helpers/mappings";
 import { SetStateType, UserType } from "../types";
 import MainMenu from "./base/MainMenu";
 import MainSwitch from "./base/MainSwitch";
+import { isLocal } from "../helpers/utils";
 
 interface AuthContextProps {
   user: UserType;
@@ -28,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <HttpsRedirect>
+    <HttpsRedirect disabled={isLocal()}>
       <AuthContext.Provider
         value={{ user: user as UserType, setUser, userLoading }}
       >
