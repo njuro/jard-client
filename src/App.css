@@ -43,6 +43,10 @@ main {
   margin-top: 0px !important;
 }
 
+.body {
+  margin-bottom: 50px !important;
+}
+
 .sage {
   color: darkorange;
   font-weight: bold;
