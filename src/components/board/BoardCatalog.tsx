@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Checkbox, Grid, Input, Menu, Select } from "semantic-ui-react";
 import styled from "styled-components";
+import { isMobile } from "react-device-detect";
 import { getApiRequest } from "../../helpers/api";
 import { BOARDS_URL } from "../../helpers/mappings";
 import useUpdater from "../../helpers/updater";
@@ -143,7 +144,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
         </Menu>
 
         <ThreadList container relaxed>
-          <ThreadList.Row>
+          <ThreadList.Row columns={isMobile ? 2 : 10}>
             {threads.map((thread) => (
               <ThreadCatalog
                 board={board}
