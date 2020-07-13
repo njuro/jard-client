@@ -17,7 +17,6 @@ const ThreadList = styled(Grid)`
   text-align: center;
   min-width: 100% !important;
 `;
-
 function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
   const { label } = props.match.params;
   const [board, setBoard] = useState<BoardType>();
@@ -79,8 +78,8 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
 
     if (sortFn) {
       threads.sort((t1, t2) => {
-        if (sortFn(t1) > sortFn(t2)) return -1;
-        if (sortFn(t1) < sortFn(t2)) return 1;
+        if (t1.stickied || sortFn(t1) > sortFn(t2)) return -1;
+        if (t2.stickied || sortFn(t1) < sortFn(t2)) return 1;
         return 0;
       });
       refreshCatalog();
@@ -92,7 +91,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
       <BoardContext.Provider value={board}>
         <BoardHeader catalog />
         <ThreadForm />
-        <Menu horizontal borderless>
+        <Menu borderless stackable>
           <Menu.Item>
             <label htmlFor="sortThreads">
               Sort by &nbsp;&nbsp;
@@ -144,7 +143,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
         </Menu>
 
         <ThreadList container relaxed>
-          <ThreadList.Row columns={10}>
+          <ThreadList.Row>
             {threads.map((thread) => (
               <ThreadCatalog
                 board={board}
