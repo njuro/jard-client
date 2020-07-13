@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from "react";
-import { Image } from "semantic-ui-react";
+import { Icon, Image } from "semantic-ui-react";
 import { FileIcon, DefaultExtensionType, defaultStyles } from "react-file-icon";
 import { renderToString } from "react-dom/server";
 import styled from "styled-components";
@@ -77,7 +77,24 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
 
   function renderFull() {
     if (attachment.category.name === "VIDEO") {
-      return <video src={ATTACHMENT_URL(attachment)} controls loop autoPlay />;
+      return (
+        <div className="videoContainer" style={{ position: "relative" }}>
+          <Icon
+            link
+            name="close"
+            size="big"
+            onClick={toggleSize}
+            style={{
+              color: "white",
+              position: "absolute",
+              top: "0",
+              right: "0",
+              zIndex: 1000,
+            }}
+          />
+          <video src={ATTACHMENT_URL(attachment)} controls loop autoPlay />
+        </div>
+      );
     }
 
     return (
