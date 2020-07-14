@@ -10,6 +10,7 @@ import { UserAuthority } from "../../types";
 
 function DashboardSwitch() {
   const { user } = useContext(AppContext);
+
   return (
     <Switch>
       <ProtectedRoute

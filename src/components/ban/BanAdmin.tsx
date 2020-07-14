@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Icon, Popup, Table } from "semantic-ui-react";
 import { getApiRequest } from "../../helpers/api";
 import { BANS_URL } from "../../helpers/mappings";
@@ -6,13 +6,18 @@ import { BanStatus, BanType } from "../../types";
 import BanForm from "./BanForm";
 import UnbanForm from "./UnbanForm";
 import { formatTimestamp } from "../../helpers/utils";
+import { DashboardContext } from "../dashboard/Dashboard";
+import { DASHBOARD_ITEM_BANS } from "../dashboard/DashboardMenu";
 
 function BanAdmin() {
+  const { setActiveDashboardItem } = useContext(DashboardContext);
+
   const [bans, setBans] = useState<BanType[]>([]);
 
   useEffect(() => {
+    setActiveDashboardItem(DASHBOARD_ITEM_BANS);
     fetchBans();
-  }, []);
+  }, [setActiveDashboardItem]);
 
   function fetchBans() {
     getApiRequest<BanType[]>(BANS_URL).then(setBans);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -11,14 +11,19 @@ import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import { USER_URL, USERS_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
 import UserForm from "./UserForm";
+import { DashboardContext } from "../dashboard/Dashboard";
+import { DASHBOARD_ITEM_USERS } from "../dashboard/DashboardMenu";
 
 function UserAdmin() {
+  const { setActiveDashboardItem } = useContext(DashboardContext);
+
   const [users, setUsers] = useState<UserType[]>([]);
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
 
   useEffect(() => {
+    setActiveDashboardItem(DASHBOARD_ITEM_USERS);
     fetchUsers();
-  }, []);
+  }, [setActiveDashboardItem]);
 
   function fetchUsers() {
     getApiRequest<UserType[]>(USERS_URL).then(setUsers);

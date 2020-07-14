@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -13,16 +13,21 @@ import { BoardType } from "../../types";
 import BoardForm from "./BoardForm";
 import useUpdater from "../../helpers/useUpdater";
 import { capitalize } from "../../helpers/utils";
+import { DashboardContext } from "../dashboard/Dashboard";
+import { DASHBOARD_ITEM_BOARDS } from "../dashboard/DashboardMenu";
 
 function BoardAdmin() {
+  const { setActiveDashboardItem } = useContext(DashboardContext);
+
   const [boards, setBoards] = useState<BoardType[]>([]);
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
 
   const refreshList = useUpdater();
 
   useEffect(() => {
+    setActiveDashboardItem(DASHBOARD_ITEM_BOARDS);
     fetchBoards();
-  }, []);
+  }, [setActiveDashboardItem]);
 
   function fetchBoards() {
     getApiRequest<BoardType[]>(BOARDS_URL).then(setBoards);
