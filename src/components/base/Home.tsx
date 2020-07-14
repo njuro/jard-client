@@ -6,7 +6,7 @@ import { MENU_ITEM_HOME } from "./MainMenu";
 function Home() {
   const { setActiveMenuItem } = useContext(AppContext);
 
-  useEffect(() => setActiveMenuItem(MENU_ITEM_HOME));
+  useEffect(() => setActiveMenuItem(MENU_ITEM_HOME), [setActiveMenuItem]);
 
   return (
     <div>

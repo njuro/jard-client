@@ -36,6 +36,7 @@ export const LOGIN_URL = "/login";
 export const LOGOUT_URL = "/logout";
 export const DASHBOARD_URL = "/dashboard";
 export const ATTACHMENTS_URL = `${SERVER_API_URL}/usercontent`; // should be used only in local development
+export const NOT_FOUND_URL = "/404";
 
 export const BOARD_ROUTE = `${BOARDS_URL}/:label/:page?`;
 export const BOARD_CATALOG_ROUTE = `${BOARDS_URL}/:label/catalog`;

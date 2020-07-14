@@ -1,13 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { RouteComponentProps, useHistory } from "react-router";
+import { Redirect, RouteComponentProps, useHistory } from "react-router";
 import { Pagination } from "semantic-ui-react";
 import { getApiRequest } from "../../helpers/api";
-import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
+import { BOARD_URL, BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import Thread from "../thread/Thread";
 import ThreadForm from "../thread/ThreadForm";
 import BoardHeader from "./BoardHeader";
-import NotFound from "../utils/NotFound";
 import { AppContext } from "../App";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
@@ -49,7 +48,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
   }, [label, pageNumber, setActiveMenuItem, setBoard]);
 
   if (notFound) {
-    return <NotFound />;
+    return <Redirect to={NOT_FOUND_URL} />;
   }
 
   return (

@@ -21,7 +21,7 @@ function Dashboard() {
   useEffect(() => {
     setActiveMenuItem(MENU_ITEM_DASHBOARD);
     setActiveDashboardItem(DASHBOARD_ITEM_HOME);
-  }, [setActiveMenuItem]);
+  }, [setActiveMenuItem, setActiveDashboardItem]);
 
   return (
     <DashboardContext.Provider

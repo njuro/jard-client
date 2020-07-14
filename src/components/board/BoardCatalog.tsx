@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { RouteComponentProps } from "react-router";
+import { Redirect, RouteComponentProps } from "react-router";
 import { Checkbox, Grid, Input, Menu, Select } from "semantic-ui-react";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { getApiRequest } from "../../helpers/api";
-import { BOARDS_URL } from "../../helpers/mappings";
+import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import useUpdater from "../../helpers/useUpdater";
 import { BoardType, ThreadCatalogType } from "../../types";
 import ThreadCatalog from "../thread/ThreadCatalog";
 import ThreadForm from "../thread/ThreadForm";
 import { BoardContext } from "./Board";
 import BoardHeader from "./BoardHeader";
-import NotFound from "../utils/NotFound";
 import { AppContext } from "../App";
 
 const ThreadList = styled(Grid)`
@@ -47,7 +46,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
   }, [label, setActiveMenuItem, setBoard]);
 
   if (notFound) {
-    return <NotFound />;
+    return <Redirect to={NOT_FOUND_URL} />;
   }
 
   function filterThreads(query: string) {

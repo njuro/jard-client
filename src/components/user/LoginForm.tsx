@@ -19,7 +19,7 @@ function LoginForm() {
   const [loggedUser, setLoggedUser] = useState<UserType>();
   const [errors, setErrors] = useState<object>();
 
-  useEffect(() => setActiveMenuItem(MENU_ITEM_LOGIN));
+  useEffect(() => setActiveMenuItem(MENU_ITEM_LOGIN), [setActiveMenuItem]);
 
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)
