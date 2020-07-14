@@ -1,19 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Grid, Image, Popup } from "semantic-ui-react";
 import styled from "styled-components";
 import { DefaultExtensionType, defaultStyles, FileIcon } from "react-file-icon";
 import { ATTACHMENT_THUMB_URL, THREAD_URL } from "../../helpers/mappings";
-import {
-  AttachmentType,
-  BoardType,
-  ThreadCatalogType,
-  ThreadType,
-} from "../../types";
+import { AttachmentType, ThreadCatalogType, ThreadType } from "../../types";
+import { BoardContext } from "../board/Board";
 
 interface ThreadCatalogProps {
   thread: ThreadCatalogType;
-  board: BoardType;
   showOP: boolean;
 }
 
@@ -32,7 +27,9 @@ const ThreadMeta = styled.div`
   margin-top: 4px;
   margin-bottom: 1px;
 `;
-function ThreadCatalog({ thread, board, showOP }: ThreadCatalogProps) {
+function ThreadCatalog({ thread, showOP }: ThreadCatalogProps) {
+  const board = useContext(BoardContext);
+
   function renderThumbnail(attachment: AttachmentType) {
     // TODO do this cleaner
     if (!attachment.category.hasThumbnail) {

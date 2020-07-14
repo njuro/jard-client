@@ -1,24 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Message } from "semantic-ui-react";
 import styled from "styled-components";
 import { BanType } from "../../types";
 import { getApiRequest } from "../../helpers/api";
 import { BANS_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
+import { AppContext } from "../App";
 
 const BanMessage = styled(Message)`
   margin: auto !important;
   width: 50%;
 `;
 function BanStatus() {
+  const { setActiveMenuItem } = useContext(AppContext);
+
   const [ban, setBan] = useState<BanType>();
   const [banLoading, setBanLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    setActiveMenuItem(undefined);
+
     getApiRequest<BanType>(`${BANS_URL}/me`)
       .then(setBan)
       .finally(() => setBanLoading(false));
-  }, []);
+  }, [setActiveMenuItem]);
 
   if (banLoading) {
     return <BanMessage>Fetching your ban info...</BanMessage>;

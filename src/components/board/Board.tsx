@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Redirect, RouteComponentProps, useHistory } from "react-router";
-import { Pagination } from "semantic-ui-react";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import { getApiRequest } from "../../helpers/api";
-import { BOARD_URL, BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
+import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import Thread from "../thread/Thread";
 import ThreadForm from "../thread/ThreadForm";
 import BoardHeader from "./BoardHeader";
 import { AppContext } from "../App";
+import BoardPagination from "./BoardPagination";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
@@ -19,8 +19,6 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
   const [board, setBoard] = useState<BoardType>();
   const [pageNumber, setPageNumber] = useState<number>(page ? Number(page) : 1);
   const [notFound, setNotFound] = useState<boolean>(false);
-
-  const history = useHistory();
 
   useEffect(() => {
     setActiveMenuItem(label);
@@ -56,22 +54,15 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
       <BoardContext.Provider value={board}>
         <BoardHeader />
         <ThreadForm />
-        {board.threads!.map((thread) => (
+        {board.threads?.map((thread) => (
           <Thread key={thread.originalPost.postNumber} thread={thread} />
         ))}
         {board.pageCount > 1 && (
-          <div style={{ display: "block", marginTop: "20px" }}>
-            <Pagination
-              boundaryRange={1}
-              siblingRange={3}
-              totalPages={board.pageCount}
-              activePage={pageNumber}
-              onPageChange={(_, { activePage }) => {
-                history.push(`${BOARD_URL(board)}/${activePage}`);
-                setPageNumber(activePage as number);
-              }}
-            />
-          </div>
+          <BoardPagination
+            board={board}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+          />
         )}
       </BoardContext.Provider>
     )) ||

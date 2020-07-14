@@ -21,8 +21,7 @@ interface BoardFormProps {
   trigger: ReactNode;
   value?: BoardType;
 }
-function BoardForm({ trigger, value: board }: BoardFormProps) {
-  const isEdit = !!board;
+function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
   const [attachmentCategories, setAttachmentCategories] = useState<
     DropdownItemProps[]
   >([]);
@@ -46,8 +45,8 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
   }, []);
 
   function handleSubmit(boardForm: BoardType) {
-    const response = isEdit
-      ? postApiRequest<BoardType>(`${BOARD_URL(board!)}/edit`, boardForm)
+    const response = existingBoard
+      ? postApiRequest<BoardType>(`${BOARD_URL(existingBoard)}/edit`, boardForm)
       : putApiRequest<BoardType>(BOARDS_URL, boardForm);
     response
       .then(setUpdatedBoard)
@@ -58,19 +57,19 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
     return <Redirect to={BOARD_URL(updatedBoard)} />;
   }
 
-  const defaultValues = isEdit
+  const defaultValues = existingBoard
     ? {
-        label: board?.label,
-        name: board?.name,
+        label: existingBoard.label,
+        name: existingBoard.name,
         boardSettingsForm: {
-          attachmentCategories: board?.settings.attachmentCategories.map(
+          attachmentCategories: existingBoard.settings.attachmentCategories.map(
             (category) => category.name
           ),
-          nsfw: board?.settings.nsfw,
-          threadLimit: board?.settings.threadLimit,
-          bumpLimit: board?.settings.bumpLimit,
-          defaultPosterName: board?.settings.defaultPosterName,
-          forceDefaultPosterName: board?.settings.forceDefaultPosterName,
+          nsfw: existingBoard.settings.nsfw,
+          threadLimit: existingBoard.settings.threadLimit,
+          bumpLimit: existingBoard.settings.bumpLimit,
+          defaultPosterName: existingBoard.settings.defaultPosterName,
+          forceDefaultPosterName: existingBoard.settings.forceDefaultPosterName,
         },
       }
     : {};
@@ -84,14 +83,16 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
           defaultValues={defaultValues}
         >
           <Header as="h4" dividing>
-            {isEdit ? `Edit board /${board?.label}/` : "Create new board"}
+            {existingBoard
+              ? `Edit board /${existingBoard?.label}/`
+              : "Create new board"}
           </Header>
           <TextInput
             name="label"
             label="Label"
             placeholder="Label"
             required
-            disabled={isEdit}
+            disabled={!!existingBoard}
           />
           <TextInput name="name" label="Name" placeholder="Name" required />
           <TextInput
@@ -126,7 +127,9 @@ function BoardForm({ trigger, value: board }: BoardFormProps) {
           />
           <Checkbox name="boardSettingsForm.nsfw" label="NSFW" />
           <FormErrors errors={errors} />
-          <Button fluid>{isEdit ? "Update board" : "Create board"}</Button>
+          <Button fluid>
+            {existingBoard ? "Update board" : "Create board"}
+          </Button>
         </Form>
       </Modal.Content>
     </Modal>
