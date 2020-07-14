@@ -5,6 +5,7 @@ import { BANS_URL } from "../../helpers/mappings";
 import { BanStatus, BanType } from "../../types";
 import BanForm from "./BanForm";
 import UnbanForm from "./UnbanForm";
+import { formatTimestamp } from "../../helpers/utils";
 
 function BanAdmin() {
   const [bans, setBans] = useState<BanType[]>([]);
@@ -15,10 +16,6 @@ function BanAdmin() {
 
   function fetchBans() {
     getApiRequest<BanType[]>(BANS_URL).then(setBans);
-  }
-
-  function formatDate(date: string) {
-    return new Date(date).toDateString();
   }
 
   const createBanButton = () => (
@@ -56,9 +53,9 @@ function BanAdmin() {
                 <Table.Cell>{ban.ip}</Table.Cell>
                 <Table.Cell>{ban.bannedBy?.username}</Table.Cell>
                 <Table.Cell>{ban.reason}</Table.Cell>
-                <Table.Cell>{formatDate(ban.validFrom)}</Table.Cell>
+                <Table.Cell>{formatTimestamp(ban.validFrom)}</Table.Cell>
                 <Table.Cell>
-                  {ban.validTo ? formatDate(ban.validTo) : "Never"}
+                  {ban.validTo ? formatTimestamp(ban.validTo) : "Never"}
                 </Table.Cell>
                 <Table.Cell>{ban.status}</Table.Cell>
                 <Table.Cell>

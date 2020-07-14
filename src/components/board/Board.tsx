@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { RouteComponentProps, useHistory } from "react-router";
 import { Pagination } from "semantic-ui-react";
 import { getApiRequest } from "../../helpers/api";
@@ -8,11 +8,15 @@ import Thread from "../thread/Thread";
 import ThreadForm from "../thread/ThreadForm";
 import BoardHeader from "./BoardHeader";
 import NotFound from "../utils/NotFound";
+import { AppContext } from "../App";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
 function Board(props: RouteComponentProps<{ label: string; page: string }>) {
   const { label, page } = props.match.params;
+
+  const { setActiveMenuItem } = useContext(AppContext);
+
   const [board, setBoard] = useState<BoardType>();
   const [pageNumber, setPageNumber] = useState<number>(page ? Number(page) : 1);
   const [notFound, setNotFound] = useState<boolean>(false);
@@ -20,6 +24,8 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
   const history = useHistory();
 
   useEffect(() => {
+    setActiveMenuItem(label);
+
     if (Number.isNaN(pageNumber)) {
       setNotFound(true);
       return;
@@ -40,7 +46,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
           setNotFound(true);
         }
       });
-  }, [label, pageNumber, setBoard]);
+  }, [label, pageNumber, setActiveMenuItem, setBoard]);
 
   if (notFound) {
     return <NotFound />;

@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Grid, Header, Segment } from "semantic-ui-react";
 import { postApiRequest } from "../../helpers/api";
 import { LOGIN_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
-import { AuthContext } from "../App";
+import { AppContext } from "../App";
 import Form, { Button, Checkbox, FormErrors, TextInput } from "../form/Form";
+import { MENU_ITEM_LOGIN } from "../base/MainMenu";
 
 interface LoginFormObject {
   username: string;
@@ -13,10 +14,12 @@ interface LoginFormObject {
   rememberMe: boolean;
 }
 function LoginForm() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, setActiveMenuItem } = useContext(AppContext);
 
   const [loggedUser, setLoggedUser] = useState<UserType>();
   const [errors, setErrors] = useState<object>();
+
+  useEffect(() => setActiveMenuItem(MENU_ITEM_LOGIN));
 
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)

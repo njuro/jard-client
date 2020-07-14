@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Button, Icon, Popup } from "semantic-ui-react";
 import { deleteApiRequest, postApiRequest } from "../../helpers/api";
-import useAuthority from "../../helpers/authorities";
+import useAuthority from "../../helpers/useAuthority";
 import { THREAD_URL } from "../../helpers/mappings";
 import { PostType, UserAuthority } from "../../types";
 import BanForm from "../ban/BanForm";

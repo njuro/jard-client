@@ -40,7 +40,7 @@ function ThreadCatalog({ thread, board, showOP }: ThreadCatalogProps) {
       return (
         <FileIcon
           labelUppercase
-          extension={ext!}
+          extension={ext}
           {...defaultStyles[ext as DefaultExtensionType]}
         />
       );

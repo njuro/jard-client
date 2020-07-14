@@ -9,18 +9,19 @@ import MainMenu from "./base/MainMenu";
 import MainSwitch from "./base/MainSwitch";
 import { isLocal } from "../helpers/utils";
 
-interface AuthContextProps {
+interface AppContextProps {
   user: UserType;
   setUser: SetStateType<UserType | undefined>;
   userLoading: boolean;
+  activeMenuItem?: string;
+  setActiveMenuItem: SetStateType<string | undefined>;
 }
-export const AuthContext = createContext<AuthContextProps>(
-  {} as AuthContextProps
-);
+export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
 function App() {
   const [user, setUser] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
+  const [activeMenuItem, setActiveMenuItem] = useState<string>();
 
   useEffect(() => {
     getApiRequest<UserType>(`${USERS_URL}/current`)
@@ -30,8 +31,14 @@ function App() {
 
   return (
     <HttpsRedirect disabled={isLocal()}>
-      <AuthContext.Provider
-        value={{ user: user as UserType, setUser, userLoading }}
+      <AppContext.Provider
+        value={{
+          user: user as UserType,
+          setUser,
+          userLoading,
+          activeMenuItem,
+          setActiveMenuItem,
+        }}
       >
         <Router>
           <nav>
@@ -41,7 +48,7 @@ function App() {
             <MainSwitch />
           </main>
         </Router>
-      </AuthContext.Provider>
+      </AppContext.Provider>
     </HttpsRedirect>
   );
 }

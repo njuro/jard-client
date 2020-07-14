@@ -23,7 +23,7 @@ import Form, {
 } from "../form/Form";
 import { ThreadContext } from "../thread/Thread";
 import Checkbox from "../form/Checkbox";
-import { AuthContext } from "../App";
+import { AppContext } from "../App";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -43,7 +43,7 @@ const CloseIcon = styled(Icon)`
 `;
 
 function PostForm() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   const board = useContext(BoardContext);
   const {
     thread,

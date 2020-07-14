@@ -9,21 +9,26 @@ import NotFound from "../utils/NotFound";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import Home from "./Home";
 import BanStatus from "../ban/BanStatus";
+import {
+  BAN_STATUS_URL,
+  BOARD_CATALOG_ROUTE,
+  BOARD_ROUTE,
+  DASHBOARD_URL,
+  HOME_URL,
+  LOGIN_URL,
+  THREAD_ROUTE,
+} from "../../helpers/mappings";
 
 function MainSwitch() {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/boards/:label/catalog" component={BoardCatalog} />
-      <Route exact path="/boards/:label/:page?" component={Board} />
-      <Route
-        exact
-        path="/boards/:label/thread/:threadNumber"
-        component={ThreadWrapper}
-      />
-      <Route exact path="/login" component={LoginForm} />
-      <Route exact path="/banned" component={BanStatus} />
-      <ProtectedRoute path="/dashboard" component={Dashboard} />
+      <Route exact path={HOME_URL} component={Home} />
+      <Route exact path={BOARD_CATALOG_ROUTE} component={BoardCatalog} />
+      <Route exact path={BOARD_ROUTE} component={Board} />
+      <Route exact path={THREAD_ROUTE} component={ThreadWrapper} />
+      <Route exact path={LOGIN_URL} component={LoginForm} />
+      <Route exact path={BAN_STATUS_URL} component={BanStatus} />
+      <ProtectedRoute path={DASHBOARD_URL} component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   );

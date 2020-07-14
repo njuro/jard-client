@@ -11,7 +11,7 @@ import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import BoardForm from "./BoardForm";
-import useUpdater from "../../helpers/updater";
+import useUpdater from "../../helpers/useUpdater";
 import { capitalize } from "../../helpers/utils";
 
 function BoardAdmin() {

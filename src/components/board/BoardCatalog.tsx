@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Checkbox, Grid, Input, Menu, Select } from "semantic-ui-react";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
 import { getApiRequest } from "../../helpers/api";
 import { BOARDS_URL } from "../../helpers/mappings";
-import useUpdater from "../../helpers/updater";
+import useUpdater from "../../helpers/useUpdater";
 import { BoardType, ThreadCatalogType } from "../../types";
 import ThreadCatalog from "../thread/ThreadCatalog";
 import ThreadForm from "../thread/ThreadForm";
 import { BoardContext } from "./Board";
 import BoardHeader from "./BoardHeader";
 import NotFound from "../utils/NotFound";
+import { AppContext } from "../App";
 
 const ThreadList = styled(Grid)`
   padding: 20px !important;
@@ -20,6 +21,9 @@ const ThreadList = styled(Grid)`
 `;
 function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
   const { label } = props.match.params;
+
+  const { setActiveMenuItem } = useContext(AppContext);
+
   const [board, setBoard] = useState<BoardType>();
   const [threads, setThreads] = useState<ThreadCatalogType[]>([]);
   const [showOP, setShowOP] = useState<boolean>(true);
@@ -28,6 +32,8 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
   const refreshCatalog = useUpdater();
 
   useEffect(() => {
+    setActiveMenuItem(label);
+
     getApiRequest<BoardType>(`${BOARDS_URL}/${label}/catalog`)
       .then((result) => {
         setBoard(result);
@@ -38,7 +44,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
           setNotFound(true);
         }
       });
-  }, [label, setBoard]);
+  }, [label, setActiveMenuItem, setBoard]);
 
   if (notFound) {
     return <NotFound />;

@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { BanType } from "../../types";
 import { getApiRequest } from "../../helpers/api";
 import { BANS_URL } from "../../helpers/mappings";
+import { formatTimestamp } from "../../helpers/utils";
 
+const BanMessage = styled(Message)`
+  margin: auto !important;
+  width: 50%;
+`;
 function BanStatus() {
   const [ban, setBan] = useState<BanType>();
   const [banLoading, setBanLoading] = useState<boolean>(true);
@@ -14,11 +19,6 @@ function BanStatus() {
       .then(setBan)
       .finally(() => setBanLoading(false));
   }, []);
-
-  const BanMessage = styled(Message)`
-    margin: auto !important;
-    width: 50%;
-  `;
 
   if (banLoading) {
     return <BanMessage>Fetching your ban info...</BanMessage>;
@@ -33,7 +33,7 @@ function BanStatus() {
           "Your IP is banned from posting on all boards",
           `Reason: ${ban.reason}`,
           `Your ban will expire on: ${
-            ban.validTo ? new Date(ban.validTo).toDateString() : "Never"
+            ban.validTo ? formatTimestamp(ban.validTo) : "Never"
           }`,
         ]}
       />

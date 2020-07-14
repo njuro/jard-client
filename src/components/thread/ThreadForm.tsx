@@ -13,11 +13,11 @@ import Form, {
   TextArea,
   TextInput,
 } from "../form/Form";
-import { AuthContext } from "../App";
+import { AppContext } from "../App";
 import Checkbox from "../form/Checkbox";
 
 function ThreadForm() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   const board = useContext(BoardContext);
 
   const [attachment, setAttachment] = useState<File>();

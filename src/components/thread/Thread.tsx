@@ -1,6 +1,6 @@
 import React, { createContext, useRef, useState } from "react";
 import { Item } from "semantic-ui-react";
-import useUpdater from "../../helpers/updater";
+import useUpdater from "../../helpers/useUpdater";
 import { SetStateType, ThreadType } from "../../types";
 import Post from "../post/Post";
 import ThreadUpdateButton from "./ThreadUpdateButton";

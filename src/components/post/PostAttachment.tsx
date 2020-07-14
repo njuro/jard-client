@@ -32,7 +32,7 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
       const fileIcon = (
         <FileIcon
           labelUppercase
-          extension={ext!}
+          extension={ext}
           {...defaultStyles[ext as DefaultExtensionType]}
         />
       );

@@ -55,7 +55,7 @@ function Post({ post, isOP }: PostProps) {
           )}
           <span className="tripcode">{post.tripcode}</span>
           {isOP && <span className="subject">{thread.subject}</span>}
-          <span className="date">{formatTimestamp(post.createdAt)}</span>
+          <span className="date">{formatTimestamp(post.createdAt, true)}</span>
           {post.attachment && (
             <span className="file">
               <em>{getAttachmentInfo(post.attachment)}</em>

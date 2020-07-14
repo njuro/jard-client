@@ -19,9 +19,12 @@ export function capitalize(input: string): string {
   return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
 }
 
-export function formatTimestamp(timestamp: string): string {
+export function formatTimestamp(
+  timestamp: string,
+  allowRelative = false
+): string {
   const relative = localStorage.getItem("relativeTimestamps");
-  if (relative && relative.toLowerCase() === "true") {
+  if (allowRelative && relative && relative.toLowerCase() === "true") {
     return moment(timestamp).fromNow();
   }
 

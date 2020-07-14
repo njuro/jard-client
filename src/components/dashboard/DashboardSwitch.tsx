@@ -4,12 +4,12 @@ import { DASHBOARD_URL } from "../../helpers/mappings";
 import BoardAdmin from "../board/BoardAdmin";
 import UserAdmin from "../user/UserAdmin";
 import BanAdmin from "../ban/BanAdmin";
-import { AuthContext } from "../App";
+import { AppContext } from "../App";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import { UserAuthority } from "../../types";
 
 function DashboardSwitch() {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   return (
     <Switch>
       <ProtectedRoute

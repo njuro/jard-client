@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "../components/App";
+import { AppContext } from "../components/App";
 import { UserAuthority } from "../types";
 
 export default function useAuthority(authority: UserAuthority) {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(AppContext);
   return user && user.authorities && user.authorities.includes(authority);
 }

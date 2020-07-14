@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import { DASHBOARD_URL } from "../../helpers/mappings";
-import useAuthority from "../../helpers/authorities";
+import useAuthority from "../../helpers/useAuthority";
 import { UserAuthority } from "../../types";
 
 function DashboardMenu() {

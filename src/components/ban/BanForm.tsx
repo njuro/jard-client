@@ -17,15 +17,13 @@ interface BanFormProps {
   ip?: string;
   value?: BanType;
 }
-function BanForm({ trigger, ip, value: ban }: BanFormProps) {
-  const isEdit = !!ban;
-
+function BanForm({ trigger, ip, value: existingBan }: BanFormProps) {
   const [updatedBan, setUpdatedBan] = useState<BanType>();
   const [errors, setErrors] = useState<object>();
 
   function handleSubmit(banForm: BanType) {
-    const response = isEdit
-      ? postApiRequest<BanType>(`${BAN_URL(ban!)}/edit`, banForm)
+    const response = existingBan
+      ? postApiRequest<BanType>(`${BAN_URL(existingBan)}/edit`, banForm)
       : putApiRequest<BanType>(BANS_URL, banForm);
     response
       .then(setUpdatedBan)
@@ -36,14 +34,16 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
     return <Redirect to={`${DASHBOARD_URL}/manage-bans`} />;
   }
 
-  const defaultValues = isEdit
+  const defaultValues = existingBan
     ? {
-        ip: ban!.ip,
-        status: ban!.status,
-        reason: ban!.reason,
-        validTo: new Date(ban!.validTo),
-        unbannedBy: ban!.unbannedBy?.username,
-        unbanReason: ban!.unbanReason,
+        ip: existingBan.ip,
+        status: existingBan.status,
+        reason: existingBan.reason,
+        validTo: existingBan.validTo
+          ? new Date(existingBan.validTo)
+          : undefined,
+        unbannedBy: existingBan.unbannedBy?.username,
+        unbanReason: existingBan.unbanReason,
       }
     : {
         ip,
@@ -58,7 +58,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
           defaultValues={defaultValues}
         >
           <Header as="h4" dividing>
-            {isEdit ? "Edit ban" : "Create new ban"}
+            {existingBan ? "Edit ban" : "Create new ban"}
           </Header>
           <TextInput
             name="ip"
@@ -66,7 +66,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
             label="IP"
             placeholder="IP"
             required
-            disabled={isEdit}
+            disabled={!!existingBan}
           />
           <TextInput
             name="reason"
@@ -77,7 +77,7 @@ function BanForm({ trigger, ip, value: ban }: BanFormProps) {
           <DatePicker name="validTo" datePickerOnly label="Valid to" />
           <Checkbox name="warning" label="Is warning?" />
           <FormErrors errors={errors} />
-          <Button fluid>{isEdit ? "Update ban" : "Create ban"}</Button>
+          <Button fluid>{existingBan ? "Update ban" : "Create ban"}</Button>
         </Form>
       </Modal.Content>
     </Modal>
