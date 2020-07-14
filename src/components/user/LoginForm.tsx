@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Grid, Header, Segment } from "semantic-ui-react";
 import { postApiRequest } from "../../helpers/api";
-import { LOGIN_URL } from "../../helpers/mappings";
+import { DASHBOARD_URL, HOME_URL, LOGIN_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
 import { AppContext } from "../App";
 import Form, { Button, Checkbox, FormErrors, TextInput } from "../form/Form";
@@ -28,12 +28,12 @@ function LoginForm() {
   }
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to={HOME_URL} />;
   }
 
   if (loggedUser) {
     setUser(loggedUser);
-    return <Redirect to="/dashboard" />;
+    return <Redirect to={DASHBOARD_URL} />;
   }
 
   return (

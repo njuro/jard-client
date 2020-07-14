@@ -84,7 +84,7 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
         >
           <Header as="h4" dividing>
             {existingBoard
-              ? `Edit board /${existingBoard?.label}/`
+              ? `Edit board /${existingBoard.label}/`
               : "Create new board"}
           </Header>
           <TextInput
