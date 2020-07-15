@@ -8,6 +8,7 @@ import {
 import VideoAttachment from "../attachment/VideoAttachment";
 import AttachmentThumbnail from "../attachment/AttachmentThumbnail";
 import AudioAttachment from "../attachment/AudioAttachment";
+import AttachmentBox from "../attachment/AttachmentBox";
 
 interface PostAttachmentProps {
   attachment: AttachmentType;
@@ -64,9 +65,9 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
 
   return (
     <RenderedLink>
-      <div style={{ marginRight: "10px" }}>
+      <AttachmentBox attachment={attachment}>
         <RenderedImage />
-      </div>
+      </AttachmentBox>
     </RenderedLink>
   );
 }

@@ -2,7 +2,7 @@
 import React, { SyntheticEvent, useContext } from "react";
 import { Item } from "semantic-ui-react";
 import styled from "styled-components";
-import { AttachmentType, PostType } from "../../types";
+import { PostType } from "../../types";
 import OmittedReplies from "../thread/OmittedReplies";
 import { ThreadContext } from "../thread/Thread";
 import PostActions from "./PostActions";
@@ -68,21 +68,6 @@ function Post({ post, isOP }: PostProps) {
     );
   }
 
-  function getAttachmentInfo(attachment: AttachmentType) {
-    // TODO move to post attachment component and place above attachment
-    const { metadata } = attachment;
-
-    let info = `File: ${attachment.originalFilename} (${metadata.fileSize}`;
-    if (metadata.duration) {
-      info += `, ${metadata.duration}`;
-    } else if (metadata.width > 0) {
-      info += `, ${metadata.width}x${metadata.height}`;
-    }
-    info += ")";
-
-    return info;
-  }
-
   const ThreadPost = isOP ? OriginalPost : Reply;
 
   return (
@@ -96,11 +81,6 @@ function Post({ post, isOP }: PostProps) {
           {post.tripcode && <Tripcode>{post.tripcode}</Tripcode>}
           {isOP && <ThreadSubject>{thread.subject}</ThreadSubject>}
           <PostTimestamp>{formatTimestamp(post.createdAt, true)}</PostTimestamp>
-          {post.attachment && (
-            <span className="file">
-              <em>{getAttachmentInfo(post.attachment)}</em>
-            </span>
-          )}
           <PostNumber>
             No.{" "}
             <a href={POST_URL(post, thread, board)} onClick={quotePost}>
