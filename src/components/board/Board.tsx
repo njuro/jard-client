@@ -32,7 +32,7 @@ function Board() {
       `${BOARDS_URL}/${label}?page=${pageNumber > 0 ? pageNumber : 1}`
     )
       .then((result) => {
-        if (result.pageCount > 1 && result.pageCount < pageNumber) {
+        if (result.pageCount > 0 && result.pageCount < pageNumber - 1) {
           setNotFound(true);
         }
         setBoard(result);
