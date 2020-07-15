@@ -70,10 +70,18 @@ export interface AttachmentType {
 }
 
 export interface AttachmentCategoryType {
-  name: string;
+  name: AttachmentCategoryNameEnum;
   hasThumbnail: boolean;
   extensions: string[];
   mimeTypes: string[];
+}
+
+export enum AttachmentCategoryNameEnum {
+  IMAGE = "IMAGE",
+  VIDEO = "VIDEO",
+  AUDIO = "AUDIO",
+  PDF = "PDF",
+  TEXT = "TEXT",
 }
 
 export interface AttachmentMetadataType {

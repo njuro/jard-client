@@ -89,7 +89,7 @@ function Post({ post, isOP }: PostProps) {
     <ThreadPost id={post.postNumber}>
       {post.attachment && <PostAttachment attachment={post.attachment} />}
       <Item.Content style={{ position: "relative" }}>
-        <Item.Meta>
+        <Item.Meta style={{ marginTop: "0" }}>
           {post.sage && <Sage>[SAGE]</Sage>}
           <PosterName>{post.name}</PosterName>
           {post.capcode && <Capcode>{`[${post.capcode}]`}</Capcode>}

@@ -1,7 +1,10 @@
 import React, { SyntheticEvent, useState } from "react";
 import { Image } from "semantic-ui-react";
 import { ATTACHMENT_URL } from "../../helpers/mappings";
-import { AttachmentType } from "../../types";
+import {
+  AttachmentCategoryNameEnum as Category,
+  AttachmentType,
+} from "../../types";
 import VideoAttachment from "../attachment/VideoAttachment";
 import AttachmentThumbnail from "../attachment/AttachmentThumbnail";
 import AudioAttachment from "../attachment/AudioAttachment";
@@ -11,21 +14,15 @@ interface PostAttachmentProps {
 }
 function PostAttachment({ attachment }: PostAttachmentProps) {
   const [showFull, setShowFull] = useState(false);
+  const category = attachment.category.name;
 
   function toggleSize(e: SyntheticEvent) {
-    if (
-      attachment.category.name === "PDF" ||
-      attachment.category.name === "TEXT"
-    ) {
-      return;
-    }
-
     e.preventDefault();
     setShowFull(!showFull);
   }
 
   function renderThumbnail() {
-    if (attachment.category.name === "AUDIO") {
+    if (category === Category.AUDIO) {
       return <AudioAttachment attachment={attachment} />;
     }
 
@@ -33,7 +30,7 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
   }
 
   function renderFull() {
-    if (attachment.category.name === "VIDEO") {
+    if (category === Category.VIDEO) {
       return (
         <VideoAttachment attachment={attachment} toggleSize={toggleSize} />
       );
@@ -42,16 +39,35 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
     return <Image verticalAlign="top" src={ATTACHMENT_URL(attachment)} />;
   }
 
+  const RenderedLink: React.FC = ({ children }) => {
+    if (category === Category.AUDIO) {
+      return <>{children}</>;
+    }
+
+    const onClick =
+      category === Category.PDF || category === Category.TEXT
+        ? undefined
+        : toggleSize;
+
+    return (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={ATTACHMENT_URL(attachment)}
+        onClick={onClick}
+      >
+        {children}
+      </a>
+    );
+  };
   const RenderedImage = () => (showFull ? renderFull() : renderThumbnail());
+
   return (
-    <a
-      target="_blank"
-      rel="noopener noreferrer"
-      href={ATTACHMENT_URL(attachment)}
-      onClick={toggleSize}
-    >
-      <RenderedImage />
-    </a>
+    <RenderedLink>
+      <div style={{ marginRight: "10px" }}>
+        <RenderedImage />
+      </div>
+    </RenderedLink>
   );
 }
 
