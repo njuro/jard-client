@@ -8,16 +8,19 @@ import {
   Table,
 } from "semantic-ui-react";
 import { deleteApiRequest, getApiRequest } from "../../helpers/api";
-import { BOARD_URL, BOARDS_URL } from "../../helpers/mappings";
+import {
+  BOARD_URL,
+  BOARDS_URL,
+  DASHBOARD_MANAGE_BOARDS_URL,
+} from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import BoardForm from "./BoardForm";
 import useUpdater from "../../helpers/useUpdater";
 import { capitalize } from "../../helpers/utils";
 import { DashboardContext } from "../dashboard/Dashboard";
-import { DASHBOARD_ITEM_BOARDS } from "../dashboard/DashboardMenu";
 
 function BoardAdmin() {
-  const { setActiveDashboardItem } = useContext(DashboardContext);
+  const { setActiveDashboardPath } = useContext(DashboardContext);
 
   const [boards, setBoards] = useState<BoardType[]>([]);
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
@@ -25,9 +28,9 @@ function BoardAdmin() {
   const refreshList = useUpdater();
 
   useEffect(() => {
-    setActiveDashboardItem(DASHBOARD_ITEM_BOARDS);
+    setActiveDashboardPath(DASHBOARD_MANAGE_BOARDS_URL);
     fetchBoards();
-  }, [setActiveDashboardItem]);
+  }, [setActiveDashboardPath]);
 
   function fetchBoards() {
     getApiRequest<BoardType[]>(BOARDS_URL).then(setBoards);

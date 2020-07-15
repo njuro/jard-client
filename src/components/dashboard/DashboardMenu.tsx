@@ -1,38 +1,27 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { Menu } from "semantic-ui-react";
-import { DASHBOARD_URL } from "../../helpers/mappings";
+import {
+  DASHBOARD_MANAGE_BANS_URL,
+  DASHBOARD_MANAGE_BOARDS_URL,
+  DASHBOARD_MANAGE_USERS_URL,
+  DASHBOARD_URL,
+} from "../../helpers/mappings";
 import useAuthority from "../../helpers/useAuthority";
 import { UserAuthority } from "../../types";
-import { DashboardContext } from "./Dashboard";
-
-export const DASHBOARD_ITEM_HOME = "dashboard-home";
-export const DASHBOARD_ITEM_BOARDS = "manage-boards";
-export const DASHBOARD_ITEM_USERS = "manage-users";
-export const DASHBOARD_ITEM_BANS = "manage-bans";
+import { DashboardMenuItem as MenuItem } from "../base/MenuItem";
 
 function DashboardMenu() {
-  const { activeDashboardItem } = useContext(DashboardContext);
-
   return (
     <Menu fluid vertical>
-      <Menu.Item active={activeDashboardItem === DASHBOARD_ITEM_HOME}>
-        <Link to={DASHBOARD_URL}>Dashboard</Link>
-      </Menu.Item>
+      <MenuItem path={DASHBOARD_URL}>Dashboard</MenuItem>
       {useAuthority(UserAuthority.MANAGE_BOARDS) && (
-        <Menu.Item active={activeDashboardItem === DASHBOARD_ITEM_BOARDS}>
-          <Link to={`${DASHBOARD_URL}/manage-boards`}>Manage boards</Link>
-        </Menu.Item>
+        <MenuItem path={DASHBOARD_MANAGE_BOARDS_URL}>Manage boards</MenuItem>
       )}
       {useAuthority(UserAuthority.MANAGE_USERS) && (
-        <Menu.Item active={activeDashboardItem === DASHBOARD_ITEM_USERS}>
-          <Link to={`${DASHBOARD_URL}/manage-users`}>Manage users</Link>
-        </Menu.Item>
+        <MenuItem path={DASHBOARD_MANAGE_USERS_URL}>Manage users</MenuItem>
       )}
       {useAuthority(UserAuthority.MANAGE_BANS) && (
-        <Menu.Item active={activeDashboardItem === DASHBOARD_ITEM_BANS}>
-          <Link to={`${DASHBOARD_URL}/manage-bans`}>Manage bans</Link>
-        </Menu.Item>
+        <MenuItem path={DASHBOARD_MANAGE_BANS_URL}>Manage bans</MenuItem>
       )}
     </Menu>
   );

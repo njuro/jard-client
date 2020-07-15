@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
-import { DASHBOARD_URL } from "../../helpers/mappings";
+import {
+  DASHBOARD_MANAGE_BANS_URL,
+  DASHBOARD_MANAGE_BOARDS_URL,
+  DASHBOARD_MANAGE_USERS_URL,
+} from "../../helpers/mappings";
 import BoardAdmin from "../board/BoardAdmin";
 import UserAdmin from "../user/UserAdmin";
 import BanAdmin from "../ban/BanAdmin";
@@ -16,19 +20,19 @@ function DashboardSwitch() {
       <ProtectedRoute
         authorities={[UserAuthority.MANAGE_BOARDS]}
         exact
-        path={`${DASHBOARD_URL}/manage-boards`}
+        path={DASHBOARD_MANAGE_BOARDS_URL}
         component={BoardAdmin}
       />
       <ProtectedRoute
         authorities={[UserAuthority.MANAGE_USERS]}
         exact
-        path={`${DASHBOARD_URL}/manage-users`}
+        path={DASHBOARD_MANAGE_USERS_URL}
         component={UserAdmin}
       />
       <ProtectedRoute
         authorities={[UserAuthority.MANAGE_BANS]}
         exact
-        path={`${DASHBOARD_URL}/manage-bans`}
+        path={DASHBOARD_MANAGE_BANS_URL}
         component={BanAdmin}
       />
       <Route

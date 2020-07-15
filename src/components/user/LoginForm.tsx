@@ -6,7 +6,6 @@ import { DASHBOARD_URL, HOME_URL, LOGIN_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
 import { AppContext } from "../App";
 import Form, { Button, Checkbox, FormErrors, TextInput } from "../form/Form";
-import { MENU_ITEM_LOGIN } from "../base/MainMenu";
 
 interface LoginFormObject {
   username: string;
@@ -14,12 +13,12 @@ interface LoginFormObject {
   rememberMe: boolean;
 }
 function LoginForm() {
-  const { user, setUser, setActiveMenuItem } = useContext(AppContext);
+  const { user, setUser, setActiveMenuPath } = useContext(AppContext);
 
   const [loggedUser, setLoggedUser] = useState<UserType>();
   const [errors, setErrors] = useState<object>();
 
-  useEffect(() => setActiveMenuItem(MENU_ITEM_LOGIN), [setActiveMenuItem]);
+  useEffect(() => setActiveMenuPath(LOGIN_URL), [setActiveMenuPath]);
 
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)

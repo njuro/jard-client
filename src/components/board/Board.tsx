@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Redirect, RouteComponentProps } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { getApiRequest } from "../../helpers/api";
 import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
@@ -11,17 +11,17 @@ import BoardPagination from "./BoardPagination";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
-function Board(props: RouteComponentProps<{ label: string; page: string }>) {
-  const { label, page } = props.match.params;
+function Board() {
+  const { label, page } = useParams();
 
-  const { setActiveMenuItem } = useContext(AppContext);
+  const { setActiveMenuPath } = useContext(AppContext);
 
   const [board, setBoard] = useState<BoardType>();
   const [pageNumber, setPageNumber] = useState<number>(page ? Number(page) : 1);
   const [notFound, setNotFound] = useState<boolean>(false);
 
   useEffect(() => {
-    setActiveMenuItem(label);
+    setActiveMenuPath(label);
 
     if (Number.isNaN(pageNumber)) {
       setNotFound(true);
@@ -43,7 +43,7 @@ function Board(props: RouteComponentProps<{ label: string; page: string }>) {
           setNotFound(true);
         }
       });
-  }, [label, pageNumber, setActiveMenuItem, setBoard]);
+  }, [label, pageNumber, setActiveMenuPath, setBoard]);
 
   if (notFound) {
     return <Redirect to={NOT_FOUND_URL} />;

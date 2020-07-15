@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Button, Menu } from "semantic-ui-react";
 import { getApiRequest } from "../../helpers/api";
 import {
@@ -12,13 +11,10 @@ import {
 import { BoardType } from "../../types";
 import { AppContext } from "../App";
 import LogoutButton from "../user/LogoutButton";
-
-export const MENU_ITEM_HOME = "home";
-export const MENU_ITEM_DASHBOARD = "dashboard";
-export const MENU_ITEM_LOGIN = "login";
+import { MainMenuItem as MenuItem } from "./MenuItem";
 
 function MainMenu() {
-  const { user, activeMenuItem, setActiveMenuItem } = useContext(AppContext);
+  const { user, activeMenuPath } = useContext(AppContext);
   const [boards, setBoards] = useState<BoardType[]>([]);
 
   useEffect(() => {
@@ -27,42 +23,31 @@ function MainMenu() {
 
   return (
     <Menu>
-      <Menu.Item active={activeMenuItem === MENU_ITEM_HOME}>
-        <Link to={HOME_URL}>
-          <strong>jard</strong>
-        </Link>
-      </Menu.Item>
+      <MenuItem path={HOME_URL}>
+        <strong>jard</strong>
+      </MenuItem>
       {boards.map((board) => (
-        <Menu.Item
+        <MenuItem
           key={board.label}
-          name={board.label}
-          active={board.label === activeMenuItem}
+          path={BOARD_URL(board)}
+          active={activeMenuPath === board.label}
         >
-          <Link
-            to={BOARD_URL(board)}
-            onClick={() => setActiveMenuItem(board.label)}
-          >
-            /{board.label}/ - {board.name}
-          </Link>
-        </Menu.Item>
+          /{board.label}/ - {board.name}
+        </MenuItem>
       ))}
       {!user && (
-        <Menu.Item position="right" active={activeMenuItem === MENU_ITEM_LOGIN}>
-          <Link to={LOGIN_URL}>
-            <Button>Login</Button>
-          </Link>
-        </Menu.Item>
+        <MenuItem position="right" path={LOGIN_URL}>
+          <Button>Login</Button>
+        </MenuItem>
       )}
       {user && (
         <Menu.Menu position="right">
-          <Menu.Item active={activeMenuItem === MENU_ITEM_DASHBOARD}>
-            <Link to={DASHBOARD_URL}>
-              <Button>Dashboard</Button>
-            </Link>
-          </Menu.Item>
-          <Menu.Item>
+          <MenuItem path={DASHBOARD_URL}>
+            <Button>Dashboard</Button>
+          </MenuItem>
+          <MenuItem>
             <LogoutButton />
-          </Menu.Item>
+          </MenuItem>
         </Menu.Menu>
       )}
     </Menu>

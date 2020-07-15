@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Redirect, RouteComponentProps } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { Grid } from "semantic-ui-react";
 import styled from "styled-components";
 import { isMobile } from "react-device-detect";
@@ -19,10 +19,10 @@ const ThreadList = styled(Grid)`
   text-align: center;
   min-width: 100% !important;
 `;
-function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
-  const { label } = props.match.params;
+function BoardCatalog() {
+  const { label } = useParams();
 
-  const { setActiveMenuItem } = useContext(AppContext);
+  const { setActiveMenuPath } = useContext(AppContext);
 
   const [board, setBoard] = useState<BoardType>();
   const [threads, setThreads] = useState<ThreadCatalogType[]>([]);
@@ -32,7 +32,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
   const refreshCatalog = useUpdater();
 
   useEffect(() => {
-    setActiveMenuItem(label);
+    setActiveMenuPath(label);
 
     getApiRequest<BoardType>(`${BOARDS_URL}/${label}/catalog`)
       .then((result) => {
@@ -46,7 +46,7 @@ function BoardCatalog(props: RouteComponentProps<{ label: string }>) {
           setNotFound(true);
         }
       });
-  }, [label, setActiveMenuItem, setBoard]);
+  }, [label, setActiveMenuPath, setBoard]);
 
   if (notFound) {
     return <Redirect to={NOT_FOUND_URL} />;

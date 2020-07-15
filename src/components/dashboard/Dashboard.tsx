@@ -1,31 +1,34 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
-import DashboardMenu, { DASHBOARD_ITEM_HOME } from "./DashboardMenu";
+import DashboardMenu from "./DashboardMenu";
 import DashboardSwitch from "./DashboardSwitch";
 import { AppContext } from "../App";
-import { MENU_ITEM_DASHBOARD } from "../base/MainMenu";
 import { SetStateType } from "../../types";
+import { DASHBOARD_URL } from "../../helpers/mappings";
 
 interface DashboardContextProps {
-  activeDashboardItem?: string;
-  setActiveDashboardItem: SetStateType<string | undefined>;
+  activeDashboardPath?: string;
+  setActiveDashboardPath: SetStateType<string | undefined>;
 }
 export const DashboardContext = createContext<DashboardContextProps>(
   {} as DashboardContextProps
 );
 function Dashboard() {
-  const { setActiveMenuItem } = useContext(AppContext);
+  const { setActiveMenuPath } = useContext(AppContext);
 
-  const [activeDashboardItem, setActiveDashboardItem] = useState<string>();
+  const [activeDashboardPath, setActiveDashboardPath] = useState<string>();
 
   useEffect(() => {
-    setActiveMenuItem(MENU_ITEM_DASHBOARD);
-    setActiveDashboardItem(DASHBOARD_ITEM_HOME);
-  }, [setActiveMenuItem, setActiveDashboardItem]);
+    setActiveMenuPath(DASHBOARD_URL);
+    setActiveDashboardPath(DASHBOARD_URL);
+  }, [setActiveMenuPath, setActiveDashboardPath]);
 
   return (
     <DashboardContext.Provider
-      value={{ activeDashboardItem, setActiveDashboardItem }}
+      value={{
+        activeDashboardPath,
+        setActiveDashboardPath,
+      }}
     >
       <Grid columns={2}>
         <Grid.Column width={4}>

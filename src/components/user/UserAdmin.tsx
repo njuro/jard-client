@@ -8,22 +8,25 @@ import {
   Table,
 } from "semantic-ui-react";
 import { deleteApiRequest, getApiRequest } from "../../helpers/api";
-import { USER_URL, USERS_URL } from "../../helpers/mappings";
+import {
+  DASHBOARD_MANAGE_USERS_URL,
+  USER_URL,
+  USERS_URL,
+} from "../../helpers/mappings";
 import { UserType } from "../../types";
 import UserForm from "./UserForm";
 import { DashboardContext } from "../dashboard/Dashboard";
-import { DASHBOARD_ITEM_USERS } from "../dashboard/DashboardMenu";
 
 function UserAdmin() {
-  const { setActiveDashboardItem } = useContext(DashboardContext);
+  const { setActiveDashboardPath } = useContext(DashboardContext);
 
   const [users, setUsers] = useState<UserType[]>([]);
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setActiveDashboardItem(DASHBOARD_ITEM_USERS);
+    setActiveDashboardPath(DASHBOARD_MANAGE_USERS_URL);
     fetchUsers();
-  }, [setActiveDashboardItem]);
+  }, [setActiveDashboardPath]);
 
   function fetchUsers() {
     getApiRequest<UserType[]>(USERS_URL).then(setUsers);

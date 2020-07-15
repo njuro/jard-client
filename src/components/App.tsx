@@ -13,15 +13,15 @@ interface AppContextProps {
   user: UserType;
   setUser: SetStateType<UserType | undefined>;
   userLoading: boolean;
-  activeMenuItem?: string;
-  setActiveMenuItem: SetStateType<string | undefined>;
+  activeMenuPath?: string;
+  setActiveMenuPath: SetStateType<string | undefined>;
 }
 export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
 function App() {
   const [user, setUser] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
-  const [activeMenuItem, setActiveMenuItem] = useState<string>();
+  const [activeMenuPath, setActiveMenuPath] = useState<string>();
 
   useEffect(() => {
     getApiRequest<UserType>(`${USERS_URL}/current`)
@@ -36,8 +36,8 @@ function App() {
           user: user as UserType,
           setUser,
           userLoading,
-          activeMenuItem,
-          setActiveMenuItem,
+          activeMenuPath,
+          setActiveMenuPath,
         }}
       >
         <Router>

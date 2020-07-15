@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { formatTimestamp } from "../../helpers/utils";
 import { AppContext } from "../App";
-import { MENU_ITEM_HOME } from "./MainMenu";
+import { HOME_URL } from "../../helpers/mappings";
 
 function Home() {
-  const { setActiveMenuItem } = useContext(AppContext);
+  const { setActiveMenuPath } = useContext(AppContext);
 
-  useEffect(() => setActiveMenuItem(MENU_ITEM_HOME), [setActiveMenuItem]);
+  useEffect(() => setActiveMenuPath(HOME_URL), [setActiveMenuPath]);
 
   return (
     <div>

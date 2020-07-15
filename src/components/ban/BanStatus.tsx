@@ -12,18 +12,18 @@ const BanMessage = styled(Message)`
   width: 50%;
 `;
 function BanStatus() {
-  const { setActiveMenuItem } = useContext(AppContext);
+  const { setActiveMenuPath } = useContext(AppContext);
 
   const [ban, setBan] = useState<BanType>();
   const [banLoading, setBanLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setActiveMenuItem(undefined);
+    setActiveMenuPath(undefined);
 
     getApiRequest<BanType>(`${BANS_URL}/me`)
       .then(setBan)
       .finally(() => setBanLoading(false));
-  }, [setActiveMenuItem]);
+  }, [setActiveMenuPath]);
 
   if (banLoading) {
     return <BanMessage>Fetching your ban info...</BanMessage>;
