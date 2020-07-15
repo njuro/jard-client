@@ -1,115 +1,58 @@
 import React, { SyntheticEvent, useState } from "react";
-import { Icon, Image } from "semantic-ui-react";
-import { FileIcon, DefaultExtensionType, defaultStyles } from "react-file-icon";
-import { renderToString } from "react-dom/server";
-import styled from "styled-components";
-import { ATTACHMENT_THUMB_URL, ATTACHMENT_URL } from "../../helpers/mappings";
+import { Image } from "semantic-ui-react";
+import { ATTACHMENT_URL } from "../../helpers/mappings";
 import { AttachmentType } from "../../types";
+import VideoAttachment from "../attachment/VideoAttachment";
+import AttachmentThumbnail from "../attachment/AttachmentThumbnail";
+import AudioAttachment from "../attachment/AudioAttachment";
 
 interface PostAttachmentProps {
   attachment: AttachmentType;
 }
-
-const FileIconWrapper = styled.div`
-  width: 250px;
-  height: 250px;
-  & > * {
-    width: 100%;
-    height: 100%;
-  }
-`;
 function PostAttachment({ attachment }: PostAttachmentProps) {
   const [showFull, setShowFull] = useState(false);
 
   function toggleSize(e: SyntheticEvent) {
+    if (
+      attachment.category.name === "PDF" ||
+      attachment.category.name === "TEXT"
+    ) {
+      return;
+    }
+
     e.preventDefault();
     setShowFull(!showFull);
   }
 
   function renderThumbnail() {
-    if (!attachment.category.hasThumbnail) {
-      const ext = attachment.filename.split(".").pop();
-      const fileIcon = (
-        <FileIcon
-          labelUppercase
-          extension={ext}
-          {...defaultStyles[ext as DefaultExtensionType]}
-        />
-      );
-      if (attachment.category.name === "AUDIO") {
-        const svg = `data:image/svg+xml;utf8,${encodeURIComponent(
-          renderToString(fileIcon)
-        )}`;
-        return (
-          <FileIconWrapper>
-            <video
-              src={ATTACHMENT_URL(attachment)}
-              poster={svg}
-              controls
-              loop
-            />
-          </FileIconWrapper>
-        );
-      }
-
-      return (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={ATTACHMENT_URL(attachment)}
-        >
-          <FileIconWrapper>{fileIcon}</FileIconWrapper>
-        </a>
-      );
+    if (attachment.category.name === "AUDIO") {
+      return <AudioAttachment attachment={attachment} />;
     }
 
-    return (
-      <Image
-        href={ATTACHMENT_URL(attachment)}
-        target="_blank"
-        rel="noopener noreferrer"
-        verticalAlign="top"
-        src={ATTACHMENT_THUMB_URL(attachment)}
-        onClick={attachment.category.name === "PDF" || toggleSize}
-      />
-    );
+    return <AttachmentThumbnail attachment={attachment} size="250px" />;
   }
 
   function renderFull() {
     if (attachment.category.name === "VIDEO") {
       return (
-        <div className="videoContainer" style={{ position: "relative" }}>
-          <Icon
-            link
-            name="close"
-            size="big"
-            onClick={toggleSize}
-            style={{
-              color: "white",
-              position: "absolute",
-              top: "0",
-              right: "0",
-              zIndex: 1000,
-            }}
-          />
-          <video src={ATTACHMENT_URL(attachment)} controls loop autoPlay />
-        </div>
+        <VideoAttachment attachment={attachment} toggleSize={toggleSize} />
       );
     }
 
-    return (
-      <Image
-        href={ATTACHMENT_URL(attachment)}
-        target="_blank"
-        rel="noopener noreferrer"
-        verticalAlign="top"
-        src={ATTACHMENT_URL(attachment)}
-        onClick={toggleSize}
-      />
-    );
+    return <Image verticalAlign="top" src={ATTACHMENT_URL(attachment)} />;
   }
 
-  return showFull ? renderFull() : renderThumbnail();
+  const RenderedImage = () => (showFull ? renderFull() : renderThumbnail());
+  return (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={ATTACHMENT_URL(attachment)}
+      onClick={toggleSize}
+    >
+      <RenderedImage />
+    </a>
+  );
 }
 
 export default PostAttachment;

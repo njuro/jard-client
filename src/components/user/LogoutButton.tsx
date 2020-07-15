@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-import { Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Button, Menu } from "semantic-ui-react";
 import { postApiRequest } from "../../helpers/api";
 import { LOGOUT_URL } from "../../helpers/mappings";
 import { AppContext } from "../App";
@@ -13,9 +12,9 @@ function LogoutButton() {
   }
 
   return (
-    <Link to="#">
+    <Menu.Item>
       <Button onClick={handleLogout}>Logout</Button>
-    </Link>
+    </Menu.Item>
   );
 }
 
