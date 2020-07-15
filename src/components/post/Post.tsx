@@ -1,5 +1,7 @@
+/* eslint-disable react/no-danger */
 import React, { SyntheticEvent, useContext } from "react";
 import { Item } from "semantic-ui-react";
+import styled from "styled-components";
 import { AttachmentType, PostType } from "../../types";
 import OmittedReplies from "../thread/OmittedReplies";
 import { ThreadContext } from "../thread/Thread";
@@ -8,6 +10,44 @@ import PostAttachment from "./PostAttachment";
 import { BoardContext } from "../board/Board";
 import { POST_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
+
+const OriginalPost = styled(Item)`
+  max-width: 80%;
+`;
+const Reply = styled(Item)`
+  margin-left: 40px !important;
+  padding-right: 40px !important;
+  max-width: 80%;
+`;
+const ThreadSubject = styled.span`
+  color: lightseagreen;
+  font-weight: bold;
+`;
+const PosterName = styled.span`
+  font-weight: bold;
+`;
+const Tripcode = styled.span`
+  color: lightseagreen;
+`;
+const Capcode = styled.span`
+  color: red;
+  font-weight: bold;
+`;
+const Sage = styled.span`
+  color: darkorange;
+  font-weight: bold;
+`;
+const PostTimestamp = styled.span``;
+const PostNumber = styled.span``;
+const PostBody = styled.div`
+  margin-bottom: 50px !important;
+`;
+const OmittedRepliesStatus = styled(OmittedReplies)`
+  position: absolute !important;
+  bottom: 0;
+  top: unset !important;
+  left: unset !important;
+`;
 
 interface PostProps {
   post: PostType;
@@ -43,36 +83,36 @@ function Post({ post, isOP }: PostProps) {
     return info;
   }
 
+  const ThreadPost = isOP ? OriginalPost : Reply;
+
   return (
-    <Item className={isOP ? "original-post" : "post"} id={post.postNumber}>
+    <ThreadPost id={post.postNumber}>
       {post.attachment && <PostAttachment attachment={post.attachment} />}
       <Item.Content style={{ position: "relative" }}>
         <Item.Meta>
-          {post.sage && <span className="sage">[SAGE]</span>}
-          <span className="name">{post.name}</span>
-          {post.capcode && (
-            <span className="capcode">{`[${post.capcode}]`}</span>
-          )}
-          <span className="tripcode">{post.tripcode}</span>
-          {isOP && <span className="subject">{thread.subject}</span>}
-          <span className="date">{formatTimestamp(post.createdAt, true)}</span>
+          {post.sage && <Sage>[SAGE]</Sage>}
+          <PosterName>{post.name}</PosterName>
+          {post.capcode && <Capcode>{`[${post.capcode}]`}</Capcode>}
+          {post.tripcode && <Tripcode>{post.tripcode}</Tripcode>}
+          {isOP && <ThreadSubject>{thread.subject}</ThreadSubject>}
+          <PostTimestamp>{formatTimestamp(post.createdAt, true)}</PostTimestamp>
           {post.attachment && (
             <span className="file">
               <em>{getAttachmentInfo(post.attachment)}</em>
             </span>
           )}
-          <span className="post-number">
+          <PostNumber>
             No.{" "}
             <a href={POST_URL(post, thread, board)} onClick={quotePost}>
               {post.postNumber}
             </a>
-          </span>
+          </PostNumber>
           <PostActions post={post} isOP={isOP} />
         </Item.Meta>
-        <div className="body" dangerouslySetInnerHTML={{ __html: post.body }} />
-        {isOP && <OmittedReplies />}
+        <PostBody dangerouslySetInnerHTML={{ __html: post.body }} />
+        {isOP && <OmittedRepliesStatus />}
       </Item.Content>
-    </Item>
+    </ThreadPost>
   );
 }
 

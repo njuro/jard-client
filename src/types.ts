@@ -1,4 +1,5 @@
 import React from "react";
+import { Required } from "utility-types";
 
 export type uuid = string;
 export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
@@ -29,7 +30,7 @@ export interface ThreadType {
   lastBumpAt: string;
   board?: BoardType;
   statistics: ThreadStatisticsType;
-  originalPost: PostType;
+  originalPost: OriginalPostType;
   replies: PostType[];
 }
 
@@ -53,6 +54,8 @@ export interface PostType {
   thread?: ThreadType;
   attachment?: AttachmentType;
 }
+
+export type OriginalPostType = Required<PostType, "attachment">;
 
 export interface AttachmentType {
   category: AttachmentCategoryType;

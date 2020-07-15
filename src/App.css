@@ -8,50 +8,6 @@ main {
   margin: 10px 10px 20px;
 }
 
-#thread-form-modal,
-#reply-form-modal {
-  padding-bottom: 10px;
-}
-
-.post {
-  margin-left: 40px !important;
-  padding-right: 40px !important;
-  max-width: 80%;
-}
-
-.original-post {
-  max-width: 80%;
-}
-
-.thread {
-  margin-bottom: 50px !important;
-}
-
-.subject {
-}
-
-.name {
-  font-weight: bold;
-}
-
-.capcode {
-  font-weight: bold;
-  color: red;
-}
-
-.meta {
-  margin-top: 0px !important;
-}
-
-.body {
-  margin-bottom: 50px !important;
-}
-
-.sage {
-  color: darkorange;
-  font-weight: bold;
-}
-
 a.crosslink {
   text-decoration: underline;
   text-decoration-style: dashed;
@@ -80,9 +36,4 @@ div.code {
   background-color: lightgray;
   padding: 10px;
   font-family: monospace;
-}
-
-.item > a {
-  color: black;
-  text-decoration: none;
 }

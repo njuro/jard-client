@@ -27,7 +27,9 @@ function ThreadForm() {
   function handleSubmit(thread: ThreadType) {
     const threadForm = new FormData();
     threadForm.append("threadForm", objectToJsonBlob(thread));
-    threadForm.append("attachment", attachment!);
+    if (attachment) {
+      threadForm.append("attachment", attachment);
+    }
 
     putApiRequest<ThreadType>(`${BOARD_URL(board)}/thread`, threadForm)
       .then(setCreatedThread)

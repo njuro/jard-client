@@ -1,19 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Item } from "semantic-ui-react";
-import styled from "styled-components";
 import { getApiRequest } from "../../helpers/api";
 import { THREAD_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "./Thread";
 
-const OmittedRepliesStatus = styled(Item.Extra)`
-  position: absolute !important;
-  bottom: 0;
-  top: unset !important;
-  left: unset !important;
-`;
 function OmittedReplies() {
   const board = useContext(BoardContext);
   const { thread, setThread } = useContext(ThreadContext);
@@ -63,7 +56,7 @@ function OmittedReplies() {
     return null;
   }
 
-  return <OmittedRepliesStatus>{renderRepliesToggle()}</OmittedRepliesStatus>;
+  return <Item.Extra>{renderRepliesToggle()}</Item.Extra>;
 }
 
 export default OmittedReplies;

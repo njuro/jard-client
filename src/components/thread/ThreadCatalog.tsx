@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Grid, Image, Popup } from "semantic-ui-react";
@@ -45,7 +46,7 @@ function ThreadCatalog({ thread, showOP }: ThreadCatalogProps) {
 
     return (
       <Image
-        src={ATTACHMENT_THUMB_URL(thread.originalPost.attachment!)}
+        src={ATTACHMENT_THUMB_URL(thread.originalPost.attachment)}
         style={{ margin: "auto", boxShadow: "0 0 5px rgba(0,0,0,.25)" }}
       />
     );
@@ -54,7 +55,7 @@ function ThreadCatalog({ thread, showOP }: ThreadCatalogProps) {
   return (
     <ThreadPreview verticalAlign="top">
       <Link to={THREAD_URL(thread as ThreadType, board)}>
-        {renderThumbnail((thread as ThreadType).originalPost.attachment!)}
+        {renderThumbnail((thread as ThreadType).originalPost.attachment)}
       </Link>
       <Popup
         content="[R]eplies / [I]mage replies"

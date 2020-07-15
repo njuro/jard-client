@@ -63,7 +63,9 @@ function PostForm() {
   function handleSubmit(post: PostType) {
     const replyForm = new FormData();
     replyForm.append("postForm", objectToJsonBlob(post));
-    replyForm.append("attachment", attachment!);
+    if (attachment) {
+      replyForm.append("attachment", attachment);
+    }
 
     putApiRequest(THREAD_URL(thread, board), replyForm)
       .then(() => {

@@ -32,7 +32,10 @@ function Thread({ thread: initialThread }: ThreadProps) {
   const refreshThread = useUpdater();
 
   function triggerThreadUpdateButton() {
-    threadUpdateButtonRef.current!.click();
+    const threadUpdateButton = threadUpdateButtonRef.current;
+    if (threadUpdateButton) {
+      threadUpdateButton.click();
+    }
   }
 
   return (

@@ -17,10 +17,12 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
 
   function checkForNewReplies() {
     setStatus("Updating...");
+
     const lastPostNumber =
       thread.replies.length > 0
         ? thread.replies[thread.replies.length - 1].postNumber
         : thread.originalPost.postNumber;
+
     getApiRequest<PostType[]>(
       `${THREAD_URL(thread, board)}/new-replies?lastPost=${lastPostNumber}`
     )

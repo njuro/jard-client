@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, RouteComponentProps } from "react-router";
+import { Redirect, useParams } from "react-router-dom";
 import { getApiRequest } from "../../helpers/api";
 import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
@@ -7,11 +7,8 @@ import { BoardContext } from "../board/Board";
 import BoardHeader from "../board/BoardHeader";
 import Thread from "./Thread";
 
-function ThreadWrapper(
-  props: RouteComponentProps<{ label: string; threadNumber: string }>
-) {
-  const { label } = props.match.params;
-  const threadNumber = Number(props.match.params.threadNumber);
+function ThreadWrapper() {
+  const { label, threadNumber } = useParams();
 
   const [thread, setThread] = useState<ThreadType>();
   const [notFound, setNotFound] = useState<boolean>(false);
@@ -31,8 +28,8 @@ function ThreadWrapper(
   }
 
   return (
-    (thread && (
-      <BoardContext.Provider value={thread.board!}>
+    (thread && thread.board && (
+      <BoardContext.Provider value={thread.board}>
         <BoardHeader />
         <Thread thread={thread} />
       </BoardContext.Provider>
