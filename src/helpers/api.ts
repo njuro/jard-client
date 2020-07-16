@@ -1,4 +1,4 @@
-import axios, { Method } from "axios";
+import axios, { AxiosRequestConfig, Method } from "axios";
 
 export const SERVER_API_URL =
   process.env.REACT_APP_API_URL ||
@@ -8,28 +8,42 @@ const client = axios.create({
   withCredentials: true,
 });
 
-export function getApiRequest<T>(url: string) {
-  return makeRequest<T>("GET", url);
+export function getApiRequest<T>(url: string, config?: AxiosRequestConfig) {
+  return makeRequest<T>("GET", url, config);
 }
 
-export function postApiRequest<T>(url: string, body = {}) {
-  return makeRequest<T>("POST", url, body);
+export function postApiRequest<T>(
+  url: string,
+  body = {},
+  config?: AxiosRequestConfig
+) {
+  return makeRequest<T>("POST", url, body, config);
 }
 
-export function putApiRequest<T>(url: string, body = {}) {
-  return makeRequest<T>("PUT", url, body);
+export function putApiRequest<T>(
+  url: string,
+  body = {},
+  config?: AxiosRequestConfig
+) {
+  return makeRequest<T>("PUT", url, body, config);
 }
 
-export function deleteApiRequest<T>(url: string) {
-  return makeRequest<T>("DELETE", url);
+export function deleteApiRequest<T>(url: string, config?: AxiosRequestConfig) {
+  return makeRequest<T>("DELETE", url, config);
 }
 
-function makeRequest<T>(method: Method, url: string, body = {}) {
+function makeRequest<T>(
+  method: Method,
+  url: string,
+  body = {},
+  config?: AxiosRequestConfig
+) {
   return client
     .request({
       method,
       url,
       data: body,
+      ...config,
     })
     .then<T>((res) => res.data);
 }

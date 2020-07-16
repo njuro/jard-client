@@ -24,6 +24,8 @@ import Form, {
 import { ThreadContext } from "../thread/Thread";
 import Checkbox from "../form/Checkbox";
 import { AppContext } from "../App";
+import useProgress from "../../helpers/useProgress";
+import ProgressBar from "../form/ProgressBar";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -56,24 +58,39 @@ function PostForm() {
 
   const [attachment, setAttachment] = useState<File>();
   const [errors, setErrors] = useState<object>();
+  const [uploading, setUploading] = useState<boolean>(false);
+
+  const { uploadProgress, updateProgress, resetProgress } = useProgress();
+
   const replyBodyRef = useRef<HTMLInputElement>(null);
   const getReplyBody = () =>
     replyBodyRef.current?.lastElementChild as HTMLInputElement;
 
   function handleSubmit(post: PostType) {
+    setUploading(true);
+    setErrors(undefined);
+
     const replyForm = new FormData();
     replyForm.append("postForm", objectToJsonBlob(post));
     if (attachment) {
       replyForm.append("attachment", attachment);
     }
 
-    putApiRequest(THREAD_URL(thread, board), replyForm)
+    putApiRequest(THREAD_URL(thread, board), replyForm, {
+      onUploadProgress: (e) => updateProgress(e),
+    })
       .then(() => {
         setReplyFormOpen(false);
         setAttachment(undefined);
         triggerThreadUpdateButton();
       })
-      .catch((err) => setErrors(err.response.data.errors));
+      .catch((err) => {
+        setErrors(err.response.data.errors);
+      })
+      .finally(() => {
+        setUploading(false);
+        resetProgress();
+      });
   }
 
   useEffect(() => {
@@ -173,7 +190,12 @@ function PostForm() {
               className="not-draggable"
             />
             <FormErrors errors={errors} />
-            <Button floated="right" className="not-draggable">
+            <ProgressBar visible={uploading} percent={uploadProgress} />
+            <Button
+              disabled={uploading}
+              floated="right"
+              className="not-draggable"
+            >
               Submit post
             </Button>
           </Form>

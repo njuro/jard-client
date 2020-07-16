@@ -15,6 +15,8 @@ import Form, {
 } from "../form/Form";
 import { AppContext } from "../App";
 import Checkbox from "../form/Checkbox";
+import ProgressBar from "../form/ProgressBar";
+import useProgress from "../../helpers/useProgress";
 
 function ThreadForm() {
   const { user } = useContext(AppContext);
@@ -23,17 +25,33 @@ function ThreadForm() {
   const [attachment, setAttachment] = useState<File>();
   const [createdThread, setCreatedThread] = useState<ThreadType>();
   const [errors, setErrors] = useState<object>();
+  const [uploading, setUploading] = useState<boolean>(false);
+
+  const { uploadProgress, updateProgress, resetProgress } = useProgress();
 
   function handleSubmit(thread: ThreadType) {
+    setUploading(true);
+    setErrors(undefined);
+
     const threadForm = new FormData();
     threadForm.append("threadForm", objectToJsonBlob(thread));
     if (attachment) {
       threadForm.append("attachment", attachment);
     }
 
-    putApiRequest<ThreadType>(`${BOARD_URL(board)}/thread`, threadForm)
-      .then(setCreatedThread)
-      .catch((err) => setErrors(err.response.data.errors));
+    putApiRequest<ThreadType>(`${BOARD_URL(board)}/thread`, threadForm, {
+      onUploadProgress: (e) => updateProgress(e),
+    })
+      .then((result) => {
+        setUploading(false);
+        resetProgress();
+        setCreatedThread(result);
+      })
+      .catch((err) => {
+        setUploading(false);
+        resetProgress();
+        setErrors(err.response.data.errors);
+      });
   }
 
   if (createdThread) {
@@ -98,7 +116,10 @@ function ThreadForm() {
             required
           />
           <FormErrors errors={errors} />
-          <Button floated="right">Create thread</Button>
+          <ProgressBar visible={uploading} percent={uploadProgress} />
+          <Button floated="right" disabled={uploading}>
+            Create thread
+          </Button>
         </Form>
       </Modal.Content>
     </Modal>
