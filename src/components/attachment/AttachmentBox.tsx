@@ -13,7 +13,6 @@ import { AttachmentType } from "../../types";
 const AttachmentBoxWrapper = styled(Segment)`
   margin-right: 10px !important;
   margin-bottom: 10px !important;
-  padding: 0 !important;
   border: none !important;
   .label {
     border: none !important;
@@ -22,9 +21,13 @@ const AttachmentBoxWrapper = styled(Segment)`
     text-align: center !important;
     font-style: italic;
   }
+
+  :not(.label) {
+    padding: 0 !important;
+  }
 `;
 interface FileMetadata {
-  description: string;
+  key: string;
   value: string;
   icon: SemanticICONS;
 }
@@ -38,12 +41,12 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
 
     const items: FileMetadata[] = [
       {
-        description: "MIME type",
+        key: "mimeType",
         value: metadata.mimeType,
         icon: "file",
       },
       {
-        description: "Size",
+        key: "size",
         value: metadata.fileSize,
         icon: "download",
       },
@@ -51,20 +54,20 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
 
     if (metadata.duration) {
       items.push({
-        description: "Duration",
+        key: "duration",
         value: metadata.duration,
         icon: "time",
       });
     } else if (metadata.width > 0) {
       items.push({
-        description: "Resolution",
+        key: "resolution",
         value: `${metadata.width}x${metadata.height}`,
         icon: "arrows alternate",
       });
     }
 
     items.push({
-      description: "Checksum",
+      key: "checksum",
       value: metadata.checksum,
       icon: "code",
     });
@@ -72,7 +75,7 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
     return (
       <List>
         {items.map((data) => (
-          <List.Item key={data.description}>
+          <List.Item key={data.key}>
             <List.Icon name={data.icon} />
             <List.Content>{data.value}</List.Content>
           </List.Item>
@@ -82,9 +85,8 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
   }
 
   return (
-    <AttachmentBoxWrapper>
+    <AttachmentBoxWrapper compact>
       <Popup
-        header="File info"
         position="top center"
         trigger={
           <Label
@@ -100,6 +102,7 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
           </Label>
         }
       >
+        <Popup.Header>File Info</Popup.Header>
         <Popup.Content>{renderFileMetadata()}</Popup.Content>
       </Popup>
 
