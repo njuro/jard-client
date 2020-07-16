@@ -63,14 +63,13 @@ function BoardCatalogMenu({
         break;
     }
 
-    if (sortFn) {
-      threads.sort((t1, t2) => {
-        if (t1.stickied || sortFn(t1) > sortFn(t2)) return -1;
-        if (t2.stickied || sortFn(t1) < sortFn(t2)) return 1;
-        return 0;
-      });
-      refreshCatalog();
-    }
+    threads.sort((t1, t2) => {
+      if (t1.stickied || sortFn(t1) > sortFn(t2)) return -1;
+      if (t2.stickied || sortFn(t1) < sortFn(t2)) return 1;
+      return 0;
+    });
+
+    refreshCatalog();
   }
 
   return (
