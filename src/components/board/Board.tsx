@@ -8,6 +8,7 @@ import ThreadForm from "../thread/ThreadForm";
 import BoardHeader from "./BoardHeader";
 import { AppContext } from "../App";
 import BoardPagination from "./BoardPagination";
+import { markCrossLinksToOwnPosts } from "../post/ownPosts";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
@@ -19,6 +20,10 @@ function Board() {
   const [board, setBoard] = useState<BoardType>();
   const [pageNumber, setPageNumber] = useState<number>(page ? Number(page) : 1);
   const [notFound, setNotFound] = useState<boolean>(false);
+
+  useEffect(() => {
+    markCrossLinksToOwnPosts();
+  }, [board]);
 
   useEffect(() => {
     setActiveMenuPath(label);

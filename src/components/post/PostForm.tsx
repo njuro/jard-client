@@ -26,7 +26,7 @@ import Checkbox from "../form/Checkbox";
 import { AppContext } from "../App";
 import useProgress from "../../helpers/useProgress";
 import ProgressBar from "../form/ProgressBar";
-import { addToOwnPosts } from "./Post";
+import { addToOwnPosts } from "./ownPosts";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -192,7 +192,10 @@ function PostForm() {
               className="not-draggable"
             />
             <FormErrors errors={errors} />
-            <ProgressBar visible={uploading} percent={uploadProgress} />
+            <ProgressBar
+              visible={attachment && uploading}
+              percent={uploadProgress}
+            />
             <Button
               disabled={uploading}
               floated="right"

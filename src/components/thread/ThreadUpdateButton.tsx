@@ -7,6 +7,7 @@ import { THREAD_URL } from "../../helpers/mappings";
 import { PostType } from "../../types";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "./Thread";
+import { markCrossLinksToOwnPosts } from "../post/ownPosts";
 
 const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   const board = useContext(BoardContext);
@@ -49,6 +50,7 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
         thread.replies.push(reply);
       });
       refreshThread();
+      markCrossLinksToOwnPosts();
     }
   }
 

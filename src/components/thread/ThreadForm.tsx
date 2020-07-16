@@ -17,7 +17,7 @@ import { AppContext } from "../App";
 import Checkbox from "../form/Checkbox";
 import ProgressBar from "../form/ProgressBar";
 import useProgress from "../../helpers/useProgress";
-import { addToOwnPosts } from "../post/Post";
+import { addToOwnPosts } from "../post/ownPosts";
 
 function ThreadForm() {
   const { user } = useContext(AppContext);
@@ -118,7 +118,10 @@ function ThreadForm() {
             required
           />
           <FormErrors errors={errors} />
-          <ProgressBar visible={uploading} percent={uploadProgress} />
+          <ProgressBar
+            visible={attachment && uploading}
+            percent={uploadProgress}
+          />
           <Button floated="right" disabled={uploading}>
             Create thread
           </Button>
