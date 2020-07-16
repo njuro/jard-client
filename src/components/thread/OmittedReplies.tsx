@@ -7,7 +7,10 @@ import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import { ThreadContext } from "./Thread";
 
-function OmittedReplies() {
+interface OmittedRepliesProps {
+  className?: string;
+}
+function OmittedReplies({ className }: OmittedRepliesProps) {
   const board = useContext(BoardContext);
   const { thread, setThread } = useContext(ThreadContext);
 
@@ -56,7 +59,7 @@ function OmittedReplies() {
     return null;
   }
 
-  return <Item.Extra>{renderRepliesToggle()}</Item.Extra>;
+  return <Item.Extra className={className}>{renderRepliesToggle()}</Item.Extra>;
 }
 
 export default OmittedReplies;
