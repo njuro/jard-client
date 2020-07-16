@@ -20,6 +20,7 @@ const AttachmentBoxWrapper = styled(Segment)`
     font-weight: normal !important;
     text-align: center !important;
     font-style: italic;
+    word-break: break-all;
   }
 
   :not(.label) {

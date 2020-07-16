@@ -22,7 +22,7 @@ function MainMenu() {
   }, []);
 
   return (
-    <Menu>
+    <Menu stackable>
       <MenuItem path={HOME_URL}>
         <strong>jard</strong>
       </MenuItem>

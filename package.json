@@ -19,7 +19,6 @@
     "husky": "^4.2.5",
     "moment": "^2.27.0",
     "react": "^16.13.1",
-    "react-device-detect": "^1.13.1",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.3",
     "react-file-icon": "^1.0.0",

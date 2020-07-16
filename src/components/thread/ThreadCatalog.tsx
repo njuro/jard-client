@@ -1,19 +1,30 @@
 /* eslint-disable react/no-danger */
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Popup } from "semantic-ui-react";
+import { Popup } from "semantic-ui-react";
 import styled from "styled-components";
 import { THREAD_URL } from "../../helpers/mappings";
 import { ThreadCatalogType, ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import AttachmentThumbnail from "../attachment/AttachmentThumbnail";
 
-const ThreadPreview = styled(Grid.Column)`
+const ThreadPreview = styled.div`
+  vertical-align: top;
+  margin-top: 5px;
   word-wrap: break-word;
   overflow: hidden;
-  margin-bottom: 20px !important;
-  padding: 5px 0 30px;
   max-height: 320px;
+  max-width: 180px;
+  margin-bottom: 20px;
+  padding: 5px 0 3px;
+
+  img {
+    max-width: 150px !important;
+  }
+
+  @media screen and (max-width: 480px) {
+    max-width: 155px !important;
+  }
 `;
 
 const ThreadMeta = styled.div`
@@ -32,9 +43,12 @@ function ThreadCatalog({ thread, showOP }: ThreadCatalogProps) {
   const board = useContext(BoardContext);
 
   return (
-    <ThreadPreview verticalAlign="top">
+    <ThreadPreview>
       <Link to={THREAD_URL(thread as ThreadType, board)}>
-        <AttachmentThumbnail attachment={thread.originalPost.attachment} />
+        <AttachmentThumbnail
+          attachment={thread.originalPost.attachment}
+          size="150px"
+        />
       </Link>
       <Popup
         content="[R]eplies / [I]mage replies"

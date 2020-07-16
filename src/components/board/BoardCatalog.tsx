@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import { Grid } from "semantic-ui-react";
 import styled from "styled-components";
-import { isMobile } from "react-device-detect";
 import { getApiRequest } from "../../helpers/api";
 import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import useUpdater from "../../helpers/useUpdater";
@@ -14,10 +12,21 @@ import BoardHeader from "./BoardHeader";
 import { AppContext } from "../App";
 import BoardCatalogMenu from "./BoardCatalogMenu";
 
-const ThreadList = styled(Grid)`
-  padding: 20px !important;
+const ThreadList = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  padding: 20px;
   text-align: center;
-  min-width: 100% !important;
+  min-width: 100%;
+  margin-top: 20px;
+
+  ::after {
+    content: "";
+    padding: 5px 0 30px;
+    flex: auto;
+  }
 `;
 function BoardCatalog() {
   const { label } = useParams();
@@ -64,16 +73,14 @@ function BoardCatalog() {
           setShowOP={setShowOP}
           refreshCatalog={refreshCatalog}
         />
-        <ThreadList container relaxed>
-          <ThreadList.Row columns={isMobile ? 2 : 10}>
-            {threads.map((thread) => (
-              <ThreadCatalog
-                thread={thread}
-                key={thread.originalPost.postNumber}
-                showOP={showOP}
-              />
-            ))}
-          </ThreadList.Row>
+        <ThreadList>
+          {threads.map((thread) => (
+            <ThreadCatalog
+              thread={thread}
+              key={thread.originalPost.postNumber}
+              showOP={showOP}
+            />
+          ))}
         </ThreadList>
       </BoardContext.Provider>
     )) ||
