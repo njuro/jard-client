@@ -1,10 +1,11 @@
-import React, { createContext, useRef, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { Item } from "semantic-ui-react";
 import useUpdater from "../../helpers/useUpdater";
 import { SetStateType, ThreadType } from "../../types";
 import Post from "../post/Post";
 import ThreadUpdateButton from "./ThreadUpdateButton";
 import PostForm from "../post/PostForm";
+import { markCrossLinksToOwnPosts } from "../post/ownPosts";
 
 interface ThreadContextProps {
   thread: ThreadType;
@@ -38,6 +39,12 @@ function Thread({ thread: initialThread }: ThreadProps) {
     }
   }
 
+  useEffect(() => {
+    if (thread) {
+      markCrossLinksToOwnPosts(thread);
+    }
+  }, [thread]);
+
   return (
     (thread && (
       <ThreadContext.Provider
@@ -53,7 +60,11 @@ function Thread({ thread: initialThread }: ThreadProps) {
         }}
       >
         <PostForm />
-        <Item.Group divided className="thread">
+        <Item.Group
+          divided
+          className="thread"
+          id={`thread-${thread.originalPost.postNumber}`}
+        >
           <Post post={thread.originalPost} isOP />
           {thread.replies.map((post) => (
             <Post key={post.postNumber} post={post} isOP={false} />

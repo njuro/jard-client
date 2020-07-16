@@ -6,17 +6,12 @@ import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import BoardHeader from "../board/BoardHeader";
 import Thread from "./Thread";
-import { markCrossLinksToOwnPosts } from "../post/ownPosts";
 
 function ThreadWrapper() {
   const { label, threadNumber } = useParams();
 
   const [thread, setThread] = useState<ThreadType>();
   const [notFound, setNotFound] = useState<boolean>(false);
-
-  useEffect(() => {
-    markCrossLinksToOwnPosts();
-  }, [thread]);
 
   useEffect(() => {
     getApiRequest<ThreadType>(`${BOARDS_URL}/${label}/thread/${threadNumber}`)

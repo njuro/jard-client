@@ -50,7 +50,7 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
         thread.replies.push(reply);
       });
       refreshThread();
-      markCrossLinksToOwnPosts();
+      markCrossLinksToOwnPosts(thread);
     }
   }
 

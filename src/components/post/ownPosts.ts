@@ -3,6 +3,7 @@ import {
   LocalStorageKey,
   saveToLocalStorage,
 } from "../../helpers/localStorageItems";
+import { ThreadType } from "../../types";
 
 export function isOwnPost(postNumber: number, boardLabel: string) {
   const ownPosts = getFromLocalStorage(LocalStorageKey.OWN_POSTS);
@@ -25,8 +26,15 @@ export function addToOwnPosts(postNumber: number, boardLabel: string) {
   }
 }
 
-export function markCrossLinksToOwnPosts() {
-  Array.from(document.getElementsByClassName("crosslink")).forEach(
+export function markCrossLinksToOwnPosts(thread: ThreadType) {
+  const threadElement = document.getElementById(
+    `thread-${thread.originalPost.postNumber}`
+  );
+  if (!threadElement) {
+    return;
+  }
+
+  Array.from(threadElement.getElementsByClassName("crosslink")).forEach(
     (crosslink) => {
       if (crosslink.textContent?.endsWith(YOU)) {
         return;
