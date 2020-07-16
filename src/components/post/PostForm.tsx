@@ -26,6 +26,7 @@ import Checkbox from "../form/Checkbox";
 import { AppContext } from "../App";
 import useProgress from "../../helpers/useProgress";
 import ProgressBar from "../form/ProgressBar";
+import { addToOwnPosts } from "./Post";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -76,10 +77,11 @@ function PostForm() {
       replyForm.append("attachment", attachment);
     }
 
-    putApiRequest(THREAD_URL(thread, board), replyForm, {
+    putApiRequest<PostType>(THREAD_URL(thread, board), replyForm, {
       onUploadProgress: (e) => updateProgress(e),
     })
-      .then(() => {
+      .then((result) => {
+        addToOwnPosts(result.postNumber, board.label);
         setReplyFormOpen(false);
         setAttachment(undefined);
         triggerThreadUpdateButton();

@@ -1,5 +1,6 @@
 import { DropdownItemProps } from "semantic-ui-react";
 import moment from "moment";
+import { LocalStorageKey } from "./localStorageItems";
 
 export function objectToJsonBlob(data: object) {
   return new Blob([JSON.stringify(data)], {
@@ -23,7 +24,7 @@ export function formatTimestamp(
   timestamp: string,
   allowRelative = false
 ): string {
-  const relative = localStorage.getItem("relativeTimestamps");
+  const relative = localStorage.getItem(LocalStorageKey.RELATIVE_TIMESTAMPS);
   if (allowRelative && relative && relative.toLowerCase() === "true") {
     return moment(timestamp).fromNow();
   }

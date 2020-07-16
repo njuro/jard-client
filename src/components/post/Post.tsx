@@ -10,6 +10,11 @@ import PostAttachment from "./PostAttachment";
 import { BoardContext } from "../board/Board";
 import { POST_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
+import {
+  getFromLocalStorage,
+  LocalStorageKey,
+  saveToLocalStorage,
+} from "../../helpers/localStorageItems";
 
 const OriginalPost = styled(Item)`
   max-width: 80%;
@@ -25,6 +30,9 @@ const ThreadSubject = styled.span`
 `;
 const PosterName = styled.span`
   font-weight: bold;
+`;
+const OwnPost = styled.span`
+  font-style: italic;
 `;
 const Tripcode = styled.span`
   color: lightseagreen;
@@ -49,11 +57,34 @@ const OmittedRepliesStatus = styled(OmittedReplies)`
   left: unset !important;
 `;
 
+export function isOwnPost(postNumber: number | string, boardLabel: string) {
+  const ownPosts = getFromLocalStorage(LocalStorageKey.OWN_POSTS);
+  return ownPosts && ownPosts[boardLabel]?.includes(postNumber);
+}
+
+export function addToOwnPosts(postNumber: string | number, boardLabel: string) {
+  const ownPosts = getFromLocalStorage(LocalStorageKey.OWN_POSTS);
+  if (ownPosts) {
+    if (ownPosts[boardLabel]) {
+      ownPosts[boardLabel].push(postNumber);
+    } else {
+      ownPosts[boardLabel] = [postNumber];
+    }
+    saveToLocalStorage(LocalStorageKey.OWN_POSTS, ownPosts);
+  } else {
+    saveToLocalStorage(LocalStorageKey.OWN_POSTS, {
+      [boardLabel]: [postNumber],
+    });
+  }
+}
+
 interface PostProps {
   post: PostType;
   isOP: boolean;
 }
 function Post({ post, isOP }: PostProps) {
+  const YOU = "(You)";
+
   const board = useContext(BoardContext);
   const { thread, setReplyFormOpen, setAppendToReply } = useContext(
     ThreadContext
@@ -77,6 +108,7 @@ function Post({ post, isOP }: PostProps) {
         <Item.Meta style={{ marginTop: "0" }}>
           {post.sage && <Sage>[SAGE]</Sage>}
           <PosterName>{post.name}</PosterName>
+          {isOwnPost(post.postNumber, board.label) && <OwnPost>{YOU}</OwnPost>}
           {post.capcode && <Capcode>{`[${post.capcode}]`}</Capcode>}
           {post.tripcode && <Tripcode>{post.tripcode}</Tripcode>}
           {isOP && <ThreadSubject>{thread.subject}</ThreadSubject>}

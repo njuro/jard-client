@@ -17,6 +17,7 @@ import { AppContext } from "../App";
 import Checkbox from "../form/Checkbox";
 import ProgressBar from "../form/ProgressBar";
 import useProgress from "../../helpers/useProgress";
+import { addToOwnPosts } from "../post/Post";
 
 function ThreadForm() {
   const { user } = useContext(AppContext);
@@ -43,6 +44,7 @@ function ThreadForm() {
       onUploadProgress: (e) => updateProgress(e),
     })
       .then((result) => {
+        addToOwnPosts(result.originalPost.postNumber, board.label);
         setUploading(false);
         resetProgress();
         setCreatedThread(result);
