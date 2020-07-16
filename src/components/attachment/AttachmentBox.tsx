@@ -20,7 +20,9 @@ const AttachmentBoxWrapper = styled(Segment)`
     font-weight: normal !important;
     text-align: center !important;
     font-style: italic;
-    word-break: break-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   :not(.label) {
@@ -41,6 +43,11 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
     const { metadata } = attachment;
 
     const items: FileMetadata[] = [
+      {
+        key: "name",
+        value: attachment.originalFilename,
+        icon: "pencil",
+      },
       {
         key: "mimeType",
         value: metadata.mimeType,
