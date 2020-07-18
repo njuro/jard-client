@@ -21,7 +21,7 @@ function UserAdmin() {
   const { setActiveDashboardPath } = useContext(DashboardContext);
 
   const [users, setUsers] = useState<UserType[]>([]);
-  const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
+  const [deleteFormOpen, setDeleteFormOpen] = useState<string>();
 
   useEffect(() => {
     setActiveDashboardPath(DASHBOARD_MANAGE_USERS_URL);
@@ -86,7 +86,11 @@ function UserAdmin() {
                       }
                       value={user}
                     />
-                    <Button basic icon onClick={() => setDeleteFormOpen(true)}>
+                    <Button
+                      basic
+                      icon
+                      onClick={() => setDeleteFormOpen(user.username)}
+                    >
                       <Popup
                         content="Delete"
                         position="top left"
@@ -94,15 +98,15 @@ function UserAdmin() {
                       />
                     </Button>
                     <Confirm
-                      open={deleteFormOpen}
+                      open={deleteFormOpen === user.username}
                       header="Delete user"
                       content={`Are you sure you want to delete user ${user.username}?`}
                       confirmButton="Yes"
                       onConfirm={() => {
                         deleteUser(user);
-                        setDeleteFormOpen(false);
+                        setDeleteFormOpen(undefined);
                       }}
-                      onCancel={() => setDeleteFormOpen(false)}
+                      onCancel={() => setDeleteFormOpen(undefined)}
                     />
                   </Button.Group>
                 </Table.Cell>

@@ -23,7 +23,7 @@ function BoardAdmin() {
   const { setActiveDashboardPath } = useContext(DashboardContext);
 
   const [boards, setBoards] = useState<BoardType[]>([]);
-  const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>(false);
+  const [deleteFormOpen, setDeleteFormOpen] = useState<string>();
 
   const refreshList = useUpdater();
 
@@ -97,7 +97,11 @@ function BoardAdmin() {
                       }
                       value={board}
                     />
-                    <Button basic icon onClick={() => setDeleteFormOpen(true)}>
+                    <Button
+                      basic
+                      icon
+                      onClick={() => setDeleteFormOpen(board.label)}
+                    >
                       <Popup
                         content="Delete"
                         position="top left"
@@ -105,15 +109,15 @@ function BoardAdmin() {
                       />
                     </Button>
                     <Confirm
-                      open={deleteFormOpen}
+                      open={deleteFormOpen === board.label}
                       header="Delete board"
                       content={`Are you sure you want to delete board /${board.label}/?`}
                       confirmButton="Yes"
                       onConfirm={() => {
                         deleteBoard(board);
-                        setDeleteFormOpen(false);
+                        setDeleteFormOpen(undefined);
                       }}
-                      onCancel={() => setDeleteFormOpen(false)}
+                      onCancel={() => setDeleteFormOpen(undefined)}
                     />
                   </Button.Group>
                 </Table.Cell>
