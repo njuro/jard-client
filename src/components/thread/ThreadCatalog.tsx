@@ -18,7 +18,8 @@ const ThreadPreview = styled.div`
   margin-bottom: 20px;
   padding: 5px 0 3px;
 
-  img {
+  img,
+  svg {
     max-width: 150px !important;
   }
 

@@ -9,6 +9,7 @@ import VideoAttachment from "../attachment/VideoAttachment";
 import AttachmentThumbnail from "../attachment/AttachmentThumbnail";
 import AudioAttachment from "../attachment/AudioAttachment";
 import AttachmentBox from "../attachment/AttachmentBox";
+import EmbeddedAttachment from "../attachment/EmbeddedAttachment";
 
 interface PostAttachmentProps {
   attachment: AttachmentType;
@@ -23,6 +24,10 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
   }
 
   function renderThumbnail() {
+    if (category === Category.EMBED) {
+      return <EmbeddedAttachment attachment={attachment} />;
+    }
+
     if (category === Category.AUDIO) {
       return <AudioAttachment attachment={attachment} />;
     }
@@ -41,7 +46,7 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
   }
 
   const RenderedLink: React.FC = ({ children }) => {
-    if (category === Category.AUDIO) {
+    if (category === Category.AUDIO || category === Category.EMBED) {
       return <>{children}</>;
     }
 

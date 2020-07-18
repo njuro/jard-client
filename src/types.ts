@@ -67,6 +67,7 @@ export interface AttachmentType {
   amazonS3Url: string;
   amazonS3ThumbnailUrl: string;
   metadata: AttachmentMetadataType;
+  embedData: AttachmentEmbedDataType;
 }
 
 export interface AttachmentCategoryType {
@@ -82,6 +83,7 @@ export enum AttachmentCategoryNameEnum {
   AUDIO = "AUDIO",
   PDF = "PDF",
   TEXT = "TEXT",
+  EMBED = "EMBED",
 }
 
 export interface AttachmentMetadataType {
@@ -93,6 +95,15 @@ export interface AttachmentMetadataType {
   fileSize: string;
   duration: string;
   checksum: string;
+}
+
+export interface AttachmentEmbedDataType {
+  category: AttachmentCategoryNameEnum;
+  embedUrl: string;
+  thumbnailUrl: string;
+  providerName: string;
+  uploaderName: string;
+  renderedHtml: string;
 }
 
 export interface UserType {

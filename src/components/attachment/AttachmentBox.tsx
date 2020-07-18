@@ -8,7 +8,10 @@ import {
   SemanticICONS,
 } from "semantic-ui-react";
 import styled from "styled-components";
-import { AttachmentType } from "../../types";
+import {
+  AttachmentCategoryNameEnum as Category,
+  AttachmentType,
+} from "../../types";
 
 const AttachmentBoxWrapper = styled(Segment)`
   margin-right: 10px !important;
@@ -90,6 +93,10 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
         ))}
       </List>
     );
+  }
+
+  if (attachment.category.name === Category.EMBED) {
+    return <>{children}</>;
   }
 
   return (

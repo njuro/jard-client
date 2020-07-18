@@ -170,6 +170,13 @@ function PostForm() {
                 className="not-draggable"
               />
             </Ref>
+            <TextInput
+              fluid
+              name="embedUrl"
+              label="Embed URL"
+              placeholder="Embed URL"
+              className="not-draggable"
+            />
             <Checkbox
               toggle
               name="sage"
