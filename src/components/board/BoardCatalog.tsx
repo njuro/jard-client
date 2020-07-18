@@ -21,12 +21,6 @@ const ThreadList = styled.div`
   text-align: center;
   min-width: 100%;
   margin-top: 20px;
-
-  ::after {
-    content: "";
-    padding: 5px 0 30px;
-    flex: auto;
-  }
 `;
 function BoardCatalog() {
   const { label } = useParams();
