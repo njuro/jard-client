@@ -119,16 +119,16 @@ export interface UserType {
 }
 
 export interface BanType {
-  id?: uuid;
+  id: uuid;
   ip: string;
-  status?: BanStatus;
-  bannedBy?: UserType;
+  status: BanStatus;
+  bannedBy: UserType;
   reason: string;
-  unbannedBy?: UserType;
-  unbanReason?: string;
+  unbannedBy: UserType;
+  unbanReason: string;
   validFrom: string;
   validTo: string;
-  warning?: boolean;
+  warning: boolean;
 }
 
 export enum BanStatus {
