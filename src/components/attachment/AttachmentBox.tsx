@@ -37,6 +37,7 @@ const AttachmentBoxWrapper = styled(Segment)`
     font-style: normal;
     font-weight: bold !important;
     text-transform: uppercase;
+    position: relative !important;
   }
 `;
 interface FileMetadata {
