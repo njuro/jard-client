@@ -21,7 +21,7 @@ const Reply = styled(Item)`
   max-width: 80%;
 `;
 const ThreadSubject = styled.span`
-  color: lightseagreen;
+  color: mediumseagreen;
   font-weight: bold;
 `;
 const PosterName = styled.span`

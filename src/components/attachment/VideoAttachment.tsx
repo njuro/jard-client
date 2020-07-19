@@ -1,8 +1,8 @@
-import React, { SyntheticEvent } from "react";
+import React, { useContext } from "react";
 import { Icon } from "semantic-ui-react";
 import styled from "styled-components";
-import { AttachmentType } from "../../types";
 import { ATTACHMENT_URL } from "../../helpers/mappings";
+import { PostAttachmentContext } from "../post/PostAttachment";
 
 const VideoCloseIcon = styled(Icon)`
   color: white;
@@ -11,12 +11,9 @@ const VideoCloseIcon = styled(Icon)`
   right: 0;
   z-index: 1000;
 `;
+function VideoAttachment() {
+  const { attachment, toggleSize } = useContext(PostAttachmentContext);
 
-interface VideoAttachmentProps {
-  attachment: AttachmentType;
-  toggleSize: (event: SyntheticEvent) => void;
-}
-function VideoAttachment({ attachment, toggleSize }: VideoAttachmentProps) {
   return (
     <div style={{ position: "relative" }}>
       <VideoCloseIcon link name="close" size="big" onClick={toggleSize} />

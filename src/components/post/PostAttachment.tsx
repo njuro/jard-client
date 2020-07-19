@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { createContext, SyntheticEvent, useState } from "react";
 import { Image } from "semantic-ui-react";
 import { ATTACHMENT_URL } from "../../helpers/mappings";
 import {
@@ -11,31 +11,34 @@ import AudioAttachment from "../attachment/AudioAttachment";
 import AttachmentBox from "../attachment/AttachmentBox";
 import EmbeddedAttachment from "../attachment/EmbeddedAttachment";
 
+interface PostAttachmentContextProps {
+  attachment: AttachmentType;
+  fullSize: boolean;
+  toggleSize: (event: SyntheticEvent) => void;
+}
+export const PostAttachmentContext = createContext<PostAttachmentContextProps>(
+  {} as PostAttachmentContextProps
+);
+
 interface PostAttachmentProps {
   attachment: AttachmentType;
 }
 function PostAttachment({ attachment }: PostAttachmentProps) {
-  const [showFull, setShowFull] = useState(false);
+  const [fullSize, setFullSize] = useState(false);
   const category = attachment.category.name;
 
   function toggleSize(e: SyntheticEvent) {
     e.preventDefault();
-    setShowFull(!showFull);
+    setFullSize(!fullSize);
   }
 
   function renderThumbnail() {
     if (category === Category.EMBED) {
-      return (
-        <EmbeddedAttachment
-          attachment={attachment}
-          thumbnail
-          toggleSize={toggleSize}
-        />
-      );
+      return <EmbeddedAttachment />;
     }
 
     if (category === Category.AUDIO) {
-      return <AudioAttachment attachment={attachment} />;
+      return <AudioAttachment />;
     }
 
     return <AttachmentThumbnail attachment={attachment} size="250px" />;
@@ -43,18 +46,14 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
 
   function renderFull() {
     if (category === Category.EMBED) {
-      return (
-        <EmbeddedAttachment attachment={attachment} toggleSize={toggleSize} />
-      );
+      return <EmbeddedAttachment />;
     }
 
     if (category === Category.VIDEO) {
-      return (
-        <VideoAttachment attachment={attachment} toggleSize={toggleSize} />
-      );
+      return <VideoAttachment />;
     }
 
-    return <Image verticalAlign="top" src={ATTACHMENT_URL(attachment)} />;
+    return <Image src={ATTACHMENT_URL(attachment)} />;
   }
 
   const RenderedLink: React.FC = ({ children }) => {
@@ -78,14 +77,18 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
       </a>
     );
   };
-  const RenderedImage = () => (showFull ? renderFull() : renderThumbnail());
+  const RenderedImage = () => (fullSize ? renderFull() : renderThumbnail());
 
   return (
-    <RenderedLink>
-      <AttachmentBox attachment={attachment}>
-        <RenderedImage />
-      </AttachmentBox>
-    </RenderedLink>
+    <PostAttachmentContext.Provider
+      value={{ attachment, fullSize, toggleSize }}
+    >
+      <RenderedLink>
+        <AttachmentBox>
+          <RenderedImage />
+        </AttachmentBox>
+      </RenderedLink>
+    </PostAttachmentContext.Provider>
   );
 }
 

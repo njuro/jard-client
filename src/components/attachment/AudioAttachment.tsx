@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { renderToString } from "react-dom/server";
-import { AttachmentType } from "../../types";
 import { ATTACHMENT_URL } from "../../helpers/mappings";
 import DefaultFileIcon, { DefaultFileIconWrapper } from "./DefaultFileIcon";
+import { PostAttachmentContext } from "../post/PostAttachment";
 
-interface AudioAttachmentProps {
-  attachment: AttachmentType;
-}
-function AudioAttachment({ attachment }: AudioAttachmentProps) {
+function AudioAttachment() {
+  const { attachment } = useContext(PostAttachmentContext);
+
   const icon = <DefaultFileIcon filename={attachment.filename} />;
   const svg = `data:image/svg+xml;utf8,${encodeURIComponent(
     renderToString(icon)

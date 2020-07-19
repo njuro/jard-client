@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Icon,
   Label,
@@ -8,17 +8,16 @@ import {
   SemanticICONS,
 } from "semantic-ui-react";
 import styled from "styled-components";
-import {
-  AttachmentCategoryNameEnum as Category,
-  AttachmentType,
-} from "../../types";
+import { AttachmentCategoryNameEnum as Category } from "../../types";
 import getProviderStyle from "./embeddedProviders";
+import { PostAttachmentContext } from "../post/PostAttachment";
 
 const AttachmentBoxWrapper = styled(Segment)`
   margin-right: 10px !important;
   margin-bottom: 10px !important;
   border: none !important;
-  #attachmentLabel {
+
+  .attachmentBoxLabel {
     border: none !important;
     background-color: #f8f8f8 !important;
     font-weight: normal !important;
@@ -27,10 +26,17 @@ const AttachmentBoxWrapper = styled(Segment)`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
   }
 
-  :not(#attachmentLabel) {
+  :not(.attachmentBoxLabel) {
     padding: 0 !important;
+  }
+
+  #close.attachmentBoxLabel {
+    font-style: normal;
+    font-weight: bold !important;
+    text-transform: uppercase;
   }
 `;
 interface FileMetadata {
@@ -39,10 +45,13 @@ interface FileMetadata {
   icon: SemanticICONS;
 }
 interface AttachmentBoxProps {
-  attachment: AttachmentType;
   children?: React.ReactNode;
 }
-function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
+function AttachmentBox({ children }: AttachmentBoxProps) {
+  const { attachment, fullSize, toggleSize } = useContext(
+    PostAttachmentContext
+  );
+
   const isEmbed = attachment.category.name === Category.EMBED;
 
   function renderFileMetadata() {
@@ -134,9 +143,8 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
         position="top center"
         trigger={
           <Label
-            id="attachmentLabel"
+            className="attachmentBoxLabel"
             attached="top"
-            style={{ cursor: "pointer" }}
             onClick={(e) => {
               e.stopPropagation();
               e.preventDefault();
@@ -150,8 +158,16 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
         <Popup.Header>{isEmbed ? "Embed  Info" : "File info"}</Popup.Header>
         <Popup.Content>{renderFileMetadata()}</Popup.Content>
       </Popup>
-
       {children}
+      {isEmbed && fullSize && (
+        <Label
+          className="attachmentBoxLabel"
+          id="close"
+          attached="bottom"
+          content="[Close]"
+          onClick={toggleSize}
+        />
+      )}
     </AttachmentBoxWrapper>
   );
 }

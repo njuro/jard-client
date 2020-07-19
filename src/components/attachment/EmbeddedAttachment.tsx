@@ -1,31 +1,26 @@
 /* eslint-disable react/no-danger */
-import React, { SyntheticEvent } from "react";
+import React, { useContext } from "react";
 import { Image } from "semantic-ui-react";
 import { FileIcon } from "react-file-icon";
-import { AttachmentType } from "../../types";
 import { DefaultFileIconWrapper } from "./DefaultFileIcon";
 import getProviderStyle from "./embeddedProviders";
+import { PostAttachmentContext } from "../post/PostAttachment";
 
 interface EmbeddedAttachmentProps {
-  attachment: AttachmentType;
-  thumbnail?: boolean;
   forceThumbnail?: boolean;
   size?: string;
-  toggleSize?: (event: SyntheticEvent) => void;
 }
-function EmbeddedAttachment({
-  attachment,
-  thumbnail,
-  forceThumbnail,
-  size,
-  toggleSize,
-}: EmbeddedAttachmentProps) {
+function EmbeddedAttachment({ forceThumbnail, size }: EmbeddedAttachmentProps) {
+  const { attachment, fullSize, toggleSize } = useContext(
+    PostAttachmentContext
+  );
+
   const { thumbnailUrl, providerName, renderedHtml } = attachment.embedData;
   const { fileIcon, providerColor, providerIcon } = getProviderStyle(
     providerName
   );
 
-  if (thumbnail) {
+  if (!fullSize) {
     if (thumbnailUrl) {
       return (
         <Image
