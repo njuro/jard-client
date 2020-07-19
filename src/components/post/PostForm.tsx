@@ -35,6 +35,10 @@ const ReplyForm = styled(Segment)`
   left: 50%;
   position: fixed !important;
   bottom: 0;
+
+  @media screen and (max-width: 480px) {
+    left: 10% !important;
+  }
 `;
 
 const CloseIcon = styled(Icon)`

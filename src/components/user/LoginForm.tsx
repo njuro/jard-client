@@ -38,6 +38,7 @@ function LoginForm() {
   return (
     <Grid>
       <Form
+        style={{ minWidth: "60%" }}
         onSubmit={handleSubmit}
         className="six wide column centered"
         error={!!errors}
