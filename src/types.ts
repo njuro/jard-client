@@ -98,7 +98,6 @@ export interface AttachmentMetadataType {
 }
 
 export interface AttachmentEmbedDataType {
-  category: AttachmentCategoryNameEnum;
   embedUrl: string;
   thumbnailUrl: string;
   providerName: string;

@@ -1,50 +1,64 @@
 /* eslint-disable react/no-danger */
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import { Image } from "semantic-ui-react";
-import { FileIcon, IconType } from "react-file-icon";
-import {
-  AttachmentCategoryNameEnum as Category,
-  AttachmentType,
-} from "../../types";
+import { FileIcon } from "react-file-icon";
+import { AttachmentType } from "../../types";
 import { DefaultFileIconWrapper } from "./DefaultFileIcon";
+import getProviderStyle from "./embeddedProviders";
 
-const iconTypes: Record<Category, IconType> = {
-  [Category.IMAGE]: "image",
-  [Category.AUDIO]: "audio",
-  [Category.VIDEO]: "video",
-  [Category.TEXT]: "document",
-  [Category.PDF]: "acrobat",
-  [Category.EMBED]: "binary",
-};
 interface EmbeddedAttachmentProps {
   attachment: AttachmentType;
   thumbnail?: boolean;
+  forceThumbnail?: boolean;
   size?: string;
+  toggleSize?: (event: SyntheticEvent) => void;
 }
 function EmbeddedAttachment({
   attachment,
   thumbnail,
+  forceThumbnail,
   size,
+  toggleSize,
 }: EmbeddedAttachmentProps) {
+  const { thumbnailUrl, providerName, renderedHtml } = attachment.embedData;
+  const { fileIcon, providerColor, providerIcon } = getProviderStyle(
+    providerName
+  );
+
   if (thumbnail) {
-    const { thumbnailUrl, category, providerName } = attachment.embedData;
     if (thumbnailUrl) {
-      return <Image verticalAlign="top" src={thumbnailUrl} />;
-    }
-    return (
-      <DefaultFileIconWrapper size={size ?? "auto"}>
-        <FileIcon
-          labelUppercase={false}
-          type={iconTypes[category]}
-          extension={providerName}
+      return (
+        <Image
+          label={{
+            color: providerColor,
+            content: providerName,
+            ribbon: true,
+            icon: providerIcon,
+          }}
+          verticalAlign="top"
+          src={thumbnailUrl}
+          onClick={toggleSize}
+          style={{ cursor: "pointer", width: "250px" }}
         />
-      </DefaultFileIconWrapper>
-    );
+      );
+    }
+
+    if (forceThumbnail) {
+      return (
+        <DefaultFileIconWrapper size={size ?? "auto"}>
+          <FileIcon
+            labelUppercase={false}
+            type={fileIcon}
+            extension={providerName}
+          />
+        </DefaultFileIconWrapper>
+      );
+    }
   }
   return (
     <div
       dangerouslySetInnerHTML={{
-        __html: attachment.embedData.renderedHtml,
+        __html: renderedHtml,
       }}
     />
   );

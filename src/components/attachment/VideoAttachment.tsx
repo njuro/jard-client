@@ -19,7 +19,7 @@ interface VideoAttachmentProps {
 function VideoAttachment({ attachment, toggleSize }: VideoAttachmentProps) {
   return (
     <div style={{ position: "relative" }}>
-      <VideoCloseIcon link name="close" s size="big" onClick={toggleSize} />
+      <VideoCloseIcon link name="close" size="big" onClick={toggleSize} />
       <video src={ATTACHMENT_URL(attachment)} controls loop autoPlay />
     </div>
   );

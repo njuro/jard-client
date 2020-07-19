@@ -11,7 +11,14 @@ interface AttachmentThumbnailProps {
 }
 function AttachmentThumbnail({ attachment, size }: AttachmentThumbnailProps) {
   if (attachment.category.name === AttachmentCategoryNameEnum.EMBED) {
-    return <EmbeddedAttachment attachment={attachment} thumbnail size={size} />;
+    return (
+      <EmbeddedAttachment
+        attachment={attachment}
+        thumbnail
+        forceThumbnail
+        size={size}
+      />
+    );
   }
 
   if (!attachment.category.hasThumbnail) {

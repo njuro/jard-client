@@ -12,12 +12,13 @@ import {
   AttachmentCategoryNameEnum as Category,
   AttachmentType,
 } from "../../types";
+import getProviderStyle from "./embeddedProviders";
 
 const AttachmentBoxWrapper = styled(Segment)`
   margin-right: 10px !important;
   margin-bottom: 10px !important;
   border: none !important;
-  .label {
+  #attachmentLabel {
     border: none !important;
     background-color: #f8f8f8 !important;
     font-weight: normal !important;
@@ -28,7 +29,7 @@ const AttachmentBoxWrapper = styled(Segment)`
     text-overflow: ellipsis;
   }
 
-  :not(.label) {
+  :not(#attachmentLabel) {
     padding: 0 !important;
   }
 `;
@@ -42,46 +43,78 @@ interface AttachmentBoxProps {
   children?: React.ReactNode;
 }
 function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
+  const isEmbed = attachment.category.name === Category.EMBED;
+
   function renderFileMetadata() {
-    const { metadata } = attachment;
+    let items: FileMetadata[];
 
-    const items: FileMetadata[] = [
-      {
-        key: "name",
-        value: attachment.originalFilename,
-        icon: "pencil",
-      },
-      {
-        key: "mimeType",
-        value: metadata.mimeType,
-        icon: "file",
-      },
-      {
-        key: "size",
-        value: metadata.fileSize,
-        icon: "download",
-      },
-    ];
+    if (isEmbed) {
+      const { embedData } = attachment;
+      const { providerIcon } = getProviderStyle(embedData.providerName);
 
-    if (metadata.duration) {
+      items = [
+        {
+          key: "name",
+          value: attachment.originalFilename,
+          icon: "pencil",
+        },
+        {
+          key: "provider",
+          value: embedData.providerName,
+          icon: providerIcon,
+        },
+        {
+          key: "uploader",
+          value: embedData.uploaderName,
+          icon: "cloud upload",
+        },
+        {
+          key: "embedUrl",
+          value: embedData.embedUrl,
+          icon: "linkify",
+        },
+      ];
+    } else {
+      const { metadata } = attachment;
+
+      items = [
+        {
+          key: "name",
+          value: attachment.originalFilename,
+          icon: "pencil",
+        },
+        {
+          key: "mimeType",
+          value: metadata.mimeType,
+          icon: "file",
+        },
+        {
+          key: "size",
+          value: metadata.fileSize,
+          icon: "download",
+        },
+      ];
+
+      if (metadata.duration) {
+        items.push({
+          key: "duration",
+          value: metadata.duration,
+          icon: "time",
+        });
+      } else if (metadata.width > 0) {
+        items.push({
+          key: "resolution",
+          value: `${metadata.width}x${metadata.height}`,
+          icon: "arrows alternate",
+        });
+      }
+
       items.push({
-        key: "duration",
-        value: metadata.duration,
-        icon: "time",
-      });
-    } else if (metadata.width > 0) {
-      items.push({
-        key: "resolution",
-        value: `${metadata.width}x${metadata.height}`,
-        icon: "arrows alternate",
+        key: "checksum",
+        value: metadata.checksum,
+        icon: "code",
       });
     }
-
-    items.push({
-      key: "checksum",
-      value: metadata.checksum,
-      icon: "code",
-    });
 
     return (
       <List>
@@ -95,16 +128,13 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
     );
   }
 
-  if (attachment.category.name === Category.EMBED) {
-    return <>{children}</>;
-  }
-
   return (
     <AttachmentBoxWrapper compact>
       <Popup
         position="top center"
         trigger={
           <Label
+            id="attachmentLabel"
             attached="top"
             style={{ cursor: "pointer" }}
             onClick={(e) => {
@@ -117,7 +147,7 @@ function AttachmentBox({ attachment, children }: AttachmentBoxProps) {
           </Label>
         }
       >
-        <Popup.Header>File Info</Popup.Header>
+        <Popup.Header>{isEmbed ? "Embed  Info" : "File info"}</Popup.Header>
         <Popup.Content>{renderFileMetadata()}</Popup.Content>
       </Popup>
 

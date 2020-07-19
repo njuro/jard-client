@@ -25,7 +25,13 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
 
   function renderThumbnail() {
     if (category === Category.EMBED) {
-      return <EmbeddedAttachment attachment={attachment} />;
+      return (
+        <EmbeddedAttachment
+          attachment={attachment}
+          thumbnail
+          toggleSize={toggleSize}
+        />
+      );
     }
 
     if (category === Category.AUDIO) {
@@ -36,6 +42,12 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
   }
 
   function renderFull() {
+    if (category === Category.EMBED) {
+      return (
+        <EmbeddedAttachment attachment={attachment} toggleSize={toggleSize} />
+      );
+    }
+
     if (category === Category.VIDEO) {
       return (
         <VideoAttachment attachment={attachment} toggleSize={toggleSize} />
