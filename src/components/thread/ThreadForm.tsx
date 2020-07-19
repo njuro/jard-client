@@ -136,7 +136,6 @@ function ThreadForm() {
                 name="postForm.embedUrl"
                 label="Embed URL"
                 placeholder="Embed URL"
-                className="not-draggable"
               />
             </>
           )}
