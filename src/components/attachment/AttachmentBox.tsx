@@ -9,7 +9,7 @@ import {
 } from "semantic-ui-react";
 import styled from "styled-components";
 import { AttachmentCategoryNameEnum as Category } from "../../types";
-import getProviderStyle from "./embeddedProviders";
+import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";
 
 const AttachmentBoxWrapper = styled(Segment)`
@@ -60,7 +60,7 @@ function AttachmentBox({ children }: AttachmentBoxProps) {
 
     if (isEmbed) {
       const { embedData } = attachment;
-      const { providerIcon } = getProviderStyle(embedData.providerName);
+      const { providerIcon } = getEmbeddedProviderStyle(embedData.providerName);
 
       items = [
         {

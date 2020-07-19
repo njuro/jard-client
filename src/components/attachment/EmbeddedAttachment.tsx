@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { Image } from "semantic-ui-react";
 import { FileIcon } from "react-file-icon";
 import { DefaultFileIconWrapper } from "./DefaultFileIcon";
-import getProviderStyle from "./embeddedProviders";
+import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";
 
 interface EmbeddedAttachmentProps {
@@ -16,7 +16,7 @@ function EmbeddedAttachment({ forceThumbnail, size }: EmbeddedAttachmentProps) {
   const embedRef = useRef<HTMLDivElement>(null);
 
   const { thumbnailUrl, providerName, renderedHtml } = attachment.embedData;
-  const { fileIcon, providerColor, providerIcon } = getProviderStyle(
+  const { fileIcon, providerColor, providerIcon } = getEmbeddedProviderStyle(
     providerName
   );
   const renderedEmbed = useMemo(

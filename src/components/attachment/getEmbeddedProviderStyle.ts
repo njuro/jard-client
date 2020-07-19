@@ -29,7 +29,7 @@ const providerStyles: Record<string, ProviderStyleProps> = {
   },
 };
 
-export default function getProviderStyle(
+export default function getEmbeddedProviderStyle(
   providerName: string
 ): ProviderStyleProps {
   const providerStyle = providerStyles[providerName.toLowerCase()];
