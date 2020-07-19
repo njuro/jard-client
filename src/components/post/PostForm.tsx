@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
+  Divider,
   Form as SemanticForm,
   Header,
   Icon,
@@ -12,7 +13,7 @@ import styled from "styled-components";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
 import { THREAD_URL } from "../../helpers/mappings";
-import { PostType } from "../../types";
+import { AttachmentCategoryNameEnum, PostType } from "../../types";
 import { BoardContext } from "../board/Board";
 import Form, {
   Button,
@@ -31,9 +32,9 @@ import { addToOwnPosts } from "./ownPosts";
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
   z-index: 1000;
-  left: 40%;
+  left: 50%;
   position: fixed !important;
-  top: 40%;
+  bottom: 0;
 `;
 
 const CloseIcon = styled(Icon)`
@@ -111,6 +112,12 @@ function PostForm() {
       .join(",");
   }
 
+  function isEmbedAllowed() {
+    return board.settings.attachmentCategories
+      .map((category) => category.name)
+      .includes(AttachmentCategoryNameEnum.EMBED);
+  }
+
   const defaultValues = {
     name: board.settings.defaultPosterName,
   };
@@ -170,27 +177,22 @@ function PostForm() {
                 className="not-draggable"
               />
             </Ref>
-            <TextInput
-              fluid
-              name="embedUrl"
-              label="Embed URL"
-              placeholder="Embed URL"
-              className="not-draggable"
-            />
-            <Checkbox
-              toggle
-              name="sage"
-              label="Sage"
-              className="not-draggable"
-            />
-            {user && (
+            <SemanticForm.Group inline>
               <Checkbox
                 toggle
-                name="capcode"
-                label="Capcode"
+                name="sage"
+                label="Sage"
                 className="not-draggable"
               />
-            )}
+              {user && (
+                <Checkbox
+                  toggle
+                  name="capcode"
+                  label="Capcode"
+                  className="not-draggable"
+                />
+              )}
+            </SemanticForm.Group>
             <FileInput
               name="attachment"
               label="Upload image"
@@ -198,6 +200,18 @@ function PostForm() {
               onFileUpload={setAttachment}
               className="not-draggable"
             />
+            {isEmbedAllowed() && (
+              <>
+                <Divider horizontal content="OR" />
+                <TextInput
+                  fluid
+                  name="embedUrl"
+                  label="Embed URL"
+                  placeholder="Embed URL"
+                  className="not-draggable"
+                />
+              </>
+            )}
             <FormErrors errors={errors} />
             <ProgressBar
               visible={attachment && uploading}

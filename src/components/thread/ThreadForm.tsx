@@ -1,10 +1,16 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { Form as SemanticForm, Header, Icon, Modal } from "semantic-ui-react";
+import {
+  Divider,
+  Form as SemanticForm,
+  Header,
+  Icon,
+  Modal,
+} from "semantic-ui-react";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
 import { BOARD_URL, THREAD_URL } from "../../helpers/mappings";
-import { ThreadType } from "../../types";
+import { AttachmentCategoryNameEnum, ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import Form, {
   Button,
@@ -66,6 +72,12 @@ function ThreadForm() {
       .join(",");
   }
 
+  function isEmbedAllowed() {
+    return board.settings.attachmentCategories
+      .map((category) => category.name)
+      .includes(AttachmentCategoryNameEnum.EMBED);
+  }
+
   const defaultValues = {
     postForm: {
       name: board.settings.defaultPosterName,
@@ -123,6 +135,18 @@ function ThreadForm() {
             accept={getAllowedFileTypes()}
             onFileUpload={setAttachment}
           />
+          {isEmbedAllowed() && (
+            <>
+              <Divider horizontal content="OR" />
+              <TextInput
+                fluid
+                name="embedUrl"
+                label="Embed URL"
+                placeholder="Embed URL"
+                className="not-draggable"
+              />
+            </>
+          )}
           <FormErrors errors={errors} />
           <ProgressBar
             visible={attachment && uploading}
