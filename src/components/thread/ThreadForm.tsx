@@ -122,13 +122,6 @@ function ThreadForm() {
           <TextInput name="subject" label="Subject" placeholder="Subject" />
           <TextArea name="postForm.body" label="Comment" rows="8" />
           {user && <Checkbox toggle name="postForm.capcode" label="Capcode" />}
-          <TextInput
-            fluid
-            name="postForm.embedUrl"
-            label="Embed URL"
-            placeholder="Embed URL"
-            className="not-draggable"
-          />
           <FileInput
             name="attachment"
             label="Upload image"
@@ -140,7 +133,7 @@ function ThreadForm() {
               <Divider horizontal content="OR" />
               <TextInput
                 fluid
-                name="embedUrl"
+                name="postForm.embedUrl"
                 label="Embed URL"
                 placeholder="Embed URL"
                 className="not-draggable"
