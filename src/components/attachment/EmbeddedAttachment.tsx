@@ -4,17 +4,24 @@ import { FileIcon } from "react-file-icon";
 import { DefaultFileIconWrapper } from "./DefaultFileIcon";
 import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";
+import { AttachmentType } from "../../types";
 
 interface EmbeddedAttachmentProps {
   forceThumbnail?: boolean;
   size?: string;
+  attachment?: AttachmentType;
 }
-function EmbeddedAttachment({ forceThumbnail, size }: EmbeddedAttachmentProps) {
-  const { attachment, fullSize, toggleSize } = useContext(
+function EmbeddedAttachment({
+  forceThumbnail,
+  size,
+  attachment: propAttachment,
+}: EmbeddedAttachmentProps) {
+  const { attachment: contextAttachment, fullSize, toggleSize } = useContext(
     PostAttachmentContext
   );
   const embedRef = useRef<HTMLDivElement>(null);
 
+  const attachment = propAttachment ?? contextAttachment;
   const { thumbnailUrl, providerName, renderedHtml } = attachment.embedData;
   const { fileIcon, providerColor, providerIcon } = getEmbeddedProviderStyle(
     providerName
