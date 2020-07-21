@@ -31,7 +31,7 @@ function ThreadWrapper() {
     (thread && thread.board && (
       <BoardContext.Provider value={thread.board}>
         <BoardHeader />
-        <Thread thread={thread} />
+        <Thread thread={thread} full />
       </BoardContext.Provider>
     )) ||
     null

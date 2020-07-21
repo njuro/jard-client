@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Button, Icon, Popup } from "semantic-ui-react";
+import { useHistory } from "react-router-dom";
 import { deleteApiRequest, postApiRequest } from "../../helpers/api";
 import useAuthority from "../../helpers/useAuthority";
 import { THREAD_URL } from "../../helpers/mappings";
@@ -14,9 +15,8 @@ interface PostActionsProps {
 }
 function PostActions({ post, isOP }: PostActionsProps) {
   const board = useContext(BoardContext);
-  const { thread, setThread, refreshThread, setReplyFormOpen } = useContext(
-    ThreadContext
-  );
+  const { thread, setThread, refreshThread } = useContext(ThreadContext);
+  const history = useHistory();
 
   function toggleSticky() {
     postApiRequest(`${THREAD_URL(thread, board)}/sticky`).then(() => {
@@ -53,21 +53,23 @@ function PostActions({ post, isOP }: PostActionsProps) {
 
   return (
     <>
-      {!thread.locked && isOP && (
-        <Popup
-          content="Reply"
-          position="top center"
-          trigger={
-            <Button
-              basic
-              circular
-              size="mini"
-              icon="reply"
-              onClick={() => setReplyFormOpen(true)}
-            />
-          }
-        />
-      )}
+      {!thread.locked &&
+        isOP &&
+        history.location.pathname !== THREAD_URL(thread, board) && (
+          <Popup
+            content="Reply"
+            position="top center"
+            trigger={
+              <Button
+                basic
+                circular
+                size="mini"
+                icon="reply"
+                onClick={() => history.push(THREAD_URL(thread, board))}
+              />
+            }
+          />
+        )}
       {useAuthority(UserAuthority.TOGGLE_STICKY_THREAD) && isOP && (
         <Popup
           content={thread.stickied ? "Unsticky" : "Sticky"}

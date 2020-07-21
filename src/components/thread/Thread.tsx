@@ -1,11 +1,17 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
-import { Item } from "semantic-ui-react";
+import { Icon, Item, Button } from "semantic-ui-react";
+import styled from "styled-components";
 import useUpdater from "../../helpers/useUpdater";
 import { SetStateType, ThreadType } from "../../types";
 import Post from "../post/Post";
 import ThreadUpdateButton from "./ThreadUpdateButton";
 import PostForm from "../post/PostForm";
 import { markCrossLinksToOwnPosts } from "../post/ownPosts";
+
+const ThreadContainer = styled(Item.Group)`
+  padding-left: 20px !important;
+  border-left: 1px solid lightgrey;
+`;
 
 interface ThreadContextProps {
   thread: ThreadType;
@@ -23,8 +29,9 @@ export const ThreadContext = createContext<ThreadContextProps>(
 
 interface ThreadProps {
   thread: ThreadType;
+  full?: boolean;
 }
-function Thread({ thread: initialThread }: ThreadProps) {
+function Thread({ thread: initialThread, full }: ThreadProps) {
   const [thread, setThread] = useState<ThreadType | undefined>(initialThread);
   const [replyFormOpen, setReplyFormOpen] = useState<boolean>(false);
   const [appendToReply, setAppendToReply] = useState<string>("");
@@ -45,6 +52,13 @@ function Thread({ thread: initialThread }: ThreadProps) {
     }
   }, [thread]);
 
+  const ReplyButton = () => (
+    <Button basic size="small" onClick={() => setReplyFormOpen(true)}>
+      <Icon name="plus" />
+      <strong>New reply</strong>
+    </Button>
+  );
+
   return (
     (thread && (
       <ThreadContext.Provider
@@ -60,8 +74,18 @@ function Thread({ thread: initialThread }: ThreadProps) {
         }}
       >
         <PostForm />
-        <Item.Group
-          divided
+        {full && <ReplyButton />}
+        {full && (
+          <Button
+            basic
+            size="small"
+            onClick={() => window.scrollTo(0, document.body.scrollHeight)}
+          >
+            <Icon name="arrow down" />
+            <strong>Bottom</strong>
+          </Button>
+        )}
+        <ThreadContainer
           className="thread"
           id={`thread-${thread.originalPost.postNumber}`}
         >
@@ -69,7 +93,14 @@ function Thread({ thread: initialThread }: ThreadProps) {
           {thread.replies.map((post) => (
             <Post key={post.postNumber} post={post} isOP={false} />
           ))}
-        </Item.Group>
+        </ThreadContainer>
+        {full && <ReplyButton />}
+        {full && (
+          <Button basic size="small" onClick={() => window.scrollTo(0, 0)}>
+            <Icon name="arrow up" />
+            <strong>Top</strong>
+          </Button>
+        )}
         <ThreadUpdateButton ref={threadUpdateButtonRef} />
       </ThreadContext.Provider>
     )) || (
