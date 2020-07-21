@@ -13,8 +13,8 @@ import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";
 
 const AttachmentBoxWrapper = styled(Segment)`
-  margin-right: 10px !important;
   margin-bottom: 10px !important;
+  margin-top: 0 !important;
   border: none !important;
 
   .attachmentBoxLabel {

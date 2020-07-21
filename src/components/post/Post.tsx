@@ -12,13 +12,21 @@ import { POST_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
 import { isOwnPost, YOU } from "./ownPosts";
 
+const ThreadLink = styled.div`
+  width: 20px !important;
+  border-bottom: 1px solid lightgrey;
+  min-height: 1px !important;
+  position: absolute !important;
+  left: 10px;
+  align-self: center !important;
+`;
 const OriginalPost = styled(Item)`
-  max-width: 80%;
+  margin-left: -21px !important;
 `;
 const Reply = styled(Item)`
-  margin-left: 40px !important;
-  padding-right: 40px !important;
-  max-width: 80%;
+  width: max-content !important;
+  padding: 10px 20px 5px 0 !important;
+  background-color: whitesmoke !important;
 `;
 const ThreadSubject = styled.span`
   color: mediumseagreen;
@@ -76,8 +84,14 @@ function Post({ post, isOP }: PostProps) {
 
   return (
     <ThreadPost id={post.postNumber}>
+      {!isOP && <ThreadLink />}
       {post.attachment && <PostAttachment attachment={post.attachment} />}
-      <Item.Content style={{ position: "relative" }}>
+      <Item.Content
+        style={{
+          position: "relative",
+          paddingLeft: "20px",
+        }}
+      >
         <Item.Meta style={{ marginTop: "0" }}>
           {post.sage && <Sage>[SAGE]</Sage>}
           <PosterName>{post.name}</PosterName>
