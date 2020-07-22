@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
-import { Divider } from "semantic-ui-react";
 import { getApiRequest } from "../../helpers/api";
 import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import { BoardType } from "../../types";
@@ -56,10 +55,7 @@ function Board() {
         <BoardHeader />
         <ThreadForm />
         {board.threads?.map((thread) => (
-          <>
-            <Divider />
-            <Thread key={thread.originalPost.postNumber} thread={thread} />
-          </>
+          <Thread key={thread.originalPost.postNumber} thread={thread} />
         ))}
         {board.pageCount > 1 && (
           <BoardPagination

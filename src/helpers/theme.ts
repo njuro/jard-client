@@ -45,7 +45,7 @@ export const GlobalStyle = createGlobalStyle`
       color: ${(props) => props.theme.colors.links.hover} !important;
     }
   }
-  
+
   label {
     color: ${secondaryColor} !important;
   }
@@ -84,6 +84,13 @@ export const GlobalStyle = createGlobalStyle`
     color: ${secondaryColor} !important;
     box-shadow: ${secondaryColor} 0 0 0 1px inset !important;
 
+    :active,
+    :focus {
+      background: ${primaryColor} !important;
+      color: ${secondaryColor} !important;
+      box-shadow: ${secondaryColor} 0 0 0 1px inset !important;
+    }
+
     :hover {
       background-color: ${secondaryColor} !important;
       color: ${primaryColor} !important;
@@ -91,25 +98,56 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .ui.checkbox.toggle > label,
-  .ui.checkbox.toggle.checked > label {
-    color: ${secondaryColor} !important;
-  }
+  .ui.checkbox.toggle {
+    & > label {
+      color: ${secondaryColor} !important;
+      ::before {
+        background-color: ${(props) => props.theme.colors.reply} !important;
+      }
+      ::after {
+        background-color: ${secondaryColor} !important;
+      }
+    }
 
-  .ui.input input, .field textarea {
-    background-color: ${secondaryColor} !important;
-    color: ${primaryColor};
-    
-    ::placeholder, :focus::placeholder {
-      color: white;
+    input:checked,
+    input:checked:focus,
+    input:checked:active {
+      & ~ label {
+        color: ${secondaryColor} !important;
+
+        ::before {
+          background-color: lightgrey !important;
+        }
+      }
     }
   }
-  
+
+  .ui.input input,
+  .field textarea, 
+  .ui.selection.dropdown, 
+  .ui.selection.dropdown .menu {
+    background-color: ${secondaryColor} !important;
+    color: ${primaryColor} !important;
+
+    ::placeholder,
+    :focus::placeholder {
+      color: white;
+    }
+    
+    .item {
+      border-top: none !important;
+    }
+  }
+
   .ui.divider {
     color: ${secondaryColor} !important;
   }
 
   .ui.menu {
+    &.borderless .item {
+      box-shadow: none !important;
+    }
+
     box-shadow: ${secondaryColor} 0 0 1px inset !important;
     background-color: ${primaryColor} !important;
     color: ${secondaryColor} !important;
@@ -118,43 +156,36 @@ export const GlobalStyle = createGlobalStyle`
       color: inherit !important;
       font-weight: bold !important;
     }
-    
+
     .item {
       box-shadow: ${secondaryColor} 0 0 1px inset !important;
-    }
 
-    .item.active {
-      background-color: rgba(0, 0, 0, 0.2) !important;
-    }
-  }
-  
-  .ui.menu.borderless {
-      .item {
-          box-shadow: none !important;
+      &.active {
+        background-color: rgba(0, 0, 0, 0.2) !important;
       }
     }
-    
-  .ui.segment  {
+  }
+
+  .ui.segment {
     box-shadow: ${secondaryColor} 0 0 1px inset !important;
     background-color: ${primaryColor} !important;
-    
-
-  }  
-  
-  .ui.modal, .ui.modal > .content {
-      background-color: ${primaryColor} !important;
-
   }
-  
-      .ui.dividing.header {
-      border-bottom-color: ${secondaryColor};
-      color: ${secondaryColor} !important;
-    }
-    
-  .ui.popup, .ui.popup::before {
-  border-color: whitesmoke !important;
-  background-color: whitesmoke !important;
-  }  
+
+  .ui.modal,
+  .ui.modal > .content {
+    background-color: ${primaryColor} !important;
+  }
+
+  .ui.dividing.header {
+    border-bottom-color: ${secondaryColor};
+    color: ${secondaryColor} !important;
+  }
+
+  .ui.popup,
+  .ui.popup::before {
+    border-color: whitesmoke !important;
+    background-color: whitesmoke !important;
+  }
 `;
 
 // Prettier doesn't support createGlobalStyle, so copy CSS from above here, format it and copy back

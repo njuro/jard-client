@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
-import { Icon, Item, Button } from "semantic-ui-react";
+import { Icon, Item, Button, Divider } from "semantic-ui-react";
 import styled from "styled-components/macro";
 import useUpdater from "../../helpers/useUpdater";
 import { SetStateType, ThreadType } from "../../types";
@@ -86,6 +86,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
             <strong>Bottom</strong>
           </Button>
         )}
+        <Divider />
         <ThreadContainer
           className="thread"
           id={`thread-${thread.originalPost.postNumber}`}
@@ -95,6 +96,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
             <Post key={post.postNumber} post={post} isOP={false} />
           ))}
         </ThreadContainer>
+        {full && <Divider />}
         {full && <ReplyButton />}
         {full && (
           <Button basic size="small" onClick={() => window.scrollTo(0, 0)}>

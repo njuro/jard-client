@@ -29,6 +29,13 @@ const Reply = styled(Item)`
   padding: 0 20px 0 0 !important;
   background-color: ${(props) => props.theme.colors.reply} !important;
 `;
+const PostContent = styled(Item.Content)`
+  padding: 10px 20px !important;
+`;
+const PostMeta = styled(Item.Meta)`
+  margin-top: 0 !important;
+  color: ${secondaryColor} !important;
+`;
 const ThreadSubject = styled.span`
   color: mediumseagreen;
   font-weight: bold;
@@ -88,13 +95,8 @@ function Post({ post, isOP }: PostProps) {
     <ThreadPost id={post.postNumber}>
       {!isOP && <ThreadLink />}
       {post.attachment && <PostAttachment attachment={post.attachment} />}
-      <Item.Content
-        style={{
-          position: "relative",
-          padding: "10px 20px",
-        }}
-      >
-        <Item.Meta style={{ marginTop: "0", color: "#B99B9B" }}>
+      <PostContent>
+        <PostMeta>
           {post.sage && <Sage>[SAGE]</Sage>}
           <PosterName>{post.name}</PosterName>
           {isOwnPost(post.postNumber, board.label) && <OwnPost>{YOU}</OwnPost>}
@@ -109,10 +111,10 @@ function Post({ post, isOP }: PostProps) {
             </a>
           </PostNumber>
           <PostActions post={post} isOP={isOP} />
-        </Item.Meta>
+        </PostMeta>
         <PostBody dangerouslySetInnerHTML={{ __html: post.body }} />
         {isOP && <OmittedRepliesStatus />}
-      </Item.Content>
+      </PostContent>
     </ThreadPost>
   );
 }
