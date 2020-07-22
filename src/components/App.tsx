@@ -2,12 +2,14 @@ import React, { createContext, useEffect, useState } from "react";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import HttpsRedirect from "react-https-redirect";
+import { ThemeProvider } from "styled-components";
 import { getApiRequest } from "../helpers/api";
 import { USERS_URL } from "../helpers/mappings";
 import { SetStateType, UserType } from "../types";
 import MainMenu from "./base/MainMenu";
 import MainSwitch from "./base/MainSwitch";
 import { isLocal } from "../helpers/utils";
+import { GlobalStyle, theme } from "../helpers/theme";
 
 interface AppContextProps {
   user: UserType;
@@ -40,14 +42,17 @@ function App() {
           setActiveMenuPath,
         }}
       >
-        <Router>
-          <nav>
-            <MainMenu />
-          </nav>
-          <main>
-            <MainSwitch />
-          </main>
-        </Router>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Router>
+            <nav>
+              <MainMenu />
+            </nav>
+            <main>
+              <MainSwitch />
+            </main>
+          </Router>
+        </ThemeProvider>
       </AppContext.Provider>
     </HttpsRedirect>
   );

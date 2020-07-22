@@ -14,7 +14,7 @@ import { isOwnPost, YOU } from "./ownPosts";
 
 const ThreadLink = styled.div`
   width: 20px !important;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
   min-height: 1px !important;
   position: absolute !important;
   left: 10px;
@@ -25,8 +25,8 @@ const OriginalPost = styled(Item)`
 `;
 const Reply = styled(Item)`
   width: max-content !important;
-  padding: 10px 20px 5px 0 !important;
-  background-color: whitesmoke !important;
+  padding: 0 20px 0 0 !important;
+  background-color: ${(props) => props.theme.colors.reply} !important;
 `;
 const ThreadSubject = styled.span`
   color: mediumseagreen;
@@ -59,6 +59,7 @@ const OmittedRepliesStatus = styled(OmittedReplies)`
   bottom: 0;
   top: unset !important;
   left: unset !important;
+  color: #b99b9b !important;
 `;
 
 interface PostProps {
@@ -89,10 +90,10 @@ function Post({ post, isOP }: PostProps) {
       <Item.Content
         style={{
           position: "relative",
-          paddingLeft: "20px",
+          padding: "10px 20px",
         }}
       >
-        <Item.Meta style={{ marginTop: "0" }}>
+        <Item.Meta style={{ marginTop: "0", color: "#B99B9B" }}>
           {post.sage && <Sage>[SAGE]</Sage>}
           <PosterName>{post.name}</PosterName>
           {isOwnPost(post.postNumber, board.label) && <OwnPost>{YOU}</OwnPost>}

@@ -5,6 +5,10 @@ import styled from "styled-components";
 import { BoardContext } from "./Board";
 import { BOARD_CATALOG_URL, BOARD_URL } from "../../helpers/mappings";
 
+const BoardName = styled(Header)`
+  text-align: center;
+  color: ${(props) => props.theme.colors.secondary};
+`;
 const NSFWIndicator = styled.span`
   color: red;
   font-weight: bold;
@@ -18,9 +22,9 @@ function BoardHeader({ catalog }: BoardHeaderProps) {
 
   return (
     <header>
-      <Header as="h1" textAlign="center">
+      <BoardName as="h1">
         {catalog && "Catalog of "} /{board.label}/ - {board.name}
-      </Header>
+      </BoardName>
       <div style={{ textAlign: "center" }}>
         {board.settings.nsfw && <NSFWIndicator>[NSFW]</NSFWIndicator>}
         <Link to={catalog ? BOARD_URL(board) : BOARD_CATALOG_URL(board)}>

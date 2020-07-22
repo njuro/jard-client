@@ -10,7 +10,7 @@ import { markCrossLinksToOwnPosts } from "../post/ownPosts";
 
 const ThreadContainer = styled(Item.Group)`
   padding-left: 20px !important;
-  border-left: 1px solid lightgrey;
+  border-left: 1px solid ${(props) => props.theme.colors.secondary};
 `;
 
 interface ThreadContextProps {

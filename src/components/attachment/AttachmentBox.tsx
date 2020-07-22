@@ -13,13 +13,13 @@ import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";
 
 const AttachmentBoxWrapper = styled(Segment)`
-  margin-bottom: 10px !important;
-  margin-top: 0 !important;
+  margin: 0 !important;
   border: none !important;
 
   .attachmentBoxLabel {
     border: none !important;
-    background-color: #f8f8f8 !important;
+    background-color: ${(props) => props.theme.colors.secondary} !important;
+    color: ${(props) => props.theme.colors.primary} !important;
     font-weight: normal !important;
     text-align: center !important;
     font-style: italic;
