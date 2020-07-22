@@ -7,10 +7,11 @@ import Post from "../post/Post";
 import ThreadUpdateButton from "./ThreadUpdateButton";
 import PostForm from "../post/PostForm";
 import { markCrossLinksToOwnPosts } from "../post/ownPosts";
+import { secondaryColor } from "../../helpers/theme";
 
 const ThreadContainer = styled(Item.Group)`
   padding-left: 20px !important;
-  border-left: 1px solid ${(props) => props.theme.colors.secondary};
+  border-left: 1px solid ${secondaryColor};
 `;
 
 interface ThreadContextProps {

@@ -11,10 +11,11 @@ import { BoardContext } from "../board/Board";
 import { POST_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
 import { isOwnPost, YOU } from "./ownPosts";
+import { secondaryColor } from "../../helpers/theme";
 
 const ThreadLink = styled.div`
   width: 20px !important;
-  border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
+  border-bottom: 1px solid ${secondaryColor};
   min-height: 1px !important;
   position: absolute !important;
   left: 10px;

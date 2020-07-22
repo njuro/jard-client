@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { BoardContext } from "./Board";
 import { BOARD_CATALOG_URL, BOARD_URL } from "../../helpers/mappings";
+import { secondaryColor } from "../../helpers/theme";
 
 const BoardName = styled(Header)`
   text-align: center;
-  color: ${(props) => props.theme.colors.secondary};
+  color: ${secondaryColor};
 `;
 const NSFWIndicator = styled.span`
   color: red;

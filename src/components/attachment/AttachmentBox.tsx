@@ -11,6 +11,7 @@ import styled from "styled-components/macro";
 import { AttachmentCategoryNameEnum as Category } from "../../types";
 import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";
+import { primaryColor, secondaryColor } from "../../helpers/theme";
 
 const AttachmentBoxWrapper = styled(Segment)`
   margin: 0 !important;
@@ -18,8 +19,8 @@ const AttachmentBoxWrapper = styled(Segment)`
 
   .attachmentBoxLabel {
     border: none !important;
-    background-color: ${(props) => props.theme.colors.secondary} !important;
-    color: ${(props) => props.theme.colors.primary} !important;
+    background-color: ${secondaryColor} !important;
+    color: ${primaryColor} !important;
     font-weight: normal !important;
     text-align: center !important;
     font-style: italic;
