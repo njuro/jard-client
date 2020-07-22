@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { DefaultExtensionType, defaultStyles, FileIcon } from "react-file-icon";
 
 export const DefaultFileIconWrapper = styled.div<{ size: string }>`

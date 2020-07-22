@@ -9,7 +9,7 @@ import {
 } from "semantic-ui-react";
 import Draggable from "react-draggable";
 import { Ref } from "@stardust-ui/react-component-ref";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
 import { THREAD_URL } from "../../helpers/mappings";

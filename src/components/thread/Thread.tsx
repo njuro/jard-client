@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from "react";
 import { Icon, Item, Button } from "semantic-ui-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import useUpdater from "../../helpers/useUpdater";
 import { SetStateType, ThreadType } from "../../types";
 import Post from "../post/Post";

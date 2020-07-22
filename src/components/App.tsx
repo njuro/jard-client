@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import HttpsRedirect from "react-https-redirect";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components/macro";
 import { getApiRequest } from "../helpers/api";
 import { USERS_URL } from "../helpers/mappings";
 import { SetStateType, UserType } from "../types";

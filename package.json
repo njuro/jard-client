@@ -70,5 +70,10 @@
     "eslint-plugin-react": "^7.20.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1"
+  },
+  "babelMacros": {
+    "styledComponents": {
+      "fileName": false
+    }
   }
 }

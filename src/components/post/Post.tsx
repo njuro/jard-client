@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React, { SyntheticEvent, useContext } from "react";
 import { Item } from "semantic-ui-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { PostType } from "../../types";
 import OmittedReplies from "../thread/OmittedReplies";
 import { ThreadContext } from "../thread/Thread";

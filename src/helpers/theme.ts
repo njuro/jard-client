@@ -1,4 +1,4 @@
-import { createGlobalStyle, DefaultTheme } from "styled-components";
+import { createGlobalStyle, DefaultTheme } from "styled-components/macro";
 
 export const theme: DefaultTheme = {
   colors: {
@@ -22,33 +22,6 @@ export const GlobalStyle = createGlobalStyle`
   header,
   main {
     margin: 10px 10px 20px;
-  }
-  
-  .ui.basic.button {
-    color: ${(props) => props.theme.colors.secondary} !important;
-    box-shadow: #B99B9B 0 0 0 1px inset !important;
-  }
-  
-  .ui.basic.button:hover {
-    background-color: ${(props) => props.theme.colors.secondary} !important;
-    color: ${(props) => props.theme.colors.primary} !important;
-    box-shadow: ${(props) =>
-      props.theme.colors.primary} 0 0 1px inset !important;
-  }
-  
-  .ui.checkbox.toggle label, .ui.checkbox.toggle.checked label {
-    color: ${(props) => props.theme.colors.secondary} !important;
-  }
-  
-  .ui.menu {
-    border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
-    background-color: ${(props) => props.theme.colors.primary} !important;
-    color: ${(props) => props.theme.colors.secondary} !important;
-  }
-  
-  .ui.menu a {
-    color: inherit !important;
-    font-weight: bold !important;
   }
   
   a {
@@ -86,4 +59,35 @@ export const GlobalStyle = createGlobalStyle`
     background-color: lightgray;
     padding: 10px;
     font-family: monospace;
-  }`;
+  }
+  
+  .ui.basic.button {
+    color: ${(props) => props.theme.colors.secondary} !important;
+    box-shadow: ${(props) =>
+      props.theme.colors.secondary} 0 0 0 1px inset !important;
+  }
+  
+  .ui.basic.button:hover {
+    background-color: ${(props) => props.theme.colors.secondary} !important;
+    color: ${(props) => props.theme.colors.primary} !important;
+    box-shadow: ${(props) =>
+      props.theme.colors.primary} 0 0 1px inset !important;
+  }
+  
+  .ui.checkbox.toggle label, .ui.checkbox.toggle.checked label {
+    color: ${(props) => props.theme.colors.secondary} !important;
+  }
+  
+  .ui.menu {
+    border-bottom: 1px solid ${(props) => props.theme.colors.secondary};
+    background-color: ${(props) => props.theme.colors.primary} !important;
+    color: ${(props) => props.theme.colors.secondary} !important;
+  }
+  
+  .ui.menu a {
+    color: inherit !important;
+    font-weight: bold !important;
+  }
+  
+
+`;

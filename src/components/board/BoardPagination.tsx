@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Pagination, PaginationProps } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 import { BoardType, SetStateType } from "../../types";

@@ -7,7 +7,7 @@ import {
   Segment,
   SemanticICONS,
 } from "semantic-ui-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { AttachmentCategoryNameEnum as Category } from "../../types";
 import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";

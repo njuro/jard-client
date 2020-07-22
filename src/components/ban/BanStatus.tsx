@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Message } from "semantic-ui-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { BanType } from "../../types";
 import { getApiRequest } from "../../helpers/api";
 import { BANS_URL } from "../../helpers/mappings";

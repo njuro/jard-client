@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Popup } from "semantic-ui-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { THREAD_URL } from "../../helpers/mappings";
 import { ThreadCatalogType, ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";

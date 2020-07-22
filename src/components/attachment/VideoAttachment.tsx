@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Icon } from "semantic-ui-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { ATTACHMENT_URL } from "../../helpers/mappings";
 import { PostAttachmentContext } from "../post/PostAttachment";
 
