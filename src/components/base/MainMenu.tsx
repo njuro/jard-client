@@ -12,6 +12,7 @@ import { BoardType } from "../../types";
 import { AppContext } from "../App";
 import LogoutButton from "../user/LogoutButton";
 import { MainMenuItem as MenuItem } from "./MenuItem";
+import { isLocal } from "../../helpers/utils";
 
 function MainMenu() {
   const { user, activeMenuPath } = useContext(AppContext);
@@ -35,7 +36,7 @@ function MainMenu() {
           /{board.label}/ - {board.name}
         </MenuItem>
       ))}
-      {!user && (
+      {!user && isLocal() && (
         <MenuItem position="right" path={LOGIN_URL}>
           <Button>Login</Button>
         </MenuItem>

@@ -1,4 +1,4 @@
-import {
+import styled, {
   createGlobalStyle,
   DefaultTheme,
   ThemeProps,
@@ -39,11 +39,15 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: ${secondaryColor} !important;
-  }
+    color: ${(props) => props.theme.colors.links.primary} !important;
 
-  a:hover {
-    color: ${(props) => props.theme.colors.links.hover} !important;
+    :hover {
+      color: ${(props) => props.theme.colors.links.hover} !important;
+    }
+  }
+  
+  label {
+    color: ${secondaryColor} !important;
   }
 
   a.crosslink {
@@ -63,10 +67,10 @@ export const GlobalStyle = createGlobalStyle`
   span.spoiler {
     background-color: black;
     color: black;
-  }
 
-  span.spoiler:hover {
-    color: white;
+    :hover {
+      color: white;
+    }
   }
 
   div.code {
@@ -79,16 +83,29 @@ export const GlobalStyle = createGlobalStyle`
   .ui.basic.button {
     color: ${secondaryColor} !important;
     box-shadow: ${secondaryColor} 0 0 0 1px inset !important;
+
+    :hover {
+      background-color: ${secondaryColor} !important;
+      color: ${primaryColor} !important;
+      box-shadow: ${primaryColor} 0 0 1px inset !important;
+    }
   }
 
-  .ui.basic.button:hover {
+  .ui.checkbox.toggle > label,
+  .ui.checkbox.toggle.checked > label {
+    color: ${secondaryColor} !important;
+  }
+
+  .ui.input input, .field textarea {
     background-color: ${secondaryColor} !important;
-    color: ${primaryColor} !important;
-    box-shadow: ${primaryColor} 0 0 1px inset !important;
+    color: ${primaryColor};
+    
+    ::placeholder, :focus::placeholder {
+      color: white;
+    }
   }
-
-  .ui.checkbox.toggle label,
-  .ui.checkbox.toggle.checked label {
+  
+  .ui.divider {
     color: ${secondaryColor} !important;
   }
 
@@ -96,15 +113,50 @@ export const GlobalStyle = createGlobalStyle`
     box-shadow: ${secondaryColor} 0 0 1px inset !important;
     background-color: ${primaryColor} !important;
     color: ${secondaryColor} !important;
-  }
 
-  .ui.menu a {
-    color: inherit !important;
-    font-weight: bold !important;
-  }
+    a {
+      color: inherit !important;
+      font-weight: bold !important;
+    }
+    
+    .item {
+      box-shadow: ${secondaryColor} 0 0 1px inset !important;
+    }
 
-  .ui.menu .item {
-    box-shadow: ${secondaryColor} 0 0 1px inset !important;
+    .item.active {
+      background-color: rgba(0, 0, 0, 0.2) !important;
+    }
   }
   
+  .ui.menu.borderless {
+      .item {
+          box-shadow: none !important;
+      }
+    }
+    
+  .ui.segment  {
+    box-shadow: ${secondaryColor} 0 0 1px inset !important;
+    background-color: ${primaryColor} !important;
+    
+
+  }  
+  
+  .ui.modal, .ui.modal > .content {
+      background-color: ${primaryColor} !important;
+
+  }
+  
+      .ui.dividing.header {
+      border-bottom-color: ${secondaryColor};
+      color: ${secondaryColor} !important;
+    }
+    
+  .ui.popup, .ui.popup::before {
+  border-color: whitesmoke !important;
+  background-color: whitesmoke !important;
+  }  
 `;
+
+// Prettier doesn't support createGlobalStyle, so copy CSS from above here, format it and copy back
+// noinspection JSUnusedLocalSymbols
+const globalStyleFormatter = styled.div``; // eslint-disable-line @typescript-eslint/no-unused-vars
