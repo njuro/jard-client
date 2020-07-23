@@ -123,19 +123,25 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .ui.input input,
-  .field textarea, 
-  .ui.selection.dropdown, 
+  .field textarea,
+  .ui.selection.dropdown,
   .ui.selection.dropdown .menu {
     background-color: ${secondaryColor} !important;
     color: ${primaryColor} !important;
+    border-color: unset !important;
 
     ::placeholder,
     :focus::placeholder {
       color: white;
     }
-    
+
+    :focus,
+    input:focus {
+      border-color: unset !important;
+    }
+
     .item {
-      border-top: none !important;
+      border-top-color: grey !important;
     }
   }
 
@@ -178,7 +184,8 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${primaryColor} !important;
   }
 
-  .ui.dividing.header, .ui.modal > .header {
+  .ui.dividing.header,
+  .ui.modal > .header {
     border-bottom-color: ${secondaryColor};
     color: ${secondaryColor} !important;
   }

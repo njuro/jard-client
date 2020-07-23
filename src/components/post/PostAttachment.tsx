@@ -83,11 +83,13 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
     <PostAttachmentContext.Provider
       value={{ attachment, fullSize, toggleSize }}
     >
-      <RenderedLink>
-        <AttachmentBox>
-          <RenderedImage />
-        </AttachmentBox>
-      </RenderedLink>
+      <div style={{ display: "inline" }}>
+        <RenderedLink>
+          <AttachmentBox>
+            <RenderedImage />
+          </AttachmentBox>
+        </RenderedLink>
+      </div>
     </PostAttachmentContext.Provider>
   );
 }

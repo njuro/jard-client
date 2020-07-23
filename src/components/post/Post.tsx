@@ -23,6 +23,10 @@ const ThreadLink = styled.div`
 `;
 const OriginalPost = styled(Item)`
   margin-left: -21px !important;
+
+  .content {
+    padding-top: 0 !important;
+  }
 `;
 const Reply = styled(Item)`
   width: max-content !important;

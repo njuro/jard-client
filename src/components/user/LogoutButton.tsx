@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Menu } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import { postApiRequest } from "../../helpers/api";
 import { LOGOUT_URL } from "../../helpers/mappings";
 import { AppContext } from "../App";
@@ -11,11 +11,7 @@ function LogoutButton() {
     postApiRequest(LOGOUT_URL).then(() => setUser(undefined));
   }
 
-  return (
-    <Menu.Item>
-      <Button onClick={handleLogout}>Logout</Button>
-    </Menu.Item>
-  );
+  return <Button onClick={handleLogout}>Logout</Button>;
 }
 
 export default LogoutButton;
