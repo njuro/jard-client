@@ -35,7 +35,7 @@ const Reply = styled(Item)`
 `;
 const PostContent = styled(Item.Content)`
   position: relative;
-  padding: 10px 20px !important;
+  padding: 10px 20px 0 20px !important;
 `;
 const PostMeta = styled(Item.Meta)`
   margin-top: 0 !important;
@@ -65,7 +65,7 @@ const Sage = styled.span`
 const PostTimestamp = styled.span``;
 const PostNumber = styled.span``;
 const PostBody = styled.div`
-  margin-bottom: 50px !important;
+  margin-bottom: 30px !important;
 `;
 const OmittedRepliesStatus = styled(OmittedReplies)`
   position: absolute !important;
