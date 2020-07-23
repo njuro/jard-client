@@ -30,7 +30,7 @@ function MainMenu() {
       {boards.map((board) => (
         <MenuItem
           key={board.label}
-          path={BOARD_URL(board)}
+          path={`${BOARD_URL(board)}/`}
           active={activeMenuPath === board.label}
         >
           /{board.label}/ - {board.name}

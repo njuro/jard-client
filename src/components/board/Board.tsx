@@ -23,6 +23,11 @@ function Board() {
   useEffect(() => {
     setActiveMenuPath(label);
 
+    const location = window.location.pathname;
+    if (!location.endsWith("/") && window.history.pushState) {
+      window.history.pushState({}, "", `${location}/`);
+    }
+
     if (Number.isNaN(pageNumber)) {
       setNotFound(true);
       return;

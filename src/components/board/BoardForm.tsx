@@ -54,7 +54,7 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
   }
 
   if (updatedBoard) {
-    return <Redirect to={BOARD_URL(updatedBoard)} />;
+    return <Redirect to={`${BOARD_URL(updatedBoard)}/`} />;
   }
 
   const defaultValues = existingBoard
