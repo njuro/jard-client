@@ -14,17 +14,12 @@ const ThreadPreview = styled.div`
   word-wrap: break-word;
   overflow: hidden;
   max-height: 320px;
-  max-width: 180px;
   margin-bottom: 20px;
   padding: 5px 0 3px;
 
   img,
   svg {
     max-width: 150px !important;
-  }
-
-  @media screen and (max-width: 480px) {
-    max-width: 155px !important;
   }
 `;
 

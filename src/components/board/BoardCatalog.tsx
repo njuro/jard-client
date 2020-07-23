@@ -13,14 +13,17 @@ import { AppContext } from "../App";
 import BoardCatalogMenu from "./BoardCatalogMenu";
 
 const ThreadList = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   padding: 20px;
   text-align: center;
   min-width: 100%;
   margin-top: 20px;
+
+  @media screen and (max-width: 480px) {
+    padding: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  }
 `;
 function BoardCatalog() {
   const { label } = useParams();
