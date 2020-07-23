@@ -1,5 +1,11 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
-import { Icon, Item, Button, Divider } from "semantic-ui-react";
+import React, {
+  createContext,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Item, Divider } from "semantic-ui-react";
 import styled from "styled-components/macro";
 import useUpdater from "../../helpers/useUpdater";
 import { SetStateType, ThreadType } from "../../types";
@@ -8,6 +14,8 @@ import ThreadUpdateButton from "./ThreadUpdateButton";
 import PostForm from "../post/PostForm";
 import { markCrossLinksToOwnPosts } from "../post/ownPosts";
 import { secondaryColor } from "../../helpers/theme";
+import ThreadTopMenu from "./ThreadTopMenu";
+import ThreadBottomMenu from "./ThreadBottomMenu";
 
 const ThreadContainer = styled(Item.Group)`
   padding-left: 20px !important;
@@ -23,6 +31,7 @@ interface ThreadContextProps {
   setReplyFormOpen: SetStateType<boolean>;
   appendToReply: string;
   setAppendToReply: SetStateType<string>;
+  quotePost: (e: SyntheticEvent, postNumber: number) => void;
 }
 export const ThreadContext = createContext<ThreadContextProps>(
   {} as ThreadContextProps
@@ -42,6 +51,28 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
 
   const refreshThread = useUpdater();
 
+  function quotePost(e: SyntheticEvent, postNumber: number) {
+    e.preventDefault();
+    if (!replyFormOpen) {
+      closeAllReplyForms();
+      setReplyFormOpen(true);
+    }
+    const selectedText = window?.getSelection()?.toString();
+    setAppendToReply(
+      `>>${postNumber}\n${selectedText !== "" ? `>${selectedText}\n` : ""}`
+    );
+  }
+
+  function closeAllReplyForms() {
+    Array.from(document.getElementsByClassName("reply-close-icon")).forEach(
+      (element) => {
+        if (element instanceof HTMLElement) {
+          element.click();
+        }
+      }
+    );
+  }
+
   function triggerThreadUpdateButton() {
     const threadUpdateButton = threadUpdateButtonRef.current;
     if (threadUpdateButton) {
@@ -55,13 +86,6 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
     }
   }, [thread]);
 
-  const ReplyButton = () => (
-    <Button basic size="small" onClick={() => setReplyFormOpen(true)}>
-      <Icon name="plus" />
-      <strong>New reply</strong>
-    </Button>
-  );
-
   return (
     (thread && (
       <ThreadContext.Provider
@@ -74,20 +98,11 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
           setReplyFormOpen,
           appendToReply,
           setAppendToReply,
+          quotePost,
         }}
       >
         <PostForm />
-        {full && <ReplyButton />}
-        {full && (
-          <Button
-            basic
-            size="small"
-            onClick={() => window.scrollTo(0, document.body.scrollHeight)}
-          >
-            <Icon name="arrow down" />
-            <strong>Bottom</strong>
-          </Button>
-        )}
+        {full && <ThreadTopMenu />}
         <Divider />
         <ThreadContainer
           className="thread"
@@ -98,14 +113,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
             <Post key={post.postNumber} post={post} isOP={false} />
           ))}
         </ThreadContainer>
-        {full && <Divider />}
-        {full && <ReplyButton />}
-        {full && (
-          <Button basic size="small" onClick={() => window.scrollTo(0, 0)}>
-            <Icon name="arrow up" />
-            <strong>Top</strong>
-          </Button>
-        )}
+        {full && <ThreadBottomMenu />}
         <ThreadUpdateButton ref={threadUpdateButtonRef} />
       </ThreadContext.Provider>
     )) || (

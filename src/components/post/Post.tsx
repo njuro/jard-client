@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import React, { SyntheticEvent, useContext } from "react";
+import React, { createContext, useContext } from "react";
 import { Item } from "semantic-ui-react";
 import styled from "styled-components/macro";
 import { PostType } from "../../types";
@@ -76,63 +76,58 @@ const OmittedRepliesStatus = styled(OmittedReplies)`
   color: #b99b9b !important;
 `;
 
+interface PostContextProps {
+  post: PostType;
+  isOP: boolean;
+}
+export const PostContext = createContext<PostContextProps>(
+  {} as PostContextProps
+);
+
 interface PostProps {
   post: PostType;
   isOP: boolean;
 }
 function Post({ post, isOP }: PostProps) {
   const board = useContext(BoardContext);
-  const { thread, setReplyFormOpen, setAppendToReply } = useContext(
-    ThreadContext
-  );
-
-  function quotePost(e: SyntheticEvent) {
-    e.preventDefault();
-    closeAllReplyForms();
-    setReplyFormOpen(true);
-    const selectedText = window?.getSelection()?.toString();
-    setAppendToReply(
-      `>>${post.postNumber}\n${selectedText !== "" ? `>${selectedText}\n` : ""}`
-    );
-  }
-
-  function closeAllReplyForms() {
-    Array.from(document.getElementsByClassName("reply-close-icon")).forEach(
-      (element) => {
-        if (element instanceof HTMLElement) {
-          element.click();
-        }
-      }
-    );
-  }
+  const { thread, quotePost } = useContext(ThreadContext);
 
   const ThreadPost = isOP ? OriginalPost : Reply;
 
   return (
-    <ThreadPost id={post.postNumber}>
-      {!isOP && <ThreadLink />}
-      {post.attachment && <PostAttachment attachment={post.attachment} />}
-      <PostContent>
-        <PostMeta>
-          {post.sage && <Sage>[SAGE]</Sage>}
-          <PosterName>{post.name}</PosterName>
-          {isOwnPost(post.postNumber, board.label) && <OwnPost>{YOU}</OwnPost>}
-          {post.capcode && <Capcode>{`[${post.capcode}]`}</Capcode>}
-          {post.tripcode && <Tripcode>{post.tripcode}</Tripcode>}
-          {isOP && <ThreadSubject>{thread.subject}</ThreadSubject>}
-          <PostTimestamp>{formatTimestamp(post.createdAt, true)}</PostTimestamp>
-          <PostNumber>
-            No.{" "}
-            <a href={POST_URL(post, thread, board)} onClick={quotePost}>
-              {post.postNumber}
-            </a>
-          </PostNumber>
-          <PostActions post={post} isOP={isOP} />
-        </PostMeta>
-        <PostBody dangerouslySetInnerHTML={{ __html: post.body }} />
-        {isOP && <OmittedRepliesStatus />}
-      </PostContent>
-    </ThreadPost>
+    <PostContext.Provider value={{ post, isOP }}>
+      <ThreadPost id={post.postNumber}>
+        {!isOP && <ThreadLink />}
+        {post.attachment && <PostAttachment attachment={post.attachment} />}
+        <PostContent>
+          <PostMeta>
+            {post.sage && <Sage>[SAGE]</Sage>}
+            <PosterName>{post.name}</PosterName>
+            {isOwnPost(post.postNumber, board.label) && (
+              <OwnPost>{YOU}</OwnPost>
+            )}
+            {post.capcode && <Capcode>{`[${post.capcode}]`}</Capcode>}
+            {post.tripcode && <Tripcode>{post.tripcode}</Tripcode>}
+            {isOP && <ThreadSubject>{thread.subject}</ThreadSubject>}
+            <PostTimestamp>
+              {formatTimestamp(post.createdAt, true)}
+            </PostTimestamp>
+            <PostNumber>
+              No.{" "}
+              <a
+                href={POST_URL(post, thread, board)}
+                onClick={(e) => quotePost(e, post.postNumber)}
+              >
+                {post.postNumber}
+              </a>
+            </PostNumber>
+            <PostActions />
+          </PostMeta>
+          <PostBody dangerouslySetInnerHTML={{ __html: post.body }} />
+          {isOP && <OmittedRepliesStatus />}
+        </PostContent>
+      </ThreadPost>
+    </PostContext.Provider>
   );
 }
 
