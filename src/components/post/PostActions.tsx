@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Button, Icon, Popup } from "semantic-ui-react";
+import React, { useContext, useState } from "react";
+import { Button, Confirm, Icon, Popup } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 import { deleteApiRequest, postApiRequest } from "../../helpers/api";
 import useAuthority from "../../helpers/useAuthority";
@@ -17,6 +17,8 @@ function PostActions({ post, isOP }: PostActionsProps) {
   const board = useContext(BoardContext);
   const { thread, setThread, refreshThread } = useContext(ThreadContext);
   const history = useHistory();
+
+  const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>();
 
   function toggleSticky() {
     postApiRequest(`${THREAD_URL(thread, board)}/sticky`).then(() => {
@@ -106,19 +108,32 @@ function PostActions({ post, isOP }: PostActionsProps) {
         />
       )}
       {useAuthority(UserAuthority.DELETE_POST) && (
-        <Popup
-          content="Delete"
-          position="top center"
-          trigger={
-            <Button
-              basic
-              circular
-              size="mini"
-              icon={<Icon name="trash alternate" />}
-              onClick={deletePost}
-            />
-          }
-        />
+        <>
+          <Popup
+            content="Delete"
+            position="top center"
+            trigger={
+              <Button
+                basic
+                circular
+                size="mini"
+                icon={<Icon name="trash alternate" />}
+                onClick={() => setDeleteFormOpen(true)}
+              />
+            }
+          />
+          <Confirm
+            open={deleteFormOpen}
+            header="Delete post"
+            content={`Are you sure you want to delete post #${post.postNumber} on /${board.label}/?`}
+            confirmButton="Yes"
+            onConfirm={() => {
+              deletePost();
+              setDeleteFormOpen(false);
+            }}
+            onCancel={() => setDeleteFormOpen(false)}
+          />
+        </>
       )}
       {useAuthority(UserAuthority.MANAGE_BANS) && (
         // TODO popup not working

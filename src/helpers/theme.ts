@@ -172,11 +172,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .ui.modal,
-  .ui.modal > .content {
+  .ui.modal > .content,
+  .ui.modal > .actions,
+  .ui.modal > .header {
     background-color: ${primaryColor} !important;
   }
 
-  .ui.dividing.header {
+  .ui.dividing.header, .ui.modal > .header {
     border-bottom-color: ${secondaryColor};
     color: ${secondaryColor} !important;
   }
