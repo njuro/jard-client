@@ -34,7 +34,9 @@ interface ThreadProps {
 }
 function Thread({ thread: initialThread, full }: ThreadProps) {
   const [thread, setThread] = useState<ThreadType | undefined>(initialThread);
-  const [replyFormOpen, setReplyFormOpen] = useState<boolean>(false);
+  const [replyFormOpen, setReplyFormOpen] = useState<boolean>(
+    window.location.hash === "#reply"
+  );
   const [appendToReply, setAppendToReply] = useState<string>("");
   const threadUpdateButtonRef = useRef<HTMLInputElement>(null);
 

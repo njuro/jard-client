@@ -24,8 +24,9 @@ const ThreadLink = styled.div`
 const OriginalPost = styled(Item)`
   margin-left: -21px !important;
 
-  .content {
-    padding-top: 0 !important;
+  @media screen and (min-width: 480px) {
+    .content {
+      padding-top: 0 !important;
   }
 `;
 const Reply = styled(Item)`
@@ -87,10 +88,21 @@ function Post({ post, isOP }: PostProps) {
 
   function quotePost(e: SyntheticEvent) {
     e.preventDefault();
+    closeAllReplyForms();
     setReplyFormOpen(true);
     const selectedText = window?.getSelection()?.toString();
     setAppendToReply(
       `>>${post.postNumber}\n${selectedText !== "" ? `>${selectedText}\n` : ""}`
+    );
+  }
+
+  function closeAllReplyForms() {
+    Array.from(document.getElementsByClassName("reply-close-icon")).forEach(
+      (element) => {
+        if (element instanceof HTMLElement) {
+          element.click();
+        }
+      }
     );
   }
 

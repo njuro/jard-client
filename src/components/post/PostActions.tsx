@@ -57,7 +57,7 @@ function PostActions({ post, isOP }: PostActionsProps) {
     <>
       {!thread.locked &&
         isOP &&
-        history.location.pathname !== THREAD_URL(thread, board) && (
+        !history.location.pathname.startsWith(THREAD_URL(thread, board)) && (
           <Popup
             content="Reply"
             position="top center"
@@ -67,7 +67,9 @@ function PostActions({ post, isOP }: PostActionsProps) {
                 circular
                 size="mini"
                 icon="reply"
-                onClick={() => history.push(THREAD_URL(thread, board))}
+                onClick={() =>
+                  history.push(`${THREAD_URL(thread, board)}#reply`)
+                }
               />
             }
           />

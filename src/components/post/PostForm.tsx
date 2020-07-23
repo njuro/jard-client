@@ -147,7 +147,7 @@ function PostForm() {
                 link
                 name="close"
                 onClick={() => setReplyFormOpen(false)}
-                className="not-draggable"
+                className="reply-close-icon not-draggable"
               />
             </Header>
             <SemanticForm.Group widths="equal">
