@@ -30,6 +30,7 @@ const Reply = styled(Item)`
   background-color: ${(props) => props.theme.colors.reply} !important;
 `;
 const PostContent = styled(Item.Content)`
+  position: relative;
   padding: 10px 20px !important;
 `;
 const PostMeta = styled(Item.Meta)`
