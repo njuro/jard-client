@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Grid } from "semantic-ui-react";
+import { Helmet } from "react-helmet";
 import DashboardMenu from "./DashboardMenu";
 import DashboardSwitch from "./DashboardSwitch";
 import { AppContext } from "../App";
@@ -30,6 +31,7 @@ function Dashboard() {
         setActiveDashboardPath,
       }}
     >
+      <Helmet title="Dashboard" />
       <Grid columns={2}>
         <Grid.Column width={4}>
           <DashboardMenu />

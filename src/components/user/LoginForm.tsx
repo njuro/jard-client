@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Grid, Header, Segment } from "semantic-ui-react";
+import { Helmet } from "react-helmet";
 import { postApiRequest } from "../../helpers/api";
 import { DASHBOARD_URL, HOME_URL, LOGIN_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
@@ -37,6 +38,7 @@ function LoginForm() {
 
   return (
     <Grid>
+      <Helmet title="Login" />
       <Form
         style={{ minWidth: "60%" }}
         onSubmit={handleSubmit}

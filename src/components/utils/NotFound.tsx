@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Header } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { AppContext } from "../App";
 import { NOT_FOUND_URL } from "../../helpers/mappings";
 
@@ -15,6 +16,7 @@ function NotFound() {
 
   return (
     <header>
+      <Helmet title="404 - Not Found" />
       <Header as="h1" textAlign="center">
         404 - Not Found
       </Header>

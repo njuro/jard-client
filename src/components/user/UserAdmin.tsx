@@ -7,6 +7,7 @@ import {
   Popup,
   Table,
 } from "semantic-ui-react";
+import { Helmet } from "react-helmet";
 import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import {
   DASHBOARD_MANAGE_USERS_URL,
@@ -49,6 +50,7 @@ function UserAdmin() {
 
   return (
     <>
+      <Helmet title="Manage users" />
       {createUserButton()}
 
       <Table fixed striped>

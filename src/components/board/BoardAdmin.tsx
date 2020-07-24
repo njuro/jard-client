@@ -7,6 +7,7 @@ import {
   Popup,
   Table,
 } from "semantic-ui-react";
+import { Helmet } from "react-helmet";
 import { deleteApiRequest, getApiRequest } from "../../helpers/api";
 import {
   BOARD_URL,
@@ -56,6 +57,7 @@ function BoardAdmin() {
 
   return (
     <>
+      <Helmet title="Manage boards" />
       {createBoardButton()}
 
       <Table fixed striped>

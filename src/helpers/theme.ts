@@ -145,7 +145,7 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .ui.divider {
+  .ui.divider, .ui.header {
     color: ${secondaryColor} !important;
   }
 

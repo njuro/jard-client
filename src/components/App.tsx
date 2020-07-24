@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-
+import { Helmet } from "react-helmet";
 import { BrowserRouter as Router } from "react-router-dom";
 import HttpsRedirect from "react-https-redirect";
 import { ThemeProvider } from "styled-components/macro";
@@ -42,6 +42,7 @@ function App() {
           setActiveMenuPath,
         }}
       >
+        <Helmet titleTemplate="%s - jard" defaultTitle="jard" />
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           <Router>

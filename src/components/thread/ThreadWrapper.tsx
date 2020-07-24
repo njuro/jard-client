@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { getApiRequest } from "../../helpers/api";
 import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
@@ -12,6 +13,12 @@ function ThreadWrapper() {
 
   const [thread, setThread] = useState<ThreadType>();
   const [notFound, setNotFound] = useState<boolean>(false);
+  const getThreadTitle = useCallback(
+    () =>
+      thread?.subject ??
+      thread?.originalPost.body.replace(/<(.|\n)*?>/g, "").substring(0, 50),
+    [thread]
+  );
 
   useEffect(() => {
     getApiRequest<ThreadType>(`${BOARDS_URL}/${label}/thread/${threadNumber}`)
@@ -30,6 +37,11 @@ function ThreadWrapper() {
   return (
     (thread && thread.board && (
       <BoardContext.Provider value={thread.board}>
+        <Helmet
+          title={`/${thread.board.label}/ - ${getThreadTitle()} - ${
+            thread.board.name
+          }`}
+        />
         <BoardHeader />
         <Thread thread={thread} full />
       </BoardContext.Provider>

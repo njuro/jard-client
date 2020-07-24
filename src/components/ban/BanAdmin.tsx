@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Icon, Popup, Table } from "semantic-ui-react";
+import { Helmet } from "react-helmet";
 import { getApiRequest } from "../../helpers/api";
 import { BANS_URL, DASHBOARD_MANAGE_BANS_URL } from "../../helpers/mappings";
 import { BanStatus, BanType } from "../../types";
@@ -35,6 +36,7 @@ function BanAdmin() {
 
   return (
     <>
+      <Helmet title="Manage bans" />
       {createBanButton()}
 
       <Table fixed striped>
