@@ -60,7 +60,10 @@ function Board() {
         <BoardHeader />
         <ThreadForm />
         {board.threads?.map((thread) => (
-          <Thread key={thread.originalPost.postNumber} thread={thread} />
+          <Thread
+            key={`${board.label}-${thread.originalPost.postNumber}`}
+            thread={thread}
+          />
         ))}
         {board.pageCount > 1 && (
           <BoardPagination
