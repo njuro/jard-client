@@ -64,8 +64,8 @@ export interface AttachmentType {
   thumbnailFilename: string;
   folder: string;
   thumbnailFolder: string;
-  amazonS3Url: string;
-  amazonS3ThumbnailUrl: string;
+  remoteStorageUrl: string;
+  remoteStorageThumbnailUrl: string;
   metadata: AttachmentMetadataType;
   embedData: AttachmentEmbedDataType;
 }

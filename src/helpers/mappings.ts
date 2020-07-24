@@ -36,10 +36,10 @@ export const POST_URL = (
 ) => `${THREAD_URL(thread, board)}#${post.postNumber}`;
 export const BAN_URL = (ban: BanType) => `${BANS_URL}/${ban.id}`;
 export const ATTACHMENT_URL = (attachment: AttachmentType) =>
-  attachment.amazonS3Url ||
+  attachment.remoteStorageUrl ||
   `${ATTACHMENTS_URL}/${attachment.folder}/${attachment.filename}`;
 export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
-  attachment.amazonS3ThumbnailUrl ||
+  attachment.remoteStorageThumbnailUrl ||
   `${ATTACHMENTS_URL}/${attachment.thumbnailFolder}/${attachment.thumbnailFilename}`;
 
 export const BOARD_ROUTE = `${BOARDS_URL}/:label/:page?`;
