@@ -1,5 +1,5 @@
-import React from "react";
-import { FormContext, useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { FieldValues, FormContext, useForm } from "react-hook-form";
 import { OnSubmit } from "react-hook-form/dist/types";
 import {
   Form as SemanticForm,
@@ -8,19 +8,25 @@ import {
 
 interface FormProps {
   children: React.ReactFragment;
-  onSubmit: OnSubmit<Record<string, any>>;
+  onSubmit: OnSubmit<Record<string, object>>;
+  onUnmount?: (values: FieldValues) => void;
   defaultValues: object;
 }
 function Form({
   children,
   onSubmit,
+  onUnmount,
   defaultValues = {},
   ...rest
 }: FormProps | Omit<SemanticFormProps, "onSubmit">) {
   const methods = useForm({
     defaultValues,
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, getValues } = methods;
+
+  useEffect(() => {
+    return () => onUnmount && onUnmount(getValues());
+  }, [getValues, onUnmount]);
 
   return (
     <FormContext {...methods}>

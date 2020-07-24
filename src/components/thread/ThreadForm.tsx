@@ -7,6 +7,7 @@ import {
   Icon,
   Modal,
 } from "semantic-ui-react";
+import { FieldValues } from "react-hook-form";
 import { putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
 import { BOARD_URL, THREAD_URL } from "../../helpers/mappings";
@@ -33,7 +34,11 @@ function ThreadForm() {
   const [createdThread, setCreatedThread] = useState<ThreadType>();
   const [errors, setErrors] = useState<object>();
   const [uploading, setUploading] = useState<boolean>(false);
-
+  const [savedValues, setSavedValues] = useState<FieldValues>({
+    postForm: {
+      name: board.settings.defaultPosterName,
+    },
+  });
   const { uploadProgress, updateProgress, resetProgress } = useProgress();
 
   function handleSubmit(thread: ThreadType) {
@@ -78,12 +83,6 @@ function ThreadForm() {
       .includes(AttachmentCategoryNameEnum.EMBED);
   }
 
-  const defaultValues = {
-    postForm: {
-      name: board.settings.defaultPosterName,
-    },
-  };
-
   return (
     <Modal
       style={{ paddingBottom: "10px" }}
@@ -97,8 +96,9 @@ function ThreadForm() {
       <Modal.Content>
         <Form
           onSubmit={handleSubmit}
+          onUnmount={setSavedValues}
           encType="multipart/form-data"
-          defaultValues={defaultValues}
+          defaultValues={savedValues}
           error={!!errors}
         >
           <Header as="h4" dividing>
