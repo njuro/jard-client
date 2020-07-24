@@ -17,12 +17,14 @@ import {
 import { UserType } from "../../types";
 import UserForm from "./UserForm";
 import { DashboardContext } from "../dashboard/Dashboard";
+import LoadingIndicator from "../utils/LoadingIndicator";
 
 function UserAdmin() {
   const { setActiveDashboardPath } = useContext(DashboardContext);
 
   const [users, setUsers] = useState<UserType[]>([]);
   const [deleteFormOpen, setDeleteFormOpen] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveDashboardPath(DASHBOARD_MANAGE_USERS_URL);
@@ -30,7 +32,10 @@ function UserAdmin() {
   }, [setActiveDashboardPath]);
 
   function fetchUsers() {
-    getApiRequest<UserType[]>(USERS_URL).then(setUsers);
+    setLoading(true);
+    getApiRequest<UserType[]>(USERS_URL)
+      .then(setUsers)
+      .finally(() => setLoading(false));
   }
 
   function deleteUser(user: UserType) {
@@ -47,6 +52,10 @@ function UserAdmin() {
       }
     />
   );
+
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <>

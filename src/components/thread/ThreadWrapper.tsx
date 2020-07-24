@@ -7,12 +7,15 @@ import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import BoardHeader from "../board/BoardHeader";
 import Thread from "./Thread";
+import LoadingIndicator from "../utils/LoadingIndicator";
 
 function ThreadWrapper() {
   const { label, threadNumber } = useParams();
 
   const [thread, setThread] = useState<ThreadType>();
   const [notFound, setNotFound] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const getThreadTitle = useCallback(
     () =>
       thread?.subject ??
@@ -21,17 +24,23 @@ function ThreadWrapper() {
   );
 
   useEffect(() => {
+    setLoading(true);
     getApiRequest<ThreadType>(`${BOARDS_URL}/${label}/thread/${threadNumber}`)
       .then(setThread)
       .catch((err) => {
         if (err.response.status === 404) {
           setNotFound(true);
         }
-      });
+      })
+      .finally(() => setLoading(false));
   }, [label, threadNumber]);
 
   if (notFound) {
     return <Redirect to={NOT_FOUND_URL} />;
+  }
+
+  if (loading) {
+    return <LoadingIndicator />;
   }
 
   return (

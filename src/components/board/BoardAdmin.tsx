@@ -19,12 +19,14 @@ import BoardForm from "./BoardForm";
 import useUpdater from "../../helpers/useUpdater";
 import { capitalize } from "../../helpers/utils";
 import { DashboardContext } from "../dashboard/Dashboard";
+import LoadingIndicator from "../utils/LoadingIndicator";
 
 function BoardAdmin() {
   const { setActiveDashboardPath } = useContext(DashboardContext);
 
   const [boards, setBoards] = useState<BoardType[]>([]);
   const [deleteFormOpen, setDeleteFormOpen] = useState<string>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const refreshList = useUpdater();
 
@@ -34,7 +36,10 @@ function BoardAdmin() {
   }, [setActiveDashboardPath]);
 
   function fetchBoards() {
-    getApiRequest<BoardType[]>(BOARDS_URL).then(setBoards);
+    setLoading(true);
+    getApiRequest<BoardType[]>(BOARDS_URL)
+      .then(setBoards)
+      .finally(() => setLoading(false));
   }
 
   function deleteBoard(board: BoardType) {
@@ -54,6 +59,10 @@ function BoardAdmin() {
       }
     />
   );
+
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <>

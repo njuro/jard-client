@@ -12,6 +12,7 @@ import { BoardContext } from "./Board";
 import BoardHeader from "./BoardHeader";
 import { AppContext } from "../App";
 import BoardCatalogMenu from "./BoardCatalogMenu";
+import LoadingIndicator from "../utils/LoadingIndicator";
 
 const ThreadList = styled.div`
   display: grid;
@@ -35,10 +36,12 @@ function BoardCatalog() {
   const [threads, setThreads] = useState<ThreadCatalogType[]>([]);
   const [showOP, setShowOP] = useState<boolean>(true);
   const [notFound, setNotFound] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const refreshCatalog = useUpdater();
 
   useEffect(() => {
+    setLoading(true);
     setActiveMenuPath(label);
 
     getApiRequest<BoardType>(`${BOARDS_URL}/${label}/catalog`)
@@ -52,11 +55,16 @@ function BoardCatalog() {
         if (err.response.status === 404) {
           setNotFound(true);
         }
-      });
+      })
+      .finally(() => setLoading(false));
   }, [label, setActiveMenuPath, setBoard]);
 
   if (notFound) {
     return <Redirect to={NOT_FOUND_URL} />;
+  }
+
+  if (loading) {
+    return <LoadingIndicator />;
   }
 
   return (

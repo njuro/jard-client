@@ -8,11 +8,13 @@ import BanForm from "./BanForm";
 import UnbanForm from "./UnbanForm";
 import { formatTimestamp } from "../../helpers/utils";
 import { DashboardContext } from "../dashboard/Dashboard";
+import LoadingIndicator from "../utils/LoadingIndicator";
 
 function BanAdmin() {
   const { setActiveDashboardPath } = useContext(DashboardContext);
 
   const [bans, setBans] = useState<BanType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setActiveDashboardPath(DASHBOARD_MANAGE_BANS_URL);
@@ -20,7 +22,10 @@ function BanAdmin() {
   }, [setActiveDashboardPath]);
 
   function fetchBans() {
-    getApiRequest<BanType[]>(BANS_URL).then(setBans);
+    setLoading(true);
+    getApiRequest<BanType[]>(BANS_URL)
+      .then(setBans)
+      .finally(() => setLoading(false));
   }
 
   const createBanButton = () => (
@@ -33,6 +38,10 @@ function BanAdmin() {
       }
     />
   );
+
+  if (loading) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <>

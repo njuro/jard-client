@@ -9,6 +9,7 @@ import ThreadForm from "../thread/ThreadForm";
 import BoardHeader from "./BoardHeader";
 import { AppContext } from "../App";
 import BoardPagination from "./BoardPagination";
+import LoadingIndicator from "../utils/LoadingIndicator";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
@@ -20,8 +21,11 @@ function Board() {
   const [board, setBoard] = useState<BoardType>();
   const [pageNumber, setPageNumber] = useState<number>(page ? Number(page) : 1);
   const [notFound, setNotFound] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
+    window.scrollTo(0, 0);
     setActiveMenuPath(label);
 
     const location = window.location.pathname;
@@ -42,17 +46,21 @@ function Board() {
           setNotFound(true);
         }
         setBoard(result);
-        window.scrollTo(0, 0);
       })
       .catch((err) => {
         if (err.response.status === 404) {
           setNotFound(true);
         }
-      });
+      })
+      .finally(() => setLoading(false));
   }, [label, pageNumber, setActiveMenuPath, setBoard]);
 
   if (notFound) {
     return <Redirect to={NOT_FOUND_URL} />;
+  }
+
+  if (loading) {
+    return <LoadingIndicator />;
   }
 
   return (
