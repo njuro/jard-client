@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import {
   Form as SemanticForm,
   FormProps as SemanticFormProps,
 } from "semantic-ui-react";
-import { FieldValues } from "react-hook-form/dist/types/form";
+import {
+  FieldValues,
+  UnpackNestedValue,
+} from "react-hook-form/dist/types/form";
 
 interface FormProps {
   children: React.ReactFragment;
@@ -19,14 +22,22 @@ function Form({
   defaultValues = {},
   ...rest
 }: FormProps | Omit<SemanticFormProps, "onSubmit">) {
+  const getValuesRef = useRef<() => UnpackNestedValue<FieldValues>>();
+  useEffect(() => {
+    return () => {
+      if (onUnmount && getValuesRef.current) {
+        onUnmount(getValuesRef.current());
+      }
+    };
+  }, [onUnmount]);
+
   const methods = useForm({
     defaultValues,
   });
   const { handleSubmit, getValues } = methods;
-
   useEffect(() => {
-    return () => onUnmount && onUnmount(getValues());
-  }, [getValues, onUnmount]);
+    getValuesRef.current = getValues;
+  }, [getValues]);
 
   return (
     <FormProvider {...methods}>
