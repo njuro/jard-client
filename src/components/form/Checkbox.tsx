@@ -11,9 +11,14 @@ function Checkbox({
 }: CheckboxProps | Omit<FormCheckboxProps, "name">) {
   return (
     <Controller
-      as={<SemanticForm.Checkbox {...rest} />}
       name={name}
-      onChange={([, data]) => data.checked}
+      render={({ onChange: onValueChange, value: defaultValue }) => (
+        <SemanticForm.Checkbox
+          defaultChecked={defaultValue}
+          onChange={(_, data) => onValueChange(data.checked)}
+          {...rest}
+        />
+      )}
     />
   );
 }

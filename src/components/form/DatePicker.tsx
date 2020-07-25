@@ -12,9 +12,14 @@ function DatePicker({
 }: DatePickerProps | SemanticDatepickerProps) {
   return (
     <Controller
-      as={<SemanticDatepicker {...rest} />}
       name={name}
-      onChange={([, data]) => data.value}
+      render={({ onChange: onValueChange, value: defaultValue }) => (
+        <SemanticDatepicker
+          value={defaultValue}
+          onChange={(_, data) => onValueChange(data.value)}
+          {...rest}
+        />
+      )}
     />
   );
 }

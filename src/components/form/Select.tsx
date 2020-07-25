@@ -13,9 +13,14 @@ interface SelectProps {
 function Select({ name, ...rest }: SelectProps | FormSelectProps) {
   return (
     <Controller
-      as={<SemanticForm.Select {...rest} />}
       name={name}
-      onChange={([, data]) => data.value}
+      render={({ onChange: onValueChange, value: defaultValues }) => (
+        <SemanticForm.Select
+          defaultValue={defaultValues}
+          onChange={(_, data) => onValueChange(data.value)}
+          {...rest}
+        />
+      )}
     />
   );
 }

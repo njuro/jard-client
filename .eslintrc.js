@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ["airbnb-typescript-prettier"],
+  extends: ["airbnb-typescript-prettier", "plugin:import/typescript"],
   rules: {
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-use-before-define": 0,
