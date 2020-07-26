@@ -37,6 +37,16 @@ const providerStyles: Record<string, ProviderStyleProps> = {
     providerIcon: "vimeo",
     providerColor: "green",
   },
+  codesandbox: {
+    fileIcon: "code",
+    providerIcon: "code",
+    providerColor: "black",
+  },
+  scribd: {
+    fileIcon: "document",
+    providerIcon: "scribd",
+    providerColor: "teal",
+  },
   default: {
     fileIcon: "binary",
     providerIcon: "server",
