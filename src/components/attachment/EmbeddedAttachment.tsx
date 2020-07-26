@@ -1,18 +1,23 @@
 import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { Image } from "semantic-ui-react";
 import { FileIcon } from "react-file-icon";
+import styled from "styled-components/macro";
 import { DefaultFileIconWrapper } from "./DefaultFileIcon";
 import getEmbeddedProviderStyle from "./getEmbeddedProviderStyle";
 import { PostAttachmentContext } from "../post/PostAttachment";
 import { AttachmentType } from "../../types";
 
+export const EmbeddedContainer = styled.div`
+  iframe.embedly-card {
+    background-color: whitesmoke !important;
+  }
+`;
+
 interface EmbeddedAttachmentProps {
-  forceThumbnail?: boolean;
   size?: string;
   attachment?: AttachmentType;
 }
 function EmbeddedAttachment({
-  forceThumbnail,
   size,
   attachment: propAttachment,
 }: EmbeddedAttachmentProps) {
@@ -55,21 +60,22 @@ function EmbeddedAttachment({
         />
       );
     }
-
-    if (forceThumbnail) {
-      return (
-        <DefaultFileIconWrapper size={size ?? "auto"}>
-          <FileIcon
-            labelUppercase={false}
-            type={fileIcon}
-            extension={providerName}
-          />
-        </DefaultFileIconWrapper>
-      );
-    }
+    return (
+      <DefaultFileIconWrapper
+        size={size ?? "auto"}
+        style={{ cursor: "pointer" }}
+        onClick={toggleSize}
+      >
+        <FileIcon
+          labelUppercase={false}
+          type={fileIcon}
+          extension={providerName}
+        />
+      </DefaultFileIconWrapper>
+    );
   }
 
-  return <div ref={embedRef} />;
+  return <EmbeddedContainer ref={embedRef} />;
 }
 
 export default EmbeddedAttachment;

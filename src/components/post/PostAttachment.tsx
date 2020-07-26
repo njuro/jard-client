@@ -34,7 +34,7 @@ function PostAttachment({ attachment }: PostAttachmentProps) {
 
   function renderThumbnail() {
     if (category === Category.EMBED) {
-      return <EmbeddedAttachment />;
+      return <EmbeddedAttachment size="250px" />;
     }
 
     if (category === Category.AUDIO) {

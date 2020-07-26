@@ -22,6 +22,21 @@ const providerStyles: Record<string, ProviderStyleProps> = {
     providerIcon: "twitter",
     providerColor: "blue",
   },
+  codepen: {
+    fileIcon: "code",
+    providerIcon: "codepen",
+    providerColor: "grey",
+  },
+  reddit: {
+    fileIcon: "presentation",
+    providerIcon: "reddit alien",
+    providerColor: "orange",
+  },
+  vimeo: {
+    fileIcon: "video",
+    providerIcon: "vimeo",
+    providerColor: "green",
+  },
   default: {
     fileIcon: "binary",
     providerIcon: "server",
