@@ -13,6 +13,7 @@ import BoardHeader from "./BoardHeader";
 import { AppContext } from "../App";
 import BoardCatalogMenu from "./BoardCatalogMenu";
 import LoadingIndicator from "../utils/LoadingIndicator";
+import Footer from "../base/Footer";
 
 const ThreadList = styled.div`
   display: grid;
@@ -89,6 +90,7 @@ function BoardCatalog() {
             />
           ))}
         </ThreadList>
+        <Footer />
       </BoardContext.Provider>
     )) ||
     null

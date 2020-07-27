@@ -8,6 +8,7 @@ import { BoardContext } from "../board/Board";
 import BoardHeader from "../board/BoardHeader";
 import Thread from "./Thread";
 import LoadingIndicator from "../utils/LoadingIndicator";
+import Footer from "../base/Footer";
 
 function ThreadWrapper() {
   const { label, threadNumber } = useParams();
@@ -53,6 +54,7 @@ function ThreadWrapper() {
         />
         <BoardHeader />
         <Thread thread={thread} full />
+        <Footer />
       </BoardContext.Provider>
     )) ||
     null

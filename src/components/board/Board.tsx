@@ -10,6 +10,7 @@ import BoardHeader from "./BoardHeader";
 import { AppContext } from "../App";
 import BoardPagination from "./BoardPagination";
 import LoadingIndicator from "../utils/LoadingIndicator";
+import Footer from "../base/Footer";
 
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
@@ -82,6 +83,7 @@ function Board() {
             setPageNumber={setPageNumber}
           />
         )}
+        <Footer />
       </BoardContext.Provider>
     )) ||
     null
