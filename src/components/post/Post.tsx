@@ -108,7 +108,7 @@ function Post({ post, isOP }: PostProps) {
       }
       return (
         <Image
-          src="/unknown.png"
+          src="/assets/unknown-flag.png"
           style={{ display: "inline-block" }}
           title="Unknown"
         />

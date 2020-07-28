@@ -5,6 +5,7 @@ interface ProviderStyleProps {
   fileIcon: IconType;
   providerIcon: SemanticICONS;
   providerColor: SemanticCOLORS;
+  thumbnailPlaceholderUrl?: string;
 }
 const providerStyles: Record<string, ProviderStyleProps> = {
   youtube: {
@@ -21,6 +22,7 @@ const providerStyles: Record<string, ProviderStyleProps> = {
     fileIcon: "document",
     providerIcon: "twitter",
     providerColor: "blue",
+    thumbnailPlaceholderUrl: "/assets/twitter-logo.png",
   },
   codepen: {
     fileIcon: "code",
@@ -31,11 +33,13 @@ const providerStyles: Record<string, ProviderStyleProps> = {
     fileIcon: "presentation",
     providerIcon: "reddit alien",
     providerColor: "orange",
+    thumbnailPlaceholderUrl: "/assets/reddit-logo.png",
   },
   vimeo: {
     fileIcon: "video",
     providerIcon: "vimeo",
     providerColor: "green",
+    thumbnailPlaceholderUrl: "/assets/vimeo-logo.png",
   },
   codesandbox: {
     fileIcon: "code",

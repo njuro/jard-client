@@ -28,9 +28,12 @@ function EmbeddedAttachment({
 
   const attachment = propAttachment ?? contextAttachment;
   const { thumbnailUrl, providerName, renderedHtml } = attachment.embedData;
-  const { fileIcon, providerColor, providerIcon } = getEmbeddedProviderStyle(
-    providerName
-  );
+  const {
+    fileIcon,
+    providerColor,
+    providerIcon,
+    thumbnailPlaceholderUrl,
+  } = getEmbeddedProviderStyle(providerName);
   const renderedEmbed = useMemo(
     () => document.createRange().createContextualFragment(renderedHtml),
     [renderedHtml]
@@ -44,7 +47,7 @@ function EmbeddedAttachment({
   }, [fullSize, renderedEmbed]);
 
   if (!fullSize) {
-    if (thumbnailUrl) {
+    if (thumbnailUrl || thumbnailPlaceholderUrl) {
       return (
         <Image
           label={{
@@ -54,12 +57,13 @@ function EmbeddedAttachment({
             icon: providerIcon,
           }}
           verticalAlign="top"
-          src={thumbnailUrl}
+          src={thumbnailUrl ?? thumbnailPlaceholderUrl}
           onClick={toggleSize}
           style={{ cursor: "pointer", width: "250px" }}
         />
       );
     }
+
     return (
       <DefaultFileIconWrapper
         size={size ?? "auto"}
