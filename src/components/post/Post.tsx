@@ -14,6 +14,7 @@ import { formatTimestamp } from "../../helpers/utils";
 import { isOwnPost, YOU } from "./ownPosts";
 import { secondaryColor } from "../../helpers/theme";
 import countryCodes from "../../helpers/countryCodes";
+import PosterThreadId from "./PosterThreadId";
 
 const ThreadLink = styled.div`
   width: 20px !important;
@@ -126,6 +127,9 @@ function Post({ post, isOP }: PostProps) {
           <PostMeta>
             {post.sage && <Sage>[SAGE]</Sage>}
             <PosterName>{post.name}</PosterName>
+            {board.settings.posterThreadIds && post.posterThreadId && (
+              <PosterThreadId posterId={post.posterThreadId} />
+            )}
             <PosterFlag />
             {isOwnPost(post.postNumber, board.label) && (
               <OwnPost>{YOU}</OwnPost>

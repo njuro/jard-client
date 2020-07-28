@@ -71,6 +71,7 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
           defaultPosterName: existingBoard.settings.defaultPosterName,
           forceDefaultPosterName: existingBoard.settings.forceDefaultPosterName,
           countryFlags: existingBoard.settings.countryFlags,
+          posterThreadIds: existingBoard.settings.posterThreadIds,
         },
       }
     : {};
@@ -130,6 +131,10 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
           <Checkbox
             name="boardSettingsForm.countryFlags"
             label="Enable country flags"
+          />
+          <Checkbox
+            name="boardSettingsForm.posterThreadIds"
+            label="Enable poster thread IDs"
           />
           <FormErrors errors={errors} />
           <Button fluid>

@@ -20,6 +20,7 @@ export interface BoardSettingsType {
   defaultPosterName: string;
   forceDefaultPosterName: boolean;
   countryFlags: boolean;
+  posterThreadIds: boolean;
 }
 
 export interface ThreadType {
@@ -53,6 +54,7 @@ export interface PostType {
   ip?: string;
   countryCode: string;
   countryName: string;
+  posterThreadId: string;
   sage: boolean;
   thread?: ThreadType;
   attachment?: AttachmentType;
