@@ -19,6 +19,7 @@ export interface BoardSettingsType {
   bumpLimit: number;
   defaultPosterName: string;
   forceDefaultPosterName: boolean;
+  countryFlags: boolean;
 }
 
 export interface ThreadType {
@@ -50,6 +51,8 @@ export interface PostType {
   body: string;
   createdAt: string;
   ip?: string;
+  countryCode: string;
+  countryName: string;
   sage: boolean;
   thread?: ThreadType;
   attachment?: AttachmentType;

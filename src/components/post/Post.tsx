@@ -1,7 +1,8 @@
 /* eslint-disable react/no-danger */
 import React, { createContext, useContext } from "react";
-import { Item } from "semantic-ui-react";
+import { Flag, Item, Image } from "semantic-ui-react";
 import styled from "styled-components/macro";
+import { FlagNameValues } from "semantic-ui-react/dist/commonjs/elements/Flag/Flag";
 import { PostType } from "../../types";
 import OmittedReplies from "../thread/OmittedReplies";
 import { ThreadContext } from "../thread/Thread";
@@ -12,6 +13,7 @@ import { POST_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
 import { isOwnPost, YOU } from "./ownPosts";
 import { secondaryColor } from "../../helpers/theme";
+import countryCodes from "../../helpers/countryCodes";
 
 const ThreadLink = styled.div`
   width: 20px !important;
@@ -94,6 +96,27 @@ function Post({ post, isOP }: PostProps) {
 
   const ThreadPost = isOP ? OriginalPost : Reply;
 
+  const PosterFlag = () => {
+    if (board.settings.countryFlags) {
+      if (countryCodes.includes(post.countryCode)) {
+        return (
+          <Flag
+            name={post.countryCode as FlagNameValues}
+            title={post.countryName}
+          />
+        );
+      }
+      return (
+        <Image
+          src="/unknown.png"
+          style={{ display: "inline-block" }}
+          title="Unknown"
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     <PostContext.Provider value={{ post, isOP }}>
       <ThreadPost id={post.postNumber}>
@@ -103,6 +126,7 @@ function Post({ post, isOP }: PostProps) {
           <PostMeta>
             {post.sage && <Sage>[SAGE]</Sage>}
             <PosterName>{post.name}</PosterName>
+            <PosterFlag />
             {isOwnPost(post.postNumber, board.label) && (
               <OwnPost>{YOU}</OwnPost>
             )}

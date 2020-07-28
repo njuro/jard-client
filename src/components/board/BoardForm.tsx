@@ -70,6 +70,7 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
           bumpLimit: existingBoard.settings.bumpLimit,
           defaultPosterName: existingBoard.settings.defaultPosterName,
           forceDefaultPosterName: existingBoard.settings.forceDefaultPosterName,
+          countryFlags: existingBoard.settings.countryFlags,
         },
       }
     : {};
@@ -126,6 +127,10 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
             label="Force default poster name"
           />
           <Checkbox name="boardSettingsForm.nsfw" label="NSFW" />
+          <Checkbox
+            name="boardSettingsForm.countryFlags"
+            label="Enable country flags"
+          />
           <FormErrors errors={errors} />
           <Button fluid>
             {existingBoard ? "Update board" : "Create board"}
