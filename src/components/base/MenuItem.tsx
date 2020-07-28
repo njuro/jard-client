@@ -12,6 +12,11 @@ function MenuItem({ activePath, path, children, ...rest }: MenuItemProps) {
       name={path}
       active={activePath === path}
       onClick={() => path && history.push(path)}
+      onAuxClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
+        if (path && event.button === 1) {
+          window.open(path, "_blank");
+        }
+      }}
       {...rest}
     >
       {children}
