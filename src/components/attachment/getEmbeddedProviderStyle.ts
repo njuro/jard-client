@@ -47,6 +47,16 @@ const providerStyles: Record<string, ProviderStyleProps> = {
     providerIcon: "scribd",
     providerColor: "teal",
   },
+  tiktok: {
+    fileIcon: "video",
+    providerIcon: "video camera",
+    providerColor: "black",
+  },
+  spotify: {
+    fileIcon: "audio",
+    providerIcon: "spotify",
+    providerColor: "green",
+  },
   default: {
     fileIcon: "binary",
     providerIcon: "server",
