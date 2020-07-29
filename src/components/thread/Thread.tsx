@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Item, Divider } from "semantic-ui-react";
 import styled from "styled-components/macro";
+import { useLocation } from "react-router-dom";
 import useUpdater from "../../helpers/useUpdater";
 import { SetStateType, ThreadType } from "../../types";
 import Post from "../post/Post";
@@ -24,6 +25,7 @@ const ThreadContainer = styled(Item.Group)`
 
 interface ThreadContextProps {
   thread: ThreadType;
+  isFull: boolean;
   setThread: SetStateType<ThreadType | undefined>;
   refreshThread: () => void;
   triggerThreadUpdateButton: () => void;
@@ -42,9 +44,11 @@ interface ThreadProps {
   full?: boolean;
 }
 function Thread({ thread: initialThread, full }: ThreadProps) {
+  const isFull = !!full;
+  const { hash } = useLocation();
   const [thread, setThread] = useState<ThreadType | undefined>(initialThread);
   const [replyFormOpen, setReplyFormOpen] = useState<boolean>(
-    window.location.hash === "#reply"
+    hash === "#reply"
   );
   const [appendToReply, setAppendToReply] = useState<string>("");
   const threadUpdateButtonRef = useRef<HTMLInputElement>(null);
@@ -83,14 +87,19 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
   useEffect(() => {
     if (thread) {
       markCrossLinksToOwnPosts(thread);
+      const linkedPost = document.getElementById(hash.substring(1));
+      if (linkedPost) {
+        window.scrollTo(0, linkedPost.getBoundingClientRect().top);
+      }
     }
-  }, [thread]);
+  }, [hash, thread]);
 
   return (
     (thread && (
       <ThreadContext.Provider
         value={{
           thread,
+          isFull,
           setThread,
           refreshThread,
           triggerThreadUpdateButton,
@@ -102,7 +111,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
         }}
       >
         <PostForm />
-        {full && <ThreadTopMenu />}
+        {isFull && <ThreadTopMenu />}
         <Divider />
         <ThreadContainer
           className="thread"
@@ -113,7 +122,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
             <Post key={post.postNumber} post={post} isOP={false} />
           ))}
         </ThreadContainer>
-        {full && <ThreadBottomMenu />}
+        {isFull && <ThreadBottomMenu />}
         <ThreadUpdateButton ref={threadUpdateButtonRef} />
       </ThreadContext.Provider>
     )) || (

@@ -3,6 +3,7 @@ import React, { createContext, useContext } from "react";
 import { Flag, Item, Image } from "semantic-ui-react";
 import styled from "styled-components/macro";
 import { FlagNameValues } from "semantic-ui-react/dist/commonjs/elements/Flag/Flag";
+import { useLocation } from "react-router-dom";
 import { PostType } from "../../types";
 import OmittedReplies from "../thread/OmittedReplies";
 import { ThreadContext } from "../thread/Thread";
@@ -36,6 +37,11 @@ const Reply = styled(Item)`
   width: max-content !important;
   padding: 0 20px 0 0 !important;
   background-color: ${(props) => props.theme.colors.reply} !important;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5) !important;
+
+  &.highlighted {
+    background-color: rgba(0, 0, 0, 0.01) !important;
+  }
 `;
 const PostContent = styled(Item.Content)`
   position: relative;
@@ -92,6 +98,7 @@ interface PostProps {
   isOP: boolean;
 }
 function Post({ post, isOP }: PostProps) {
+  const { hash } = useLocation();
   const board = useContext(BoardContext);
   const { thread, quotePost } = useContext(ThreadContext);
 
@@ -120,7 +127,11 @@ function Post({ post, isOP }: PostProps) {
 
   return (
     <PostContext.Provider value={{ post, isOP }}>
-      <ThreadPost id={post.postNumber}>
+      <ThreadPost
+        className={`post ${
+          hash === `#${post.postNumber}` ? "highlighted" : ""
+        }`}
+      >
         {!isOP && <ThreadLink />}
         {post.attachment && <PostAttachment attachment={post.attachment} />}
         <PostContent>
@@ -143,6 +154,7 @@ function Post({ post, isOP }: PostProps) {
             <PostNumber>
               No.{" "}
               <a
+                id={String(post.postNumber)}
                 href={POST_URL(post, thread, board)}
                 onClick={(e) => quotePost(e, post.postNumber)}
               >

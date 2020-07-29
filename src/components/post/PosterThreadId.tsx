@@ -1,6 +1,8 @@
 /* eslint-disable no-bitwise */
-import React, { useMemo } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import styled from "styled-components/macro";
+import { Popup } from "semantic-ui-react";
+import { ThreadContext } from "../thread/Thread";
 
 const PosterThreadIdWrapper = styled.span<{
   textColor: string;
@@ -10,8 +12,24 @@ const PosterThreadIdWrapper = styled.span<{
   color: ${(props) => props.textColor};
   background-color: ${(props) => props.backgroundColor};
   border-radius: 5px;
+  cursor: pointer;
 `;
 function PosterThreadId({ posterId }: { posterId: string }) {
+  const { thread, isFull } = useContext(ThreadContext);
+  const [posterCount, setPosterCount] = useState<number>(0);
+
+  useEffect(
+    () =>
+      setPosterCount(
+        thread && isFull
+          ? document
+              .getElementById(`thread-${thread.originalPost.postNumber}`)
+              ?.getElementsByClassName(`posterId-${posterId}`).length ?? -1
+          : 0
+      ),
+    [thread, isFull, posterId]
+  );
+
   function getBackgroundColor(input: string) {
     let hash = 0;
     for (let i = 0; i < input.length; i++) {
@@ -42,6 +60,16 @@ function PosterThreadId({ posterId }: { posterId: string }) {
     return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
   }
 
+  function highlightPostsByPoster() {
+    Array.from(
+      document
+        .getElementById(`thread-${thread.originalPost.postNumber}`)
+        ?.getElementsByClassName(`posterId-${posterId}`) ?? []
+    ).forEach((posterIdElement) =>
+      posterIdElement.closest(".post")?.classList.toggle("highlighted")
+    );
+  }
+
   const backgroundColor = useMemo(() => getBackgroundColor(posterId), [
     posterId,
   ]);
@@ -52,12 +80,24 @@ function PosterThreadId({ posterId }: { posterId: string }) {
   return (
     <>
       (ID:&nbsp;
-      <PosterThreadIdWrapper
-        backgroundColor={backgroundColor}
-        textColor={textColor}
+      <Popup
+        disabled={posterCount < 1}
+        size="tiny"
+        position="top center"
+        trigger={
+          <PosterThreadIdWrapper
+            className={`posterId-${posterId}`}
+            backgroundColor={backgroundColor}
+            textColor={textColor}
+            title="Highlight post by this ID"
+            onClick={highlightPostsByPoster}
+          >
+            {posterId}
+          </PosterThreadIdWrapper>
+        }
       >
-        {posterId}
-      </PosterThreadIdWrapper>
+        {posterCount} posts by this ID
+      </Popup>
       )&nbsp;
     </>
   );
