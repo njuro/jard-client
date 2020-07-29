@@ -16,6 +16,7 @@ const PosterThreadIdWrapper = styled.span<{
 `;
 function PosterThreadId({ posterId }: { posterId: string }) {
   const { thread, isFull } = useContext(ThreadContext);
+  const [highlighted, setHighlighted] = useState<boolean>(false);
   const [posterCount, setPosterCount] = useState<number>(0);
 
   useEffect(
@@ -61,13 +62,23 @@ function PosterThreadId({ posterId }: { posterId: string }) {
   }
 
   function highlightPostsByPoster() {
-    Array.from(
-      document
-        .getElementById(`thread-${thread.originalPost.postNumber}`)
-        ?.getElementsByClassName(`posterId-${posterId}`) ?? []
-    ).forEach((posterIdElement) =>
-      posterIdElement.closest(".post")?.classList.toggle("highlighted")
+    const threadElement = document.getElementById(
+      `thread-${thread.originalPost.postNumber}`
     );
+    if (threadElement) {
+      Array.from(
+        threadElement.getElementsByClassName("post highlighted")
+      ).forEach((post) => post.classList.remove("highlighted"));
+
+      if (!highlighted) {
+        Array.from(
+          threadElement.getElementsByClassName(`posterId-${posterId}`) ?? []
+        ).forEach((posterIdElement) =>
+          posterIdElement.closest(".post")?.classList.toggle("highlighted")
+        );
+      }
+      setHighlighted(!highlighted);
+    }
   }
 
   const backgroundColor = useMemo(() => getBackgroundColor(posterId), [
