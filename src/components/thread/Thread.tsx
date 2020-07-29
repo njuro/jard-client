@@ -34,6 +34,7 @@ interface ThreadContextProps {
   appendToReply: string;
   setAppendToReply: SetStateType<string>;
   quotePost: (e: SyntheticEvent, postNumber: number) => void;
+  highlightPostsByPoster: (posterId: string) => void;
 }
 export const ThreadContext = createContext<ThreadContextProps>(
   {} as ThreadContextProps
@@ -51,6 +52,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
     hash === "#reply"
   );
   const [appendToReply, setAppendToReply] = useState<string>("");
+  const [highlightedPosterId, setHighlightedPosterId] = useState<string>();
   const threadUpdateButtonRef = useRef<HTMLInputElement>(null);
 
   const refreshThread = useUpdater();
@@ -84,6 +86,28 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
     }
   }
 
+  function highlightPostsByPoster(posterId: string) {
+    const threadElement = document.getElementById(
+      `thread-${thread?.originalPost.postNumber}`
+    );
+    if (threadElement) {
+      Array.from(
+        threadElement.getElementsByClassName("post highlighted")
+      ).forEach((post) => post.classList.remove("highlighted"));
+
+      if (posterId !== highlightedPosterId) {
+        Array.from(
+          threadElement.getElementsByClassName(`posterId-${posterId}`) ?? []
+        ).forEach((posterIdElement) =>
+          posterIdElement.closest(".post")?.classList.add("highlighted")
+        );
+        setHighlightedPosterId(posterId);
+      } else {
+        setHighlightedPosterId(undefined);
+      }
+    }
+  }
+
   useEffect(() => {
     if (thread) {
       markCrossLinksToOwnPosts(thread);
@@ -108,6 +132,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
           appendToReply,
           setAppendToReply,
           quotePost,
+          highlightPostsByPoster,
         }}
       >
         <PostForm />

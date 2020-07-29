@@ -8,15 +8,14 @@ const PosterThreadIdWrapper = styled.span<{
   textColor: string;
   backgroundColor: string;
 }>`
-  padding: 5px;
+  padding: 0 5px;
   color: ${(props) => props.textColor};
   background-color: ${(props) => props.backgroundColor};
   border-radius: 5px;
   cursor: pointer;
 `;
 function PosterThreadId({ posterId }: { posterId: string }) {
-  const { thread, isFull } = useContext(ThreadContext);
-  const [highlighted, setHighlighted] = useState<boolean>(false);
+  const { thread, isFull, highlightPostsByPoster } = useContext(ThreadContext);
   const [posterCount, setPosterCount] = useState<number>(0);
 
   useEffect(
@@ -61,26 +60,6 @@ function PosterThreadId({ posterId }: { posterId: string }) {
     return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
   }
 
-  function highlightPostsByPoster() {
-    const threadElement = document.getElementById(
-      `thread-${thread.originalPost.postNumber}`
-    );
-    if (threadElement) {
-      Array.from(
-        threadElement.getElementsByClassName("post highlighted")
-      ).forEach((post) => post.classList.remove("highlighted"));
-
-      if (!highlighted) {
-        Array.from(
-          threadElement.getElementsByClassName(`posterId-${posterId}`) ?? []
-        ).forEach((posterIdElement) =>
-          posterIdElement.closest(".post")?.classList.toggle("highlighted")
-        );
-      }
-      setHighlighted(!highlighted);
-    }
-  }
-
   const backgroundColor = useMemo(() => getBackgroundColor(posterId), [
     posterId,
   ]);
@@ -101,7 +80,7 @@ function PosterThreadId({ posterId }: { posterId: string }) {
             backgroundColor={backgroundColor}
             textColor={textColor}
             title="Highlight post by this ID"
-            onClick={highlightPostsByPoster}
+            onClick={() => highlightPostsByPoster(posterId)}
           >
             {posterId}
           </PosterThreadIdWrapper>
