@@ -111,9 +111,11 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
   useEffect(() => {
     if (thread) {
       markCrossLinksToOwnPosts(thread);
-      const linkedPost = document.getElementById(hash.substring(1));
-      if (linkedPost) {
-        window.scrollTo(0, linkedPost.getBoundingClientRect().top);
+      if (hash) {
+        const linkedPost = document.getElementById(hash.substring(1));
+        if (linkedPost) {
+          window.scrollTo(0, linkedPost.getBoundingClientRect().top);
+        }
       }
     }
   }, [hash, thread]);

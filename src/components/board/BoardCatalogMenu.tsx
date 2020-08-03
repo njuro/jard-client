@@ -35,7 +35,7 @@ function BoardCatalogMenu({
     if (query && query.trim()) {
       setThreads(
         board.threads.filter((thread) =>
-          thread.originalPost.body
+          ((thread.originalPost.body ?? "") + thread.subject)
             .toLowerCase()
             .includes(query.trim().toLowerCase())
         )
