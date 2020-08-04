@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Icon, Popup } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import styled from "styled-components/macro";
 import { THREAD_URL } from "../../helpers/mappings";
 import { ThreadCatalogType, ThreadType } from "../../types";
@@ -60,16 +60,10 @@ function ThreadCatalog({ thread, showOP }: ThreadCatalogProps) {
           )}
         </Icon.Group>
       </Link>
-      <Popup
-        content="[R]eplies / [I]mage replies"
-        position="top center"
-        trigger={
-          <ThreadMeta>
-            R: <strong>{thread.statistics.replyCount}</strong> / I:{" "}
-            <strong>{thread.statistics.attachmentCount}</strong>
-          </ThreadMeta>
-        }
-      />
+      <ThreadMeta title="[R]eplies / [I]mage replies">
+        R: <strong>{thread.statistics.replyCount}</strong> / I:{" "}
+        <strong>{thread.statistics.attachmentCount}</strong>
+      </ThreadMeta>
       {showOP && (
         <div style={{ padding: "0 15px" }}>
           {thread.subject && <strong>{thread.subject}: </strong>}
