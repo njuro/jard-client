@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Popup } from "semantic-ui-react";
+import { Icon, Popup } from "semantic-ui-react";
 import styled from "styled-components/macro";
 import { THREAD_URL } from "../../helpers/mappings";
 import { ThreadCatalogType, ThreadType } from "../../types";
@@ -31,6 +31,12 @@ const ThreadMeta = styled.div`
   margin-bottom: 1px;
 `;
 
+const ThreadIcon = styled(Icon)`
+  font-size: 1em !important;
+  text-shadow: none !important;
+  margin: 5px !important;
+`;
+
 interface ThreadCatalogProps {
   thread: ThreadCatalogType;
   showOP: boolean;
@@ -41,10 +47,18 @@ function ThreadCatalog({ thread, showOP }: ThreadCatalogProps) {
   return (
     <ThreadPreview>
       <Link to={THREAD_URL(thread as ThreadType, board)}>
-        <AttachmentThumbnail
-          attachment={thread.originalPost.attachment}
-          size="150px"
-        />
+        <Icon.Group>
+          <AttachmentThumbnail
+            attachment={thread.originalPost.attachment}
+            size="150px"
+          />
+          {thread.stickied && (
+            <ThreadIcon corner="top right" name="thumbtack" title="Stickied" />
+          )}
+          {thread.locked && (
+            <ThreadIcon corner="bottom right" name="lock" title="Locked" />
+          )}
+        </Icon.Group>
       </Link>
       <Popup
         content="[R]eplies / [I]mage replies"
