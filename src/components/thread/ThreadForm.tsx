@@ -8,7 +8,7 @@ import {
   Modal,
 } from "semantic-ui-react";
 import { FieldValues } from "react-hook-form/dist/types/form";
-import { putApiRequest } from "../../helpers/api";
+import { apiErrorHandler, putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
 import { BOARD_URL, THREAD_URL } from "../../helpers/mappings";
 import { AttachmentCategoryNameEnum, ThreadType } from "../../types";
@@ -64,7 +64,8 @@ function ThreadForm() {
         setUploading(false);
         resetProgress();
         setErrors(err.response.data.errors);
-      });
+      })
+      .catch(apiErrorHandler);
   }
 
   if (createdThread) {

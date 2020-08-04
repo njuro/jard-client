@@ -3,13 +3,14 @@ import { Helmet } from "react-helmet";
 import { BrowserRouter as Router } from "react-router-dom";
 import HttpsRedirect from "react-https-redirect";
 import { ThemeProvider } from "styled-components/macro";
-import { getApiRequest } from "../helpers/api";
+import { apiErrorHandler, getApiRequest } from "../helpers/api";
 import { USERS_URL } from "../helpers/mappings";
 import { SetStateType, UserType } from "../types";
 import MainMenu from "./base/MainMenu";
 import MainSwitch from "./base/MainSwitch";
 import { isLocal } from "../helpers/utils";
 import { GlobalStyle, theme } from "../helpers/theme";
+import ApiErrorStatus from "./utils/NotificationContainer";
 
 interface AppContextProps {
   user: UserType;
@@ -28,6 +29,7 @@ function App() {
   useEffect(() => {
     getApiRequest<UserType>(`${USERS_URL}/current`)
       .then(setUser)
+      .catch(apiErrorHandler)
       .finally(() => setUserLoading(false));
   }, []);
 
@@ -50,6 +52,7 @@ function App() {
               <MainMenu />
             </nav>
             <main>
+              <ApiErrorStatus />
               <MainSwitch />
             </main>
           </Router>

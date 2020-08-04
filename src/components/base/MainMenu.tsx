@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Menu } from "semantic-ui-react";
-import { getApiRequest } from "../../helpers/api";
+import { apiErrorHandler, getApiRequest } from "../../helpers/api";
 import {
   BOARD_URL,
   BOARDS_URL,
@@ -19,7 +19,9 @@ function MainMenu() {
   const [boards, setBoards] = useState<BoardType[]>([]);
 
   useEffect(() => {
-    getApiRequest<BoardType[]>(BOARDS_URL).then(setBoards);
+    getApiRequest<BoardType[]>(BOARDS_URL)
+      .then(setBoards)
+      .catch(apiErrorHandler);
   }, []);
 
   return (

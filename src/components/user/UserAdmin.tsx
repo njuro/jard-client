@@ -8,7 +8,11 @@ import {
   Table,
 } from "semantic-ui-react";
 import { Helmet } from "react-helmet";
-import { deleteApiRequest, getApiRequest } from "../../helpers/api";
+import {
+  apiErrorHandler,
+  deleteApiRequest,
+  getApiRequest,
+} from "../../helpers/api";
 import {
   DASHBOARD_MANAGE_USERS_URL,
   USER_URL,
@@ -35,6 +39,7 @@ function UserAdmin() {
     setLoading(true);
     getApiRequest<UserType[]>(USERS_URL)
       .then(setUsers)
+      .catch(apiErrorHandler)
       .finally(() => setLoading(false));
   }
 

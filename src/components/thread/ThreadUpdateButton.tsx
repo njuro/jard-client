@@ -1,7 +1,7 @@
 import { Ref } from "@stardust-ui/react-component-ref";
 import React, { useContext, useState } from "react";
 import { Button, Checkbox, Icon } from "semantic-ui-react";
-import { getApiRequest } from "../../helpers/api";
+import { apiErrorHandler, getApiRequest } from "../../helpers/api";
 import { THREAD_URL } from "../../helpers/mappings";
 import { PostType } from "../../types";
 import { BoardContext } from "../board/Board";
@@ -36,7 +36,8 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
         );
         addNewReplies(replies);
       })
-      .catch(() => setStatus("This thread was deleted"));
+      .catch(() => setStatus("This thread was deleted"))
+      .catch(apiErrorHandler);
   }
 
   function addNewReplies(replies: PostType[]) {

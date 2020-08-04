@@ -1,7 +1,11 @@
 import React, { ReactNode, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
-import { postApiRequest, putApiRequest } from "../../helpers/api";
+import {
+  apiErrorHandler,
+  postApiRequest,
+  putApiRequest,
+} from "../../helpers/api";
 import { LOGIN_URL, USER_URL, USERS_URL } from "../../helpers/mappings";
 import { UserRole, UserType } from "../../types";
 import Form, { Button, FormErrors, Select, TextInput } from "../form/Form";
@@ -21,7 +25,8 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
       : putApiRequest<UserType>(USERS_URL, userForm);
     response
       .then(setUpdatedUser)
-      .catch((err) => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors))
+      .catch(apiErrorHandler);
   }
 
   if (updatedUser) {

@@ -10,7 +10,7 @@ import {
 import Draggable from "react-draggable";
 import { Ref } from "@stardust-ui/react-component-ref";
 import styled from "styled-components/macro";
-import { putApiRequest } from "../../helpers/api";
+import { apiErrorHandler, putApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
 import { THREAD_URL } from "../../helpers/mappings";
 import { AttachmentCategoryNameEnum, PostType } from "../../types";
@@ -94,6 +94,7 @@ function PostForm() {
       .catch((err) => {
         setErrors(err.response.data.errors);
       })
+      .catch(apiErrorHandler)
       .finally(() => {
         setUploading(false);
         resetProgress();

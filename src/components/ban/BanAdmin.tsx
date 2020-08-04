@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Icon, Popup, Table } from "semantic-ui-react";
 import { Helmet } from "react-helmet";
-import { getApiRequest } from "../../helpers/api";
+import { apiErrorHandler, getApiRequest } from "../../helpers/api";
 import { BANS_URL, DASHBOARD_MANAGE_BANS_URL } from "../../helpers/mappings";
 import { BanStatus, BanType } from "../../types";
 import BanForm from "./BanForm";
@@ -25,6 +25,7 @@ function BanAdmin() {
     setLoading(true);
     getApiRequest<BanType[]>(BANS_URL)
       .then(setBans)
+      .catch(apiErrorHandler)
       .finally(() => setLoading(false));
   }
 

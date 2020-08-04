@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Grid, Header, Segment } from "semantic-ui-react";
 import { Helmet } from "react-helmet";
-import { postApiRequest } from "../../helpers/api";
+import { apiErrorHandler, postApiRequest } from "../../helpers/api";
 import { DASHBOARD_URL, HOME_URL, LOGIN_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
 import { AppContext } from "../App";
@@ -24,7 +24,8 @@ function LoginForm() {
   function handleSubmit(loginForm: LoginFormObject) {
     postApiRequest<UserType>(LOGIN_URL, loginForm)
       .then(setLoggedUser)
-      .catch((err) => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors))
+      .catch(apiErrorHandler);
   }
 
   if (user) {

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { getApiRequest } from "../../helpers/api";
+import { apiErrorHandler, getApiRequest } from "../../helpers/api";
 import { BOARDS_URL, NOT_FOUND_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
@@ -33,6 +33,7 @@ function ThreadWrapper() {
           setNotFound(true);
         }
       })
+      .catch(apiErrorHandler)
       .finally(() => setLoading(false));
   }, [label, threadNumber]);
 

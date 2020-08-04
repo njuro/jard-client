@@ -8,7 +8,11 @@ import {
   Table,
 } from "semantic-ui-react";
 import { Helmet } from "react-helmet";
-import { deleteApiRequest, getApiRequest } from "../../helpers/api";
+import {
+  apiErrorHandler,
+  deleteApiRequest,
+  getApiRequest,
+} from "../../helpers/api";
 import {
   BOARD_URL,
   BOARDS_URL,
@@ -39,6 +43,7 @@ function BoardAdmin() {
     setLoading(true);
     getApiRequest<BoardType[]>(BOARDS_URL)
       .then(setBoards)
+      .catch(apiErrorHandler)
       .finally(() => setLoading(false));
   }
 

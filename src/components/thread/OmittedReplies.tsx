@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Item } from "semantic-ui-react";
-import { getApiRequest } from "../../helpers/api";
+import { apiErrorHandler, getApiRequest } from "../../helpers/api";
 import { THREAD_URL } from "../../helpers/mappings";
 import { ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
@@ -23,10 +23,12 @@ function OmittedReplies({ className }: OmittedRepliesProps) {
     thread.replies.filter((reply) => !!reply.attachment).length;
 
   function expandReplies() {
-    getApiRequest<ThreadType>(THREAD_URL(thread, board)).then((fullThread) => {
-      setThread(fullThread);
-      setExpanded(true);
-    });
+    getApiRequest<ThreadType>(THREAD_URL(thread, board))
+      .then((fullThread) => {
+        setThread(fullThread);
+        setExpanded(true);
+      })
+      .catch(apiErrorHandler);
   }
 
   function collapseReplies() {

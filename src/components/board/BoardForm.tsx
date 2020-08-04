@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { DropdownItemProps, Header, Modal } from "semantic-ui-react";
 import {
+  apiErrorHandler,
   getApiRequest,
   postApiRequest,
   putApiRequest,
@@ -31,17 +32,19 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
   useEffect(() => {
     getApiRequest<AttachmentCategoryType[]>(
       `${BOARDS_URL}/attachment-categories`
-    ).then((categories) =>
-      setAttachmentCategories(
-        categories.map((category) =>
-          objectToDropdownItem(
-            category.name,
-            capitalize(category.name),
-            category.extensions.join(", ")
+    )
+      .then((categories) =>
+        setAttachmentCategories(
+          categories.map((category) =>
+            objectToDropdownItem(
+              category.name,
+              capitalize(category.name),
+              category.extensions.join(", ")
+            )
           )
         )
       )
-    );
+      .catch(apiErrorHandler);
   }, []);
 
   function handleSubmit(boardForm: BoardType) {
@@ -50,7 +53,8 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
       : putApiRequest<BoardType>(BOARDS_URL, boardForm);
     response
       .then(setUpdatedBoard)
-      .catch((err) => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors))
+      .catch(apiErrorHandler);
   }
 
   if (updatedBoard) {

@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig, Method } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
+import { toast } from "react-semantic-toasts";
 
 export const SERVER_API_URL =
   process.env.REACT_APP_API_URL ||
@@ -7,6 +8,22 @@ const client = axios.create({
   baseURL: SERVER_API_URL,
   withCredentials: true,
 });
+
+export const apiErrorHandler = (error: AxiosError) => {
+  if (!error.response?.data?.errors) {
+    toast({
+      title: "Server error",
+      description: `Got error code from server [${
+        error.response?.status ?? ""
+      }]`,
+      type: "error",
+      time: 5000,
+      animation: "fade down",
+      size: "medium",
+      color: "red",
+    });
+  }
+};
 
 export function getApiRequest<T>(url: string, config?: AxiosRequestConfig) {
   return makeRequest<T>("GET", url, config);

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Message } from "semantic-ui-react";
 import styled from "styled-components/macro";
 import { BanType } from "../../types";
-import { getApiRequest } from "../../helpers/api";
+import { apiErrorHandler, getApiRequest } from "../../helpers/api";
 import { BANS_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
 import { AppContext } from "../App";
@@ -22,6 +22,7 @@ function BanStatus() {
 
     getApiRequest<BanType>(`${BANS_URL}/me`)
       .then(setBan)
+      .catch(apiErrorHandler)
       .finally(() => setBanLoading(false));
   }, [setActiveMenuPath]);
 

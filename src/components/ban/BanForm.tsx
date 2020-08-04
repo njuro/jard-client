@@ -1,7 +1,11 @@
 import React, { ReactNode, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
-import { postApiRequest, putApiRequest } from "../../helpers/api";
+import {
+  apiErrorHandler,
+  postApiRequest,
+  putApiRequest,
+} from "../../helpers/api";
 import { BAN_URL, BANS_URL, DASHBOARD_URL } from "../../helpers/mappings";
 import { BanType } from "../../types";
 import Form, {
@@ -27,7 +31,8 @@ function BanForm({ trigger, ip, value: existingBan }: BanFormProps) {
       : putApiRequest<BanType>(BANS_URL, banForm);
     response
       .then(setUpdatedBan)
-      .catch((err) => setErrors(err.response.data.errors));
+      .catch((err) => setErrors(err.response.data.errors))
+      .catch(apiErrorHandler);
   }
 
   if (updatedBan) {
