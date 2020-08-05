@@ -19,7 +19,7 @@ function ThreadWrapper() {
 
   const getThreadTitle = useCallback(
     () =>
-      thread?.subject ??
+      thread?.subject ||
       thread?.originalPost.body.replace(/<(.|\n)*?>/g, "").substring(0, 50),
     [thread]
   );
