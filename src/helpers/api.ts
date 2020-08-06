@@ -19,7 +19,7 @@ export const apiErrorHandler = (error: AxiosError) => {
       type: "error",
       time: 5000,
       animation: "fade down",
-      size: "medium",
+      size: "small",
       color: "red",
     });
   }
