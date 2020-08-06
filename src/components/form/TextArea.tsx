@@ -17,7 +17,6 @@ function TextArea({ name, rules, ...rest }: TextAreaProps | FormTextAreaProps) {
       }
       name={name}
       rules={rules}
-      defaultValue=""
     />
   );
 }
