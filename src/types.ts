@@ -163,3 +163,18 @@ export enum UserAuthority {
   VIEW_IP = "VIEW_IP",
   MANAGE_BANS = "MANAGE_BANS",
 }
+
+export interface InputConstraintsType {
+  MAX_BOARD_LABEL_LENGTH: number;
+  MAX_BOARD_NAME_LENGTH: number;
+  MAX_THREAD_LIMIT: number;
+  MAX_BUMP_LIMIT: number;
+  MAX_NAME_LENGTH: number;
+  MAX_TRIPCODE_PASSWORD_LENGTH: number;
+  MAX_SUBJECT_LENGTH: number;
+  MAX_POST_LENGTH: number;
+  MAX_ATTACHMENT_SIZE: number;
+  MIN_USERNAME_LENGTH: number;
+  MAX_USERNAME_LENGTH: number;
+  MIN_PASSWORD_LENGTH: number;
+}

@@ -5,7 +5,7 @@ import HttpsRedirect from "react-https-redirect";
 import { ThemeProvider } from "styled-components/macro";
 import { apiErrorHandler, getApiRequest } from "../helpers/api";
 import { USERS_URL } from "../helpers/mappings";
-import { SetStateType, UserType } from "../types";
+import { InputConstraintsType, SetStateType, UserType } from "../types";
 import MainMenu from "./base/MainMenu";
 import MainSwitch from "./base/MainSwitch";
 import { isLocal } from "../helpers/utils";
@@ -16,6 +16,7 @@ interface AppContextProps {
   user: UserType;
   setUser: SetStateType<UserType | undefined>;
   userLoading: boolean;
+  inputConstraints: InputConstraintsType;
   activeMenuPath?: string;
   setActiveMenuPath: SetStateType<string | undefined>;
 }
@@ -24,6 +25,9 @@ export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 function App() {
   const [user, setUser] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
+  const [inputConstraints, setInputConstraints] = useState<
+    InputConstraintsType
+  >();
   const [activeMenuPath, setActiveMenuPath] = useState<string>();
 
   useEffect(() => {
@@ -31,6 +35,10 @@ function App() {
       .then(setUser)
       .catch(apiErrorHandler)
       .finally(() => setUserLoading(false));
+
+    getApiRequest<InputConstraintsType>("/input-constraints")
+      .then(setInputConstraints)
+      .catch(apiErrorHandler);
   }, []);
 
   return (
@@ -40,6 +48,7 @@ function App() {
           user: user as UserType,
           setUser,
           userLoading,
+          inputConstraints: inputConstraints as InputConstraintsType,
           activeMenuPath,
           setActiveMenuPath,
         }}

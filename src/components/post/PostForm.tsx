@@ -25,7 +25,7 @@ import Form, {
 import { ThreadContext } from "../thread/Thread";
 import Checkbox from "../form/Checkbox";
 import { AppContext } from "../App";
-import useProgress from "../../helpers/useProgress";
+import useProgress from "../form/useProgress";
 import ProgressBar from "../form/ProgressBar";
 import { addToOwnPosts } from "./ownPosts";
 
@@ -51,7 +51,7 @@ const CloseIcon = styled(Icon)`
 `;
 
 function PostForm() {
-  const { user } = useContext(AppContext);
+  const { user, inputConstraints } = useContext(AppContext);
   const board = useContext(BoardContext);
   const {
     thread,
@@ -124,7 +124,7 @@ function PostForm() {
   }
 
   const defaultValues = {
-    name: board.settings.defaultPosterName,
+    name: board.settings.defaultPosterName ?? "",
   };
 
   return (
@@ -159,6 +159,12 @@ function PostForm() {
                 placeholder="Name"
                 disabled={board.settings.forceDefaultPosterName}
                 className="not-draggable"
+                rules={{
+                  maxLength: {
+                    value: inputConstraints.MAX_NAME_LENGTH,
+                    message: inputConstraints.MAX_NAME_LENGTH,
+                  },
+                }}
               />
               <TextInput
                 fluid
@@ -166,6 +172,12 @@ function PostForm() {
                 label="Tripcode password"
                 placeholder="Password"
                 className="not-draggable"
+                rules={{
+                  maxLength: {
+                    value: inputConstraints.MAX_TRIPCODE_PASSWORD_LENGTH,
+                    message: inputConstraints.MAX_TRIPCODE_PASSWORD_LENGTH,
+                  },
+                }}
               />
             </SemanticForm.Group>
             <Ref innerRef={replyBodyRef}>
@@ -180,6 +192,12 @@ function PostForm() {
                   whiteSpace: "pre-wrap",
                 }}
                 className="not-draggable"
+                rules={{
+                  maxLength: {
+                    value: inputConstraints.MAX_POST_LENGTH,
+                    message: inputConstraints.MAX_POST_LENGTH,
+                  },
+                }}
               />
             </Ref>
             <SemanticForm.Group inline>
@@ -200,6 +218,7 @@ function PostForm() {
             </SemanticForm.Group>
             <FileInput
               name="attachment"
+              maxSize={inputConstraints.MAX_ATTACHMENT_SIZE}
               label="Upload image"
               accept={getAllowedFileTypes()}
               onFileUpload={setAttachment}

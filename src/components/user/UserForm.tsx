@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
 import {
@@ -10,12 +10,15 @@ import { LOGIN_URL, USER_URL, USERS_URL } from "../../helpers/mappings";
 import { UserRole, UserType } from "../../types";
 import Form, { Button, FormErrors, Select, TextInput } from "../form/Form";
 import { objectToDropdownItem } from "../../helpers/utils";
+import { AppContext } from "../App";
 
 interface UserFormProps {
   trigger: ReactNode;
   value?: UserType;
 }
 function UserForm({ trigger, value: existingUser }: UserFormProps) {
+  const { inputConstraints } = useContext(AppContext);
+
   const [updatedUser, setUpdatedUser] = useState<UserType>();
   const [errors, setErrors] = useState<object>();
 
@@ -59,6 +62,16 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
             label="Username"
             placeholder="Username"
             disabled={!!existingUser}
+            rules={{
+              minLength: {
+                value: inputConstraints.MIN_USERNAME_LENGTH,
+                message: inputConstraints.MIN_USERNAME_LENGTH,
+              },
+              maxLength: {
+                value: inputConstraints.MAX_USERNAME_LENGTH,
+                message: inputConstraints.MAX_USERNAME_LENGTH,
+              },
+            }}
           />
           <TextInput
             name="password"
@@ -66,6 +79,12 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
             placeholder="Password"
             type="password"
             disabled={!!existingUser}
+            rules={{
+              minLength: {
+                value: inputConstraints.MIN_PASSWORD_LENGTH,
+                message: inputConstraints.MIN_PASSWORD_LENGTH,
+              },
+            }}
           />
           <TextInput
             name="passwordRepeated"

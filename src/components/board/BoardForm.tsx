@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { DropdownItemProps, Header, Modal } from "semantic-ui-react";
 import {
@@ -17,12 +17,14 @@ import Form, {
   Select,
   TextInput,
 } from "../form/Form";
+import { AppContext } from "../App";
 
 interface BoardFormProps {
   trigger: ReactNode;
   value?: BoardType;
 }
 function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
+  const { inputConstraints } = useContext(AppContext);
   const [attachmentCategories, setAttachmentCategories] = useState<
     DropdownItemProps[]
   >([]);
@@ -72,7 +74,7 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
           nsfw: existingBoard.settings.nsfw,
           threadLimit: existingBoard.settings.threadLimit,
           bumpLimit: existingBoard.settings.bumpLimit,
-          defaultPosterName: existingBoard.settings.defaultPosterName,
+          defaultPosterName: existingBoard.settings.defaultPosterName ?? "",
           forceDefaultPosterName: existingBoard.settings.forceDefaultPosterName,
           countryFlags: existingBoard.settings.countryFlags,
           posterThreadIds: existingBoard.settings.posterThreadIds,
@@ -99,14 +101,41 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
             placeholder="Label"
             required
             disabled={!!existingBoard}
+            rules={{
+              maxLength: {
+                value: inputConstraints.MAX_BOARD_LABEL_LENGTH,
+                message: inputConstraints.MAX_BOARD_LABEL_LENGTH,
+              },
+            }}
           />
-          <TextInput name="name" label="Name" placeholder="Name" required />
+          <TextInput
+            name="name"
+            label="Name"
+            placeholder="Name"
+            required
+            rules={{
+              maxLength: {
+                value: inputConstraints.MAX_BOARD_NAME_LENGTH,
+                message: inputConstraints.MAX_BOARD_NAME_LENGTH,
+              },
+            }}
+          />
           <TextInput
             name="boardSettingsForm.threadLimit"
             label="Thread limit"
             placeholder="Thread limit"
             type="number"
             required
+            rules={{
+              min: {
+                value: 1,
+                message: 1,
+              },
+              max: {
+                value: inputConstraints.MAX_THREAD_LIMIT,
+                message: inputConstraints.MAX_THREAD_LIMIT,
+              },
+            }}
           />
           <TextInput
             name="boardSettingsForm.bumpLimit"
@@ -114,6 +143,16 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
             placeholder="Bump limit"
             type="number"
             required
+            rules={{
+              min: {
+                value: 1,
+                message: 1,
+              },
+              max: {
+                value: inputConstraints.MAX_BUMP_LIMIT,
+                message: inputConstraints.MAX_BUMP_LIMIT,
+              },
+            }}
           />
           <Select
             multiple
@@ -126,6 +165,12 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
             name="boardSettingsForm.defaultPosterName"
             label="Default poster name"
             placeholder="Default poster name"
+            rules={{
+              maxLength: {
+                value: inputConstraints.MAX_NAME_LENGTH,
+                message: inputConstraints.MAX_NAME_LENGTH,
+              },
+            }}
           />
           <Checkbox
             name="boardSettingsForm.forceDefaultPosterName"

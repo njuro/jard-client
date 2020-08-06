@@ -27,6 +27,8 @@ const ThreadLink = styled.div`
 `;
 const OriginalPost = styled(Item)`
   margin-left: -21px !important;
+  max-width: 80% !important;
+  word-break: break-word;
 
   @media screen and (min-width: 480px) {
     .content {
@@ -35,6 +37,8 @@ const OriginalPost = styled(Item)`
 `;
 const Reply = styled(Item)`
   width: max-content !important;
+  max-width: 80% !important;
+  word-break: break-word;
   padding: 0 20px 0 0 !important;
   background-color: ${(props) => props.theme.colors.reply} !important;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5) !important;

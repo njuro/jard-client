@@ -23,11 +23,11 @@ import Form, {
 import { AppContext } from "../App";
 import Checkbox from "../form/Checkbox";
 import ProgressBar from "../form/ProgressBar";
-import useProgress from "../../helpers/useProgress";
+import useProgress from "../form/useProgress";
 import { addToOwnPosts } from "../post/ownPosts";
 
 function ThreadForm() {
-  const { user } = useContext(AppContext);
+  const { user, inputConstraints } = useContext(AppContext);
   const board = useContext(BoardContext);
 
   const [attachment, setAttachment] = useState<File>();
@@ -36,7 +36,7 @@ function ThreadForm() {
   const [uploading, setUploading] = useState<boolean>(false);
   const [savedValues, setSavedValues] = useState<FieldValues>({
     postForm: {
-      name: board.settings.defaultPosterName,
+      name: board.settings.defaultPosterName ?? "",
     },
   });
   const { uploadProgress, updateProgress, resetProgress } = useProgress();
@@ -112,19 +112,52 @@ function ThreadForm() {
               label="Name"
               placeholder="Name"
               disabled={board.settings.forceDefaultPosterName}
+              rules={{
+                maxLength: {
+                  value: inputConstraints.MAX_NAME_LENGTH,
+                  message: inputConstraints.MAX_NAME_LENGTH,
+                },
+              }}
             />
             <TextInput
               fluid
               name="postForm.password"
               label="Tripcode password"
               placeholder="Password"
+              rules={{
+                maxLength: {
+                  value: inputConstraints.MAX_TRIPCODE_PASSWORD_LENGTH,
+                  message: inputConstraints.MAX_TRIPCODE_PASSWORD_LENGTH,
+                },
+              }}
             />
           </SemanticForm.Group>
-          <TextInput name="subject" label="Subject" placeholder="Subject" />
-          <TextArea name="postForm.body" label="Comment" rows="8" />
+          <TextInput
+            name="subject"
+            label="Subject"
+            placeholder="Subject"
+            rules={{
+              maxLength: {
+                value: inputConstraints.MAX_SUBJECT_LENGTH,
+                message: inputConstraints.MAX_SUBJECT_LENGTH,
+              },
+            }}
+          />
+          <TextArea
+            name="postForm.body"
+            label="Comment"
+            rows="8"
+            rules={{
+              maxLength: {
+                value: inputConstraints.MAX_POST_LENGTH,
+                message: inputConstraints.MAX_POST_LENGTH,
+              },
+            }}
+          />
           {user && <Checkbox toggle name="postForm.capcode" label="Capcode" />}
           <FileInput
             name="attachment"
+            maxSize={inputConstraints.MAX_ATTACHMENT_SIZE}
             label="Upload image"
             accept={getAllowedFileTypes()}
             onFileUpload={setAttachment}
