@@ -1,4 +1,5 @@
-# jard-client
+#jard-client
+![jard](public/assets/jard-logo-name.png)
 
 [![Build Status](https://travis-ci.org/njuro/jard-client.svg?branch=master)](https://travis-ci.org/njuro/jard-client)
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=njuro_jard-client&metric=alert_status)](https://sonarcloud.io/dashboard?id=njuro_jard-client)
