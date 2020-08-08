@@ -1,4 +1,4 @@
-version: ~> 1.0
+version: "~> 1.0"
 if: branch = master
 os: linux
 dist: bionic
@@ -7,3 +7,16 @@ node_js:
   - node
 git:
   depth: false
+services:
+  - docker
+before_deploy:
+  - wget https://github.com/buildpacks/pack/releases/download/v0.12.0/pack-v0.12.0-linux.tgz
+  - tar xvf pack-v0.12.0-linux.tgz
+  - ./pack build jard-client --builder heroku/buildpacks:18 --buildpack https://cnb-shim.herokuapp.com/v1/mars/create-react-app
+deploy:
+  provider: script
+  script: bash docker_push.sh
+env:
+  global:
+    - DOCKER_USERNAME=njuro
+    - secure: AUhd9Z59C0CY9JcLDOcO7FAEf7C7lOAvFnKIdTdniFdKpmu4XDq/K4wJD50apTM80jUIHGJUFSNoNS1KAKenlNovCV8ka44nSqVUbFb/pzoLgpyd2PwpGwgrzxs6qtVs7ZDJ2kportfVZZlRGBKT3i8jm0N+rUgwhhtX5cJYf0Zyl9q2IpgJjxd9Kt+FcoSFyUCawvh/8XfRyLWYbDZU8lsIpCubVKWd4O8+lUGWQCZhNvvv5/iCLeEf3RkCaFLGRp1iputLYkYVZUClpX84ZyrtLx7k9ogx7MZki0Vn7tGKbIFiKppQjCptoi4g8OEwLmupCS6IoXMsh4zI08UCouwrcA9TM+e3SgCEOeoIQm4QtkhoNoMz9p9QUAdEaPlTjOIVTuETBAxjb0mJaDOg8VXhnNu7BhuK6yGnfaZUlC5JWy22C6xyGgfr7Ych2egB5PIhMG2NYS7IHSooXiZHKIlBCxJCA7rzVVcLXI7oLAdnmhQyj1GR5zG0VSaOG+jOUHBZAEkw9GlO1CxCYQetpVC7oG3PAxfYlA5BZsEdG+DoOho3Npsr5S5sayq0GVG8XwsT83AKPtm/P79gmI9N5btT5ZDsIsIzMqnLaSpLdlQEw0D340UsYIqtvoHLPCwbrV1ZuDPYJPf+QeCZ2z+t12fd/aLvpQYMl693x30+lZM=
