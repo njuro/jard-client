@@ -1,0 +1,30 @@
+{
+  "name": "jard-client",
+  "description": "jard imageboard - React client",
+  "keywords": ["jard", "imageboard", "jard-client"],
+  "website": "https://jard.buzz/",
+  "repository": "https://github.com/njuro/jard-client",
+  "logo": "https://raw.githubusercontent.com/njuro/jard-client/master/public/assets/jard-logo-name.png",
+  "success_url": "/",
+  "env": {
+    "REACT_APP_API_URL": {
+      "description": "URL of server with running jard API",
+      "required": false
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/mars/create-react-app-buildpack"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "stack": "heroku-18"
+}
