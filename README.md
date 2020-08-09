@@ -39,7 +39,7 @@ Alternatively, you could deploy just the client container. This requires to have
 
 1. Download / copy the [.env-template](https://github.com/njuro/jard-client/blob/master/.env-template) file, rename it to `.env` and fill in the enviroment variables.
 2. Run commands described in [docker_run.sh](https://github.com/njuro/jard-client/blob/master/docker_run.sh)
-3. Wait ~2 minutes, afterwards you should have jard client running at port `3000`
+3. Wait ~2 minutes, afterwards you should have jard client running at port defined in `PORT` variable.
 
 ## Contributing
 
