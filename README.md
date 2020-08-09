@@ -1,4 +1,5 @@
-#jard-client
+# jard-client
+
 ![jard](public/assets/jard-logo-name.png)
 
 [![Build Status](https://travis-ci.org/njuro/jard-client.svg?branch=master)](https://travis-ci.org/njuro/jard-client)
