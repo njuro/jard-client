@@ -8,7 +8,7 @@
   "success_url": "/",
   "env": {
     "REACT_APP_API_URL": {
-      "description": "URL of server with running jard API",
+      "description": "URL of server with running jard API (also with API root - e.g. https://my-jard-server.herokuapp.com/api)",
       "required": false
     }
   },

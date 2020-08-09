@@ -16,6 +16,30 @@ This client is written in `TypeScript 3.x` (superset of JavaScript) with `React 
 
 Master branch is regulary deployed to `Heroku`.
 
+## Deploying your own instance
+
+There are several ways to deploy this client instance:
+
+### Heroku
+
+Probably the most convenient way is to deploy straight to Heroku (PaaS) with this button:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/njuro/jard-client)
+
+### Docker (client, server, database)
+
+If you prefer to deploy locally on your own computer/VPS, you can use `docker-compose` to deploy the whole jard stack at once.
+
+See [this section in main repository](https://github.com/njuro/jard/#docker--client-server-database) for instructions.
+
+### Docker (client only)
+
+Alternatively, you could deploy just the client container. This requires to have set up PostgresSQL database and linking it via enviroment variables.
+
+1. Download / copy the [.env-template](https://github.com/njuro/jard-client/blob/master/.env-template) file, rename it to `.env` and fill in the enviroment variables.
+2. Run commands described in [docker_run.sh](https://github.com/njuro/jard-client/blob/master/docker_run.sh)
+3. Wait ~2 minutes, afterwards you should have jard client running at port `3000`
+
 ## Contributing
 
 There are several ways for contributing to the project. I will be thankful for all of them.
