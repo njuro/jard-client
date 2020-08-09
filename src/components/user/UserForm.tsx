@@ -78,7 +78,6 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
             label="Password"
             placeholder="Password"
             type="password"
-            disabled={!!existingUser}
             rules={{
               minLength: {
                 value: inputConstraints.MIN_PASSWORD_LENGTH,
@@ -91,7 +90,6 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
             label="Repeat Password"
             placeholder="Repeat Password"
             type="password"
-            disabled={!!existingUser}
           />
           <TextInput
             name="email"
