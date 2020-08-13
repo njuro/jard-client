@@ -10,12 +10,18 @@ const client = axios.create({
 });
 
 export const apiErrorHandler = (error: AxiosError) => {
+  function getErrorDescription() {
+    if (!error.response) {
+      return "Server is not responding";
+    }
+
+    return `Got error code from server [${error.response.status}]`;
+  }
+
   if (!error.response?.data?.errors) {
     toast({
       title: "Server error",
-      description: `Got error code from server [${
-        error.response?.status ?? ""
-      }]`,
+      description: getErrorDescription(),
       type: "error",
       time: 5000,
       animation: "fade down",

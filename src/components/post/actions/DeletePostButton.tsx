@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Confirm, Icon, Popup } from "semantic-ui-react";
-import { deleteApiRequest } from "../../../helpers/api";
+import { apiErrorHandler, deleteApiRequest } from "../../../helpers/api";
 import { THREAD_URL } from "../../../helpers/mappings";
 import { UserAuthority } from "../../../types";
 import { BoardContext } from "../../board/Board";
@@ -16,8 +16,8 @@ function DeletePostButton() {
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>();
 
   function deletePost() {
-    deleteApiRequest(`${THREAD_URL(thread, board)}/${post.postNumber}`).then(
-      () => {
+    deleteApiRequest(`${THREAD_URL(thread, board)}/${post.postNumber}`)
+      .then(() => {
         if (isOP) {
           setThread(undefined);
         } else {
@@ -30,8 +30,8 @@ function DeletePostButton() {
           }
           refreshThread();
         }
-      }
-    );
+      })
+      .catch(apiErrorHandler);
   }
 
   if (!useAuthority(UserAuthority.DELETE_POST)) {
