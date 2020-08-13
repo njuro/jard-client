@@ -86,7 +86,7 @@ function BoardCatalog() {
           {threads.map((thread) => (
             <ThreadCatalog
               thread={thread}
-              key={`${board?.label}-${thread.originalPost.postNumber}`}
+              key={`${board?.label}-${thread.threadNumber}`}
               showOP={showOP}
             />
           ))}

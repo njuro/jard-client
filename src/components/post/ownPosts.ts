@@ -28,7 +28,7 @@ export function addToOwnPosts(postNumber: number, boardLabel: string) {
 
 export function markCrossLinksToOwnPosts(thread: ThreadType) {
   const threadElement = document.getElementById(
-    `thread-${thread.originalPost.postNumber}`
+    `thread-${thread.threadNumber}`
   );
   if (!threadElement) {
     return;

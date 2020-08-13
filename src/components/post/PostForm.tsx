@@ -142,7 +142,7 @@ function PostForm() {
             error={!!errors}
           >
             <Header as="h4" dividing>
-              Reply to thread #{thread.originalPost.postNumber}
+              Reply to thread #{thread.threadNumber}
               <CloseIcon
                 fitted
                 link

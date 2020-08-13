@@ -23,7 +23,7 @@ function PosterThreadId({ posterId }: { posterId: string }) {
       setPosterCount(
         thread && isFull
           ? document
-              .getElementById(`thread-${thread.originalPost.postNumber}`)
+              .getElementById(`thread-${thread.threadNumber}`)
               ?.getElementsByClassName(`posterId-${posterId}`).length ?? -1
           : 0
       ),

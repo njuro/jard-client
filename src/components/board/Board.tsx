@@ -73,7 +73,7 @@ function Board() {
         <ThreadForm />
         {board.threads?.map((thread) => (
           <Thread
-            key={`${board.label}-${thread.originalPost.postNumber}`}
+            key={`${board.label}-${thread.threadNumber}`}
             thread={thread}
           />
         ))}

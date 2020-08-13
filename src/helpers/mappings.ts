@@ -28,7 +28,7 @@ export const BOARD_URL = (board: BoardType) => `${BOARDS_URL}/${board.label}`;
 export const BOARD_CATALOG_URL = (board: BoardType) =>
   `${BOARD_URL(board)}/catalog`;
 export const THREAD_URL = (thread: ThreadType, board: BoardType) =>
-  `${BOARD_URL(board)}/thread/${thread.originalPost.postNumber}`;
+  `${BOARD_URL(board)}/thread/${thread.threadNumber}`;
 export const POST_URL = (
   post: PostType,
   thread: ThreadType,

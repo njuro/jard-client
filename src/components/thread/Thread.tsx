@@ -88,7 +88,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
 
   function highlightPostsByPoster(posterId: string) {
     const threadElement = document.getElementById(
-      `thread-${thread?.originalPost.postNumber}`
+      `thread-${thread?.threadNumber}`
     );
     if (threadElement) {
       Array.from(
@@ -142,7 +142,7 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
         <Divider />
         <ThreadContainer
           className="thread"
-          id={`thread-${thread.originalPost.postNumber}`}
+          id={`thread-${thread.threadNumber}`}
         >
           <Post post={thread.originalPost} isOP />
           {thread.replies.map((post) => (

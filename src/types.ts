@@ -24,6 +24,7 @@ export interface BoardSettingsType {
 }
 
 export interface ThreadType {
+  threadNumber: number;
   subject: string;
   stickied: boolean;
   locked: boolean;
