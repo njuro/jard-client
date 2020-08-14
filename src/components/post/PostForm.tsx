@@ -28,6 +28,7 @@ import { AppContext } from "../App";
 import useProgress from "../form/useProgress";
 import ProgressBar from "../form/ProgressBar";
 import { addToOwnPosts } from "./ownPosts";
+import Captcha from "../form/Captcha";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -241,6 +242,7 @@ function PostForm() {
               visible={attachment && uploading}
               percent={uploadProgress}
             />
+            {board.settings.captchaEnabled && <Captcha name="captchaToken" />}
             <Button
               disabled={uploading}
               floated="right"

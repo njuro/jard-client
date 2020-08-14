@@ -34,7 +34,7 @@ export function formatTimestamp(
   return new Date(timestamp).toLocaleString(locale, { timeZone });
 }
 
-export function isLocal(): boolean {
+export function isLocalhost(): boolean {
   return (
     window.location.hostname === "localhost" ||
     window.location.hostname.startsWith("192.168.0")

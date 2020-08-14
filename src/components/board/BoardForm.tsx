@@ -78,6 +78,7 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
           forceDefaultPosterName: existingBoard.settings.forceDefaultPosterName,
           countryFlags: existingBoard.settings.countryFlags,
           posterThreadIds: existingBoard.settings.posterThreadIds,
+          captchaEnabled: existingBoard.settings.captchaEnabled,
         },
       }
     : {};
@@ -184,6 +185,10 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
           <Checkbox
             name="boardSettingsForm.posterThreadIds"
             label="Enable poster thread IDs"
+          />
+          <Checkbox
+            name="boardSettingsForm.captchaEnabled"
+            label="Enable CAPTCHA before posting"
           />
           <FormErrors errors={errors} />
           <Button fluid>

@@ -10,6 +10,10 @@
     "REACT_APP_API_URL": {
       "description": "URL of server with running jard API (also with API root - e.g. https://my-jard-server.herokuapp.com/api)",
       "required": false
+    },
+    "REACT_APP_HCAPTCHA_SITE_KEY": {
+      "description": "hCaptcha site key (optional, can be enabled on boards)",
+      "required": false
     }
   },
   "formation": {

@@ -21,6 +21,7 @@ export interface BoardSettingsType {
   forceDefaultPosterName: boolean;
   countryFlags: boolean;
   posterThreadIds: boolean;
+  captchaEnabled: boolean;
 }
 
 export interface ThreadType {

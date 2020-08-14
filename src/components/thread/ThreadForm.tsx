@@ -25,6 +25,7 @@ import Checkbox from "../form/Checkbox";
 import ProgressBar from "../form/ProgressBar";
 import useProgress from "../form/useProgress";
 import { addToOwnPosts } from "../post/ownPosts";
+import Captcha from "../form/Captcha";
 
 function ThreadForm() {
   const { user, inputConstraints } = useContext(AppContext);
@@ -178,6 +179,9 @@ function ThreadForm() {
             visible={attachment && uploading}
             percent={uploadProgress}
           />
+          {board.settings.captchaEnabled && (
+            <Captcha name="postForm.captchaToken" />
+          )}
           <Button floated="right" disabled={uploading}>
             Create thread
           </Button>

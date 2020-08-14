@@ -8,7 +8,7 @@ import { USERS_URL } from "../helpers/mappings";
 import { InputConstraintsType, SetStateType, UserType } from "../types";
 import MainMenu from "./base/MainMenu";
 import MainSwitch from "./base/MainSwitch";
-import { isLocal } from "../helpers/utils";
+import { isLocalhost } from "../helpers/utils";
 import { GlobalStyle, theme } from "../helpers/theme";
 import ApiErrorStatus from "./utils/NotificationContainer";
 
@@ -42,7 +42,9 @@ function App() {
   }, []);
 
   return (
-    <HttpsRedirect disabled={isLocal()}>
+    <HttpsRedirect
+      disabled={isLocalhost() || window.location.hostname.endsWith(".local")}
+    >
       <AppContext.Provider
         value={{
           user: user as UserType,
