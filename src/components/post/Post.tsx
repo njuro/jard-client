@@ -13,7 +13,7 @@ import { BoardContext } from "../board/Board";
 import { POST_URL, THREAD_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
 import { isOwnPost, YOU } from "./ownPosts";
-import { secondaryColor } from "../../helpers/theme";
+import { primaryColor, secondaryColor } from "../../helpers/theme";
 import countryCodes from "../../helpers/countryCodes";
 import PosterThreadId from "./PosterThreadId";
 
@@ -83,6 +83,11 @@ const PostContextMeta = styled.span`
 `;
 const PostBody = styled.div`
   margin-bottom: 30px !important;
+
+  .search-result-highlight {
+    background-color: ${secondaryColor} !important;
+    color: ${primaryColor} !important;
+  }
 `;
 const OmittedRepliesStatus = styled(OmittedReplies)`
   position: absolute !important;
