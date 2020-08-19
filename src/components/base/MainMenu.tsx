@@ -7,6 +7,7 @@ import {
   DASHBOARD_URL,
   HOME_URL,
   LOGIN_URL,
+  SEARCH_URL,
 } from "../../helpers/mappings";
 import { BoardType } from "../../types";
 import { AppContext } from "../App";
@@ -38,6 +39,7 @@ function MainMenu() {
           /{board.label}/ - {board.name}
         </MenuItem>
       ))}
+      <MenuItem path={SEARCH_URL}>Search</MenuItem>
       {!user && isLocalhost() && (
         <MenuItem position="right" path={LOGIN_URL}>
           <Button>Login</Button>

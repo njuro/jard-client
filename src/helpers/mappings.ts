@@ -17,6 +17,7 @@ export const LOGIN_URL = "/login";
 export const LOGOUT_URL = "/logout";
 export const DASHBOARD_URL = "/dashboard";
 export const ATTACHMENTS_URL = `${SERVER_API_URL}/usercontent`; // should be used only in local development
+export const SEARCH_URL = "/search";
 export const NOT_FOUND_URL = "/404";
 
 export const DASHBOARD_MANAGE_BOARDS_URL = `${DASHBOARD_URL}/manage-boards`;
@@ -45,3 +46,4 @@ export const ATTACHMENT_THUMB_URL = (attachment: AttachmentType) =>
 export const BOARD_ROUTE = `${BOARDS_URL}/:label/:page?`;
 export const BOARD_CATALOG_ROUTE = `${BOARDS_URL}/:label/catalog`;
 export const THREAD_ROUTE = `${BOARDS_URL}/:label/thread/:threadNumber`;
+export const SEARCH_ROUTE = `/search/:query?`;

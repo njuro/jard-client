@@ -10,7 +10,7 @@ import { ThreadContext } from "../thread/Thread";
 import PostActions from "./PostActions";
 import PostAttachment from "./PostAttachment";
 import { BoardContext } from "../board/Board";
-import { POST_URL } from "../../helpers/mappings";
+import { POST_URL, THREAD_URL } from "../../helpers/mappings";
 import { formatTimestamp } from "../../helpers/utils";
 import { isOwnPost, YOU } from "./ownPosts";
 import { secondaryColor } from "../../helpers/theme";
@@ -78,6 +78,9 @@ const Sage = styled.span`
 `;
 const PostTimestamp = styled.span``;
 const PostNumber = styled.span``;
+const PostContextMeta = styled.span`
+  font-style: oblique;
+`;
 const PostBody = styled.div`
   margin-bottom: 30px !important;
 `;
@@ -100,11 +103,15 @@ export const PostContext = createContext<PostContextProps>(
 interface PostProps {
   post: PostType;
   isOP: boolean;
+  embedded?: boolean;
 }
-function Post({ post, isOP }: PostProps) {
+function Post({ post, isOP, embedded }: PostProps) {
   const { hash } = useLocation();
-  const board = useContext(BoardContext);
-  const { thread, quotePost } = useContext(ThreadContext);
+  const contextBoard = useContext(BoardContext);
+  const { thread: contextThread, quotePost } = useContext(ThreadContext);
+
+  const thread = embedded && post.thread ? post.thread : contextThread;
+  const board = embedded && thread.board ? thread.board : contextBoard;
 
   const ThreadPost = isOP ? OriginalPost : Reply;
 
@@ -136,7 +143,7 @@ function Post({ post, isOP }: PostProps) {
           hash === `#${post.postNumber}` ? "highlighted" : ""
         }`}
       >
-        {!isOP && <ThreadLink />}
+        {!embedded && !isOP && <ThreadLink />}
         {post.attachment && <PostAttachment attachment={post.attachment} />}
         <PostContent>
           <PostMeta>
@@ -160,12 +167,21 @@ function Post({ post, isOP }: PostProps) {
               <a
                 id={String(post.postNumber)}
                 href={POST_URL(post, thread, board)}
-                onClick={(e) => quotePost(e, post.postNumber)}
+                onClick={(e) => !embedded && quotePost(e, post.postNumber)}
               >
                 {post.postNumber}
               </a>
             </PostNumber>
-            <PostActions />
+            {!embedded && <PostActions />}
+            {embedded && (
+              <PostContextMeta>
+                <a href={THREAD_URL(thread, board)}>
+                  [Posted on /{board.label}/ - {board.name}, thread #
+                  {thread.threadNumber}
+                  {thread.subject && ` (${thread.subject})`}]
+                </a>
+              </PostContextMeta>
+            )}
           </PostMeta>
           <PostBody dangerouslySetInnerHTML={{ __html: post.body }} />
           {isOP && <OmittedRepliesStatus />}

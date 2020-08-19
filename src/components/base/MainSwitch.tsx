@@ -16,8 +16,10 @@ import {
   DASHBOARD_URL,
   HOME_URL,
   LOGIN_URL,
+  SEARCH_ROUTE,
   THREAD_ROUTE,
 } from "../../helpers/mappings";
+import PostSearch from "../post/PostSearch";
 
 function MainSwitch() {
   return (
@@ -28,6 +30,7 @@ function MainSwitch() {
       <Route exact path={THREAD_ROUTE} component={ThreadWrapper} />
       <Route exact path={LOGIN_URL} component={LoginForm} />
       <Route exact path={BAN_STATUS_URL} component={BanStatus} />
+      <Route exact path={SEARCH_ROUTE} component={PostSearch} />
       <ProtectedRoute path={DASHBOARD_URL} component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
