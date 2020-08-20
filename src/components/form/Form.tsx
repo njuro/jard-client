@@ -55,6 +55,9 @@ export { default as Button } from "./Button";
 export { default as TextArea } from "./TextArea";
 export { default as FileInput } from "./FileInput";
 export { default as DatePicker } from "./DatePicker";
+export { default as Captcha } from "./Captcha";
+export { default as ProgressBar } from "./ProgressBar";
+export { default as SearchBar } from "./SearchBar";
 export { default as FormErrors } from "./FormErrors";
 
 export default Form;

@@ -15,17 +15,17 @@ import { AttachmentCategoryNameEnum, ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import Form, {
   Button,
+  Captcha,
+  Checkbox,
   FileInput,
   FormErrors,
+  ProgressBar,
   TextArea,
   TextInput,
 } from "../form/Form";
 import { AppContext } from "../App";
-import Checkbox from "../form/Checkbox";
-import ProgressBar from "../form/ProgressBar";
 import useProgress from "../form/useProgress";
 import { addToOwnPosts } from "../post/ownPosts";
-import Captcha from "../form/Captcha";
 
 function ThreadForm() {
   const { user, inputConstraints } = useContext(AppContext);

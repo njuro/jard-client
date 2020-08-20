@@ -17,18 +17,18 @@ import { AttachmentCategoryNameEnum, PostType } from "../../types";
 import { BoardContext } from "../board/Board";
 import Form, {
   Button,
+  Captcha,
+  Checkbox,
   FileInput,
   FormErrors,
+  ProgressBar,
   TextArea,
   TextInput,
 } from "../form/Form";
 import { ThreadContext } from "../thread/Thread";
-import Checkbox from "../form/Checkbox";
 import { AppContext } from "../App";
 import useProgress from "../form/useProgress";
-import ProgressBar from "../form/ProgressBar";
 import { addToOwnPosts } from "./ownPosts";
-import Captcha from "../form/Captcha";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
