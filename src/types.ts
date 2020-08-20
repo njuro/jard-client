@@ -62,6 +62,12 @@ export interface PostType {
   attachment?: AttachmentType;
 }
 
+export interface PostSearchResultsType {
+  resultList: PostType[];
+  resultsCount: number;
+  totalResultsCount: number;
+}
+
 export type OriginalPostType = Required<PostType, "attachment">;
 
 export interface AttachmentType {

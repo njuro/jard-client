@@ -184,6 +184,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${primaryColor} !important;
   }
 
+  .item > .header,
   .ui.dividing.header,
   .ui.modal > .header {
     border-bottom-color: ${secondaryColor};

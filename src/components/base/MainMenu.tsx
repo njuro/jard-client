@@ -39,22 +39,24 @@ function MainMenu() {
           /{board.label}/ - {board.name}
         </MenuItem>
       ))}
-      <MenuItem path={SEARCH_URL}>Search</MenuItem>
-      {!user && isLocalhost() && (
-        <MenuItem position="right" path={LOGIN_URL}>
-          <Button>Login</Button>
+      <Menu.Menu position="right">
+        <MenuItem position="right" path={SEARCH_URL}>
+          Search
         </MenuItem>
-      )}
-      {user && (
-        <Menu.Menu position="right">
-          <MenuItem path={DASHBOARD_URL}>
-            <Button>Dashboard</Button>
+        {user && (
+          <>
+            <MenuItem path={DASHBOARD_URL}>Dashboard</MenuItem>
+            <MenuItem>
+              <LogoutButton />
+            </MenuItem>
+          </>
+        )}
+        {!user && isLocalhost() && (
+          <MenuItem position="right" path={LOGIN_URL}>
+            <Button>Login</Button>
           </MenuItem>
-          <MenuItem>
-            <LogoutButton />
-          </MenuItem>
-        </Menu.Menu>
-      )}
+        )}
+      </Menu.Menu>
     </Menu>
   );
 }

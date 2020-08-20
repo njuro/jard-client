@@ -87,6 +87,7 @@ function ThreadForm() {
 
   return (
     <Modal
+      closeIcon
       style={{ paddingBottom: "10px" }}
       trigger={
         <Button basic size="small">
