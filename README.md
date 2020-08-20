@@ -41,6 +41,9 @@ Alternatively, you could deploy just the client container. This requires to have
 2. Run commands described in [docker_run.sh](https://github.com/njuro/jard-client/blob/master/docker_run.sh)
 3. Wait ~2 minutes, afterwards you should have jard client running at port defined in `PORT` variable.
 
+### Note on CAPTCHA
+If you enable CAPTCHA protection on one or more boards, you may run into issue with hCaptcha not being available on localhost. For more details and possible workarounds please consult [hCaptcha docs](https://docs.hcaptcha.com/) (section `Local Development`).
+
 ## Contributing
 
 There are several ways for contributing to the project. I will be thankful for all of them.
