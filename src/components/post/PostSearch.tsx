@@ -93,7 +93,6 @@ function PostSearch() {
               <Post
                 key={`${result.thread?.board?.label}-${result.postNumber}`}
                 post={result}
-                isOP={false}
                 embedded
               />
             ))}

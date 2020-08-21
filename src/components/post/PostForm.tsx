@@ -29,6 +29,10 @@ import { ThreadContext } from "../thread/Thread";
 import { AppContext } from "../App";
 import useProgress from "../form/useProgress";
 import { addToOwnPosts } from "./ownPosts";
+import {
+  getFromLocalStorage,
+  LocalStorageKey,
+} from "../../helpers/localStorageItems";
 
 const ReplyForm = styled(Segment)`
   padding-bottom: 10px !important;
@@ -126,6 +130,7 @@ function PostForm() {
 
   const defaultValues = {
     name: board.settings.defaultPosterName ?? "",
+    deletionCode: getFromLocalStorage(LocalStorageKey.DELETION_CODE),
   };
 
   return (
@@ -233,10 +238,11 @@ function PostForm() {
                   name="embedUrl"
                   label="Embed URL"
                   placeholder="Embed URL"
-                  className="not-draggable"
+                  className="not-dragsgable"
                 />
               </>
             )}
+            <TextInput hidden name="deletionCode" />
             <FormErrors errors={errors} />
             <ProgressBar
               visible={attachment && uploading}

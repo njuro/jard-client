@@ -8,9 +8,13 @@ import { USERS_URL } from "../helpers/mappings";
 import { InputConstraintsType, SetStateType, UserType } from "../types";
 import MainMenu from "./base/MainMenu";
 import MainSwitch from "./base/MainSwitch";
-import { isLocalhost } from "../helpers/utils";
+import { isLocalhost, randomString } from "../helpers/utils";
 import { GlobalStyle, theme } from "../helpers/theme";
 import ApiErrorStatus from "./utils/NotificationContainer";
+import {
+  LocalStorageKey,
+  saveToLocalStorageIfMissing,
+} from "../helpers/localStorageItems";
 
 interface AppContextProps {
   user: UserType;
@@ -39,6 +43,8 @@ function App() {
     getApiRequest<InputConstraintsType>("/input-constraints")
       .then(setInputConstraints)
       .catch(apiErrorHandler);
+
+    saveToLocalStorageIfMissing(LocalStorageKey.DELETION_CODE, randomString(8));
   }, []);
 
   return (

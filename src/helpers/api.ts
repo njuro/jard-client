@@ -51,8 +51,12 @@ export function putApiRequest<T>(
   return makeRequest<T>("PUT", url, body, config);
 }
 
-export function deleteApiRequest<T>(url: string, config?: AxiosRequestConfig) {
-  return makeRequest<T>("DELETE", url, config);
+export function deleteApiRequest<T>(
+  url: string,
+  body = {},
+  config?: AxiosRequestConfig
+) {
+  return makeRequest<T>("DELETE", url, body, config);
 }
 
 function makeRequest<T>(

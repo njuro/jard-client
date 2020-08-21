@@ -58,8 +58,10 @@ export interface PostType {
   countryName: string;
   posterThreadId: string;
   sage: boolean;
+  deletionCode: string;
   thread?: ThreadType;
   attachment?: AttachmentType;
+  originalPost: boolean;
 }
 
 export interface PostSearchResultsType {

@@ -6,14 +6,26 @@ import useValidationMessages from "./useValidationMessages";
 
 interface TextInputProps {
   name: string;
+  hidden?: boolean;
   rules?: ValidationRules;
 }
-function TextInput({ name, rules, ...rest }: TextInputProps | FormInputProps) {
+function TextInput({
+  name,
+  hidden,
+  rules,
+  ...rest
+}: TextInputProps | FormInputProps) {
   const getValidationMessage = useValidationMessages();
 
   return (
     <Controller
-      as={<SemanticForm.Input error={getValidationMessage(name)} {...rest} />}
+      as={
+        hidden ? (
+          <input type="hidden" />
+        ) : (
+          <SemanticForm.Input error={getValidationMessage(name)} {...rest} />
+        )
+      }
       name={name}
       rules={rules}
       defaultValue=""

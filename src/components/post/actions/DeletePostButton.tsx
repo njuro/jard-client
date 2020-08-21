@@ -7,6 +7,10 @@ import { BoardContext } from "../../board/Board";
 import { ThreadContext } from "../../thread/Thread";
 import useAuthority from "../../../helpers/useAuthority";
 import { PostContext } from "../Post";
+import {
+  getFromLocalStorage,
+  LocalStorageKey,
+} from "../../../helpers/localStorageItems";
 
 function DeletePostButton() {
   const board = useContext(BoardContext);
@@ -14,9 +18,20 @@ function DeletePostButton() {
   const { post, isOP } = useContext(PostContext);
 
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>();
+  // eslint-disable-next-line
+  const [errors, setErrors] = useState<object>();
+  const hasDeleteAuthority = useAuthority(UserAuthority.DELETE_POST);
 
   function deletePost() {
-    deleteApiRequest(`${THREAD_URL(thread, board)}/${post.postNumber}`)
+    let deleteUrl = `${THREAD_URL(thread, board)}/${post.postNumber}`;
+    if (!hasDeleteAuthority) {
+      deleteUrl += "/delete-own";
+    }
+    const body = hasDeleteAuthority
+      ? undefined
+      : { deletionCode: getFromLocalStorage(LocalStorageKey.DELETION_CODE) };
+
+    deleteApiRequest(deleteUrl, body)
       .then(() => {
         if (isOP) {
           setThread(undefined);
@@ -31,11 +46,8 @@ function DeletePostButton() {
           refreshThread();
         }
       })
+      .catch((err) => setErrors(err.response.data.errors))
       .catch(apiErrorHandler);
-  }
-
-  if (!useAuthority(UserAuthority.DELETE_POST)) {
-    return null;
   }
 
   return (
@@ -56,7 +68,7 @@ function DeletePostButton() {
       <Confirm
         open={deleteFormOpen}
         header="Delete post"
-        content={`Are you sure you want to delete post #${post.postNumber} on /${board.label}/?`}
+        content={`Are you sure you want to delete post ${post.postNumber} on /${board.label}/?`}
         confirmButton="Yes"
         onConfirm={() => {
           deletePost();

@@ -144,9 +144,9 @@ function Thread({ thread: initialThread, full }: ThreadProps) {
           className="thread"
           id={`thread-${thread.threadNumber}`}
         >
-          <Post post={thread.originalPost} isOP />
+          <Post post={thread.originalPost} />
           {thread.replies.map((post) => (
-            <Post key={post.postNumber} post={post} isOP={false} />
+            <Post key={post.postNumber} post={post} />
           ))}
         </ThreadContainer>
         {isFull && <ThreadBottomMenu />}

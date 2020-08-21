@@ -26,6 +26,10 @@ import Form, {
 import { AppContext } from "../App";
 import useProgress from "../form/useProgress";
 import { addToOwnPosts } from "../post/ownPosts";
+import {
+  getFromLocalStorage,
+  LocalStorageKey,
+} from "../../helpers/localStorageItems";
 
 function ThreadForm() {
   const { user, inputConstraints } = useContext(AppContext);
@@ -38,6 +42,7 @@ function ThreadForm() {
   const [savedValues, setSavedValues] = useState<FieldValues>({
     postForm: {
       name: board.settings.defaultPosterName ?? "",
+      deletionCode: getFromLocalStorage(LocalStorageKey.DELETION_CODE),
     },
   });
   const { uploadProgress, updateProgress, resetProgress } = useProgress();
@@ -175,6 +180,7 @@ function ThreadForm() {
               />
             </>
           )}
+          <TextInput hidden name="postForm.deletionCode" />
           <FormErrors errors={errors} />
           <ProgressBar
             visible={attachment && uploading}

@@ -20,6 +20,12 @@ export function capitalize(input: string): string {
   return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
 }
 
+export function randomString(length: number): string {
+  return Array(length + 1)
+    .join(`${Math.random().toString(36)}00000000000000000`.slice(2, 18))
+    .slice(0, length);
+}
+
 export function formatTimestamp(
   timestamp: string,
   allowRelative = false

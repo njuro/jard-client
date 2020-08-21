@@ -107,10 +107,9 @@ export const PostContext = createContext<PostContextProps>(
 
 interface PostProps {
   post: PostType;
-  isOP: boolean;
   embedded?: boolean;
 }
-function Post({ post, isOP, embedded }: PostProps) {
+function Post({ post, embedded }: PostProps) {
   const { hash } = useLocation();
   const contextBoard = useContext(BoardContext);
   const { thread: contextThread, quotePost } = useContext(ThreadContext);
@@ -118,6 +117,7 @@ function Post({ post, isOP, embedded }: PostProps) {
   const thread = embedded && post.thread ? post.thread : contextThread;
   const board = embedded && thread.board ? thread.board : contextBoard;
 
+  const isOP = post.originalPost;
   const ThreadPost = isOP ? OriginalPost : Reply;
 
   const PosterFlag = () => {
