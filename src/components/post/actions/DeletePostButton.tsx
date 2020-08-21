@@ -11,6 +11,7 @@ import {
   getFromLocalStorage,
   LocalStorageKey,
 } from "../../../helpers/localStorageItems";
+import { notifyError, notifySuccess } from "../../../helpers/notifications";
 
 function DeletePostButton() {
   const board = useContext(BoardContext);
@@ -18,8 +19,6 @@ function DeletePostButton() {
   const { post, isOP } = useContext(PostContext);
 
   const [deleteFormOpen, setDeleteFormOpen] = useState<boolean>();
-  // eslint-disable-next-line
-  const [errors, setErrors] = useState<object>();
   const hasDeleteAuthority = useAuthority(UserAuthority.DELETE_POST);
 
   function deletePost() {
@@ -45,8 +44,17 @@ function DeletePostButton() {
           }
           refreshThread();
         }
+        notifySuccess(
+          "Post deleted",
+          `Post #${post.postNumber} was sucessfully deleted`
+        );
       })
-      .catch((err) => setErrors(err.response.data.errors))
+      .catch((err) =>
+        notifyError(
+          "Failed to delete post",
+          Object.values(err.response.data.errors)[0] as string
+        )
+      )
       .catch(apiErrorHandler);
   }
 

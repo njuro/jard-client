@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
-import { toast } from "react-semantic-toasts";
+import { notifyError } from "./notifications";
 
 export const SERVER_API_URL =
   process.env.REACT_APP_API_URL ||
@@ -19,15 +19,7 @@ export const apiErrorHandler = (error: AxiosError) => {
   }
 
   if (!error.response?.data?.errors) {
-    toast({
-      title: "Server error",
-      description: getErrorDescription(),
-      type: "error",
-      time: 5000,
-      animation: "fade down",
-      size: "small",
-      color: "red",
-    });
+    notifyError("Server error", getErrorDescription());
   }
 };
 
