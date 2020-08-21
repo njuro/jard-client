@@ -189,7 +189,7 @@ function Post({ post, embedded }: PostProps) {
             )}
           </PostMeta>
           <PostBody dangerouslySetInnerHTML={{ __html: post.body }} />
-          {isOP && <OmittedRepliesStatus />}
+          {isOP && !embedded && <OmittedRepliesStatus />}
         </PostContent>
       </ThreadPost>
     </PostContext.Provider>
