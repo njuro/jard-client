@@ -118,7 +118,7 @@ function Post({ post, embedded }: PostProps) {
   const board = embedded && thread.board ? thread.board : contextBoard;
 
   const isOP = post.originalPost;
-  const ThreadPost = isOP ? OriginalPost : Reply;
+  const ThreadPost = !embedded && isOP ? OriginalPost : Reply;
 
   const PosterFlag = () => {
     if (board.settings.countryFlags) {
