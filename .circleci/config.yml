@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  sonarcloud: sonarsource/sonarcloud@1.0.2
 jobs:
   build:
     machine:
@@ -16,7 +14,6 @@ jobs:
       - run:
           name: Build application
           command: ./pack build jard-client --builder heroku/buildpacks:20 --buildpack https://cnb-shim.herokuapp.com/v1/mars/create-react-app   
-      - sonarcloud/scan
       - run:
           name: Deploy to docker hub
           command: bash docker_push.sh
