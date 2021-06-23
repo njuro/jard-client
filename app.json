@@ -27,5 +27,5 @@
       "url": "https://github.com/mars/create-react-app-buildpack"
     }
   ],
-  "stack": "heroku-18"
+  "stack": "heroku-20"
 }
