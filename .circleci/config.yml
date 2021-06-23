@@ -1,0 +1,27 @@
+version: 2.1
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.2
+jobs:
+  build:
+    machine:
+      image: ubuntu-2004:202104-01
+    steps:
+      - checkout
+      - run:
+          name: Prepare build
+          command:
+            - wget https://github.com/buildpacks/pack/releases/download/v0.12.0/pack-v0.12.0-linux.tgz
+            - tar xvf pack-v0.12.0-linux.tgz
+            - ./pack build jard-client --builder heroku/buildpacks:18 --buildpack https://cnb-shim.herokuapp.com/v1/mars/create-react-app
+      - sonarcloud/scan
+      - run:
+          name: Deploy to docker hub
+          command: bash docker_push.sh
+workflows:
+  default:
+    jobs:
+      - build:
+          context: jard
+          filters:
+            branches:
+              only: master
