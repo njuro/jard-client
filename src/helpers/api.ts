@@ -43,6 +43,10 @@ export function putApiRequest<T>(
   return makeRequest<T>("PUT", url, body, config);
 }
 
+export function patchApiRequest<T>(url: string, config?: AxiosRequestConfig) {
+  return makeRequest<T>("PATCH", url, config);
+}
+
 export function deleteApiRequest<T>(
   url: string,
   body = {},

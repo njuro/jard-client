@@ -27,8 +27,8 @@ function BanForm({ trigger, ip, value: existingBan }: BanFormProps) {
 
   function handleSubmit(banForm: BanType) {
     const response = existingBan
-      ? postApiRequest<BanType>(`${BAN_URL(existingBan)}/edit`, banForm)
-      : putApiRequest<BanType>(BANS_URL, banForm);
+      ? putApiRequest<BanType>(`${BAN_URL(existingBan)}`, banForm)
+      : postApiRequest<BanType>(BANS_URL, banForm);
     response
       .then(setUpdatedBan)
       .catch((err) => setErrors(err.response.data.errors))

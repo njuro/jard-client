@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
 import { BanType, UnbanFormType } from "../../types";
-import { apiErrorHandler, postApiRequest } from "../../helpers/api";
+import { apiErrorHandler, putApiRequest } from "../../helpers/api";
 import { BAN_URL, DASHBOARD_URL } from "../../helpers/mappings";
 import Form, { Button, FormErrors, TextInput } from "../form/Form";
 
@@ -15,7 +15,7 @@ function UnbanForm({ value: ban, trigger }: UnbanFormProps) {
   const [errors, setErrors] = useState<object>();
 
   function handleSubmit(unbanForm: UnbanFormType) {
-    postApiRequest<BanType>(`${BAN_URL(ban)}/unban`, unbanForm)
+    putApiRequest<BanType>(`${BAN_URL(ban)}/unban`, unbanForm)
       .then(setUpdatedBan)
       .catch((err) => setErrors(err.response.data.errors))
       .catch(apiErrorHandler);

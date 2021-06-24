@@ -51,8 +51,8 @@ function BoardForm({ trigger, value: existingBoard }: BoardFormProps) {
 
   function handleSubmit(boardForm: BoardType) {
     const response = existingBoard
-      ? postApiRequest<BoardType>(`${BOARD_URL(existingBoard)}/edit`, boardForm)
-      : putApiRequest<BoardType>(BOARDS_URL, boardForm);
+      ? putApiRequest<BoardType>(`${BOARD_URL(existingBoard)}`, boardForm)
+      : postApiRequest<BoardType>(BOARDS_URL, boardForm);
     response
       .then(setUpdatedBoard)
       .catch((err) => setErrors(err.response.data.errors))

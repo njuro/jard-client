@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Button, Icon, Popup } from "semantic-ui-react";
 import { BoardContext } from "../../board/Board";
 import { ThreadContext } from "../../thread/Thread";
-import { apiErrorHandler, postApiRequest } from "../../../helpers/api";
+import { apiErrorHandler, patchApiRequest } from "../../../helpers/api";
 import { THREAD_URL } from "../../../helpers/mappings";
 import useAuthority from "../../../helpers/useAuthority";
 import { UserAuthority } from "../../../types";
@@ -14,7 +14,7 @@ function ToggleLockButton() {
   const { isOP } = useContext(PostContext);
 
   function toggleLock() {
-    postApiRequest(`${THREAD_URL(thread, board)}/lock`)
+    patchApiRequest(`${THREAD_URL(thread, board)}/lock`)
       .then(() => {
         thread.locked = !thread.locked;
         refreshThread();

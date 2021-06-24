@@ -24,8 +24,8 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
 
   function handleSubmit(userForm: UserType) {
     const response = existingUser
-      ? postApiRequest<UserType>(`${USER_URL(existingUser)}/edit`, userForm)
-      : putApiRequest<UserType>(USERS_URL, userForm);
+      ? putApiRequest<UserType>(`${USER_URL(existingUser)}`, userForm)
+      : postApiRequest<UserType>(USERS_URL, userForm);
     response
       .then(setUpdatedUser)
       .catch((err) => setErrors(err.response.data.errors))

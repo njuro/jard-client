@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Button, Icon, Popup } from "semantic-ui-react";
-import { apiErrorHandler, postApiRequest } from "../../../helpers/api";
+import { apiErrorHandler, patchApiRequest } from "../../../helpers/api";
 import { THREAD_URL } from "../../../helpers/mappings";
 import { BoardContext } from "../../board/Board";
 import { ThreadContext } from "../../thread/Thread";
@@ -14,7 +14,7 @@ function ToggleStickyButton() {
   const { isOP } = useContext(PostContext);
 
   function toggleSticky() {
-    postApiRequest(`${THREAD_URL(thread, board)}/sticky`)
+    patchApiRequest(`${THREAD_URL(thread, board)}/sticky`)
       .then(() => {
         thread.stickied = !thread.stickied;
         refreshThread();
