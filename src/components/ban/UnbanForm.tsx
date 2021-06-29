@@ -1,16 +1,19 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
 import { BanType, UnbanFormType } from "../../types";
 import { apiErrorHandler, putApiRequest } from "../../helpers/api";
 import { BAN_URL, DASHBOARD_URL } from "../../helpers/mappings";
 import Form, { Button, FormErrors, TextInput } from "../form/Form";
+import { AppContext } from "../App";
 
 interface UnbanFormProps {
   value: BanType;
   trigger: ReactNode;
 }
 function UnbanForm({ value: ban, trigger }: UnbanFormProps) {
+  const { inputConstraints } = useContext(AppContext);
+
   const [updatedBan, setUpdatedBan] = useState<BanType>();
   const [errors, setErrors] = useState<object>();
 
@@ -42,6 +45,12 @@ function UnbanForm({ value: ban, trigger }: UnbanFormProps) {
             label="Reason"
             placeholder="Reason"
             required
+            rules={{
+              maxLength: {
+                value: inputConstraints.MAX_BAN_REASON_LENGTH,
+                message: inputConstraints.MAX_BAN_REASON_LENGTH,
+              },
+            }}
           />
           <FormErrors errors={errors} />
           <Button fluid>Unban</Button>

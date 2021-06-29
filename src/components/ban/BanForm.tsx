@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Header, Modal } from "semantic-ui-react";
 import {
@@ -15,6 +15,7 @@ import Form, {
   FormErrors,
   TextInput,
 } from "../form/Form";
+import { AppContext } from "../App";
 
 interface BanFormProps {
   trigger: ReactNode;
@@ -22,6 +23,8 @@ interface BanFormProps {
   value?: BanType;
 }
 function BanForm({ trigger, ip, value: existingBan }: BanFormProps) {
+  const { inputConstraints } = useContext(AppContext);
+
   const [updatedBan, setUpdatedBan] = useState<BanType>();
   const [errors, setErrors] = useState<object>();
 
@@ -78,6 +81,12 @@ function BanForm({ trigger, ip, value: existingBan }: BanFormProps) {
             label="Reason"
             placeholder="Reason"
             required
+            rules={{
+              maxLength: {
+                value: inputConstraints.MAX_BAN_REASON_LENGTH,
+                message: inputConstraints.MAX_BAN_REASON_LENGTH,
+              },
+            }}
           />
           <DatePicker name="validTo" datePickerOnly label="Valid to" />
           <Checkbox name="warning" label="Is warning?" />

@@ -34,14 +34,14 @@ function App() {
   const [activeMenuPath, setActiveMenuPath] = useState<string>();
 
   useEffect(() => {
+    getApiRequest<InputConstraintsType>("/input-constraints")
+      .then(setInputConstraints)
+      .catch(apiErrorHandler);
+
     getApiRequest<UserType>(`${USERS_URL}/current`)
       .then(setUser)
       .catch(apiErrorHandler)
       .finally(() => setUserLoading(false));
-
-    getApiRequest<InputConstraintsType>("/input-constraints")
-      .then(setInputConstraints)
-      .catch(apiErrorHandler);
 
     saveToLocalStorageIfMissing(LocalStorageKey.DELETION_CODE, randomString(8));
   }, []);

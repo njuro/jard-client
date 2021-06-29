@@ -132,6 +132,12 @@ export interface UserType {
   createdAt?: string;
 }
 
+export interface ChangePasswordType {
+  currentPassword: string;
+  newPassword: string;
+  newPasswordRepeated: string;
+}
+
 export interface BanType {
   id: uuid;
   ip: string;
@@ -187,4 +193,5 @@ export interface InputConstraintsType {
   MIN_USERNAME_LENGTH: number;
   MAX_USERNAME_LENGTH: number;
   MIN_PASSWORD_LENGTH: number;
+  MAX_BAN_REASON_LENGTH: number;
 }
