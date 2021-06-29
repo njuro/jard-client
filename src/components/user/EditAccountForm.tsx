@@ -5,21 +5,24 @@ import Form, { Button, FormErrors, TextInput } from "../form/Form";
 import { apiErrorHandler, patchApiRequest } from "../../helpers/api";
 import { USERS_URL } from "../../helpers/mappings";
 import { notifySuccess } from "../../helpers/notifications";
-import { EditAccountType } from "../../types";
+import { EditAccountType, UserType } from "../../types";
 
 function EditAccountForm() {
-  const { user } = useContext(AppContext);
+  const { user, setUser } = useContext(AppContext);
 
   const [errors, setErrors] = useState<object>();
 
   function editAccount(accountEdit: EditAccountType) {
-    patchApiRequest(`${USERS_URL}/current`, { email: accountEdit.email })
-      .then(() =>
+    patchApiRequest<UserType>(`${USERS_URL}/current`, {
+      email: accountEdit.email,
+    })
+      .then((updatedUser) => {
+        setUser(updatedUser);
         notifySuccess(
           "Account updated",
           "Account data was successfully updated"
-        )
-      )
+        );
+      })
       .catch((err) => setErrors(err.response.data.errors))
       .catch(apiErrorHandler);
   }
