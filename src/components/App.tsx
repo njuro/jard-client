@@ -26,11 +26,28 @@ interface AppContextProps {
 }
 export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 
+// placeholder value until real constraints are loaded from server
+const DEFAULT_INPUT_CONSTRAINTS: InputConstraintsType = {
+  MAX_ATTACHMENT_SIZE: 0,
+  MAX_BAN_REASON_LENGTH: 0,
+  MAX_BOARD_LABEL_LENGTH: 0,
+  MAX_BOARD_NAME_LENGTH: 0,
+  MAX_BUMP_LIMIT: 0,
+  MAX_NAME_LENGTH: 0,
+  MAX_POST_LENGTH: 0,
+  MAX_SUBJECT_LENGTH: 0,
+  MAX_THREAD_LIMIT: 0,
+  MAX_TRIPCODE_PASSWORD_LENGTH: 0,
+  MAX_USERNAME_LENGTH: 0,
+  MIN_PASSWORD_LENGTH: 0,
+  MIN_USERNAME_LENGTH: 0,
+};
+
 function App() {
   const [user, setUser] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
   const [inputConstraints, setInputConstraints] =
-    useState<InputConstraintsType>();
+    useState<InputConstraintsType>(DEFAULT_INPUT_CONSTRAINTS);
   const [activeMenuPath, setActiveMenuPath] = useState<string>();
 
   useEffect(() => {
