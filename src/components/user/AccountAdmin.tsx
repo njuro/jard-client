@@ -6,7 +6,7 @@ import {
   USERS_URL,
 } from "../../helpers/mappings";
 import { apiErrorHandler, patchApiRequest } from "../../helpers/api";
-import Form, { Button, FormErrors, TextInput } from "../form/Form";
+import Form, { Button, FormErrors, PasswordInput } from "../form/Form";
 import { ChangePasswordType } from "../../types";
 import { AppContext } from "../App";
 import { notifySuccess } from "../../helpers/notifications";
@@ -49,17 +49,15 @@ function AccountAdmin() {
       <Header as="h4" dividing>
         Change password
       </Header>
-      <TextInput
+      <PasswordInput
         name="currentPassword"
         label="Current password"
         placeholder="Current password"
-        type="password"
       />
-      <TextInput
+      <PasswordInput
         name="newPassword"
         label="New password"
         placeholder="New password"
-        type="password"
         rules={{
           minLength: {
             value: inputConstraints.MIN_PASSWORD_LENGTH,
@@ -67,11 +65,10 @@ function AccountAdmin() {
           },
         }}
       />
-      <TextInput
+      <PasswordInput
         name="newPasswordRepeated"
         label="Repeat new password"
         placeholder="Repeat new password"
-        type="password"
       />
       <FormErrors errors={errors} />
       <Button fluid>Change password</Button>

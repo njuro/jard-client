@@ -73,5 +73,6 @@ export { default as Captcha } from "./Captcha";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as SearchBar } from "./SearchBar";
 export { default as FormErrors } from "./FormErrors";
+export { default as PasswordInput } from "./PasswordInput";
 
 export default Form;

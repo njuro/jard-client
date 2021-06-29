@@ -8,7 +8,13 @@ import {
 } from "../../helpers/api";
 import { LOGIN_URL, USER_URL, USERS_URL } from "../../helpers/mappings";
 import { UserRole, UserType } from "../../types";
-import Form, { Button, FormErrors, Select, TextInput } from "../form/Form";
+import Form, {
+  Button,
+  FormErrors,
+  PasswordInput,
+  Select,
+  TextInput,
+} from "../form/Form";
 import { objectToDropdownItem } from "../../helpers/utils";
 import { AppContext } from "../App";
 
@@ -73,11 +79,10 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
               },
             }}
           />
-          <TextInput
+          <PasswordInput
             name="password"
             label="Password"
             placeholder="Password"
-            type="password"
             rules={{
               minLength: {
                 value: inputConstraints.MIN_PASSWORD_LENGTH,
@@ -85,11 +90,10 @@ function UserForm({ trigger, value: existingUser }: UserFormProps) {
               },
             }}
           />
-          <TextInput
+          <PasswordInput
             name="passwordRepeated"
             label="Repeat Password"
             placeholder="Repeat Password"
-            type="password"
           />
           <TextInput
             name="email"

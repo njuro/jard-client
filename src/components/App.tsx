@@ -72,7 +72,7 @@ function App() {
           user: user as UserType,
           setUser,
           userLoading,
-          inputConstraints: inputConstraints as InputConstraintsType,
+          inputConstraints,
           activeMenuPath,
           setActiveMenuPath,
         }}

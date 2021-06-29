@@ -6,7 +6,13 @@ import { apiErrorHandler, postApiRequest } from "../../helpers/api";
 import { DASHBOARD_URL, HOME_URL, LOGIN_URL } from "../../helpers/mappings";
 import { UserType } from "../../types";
 import { AppContext } from "../App";
-import Form, { Button, Checkbox, FormErrors, TextInput } from "../form/Form";
+import Form, {
+  Button,
+  Checkbox,
+  FormErrors,
+  PasswordInput,
+  TextInput,
+} from "../form/Form";
 
 interface LoginFormObject {
   username: string;
@@ -51,11 +57,10 @@ function LoginForm() {
             Login
           </Header>
           <TextInput name="username" label="Username" placeholder="Username" />
-          <TextInput
+          <PasswordInput
             name="password"
             label="Password"
             placeholder="Password"
-            type="password"
           />
           <Checkbox name="rememberMe" label="Remember me" />
           <FormErrors errors={errors} />
