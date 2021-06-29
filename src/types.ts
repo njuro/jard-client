@@ -132,7 +132,13 @@ export interface UserType {
   createdAt?: string;
 }
 
-export interface ChangePasswordType {
+export interface EditAccountType {
+  username: string;
+  role: string;
+  email: string;
+}
+
+export interface EditPasswordType {
   currentPassword: string;
   newPassword: string;
   newPasswordRepeated: string;
