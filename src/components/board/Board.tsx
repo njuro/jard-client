@@ -15,7 +15,7 @@ import Footer from "../base/Footer";
 export const BoardContext = createContext<BoardType>({} as BoardType);
 
 function Board() {
-  const { label, page } = useParams();
+  const { label, page } = useParams<{ label: string; page: string }>();
 
   const { setActiveMenuPath } = useContext(AppContext);
 

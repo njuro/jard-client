@@ -22,7 +22,7 @@ function Captcha({ name }: CaptchaProps) {
   return (
     <Controller
       name={name}
-      render={({ onChange }) => (
+      render={({ field: { onChange } }) => (
         <HCaptcha
           sitekey={SITE_KEY}
           size="normal"

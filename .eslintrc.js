@@ -1,6 +1,8 @@
 module.exports = {
   extends: ["airbnb-typescript-prettier", "plugin:import/typescript"],
   rules: {
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-use-before-define": 0,
     "react/jsx-props-no-spreading": 0,

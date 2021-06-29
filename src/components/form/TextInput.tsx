@@ -1,13 +1,12 @@
 import React from "react";
-import { ValidationRules } from "react-hook-form/dist/types";
 import { Form as SemanticForm, FormInputProps } from "semantic-ui-react";
-import { Controller } from "react-hook-form";
+import { Controller, RegisterOptions } from "react-hook-form";
 import useValidationMessages from "./useValidationMessages";
 
 interface TextInputProps {
   name: string;
   hidden?: boolean;
-  rules?: ValidationRules;
+  rules?: RegisterOptions;
 }
 function TextInput({
   name,
@@ -19,11 +18,15 @@ function TextInput({
 
   return (
     <Controller
-      as={
+      render={({ field }) =>
         hidden ? (
           <input type="hidden" />
         ) : (
-          <SemanticForm.Input error={getValidationMessage(name)} {...rest} />
+          <SemanticForm.Input
+            error={getValidationMessage(name)}
+            {...field}
+            {...rest}
+          />
         )
       }
       name={name}

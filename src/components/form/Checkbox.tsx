@@ -12,7 +12,7 @@ function Checkbox({
   return (
     <Controller
       name={name}
-      render={({ onChange: onValueChange, value: defaultValue }) => (
+      render={({ field: { onChange: onValueChange, value: defaultValue } }) => (
         <SemanticForm.Checkbox
           defaultChecked={defaultValue}
           onChange={(_, data) => onValueChange(data.checked)}

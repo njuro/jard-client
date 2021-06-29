@@ -25,7 +25,7 @@ const SearchStats = styled.div`
   padding-top: 10px;
 `;
 function PostSearch() {
-  const { query: queryParam } = useParams();
+  const { query: queryParam } = useParams<{ query: string }>();
   const { setActiveMenuPath } = useContext(AppContext);
   const [searchResults, setSearchResults] = useState<PostSearchResultsType>();
   const [loading, setLoading] = useState<boolean>(false);

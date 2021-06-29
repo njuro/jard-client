@@ -13,7 +13,7 @@ const ThreadUpdateButton = React.forwardRef((props, threadUpdateButtonRef) => {
   const { thread, refreshThread } = useContext(ThreadContext);
 
   const [status, setStatus] = useState("");
-  const [timer, setTimer] = useState<number>();
+  const [timer, setTimer] = useState<NodeJS.Timeout>();
 
   function checkForNewReplies() {
     setStatus("Updating...");

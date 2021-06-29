@@ -13,7 +13,7 @@ function DatePicker({
   return (
     <Controller
       name={name}
-      render={({ onChange: onValueChange, value: defaultValue }) => (
+      render={({ field: { onChange: onValueChange, value: defaultValue } }) => (
         <SemanticDatepicker
           value={defaultValue}
           onChange={(_, data) => onValueChange(data.value)}

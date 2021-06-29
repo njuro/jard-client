@@ -60,12 +60,14 @@ function PosterThreadId({ posterId }: { posterId: string }) {
     return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
   }
 
-  const backgroundColor = useMemo(() => getBackgroundColor(posterId), [
-    posterId,
-  ]);
-  const textColor = useMemo(() => getContrastColor(backgroundColor), [
-    backgroundColor,
-  ]);
+  const backgroundColor = useMemo(
+    () => getBackgroundColor(posterId),
+    [posterId]
+  );
+  const textColor = useMemo(
+    () => getContrastColor(backgroundColor),
+    [backgroundColor]
+  );
 
   return (
     <>

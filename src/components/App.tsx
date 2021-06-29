@@ -29,9 +29,8 @@ export const AppContext = createContext<AppContextProps>({} as AppContextProps);
 function App() {
   const [user, setUser] = useState<UserType>();
   const [userLoading, setUserLoading] = useState(true);
-  const [inputConstraints, setInputConstraints] = useState<
-    InputConstraintsType
-  >();
+  const [inputConstraints, setInputConstraints] =
+    useState<InputConstraintsType>();
   const [activeMenuPath, setActiveMenuPath] = useState<string>();
 
   useEffect(() => {

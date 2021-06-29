@@ -11,7 +11,8 @@ import LoadingIndicator from "../utils/LoadingIndicator";
 import Footer from "../base/Footer";
 
 function ThreadWrapper() {
-  const { label, threadNumber } = useParams();
+  const { label, threadNumber } =
+    useParams<{ label: string; threadNumber: string }>();
 
   const [thread, setThread] = useState<ThreadType>();
   const [notFound, setNotFound] = useState<boolean>(false);

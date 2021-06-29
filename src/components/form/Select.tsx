@@ -14,7 +14,9 @@ function Select({ name, ...rest }: SelectProps | FormSelectProps) {
   return (
     <Controller
       name={name}
-      render={({ onChange: onValueChange, value: defaultValues }) => (
+      render={({
+        field: { onChange: onValueChange, value: defaultValues },
+      }) => (
         <SemanticForm.Select
           defaultValue={defaultValues}
           onChange={(_, data) => onValueChange(data.value)}

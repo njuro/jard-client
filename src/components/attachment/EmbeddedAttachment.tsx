@@ -21,19 +21,17 @@ function EmbeddedAttachment({
   size,
   attachment: propAttachment,
 }: EmbeddedAttachmentProps) {
-  const { attachment: contextAttachment, fullSize, toggleSize } = useContext(
-    PostAttachmentContext
-  );
+  const {
+    attachment: contextAttachment,
+    fullSize,
+    toggleSize,
+  } = useContext(PostAttachmentContext);
   const embedRef = useRef<HTMLDivElement>(null);
 
   const attachment = propAttachment ?? contextAttachment;
   const { thumbnailUrl, providerName, renderedHtml } = attachment.embedData;
-  const {
-    fileIcon,
-    providerColor,
-    providerIcon,
-    thumbnailPlaceholderUrl,
-  } = getEmbeddedProviderStyle(providerName);
+  const { fileIcon, providerColor, providerIcon, thumbnailPlaceholderUrl } =
+    getEmbeddedProviderStyle(providerName);
   const renderedEmbed = useMemo(
     () => document.createRange().createContextualFragment(renderedHtml),
     [renderedHtml]

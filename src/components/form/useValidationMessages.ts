@@ -1,7 +1,9 @@
 import { useFormContext } from "react-hook-form";
 
 export default function useValidationMessages() {
-  const { errors } = useFormContext();
+  const {
+    formState: { errors },
+  } = useFormContext();
 
   function getErrorField(name: string) {
     if (!errors || !name) {

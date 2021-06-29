@@ -1,24 +1,31 @@
 import React, { useEffect, useRef } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import {
   Form as SemanticForm,
   FormProps as SemanticFormProps,
 } from "semantic-ui-react";
-import {
-  FieldValues,
-  UnpackNestedValue,
-} from "react-hook-form/dist/types/form";
+import { UnpackNestedValue } from "react-hook-form/dist/types/form";
+import { SetStateType } from "../../types";
 
 interface FormProps {
   children: React.ReactFragment;
   onSubmit: SubmitHandler<FieldValues>;
   onUnmount?: (values: FieldValues) => void;
+  triggerReset?: boolean;
+  setTriggerReset?: SetStateType<boolean>;
   defaultValues: object;
 }
 function Form({
   children,
   onSubmit,
   onUnmount,
+  triggerReset = false,
+  setTriggerReset,
   defaultValues = {},
   ...rest
 }: FormProps | Omit<SemanticFormProps, "onSubmit">) {
@@ -34,10 +41,17 @@ function Form({
   const methods = useForm({
     defaultValues,
   });
-  const { handleSubmit, getValues } = methods;
+  const { handleSubmit, getValues, reset } = methods;
   useEffect(() => {
     getValuesRef.current = getValues;
   }, [getValues]);
+
+  useEffect(() => {
+    if (triggerReset && setTriggerReset) {
+      reset();
+      setTriggerReset(false);
+    }
+  }, [reset, setTriggerReset, triggerReset]);
 
   return (
     <FormProvider {...methods}>

@@ -29,7 +29,7 @@ const ThreadList = styled.div`
   }
 `;
 function BoardCatalog() {
-  const { label } = useParams();
+  const { label } = useParams<{ label: string }>();
 
   const { setActiveMenuPath } = useContext(AppContext);
 
