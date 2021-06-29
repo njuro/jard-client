@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
 import {
+  DASHBOARD_MANAGE_ACCOUNT_URL,
   DASHBOARD_MANAGE_BANS_URL,
   DASHBOARD_MANAGE_BOARDS_URL,
   DASHBOARD_MANAGE_USERS_URL,
@@ -14,6 +15,7 @@ function DashboardMenu() {
   return (
     <Menu fluid vertical>
       <MenuItem path={DASHBOARD_URL}>Dashboard</MenuItem>
+      <MenuItem path={DASHBOARD_MANAGE_ACCOUNT_URL}>Manage account</MenuItem>
       {useAuthority(UserAuthority.MANAGE_BOARDS) && (
         <MenuItem path={DASHBOARD_MANAGE_BOARDS_URL}>Manage boards</MenuItem>
       )}

@@ -48,10 +48,10 @@ function Form({
 
   useEffect(() => {
     if (triggerReset && setTriggerReset) {
-      reset();
+      reset(defaultValues);
       setTriggerReset(false);
     }
-  }, [reset, setTriggerReset, triggerReset]);
+  }, [reset, defaultValues, setTriggerReset, triggerReset]);
 
   return (
     <FormProvider {...methods}>

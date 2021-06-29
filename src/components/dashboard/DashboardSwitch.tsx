@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Route, Switch } from "react-router-dom";
 import {
+  DASHBOARD_MANAGE_ACCOUNT_URL,
   DASHBOARD_MANAGE_BANS_URL,
   DASHBOARD_MANAGE_BOARDS_URL,
   DASHBOARD_MANAGE_USERS_URL,
@@ -11,12 +12,18 @@ import BanAdmin from "../ban/BanAdmin";
 import { AppContext } from "../App";
 import ProtectedRoute from "../utils/ProtectedRoute";
 import { UserAuthority } from "../../types";
+import AccountAdmin from "../user/AccountAdmin";
 
 function DashboardSwitch() {
   const { user } = useContext(AppContext);
 
   return (
     <Switch>
+      <ProtectedRoute
+        exact
+        path={DASHBOARD_MANAGE_ACCOUNT_URL}
+        component={AccountAdmin}
+      />
       <ProtectedRoute
         authorities={[UserAuthority.MANAGE_BOARDS]}
         exact

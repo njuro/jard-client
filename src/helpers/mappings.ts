@@ -20,6 +20,7 @@ export const ATTACHMENTS_URL = `${SERVER_API_URL}/usercontent`; // should be use
 export const SEARCH_URL = "/search";
 export const NOT_FOUND_URL = "/404";
 
+export const DASHBOARD_MANAGE_ACCOUNT_URL = `${DASHBOARD_URL}/manage-account`;
 export const DASHBOARD_MANAGE_BOARDS_URL = `${DASHBOARD_URL}/manage-boards`;
 export const DASHBOARD_MANAGE_USERS_URL = `${DASHBOARD_URL}/manage-users`;
 export const DASHBOARD_MANAGE_BANS_URL = `${DASHBOARD_URL}/manage-bans`;
