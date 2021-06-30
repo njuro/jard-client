@@ -10,7 +10,7 @@ import {
 import { FieldValues } from "react-hook-form";
 import { apiErrorHandler, postApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
-import { BOARD_URL, THREAD_URL } from "../../helpers/mappings";
+import { BAN_STATUS_URL, BOARD_URL, THREAD_URL } from "../../helpers/mappings";
 import { AttachmentCategoryNameEnum, ThreadType } from "../../types";
 import { BoardContext } from "../board/Board";
 import Form, {
@@ -39,6 +39,7 @@ function ThreadForm() {
   const [createdThread, setCreatedThread] = useState<ThreadType>();
   const [errors, setErrors] = useState<object>();
   const [uploading, setUploading] = useState<boolean>(false);
+  const [banned, setBanned] = useState<boolean>(false);
   const [savedValues, setSavedValues] = useState<FieldValues>({
     postForm: {
       name: board.settings.defaultPosterName ?? "",
@@ -67,15 +68,23 @@ function ThreadForm() {
         setCreatedThread(result);
       })
       .catch((err) => {
-        setUploading(false);
-        resetProgress();
-        setErrors(err.response.data.errors);
+        if (err.response.status === 403) {
+          setBanned(true);
+        } else {
+          setUploading(false);
+          resetProgress();
+          setErrors(err.response.data.errors);
+        }
       })
       .catch(apiErrorHandler);
   }
 
   if (createdThread) {
     return <Redirect to={THREAD_URL(createdThread, board)} />;
+  }
+
+  if (banned) {
+    return <Redirect to={BAN_STATUS_URL} />;
   }
 
   function getAllowedFileTypes() {

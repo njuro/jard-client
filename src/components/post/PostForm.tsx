@@ -10,9 +10,10 @@ import {
 import Draggable from "react-draggable";
 import { Ref } from "@stardust-ui/react-component-ref";
 import styled from "styled-components/macro";
+import { Redirect } from "react-router-dom";
 import { apiErrorHandler, postApiRequest } from "../../helpers/api";
 import { objectToJsonBlob } from "../../helpers/utils";
-import { THREAD_URL } from "../../helpers/mappings";
+import { BAN_STATUS_URL, THREAD_URL } from "../../helpers/mappings";
 import { AttachmentCategoryNameEnum, PostType } from "../../types";
 import { BoardContext } from "../board/Board";
 import Form, {
@@ -70,6 +71,7 @@ function PostForm() {
   const [attachment, setAttachment] = useState<File>();
   const [errors, setErrors] = useState<object>();
   const [uploading, setUploading] = useState<boolean>(false);
+  const [banned, setBanned] = useState<boolean>(false);
 
   const { uploadProgress, updateProgress, resetProgress } = useProgress();
 
@@ -97,7 +99,11 @@ function PostForm() {
         triggerThreadUpdateButton();
       })
       .catch((err) => {
-        setErrors(err.response.data.errors);
+        if (err.response.status === 403) {
+          setBanned(true);
+        } else {
+          setErrors(err.response.data.errors);
+        }
       })
       .catch(apiErrorHandler)
       .finally(() => {
@@ -132,6 +138,10 @@ function PostForm() {
     name: board.settings.defaultPosterName ?? "",
     deletionCode: getFromLocalStorage(LocalStorageKey.DELETION_CODE),
   };
+
+  if (banned) {
+    return <Redirect to={BAN_STATUS_URL} />;
+  }
 
   return (
     <Portal
