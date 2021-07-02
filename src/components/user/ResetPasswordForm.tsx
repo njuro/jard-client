@@ -69,7 +69,7 @@ function ResetPasswordForm() {
           />
           <TextInput name="token" hidden />
           <FormErrors errors={errors} />
-          <Button fluid>Send password reset link</Button>
+          <Button fluid>Update password</Button>
         </Segment>
       </Form>
     </Grid>
