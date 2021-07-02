@@ -148,6 +148,12 @@ export interface ForgotPasswordType {
   username: string;
 }
 
+export interface ResetPasswordType {
+  token: string;
+  password: string;
+  passwordRepeated: string;
+}
+
 export interface BanType {
   id: uuid;
   ip: string;

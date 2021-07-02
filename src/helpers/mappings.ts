@@ -18,6 +18,7 @@ export const LOGOUT_URL = "/logout";
 export const DASHBOARD_URL = "/dashboard";
 export const ATTACHMENTS_URL = `${SERVER_API_URL}/usercontent`; // should be used only in local development
 export const FORGOT_PASSWORD_URL = "/forgot-password";
+export const RESET_PASSWORD_URL = "/reset-password";
 export const SEARCH_URL = "/search";
 export const NOT_FOUND_URL = "/404";
 

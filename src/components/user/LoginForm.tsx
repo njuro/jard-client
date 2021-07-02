@@ -1,9 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { Grid, Header, Segment } from "semantic-ui-react";
 import { Helmet } from "react-helmet";
+import styled from "styled-components/macro";
 import { apiErrorHandler, postApiRequest } from "../../helpers/api";
-import { DASHBOARD_URL, HOME_URL, LOGIN_URL } from "../../helpers/mappings";
+import {
+  DASHBOARD_URL,
+  FORGOT_PASSWORD_URL,
+  HOME_URL,
+  LOGIN_URL,
+} from "../../helpers/mappings";
 import { UserType } from "../../types";
 import { AppContext } from "../App";
 import Form, {
@@ -14,6 +20,12 @@ import Form, {
   TextInput,
 } from "../form/Form";
 
+const ForgotPasswordLink = styled(Link)`
+  display: inline;
+  float: right;
+  font-style: italic;
+  padding: 10px;
+`;
 interface LoginFormObject {
   username: string;
   password: string;
@@ -66,6 +78,9 @@ function LoginForm() {
           <FormErrors errors={errors} />
           <Button fluid>Login</Button>
         </Segment>
+        <ForgotPasswordLink to={FORGOT_PASSWORD_URL}>
+          Forgot password?
+        </ForgotPasswordLink>
       </Form>
     </Grid>
   );

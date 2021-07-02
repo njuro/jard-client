@@ -17,11 +17,13 @@ import {
   FORGOT_PASSWORD_URL,
   HOME_URL,
   LOGIN_URL,
+  RESET_PASSWORD_URL,
   SEARCH_ROUTE,
   THREAD_ROUTE,
 } from "../../helpers/mappings";
 import PostSearch from "../post/PostSearch";
 import ForgotPasswordForm from "../user/ForgotPasswordForm";
+import ResetPasswordForm from "../user/ResetPasswordForm";
 
 function MainSwitch() {
   return (
@@ -34,6 +36,7 @@ function MainSwitch() {
       <Route exact path={BAN_STATUS_URL} component={BanStatus} />
       <Route exact path={SEARCH_ROUTE} component={PostSearch} />
       <Route exact path={FORGOT_PASSWORD_URL} component={ForgotPasswordForm} />
+      <Route exact path={RESET_PASSWORD_URL} component={ResetPasswordForm} />
       <ProtectedRoute path={DASHBOARD_URL} component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
