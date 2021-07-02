@@ -144,6 +144,10 @@ export interface EditPasswordType {
   newPasswordRepeated: string;
 }
 
+export interface ForgotPasswordType {
+  username: string;
+}
+
 export interface BanType {
   id: uuid;
   ip: string;

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Divider, Segment } from "semantic-ui-react";
+import { Helmet } from "react-helmet";
 import { DashboardContext } from "../dashboard/Dashboard";
 import { DASHBOARD_MANAGE_ACCOUNT_URL } from "../../helpers/mappings";
 import EditPasswordForm from "./EditPasswordForm";
@@ -13,11 +14,14 @@ function AccountAdmin() {
   }, [setActiveDashboardPath]);
 
   return (
-    <Segment style={{ width: "50%" }}>
-      <EditAccountForm />
-      <Divider section />
-      <EditPasswordForm />
-    </Segment>
+    <>
+      <Helmet title="Manage account" />
+      <Segment style={{ width: "50%" }}>
+        <EditAccountForm />
+        <Divider section />
+        <EditPasswordForm />
+      </Segment>
+    </>
   );
 }
 
