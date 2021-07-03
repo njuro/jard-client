@@ -21,9 +21,13 @@ export function capitalize(input: string): string {
 }
 
 export function randomString(length: number): string {
-  return Array(length + 1)
-    .join(`${Math.random().toString(36)}00000000000000000`.slice(2, 18))
-    .slice(0, length);
+  const validChars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const array = new Uint32Array(length);
+  const randomValues = window.crypto
+    .getRandomValues(array)
+    .map((x) => validChars.charCodeAt(x % validChars.length));
+  return String.fromCharCode.apply(null, Array.from(randomValues));
 }
 
 export function formatTimestamp(
