@@ -1,4 +1,9 @@
-import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method,
+} from "axios";
 import { notifyError } from "./notifications";
 
 export const SERVER_API_URL =
@@ -9,7 +14,8 @@ const client = axios.create({
   withCredentials: true,
 });
 
-export const apiErrorHandler = (error: AxiosError) => {
+// eslint-disable-next-line
+export const apiErrorHandler = (error: AxiosError<any>) => {
   function getErrorDescription() {
     if (!error.response) {
       return "Server is not responding";
@@ -66,12 +72,12 @@ function makeRequest<T>(
   config?: AxiosRequestConfig
 ) {
   return client
-    .request({
+    .request<unknown, AxiosResponse<T>>({
       method,
       url,
       data: body,
       ...config,
     })
-    .then<T>((res) => res.data);
+    .then((res) => res.data);
 }
 export default client;

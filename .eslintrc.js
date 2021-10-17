@@ -8,6 +8,7 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": 1,
     "react/jsx-props-no-spreading": 0,
     "react/require-default-props": 0,
+    "react/jsx-no-bind": 0,
     "import/no-cycle": 0,
     "no-plusplus": 0,
     "jsx-a11y/anchor-is-valid": 0,
